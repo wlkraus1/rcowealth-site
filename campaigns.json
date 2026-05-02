@@ -1,0 +1,45 @@
+{
+  "campaigns": [
+    {
+      "id": "life-insurance-family-protection",
+      "status": "draft_ready",
+      "primaryCta": "Schedule a Life Insurance Review",
+      "landingPage": "/life-insurance-greenville-sc.html",
+      "utmBase": "utm_campaign=life-insurance-family-protection",
+      "schedulerUrlCurrent": "https://scheduler.zoom.us/raecocapital/life-insurance-review",
+      "schedulerUrlStatus": "Live dedicated Zoom Scheduler booking page named Rae & Co Capital – Life Insurance Review",
+      "salesforceLeadSource": "Web",
+      "salesforceLeadSourceDetail": "Website",
+      "salesforcePrimaryInterest": "Insurance",
+      "salesforceLifeInsuranceNeeded": "Yes",
+      "audience": [
+        "Greenville / South Carolina families",
+        "Professionals with employer coverage",
+        "Business owners with continuity risk",
+        "Veterans and family protection prospects"
+      ],
+      "complianceNotes": [
+        "Educational only",
+        "No guarantees",
+        "No individualized advice",
+        "Life insurance fit depends on goals, budget, health, timeline, and underwriting"
+      ]
+    },
+    {
+      "id": "monthly-market-note",
+      "status": "active_draft_workflow",
+      "primaryCta": "Join the newsletter",
+      "landingPage": "/#newsletter",
+      "utmBase": "utm_campaign=monthly-market-note",
+      "salesforceLeadSource": "Newsletter Signup"
+    },
+    {
+      "id": "website-general-consultation",
+      "status": "active_draft_workflow",
+      "primaryCta": "Start a Conversation",
+      "landingPage": "/#contact",
+      "utmBase": "utm_campaign=website-general-consultation",
+      "salesforceLeadSource": "Website"
+    }
+  ]
+}
