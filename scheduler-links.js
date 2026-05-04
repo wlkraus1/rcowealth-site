@@ -14,7 +14,13 @@
   }
   document.querySelectorAll('a.schedule-link').forEach((link) => {
     link.href = url.toString();
-    link.target = '_blank';
-    link.rel = 'noopener';
+    link.removeAttribute('target');
+    link.removeAttribute('rel');
+    link.addEventListener('click', (event) => {
+      // Some in-app/mobile browsers silently block or hide new tabs.
+      // Keep scheduling in the same tab so every tap visibly navigates.
+      event.preventDefault();
+      window.location.assign(url.toString());
+    });
   });
 })();
