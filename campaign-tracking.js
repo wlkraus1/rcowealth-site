@@ -22,6 +22,13 @@
     return 'Website';
   }
 
+  function leadSourceForDetail(detail) {
+    if (String(detail || '').startsWith('Google')) return 'Google';
+    if (String(detail || '') === 'Bing Search') return 'Web';
+    if (['Instagram', 'Facebook', 'LinkedIn', 'YouTube'].includes(String(detail || ''))) return 'Social';
+    return 'Web';
+  }
+
   function ensureHidden(form, name, value) {
     let input = form.querySelector(`input[name="${name}"]`);
     if (!input) {
@@ -51,6 +58,7 @@
   document.querySelectorAll('form.campaign-form, form.lead-form, form.newsletter-form').forEach((form) => {
     form.addEventListener('submit', () => {
       const detail = sourceDetail();
+      ensureHidden(form, 'lead_source', leadSourceForDetail(detail));
       ensureHidden(form, '00Nfn0000089jHR', detail); // Lead_Source_Detail__c
       const campaign = form.dataset.campaign || captured.utm_campaign || '';
       if (campaign) ensureHidden(form, '00NbV000003RzSl', campaign.slice(0, 255)); // Insurance_Campaign__c / campaign identifier
