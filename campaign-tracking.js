@@ -67,6 +67,8 @@
     const label = document.createElement('label');
     label.className = 'hp-field';
     label.setAttribute('aria-hidden', 'true');
+    label.setAttribute('tabindex', '-1');
+    label.style.cssText = 'position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;z-index:-1!important;';
     label.innerHTML = 'Website <input name="website_url" autocomplete="off" tabindex="-1" data-honeypot="true">';
     form.insertBefore(label, form.firstElementChild || null);
   }
@@ -85,6 +87,15 @@
       .filter(([, value]) => value)
       .map(([key, value]) => `${key}: ${String(value).replace(/\s+/g, ' ').trim()}`)
       .join('\n');
+  }
+
+  function applyNewsletterFields(form) {
+    const optedIn = !!form.querySelector('input[name="newsletter_opt_in_display"]')?.checked;
+    if (!optedIn) return;
+    const today = new Date().toISOString().slice(0, 10);
+    ensureHidden(form, '00NbV000003Urbb', '1'); // Lead.Newsletter_Enrolled__c
+    ensureHidden(form, '00NbV000003Urbc', 'Active'); // Lead.Newsletter_Status__c
+    ensureHidden(form, '00NbV000003Urba', today); // Lead.Newsletter_Enrolled_Date__c
   }
 
   function ready(fn) {
@@ -113,6 +124,7 @@
         ensureHidden(form, '00Nfn0000089jHR', detail); // Lead_Source_Detail__c
         const campaign = form.dataset.campaign || captured.utm_campaign || '';
         if (campaign) ensureHidden(form, '00NbV000003RzSl', campaign.slice(0, 255)); // Insurance_Campaign__c / campaign identifier
+        applyNewsletterFields(form);
 
         let description = form.querySelector('textarea[name="description"], input[name="description"]');
         if (!description) {

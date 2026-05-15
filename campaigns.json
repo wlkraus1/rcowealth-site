@@ -7,7 +7,7 @@
       "landingPage": "/life-insurance-greenville-sc.html",
       "utmBase": "utm_campaign=life-insurance-family-protection",
       "schedulerUrlCurrent": "https://scheduler.zoom.us/raecocapital/life-insurance-review",
-      "schedulerUrlStatus": "Live dedicated Zoom Scheduler booking page named Rae & Co Capital – Life Insurance Review",
+      "schedulerUrlStatus": "Live dedicated Zoom Scheduler booking page named Rae & Co Capital \u2013 Life Insurance Review",
       "salesforceLeadSource": "Web",
       "salesforceLeadSourceDetail": "Website",
       "salesforcePrimaryInterest": "Insurance",
@@ -23,6 +23,24 @@
         "No guarantees",
         "No individualized advice",
         "Life insurance fit depends on goals, budget, health, timeline, and underwriting"
+      ]
+    },
+    {
+      "id": "life-insurance-checklist",
+      "status": "draft_ready",
+      "primaryCta": "Get the Life Insurance Review Checklist",
+      "landingPage": "/life-insurance-review-checklist.html",
+      "utmBase": "utm_campaign=life-insurance-checklist",
+      "salesforceLeadSource": "Web",
+      "salesforceLeadSourceDetail": "Website",
+      "salesforcePrimaryInterest": "Insurance",
+      "salesforceLifeInsuranceNeeded": "Yes",
+      "leadMagnet": "Life Insurance Review Checklist",
+      "complianceNotes": [
+        "Educational only",
+        "No individualized advice from checklist",
+        "No advisory relationship from form submission",
+        "Life insurance subject to underwriting and carrier approval"
       ]
     },
     {
