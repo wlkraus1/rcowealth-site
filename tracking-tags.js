@@ -1,6 +1,7 @@
 (() => {
   const GTM_ID = 'GTM-N49D7RC';
   const GA4_ID = 'G-HQTS4WYCQC';
+  const META_PIXEL_ID = '1272338378394957';
   const w = window;
   w.dataLayer = w.dataLayer || [];
   w.gtag = w.gtag || function gtag(){ w.dataLayer.push(arguments); };
@@ -19,6 +20,23 @@
   w.gtag('js', new Date());
   w.gtag('config', GA4_ID, { send_page_view: true });
 
+  if (!w.fbq) {
+    const fbq = function fbq(){ fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
+    w.fbq = fbq;
+    if (!w._fbq) w._fbq = fbq;
+    fbq.push = fbq;
+    fbq.loaded = true;
+    fbq.version = '2.0';
+    fbq.queue = [];
+
+    const metaScript = document.createElement('script');
+    metaScript.async = true;
+    metaScript.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    firstScript.parentNode.insertBefore(metaScript, firstScript);
+  }
+  w.fbq('init', META_PIXEL_ID);
+  w.fbq('track', 'PageView');
+
   function pushEvent(event, data = {}) {
     const payload = {
       event,
@@ -32,6 +50,18 @@
       page_title: payload.page_title,
       ...data,
     });
+
+    if (event === 'generate_lead') {
+      w.fbq('track', 'Lead', {
+        content_name: payload.form_name || 'website_form',
+        campaign: payload.campaign || undefined,
+      });
+    } else if (['schedule_click', 'phone_click', 'email_click', 'client_portal_click'].includes(event)) {
+      w.fbq('trackCustom', event, {
+        content_name: payload.link_text || event,
+        link_url: payload.link_url || undefined,
+      });
+    }
   }
 
   function linkLabel(link) {
