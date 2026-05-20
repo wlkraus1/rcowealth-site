@@ -1,7 +1,9 @@
 (() => {
   const GTM_ID = 'GTM-N49D7RC';
+  const GA4_ID = 'G-HQTS4WYCQC';
   const w = window;
   w.dataLayer = w.dataLayer || [];
+  w.gtag = w.gtag || function gtag(){ w.dataLayer.push(arguments); };
   w.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
 
   const firstScript = document.getElementsByTagName('script')[0];
@@ -10,11 +12,24 @@
   gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(GTM_ID);
   firstScript.parentNode.insertBefore(gtmScript, firstScript);
 
+  const gaScript = document.createElement('script');
+  gaScript.async = true;
+  gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA4_ID);
+  firstScript.parentNode.insertBefore(gaScript, firstScript);
+  w.gtag('js', new Date());
+  w.gtag('config', GA4_ID, { send_page_view: true });
+
   function pushEvent(event, data = {}) {
-    w.dataLayer.push({
+    const payload = {
       event,
       page_path: w.location.pathname,
       page_title: document.title,
+      ...data,
+    };
+    w.dataLayer.push(payload);
+    w.gtag('event', event, {
+      page_path: payload.page_path,
+      page_title: payload.page_title,
       ...data,
     });
   }
