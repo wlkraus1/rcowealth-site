@@ -35,10 +35,10 @@
     protection: {
       kicker:'Protection planning',
       title:'Make insurance answer to the plan, not the other way around.',
-      interest:'Insurance', next:'Life insurance review', page:'life-insurance-greenville-sc.html',
-      copy:'Life insurance is reviewed as part of the financial architecture: income, debt, dependents, business exposure, policy ownership, beneficiaries, liquidity, and legacy objectives all matter before changing coverage.',
-      reviewed:['Existing policies and employer coverage','Income replacement, debt, dependents, and business exposure','Ownership, beneficiaries, liquidity, and estate coordination'],
-      output:['Coverage-fit review','Gap, overlap, and beneficiary summary','Next steps before applying, replacing, or reducing coverage'],
+      interest:'Insurance', next:'Life insurance planning', page:'life-insurance-greenville-sc.html',
+      copy:'Life insurance is handled as part of the financial architecture: existing coverage, new policy needs, income, debt, dependents, business exposure, policy ownership, beneficiaries, liquidity, and legacy objectives all matter before applying for or changing coverage.',
+      reviewed:['Existing policies and employer coverage','New term or permanent coverage needs','Income replacement, debt, dependents, and business exposure','Carrier fit, ownership, beneficiaries, liquidity, and estate coordination'],
+      output:['Coverage strategy tied to the plan','Gap, overlap, and beneficiary summary','Carrier, underwriting, and application next steps when new coverage makes sense'],
       decision:'Best fit when family, business, or estate obligations would be exposed if income or ownership changed.'
     },
     planning: {
