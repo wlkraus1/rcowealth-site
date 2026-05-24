@@ -1,0 +1,45 @@
+{
+  "timestamp_utc": "2026-05-21T18:33:00Z",
+  "site": "https://rcowealth.com",
+  "approved_by_tyler": "2026-05-21 14:27 EDT",
+  "source_package": "website/rae-co-ionos-site-v28-tyler-cleanups-2026-05-21.zip",
+  "rollback_snapshot": "website/ionos-site/rollback-live-before-v28-tyler-cleanups-20260521T182845Z.zip",
+  "deploy_repo": "wlkraus1/rcowealth-site",
+  "commits": [
+    {
+      "sha": "20cae11",
+      "message": "Publish website cleanup updates"
+    },
+    {
+      "sha": "8f6b3dd",
+      "message": "Trim deploy artifact set"
+    }
+  ],
+  "github_actions": {
+    "initial_orchestration_run": "26245316258",
+    "initial_deploy_run": "26245341121",
+    "initial_deploy_result": "failure: IONOS quota rejected oversized deploy artifact set, 74.9MB vs 50.0MB",
+    "cleanup_orchestration_run": "26245448616",
+    "cleanup_deploy_run": "26245466613",
+    "cleanup_deploy_result": "success"
+  },
+  "live_checks": {
+    "http_200": [
+      "/",
+      "/contact.html",
+      "/life-insurance-greenville-sc.html",
+      "/retirement-planning-greenville-sc.html",
+      "/investment-management-greenville-sc.html",
+      "/financial-advisor-greenville-sc.html",
+      "/site.js",
+      "/favicon-32x32.png"
+    ],
+    "life_major_carriers_headline": true,
+    "life_apply_for_new_policies_copy": true,
+    "life_schedule_protection_call_cta": true,
+    "site_js_life_insurance_planning": true,
+    "copy_contact_info_removed": true,
+    "service_side_panel_tiny_logo_removed": true,
+    "favicon_32_bytes": 1187
+  }
+}
