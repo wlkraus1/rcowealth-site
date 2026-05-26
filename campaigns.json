@@ -1,13 +1,39 @@
 {
   "campaigns": [
     {
+      "id": "life-insurance-protection-review",
+      "status": "draft_ready",
+      "primaryCta": "Request a Life Insurance Protection Review",
+      "landingPage": "/life-insurance-protection-review.html",
+      "utmBase": "utm_campaign=life-insurance-protection-review",
+      "schedulerUrlCurrent": "https://scheduler.zoom.us/raecocapital/life-insurance-review",
+      "schedulerUrlStatus": "Active and public-verified 2026-05-26 via zoom_scheduler_public_availability_check.py; dedicated life scheduler, not quarterly scheduler.",
+      "salesforceLeadSource": "Google",
+      "salesforceLeadSourceDetail": "Google Search",
+      "salesforcePrimaryInterest": "Insurance",
+      "salesforceLifeInsuranceNeeded": "Yes",
+      "audience": [
+        "South Carolina homeowners",
+        "Families with dependents",
+        "Professionals with income replacement needs",
+        "Business owners with key-person or buy-sell exposure"
+      ],
+      "complianceNotes": [
+        "Educational review offer only",
+        "No guarantees",
+        "No lowest-rate or savings claims",
+        "Life insurance subject to underwriting and carrier approval",
+        "Insurance commissions may create a conflict of interest and are disclosed"
+      ]
+    },
+    {
       "id": "life-insurance-family-protection",
       "status": "draft_ready",
-      "primaryCta": "Schedule a Life Insurance Review",
+      "primaryCta": "Request a Life Insurance Protection Review",
       "landingPage": "/life-insurance-greenville-sc.html",
       "utmBase": "utm_campaign=life-insurance-family-protection",
       "schedulerUrlCurrent": "https://scheduler.zoom.us/raecocapital/life-insurance-review",
-      "schedulerUrlStatus": "Live dedicated Zoom Scheduler booking page named Rae & Co Capital \u2013 Life Insurance Review",
+      "schedulerUrlStatus": "Active and public-verified 2026-05-26 via zoom_scheduler_public_availability_check.py; dedicated life scheduler, not quarterly scheduler.",
       "salesforceLeadSource": "Web",
       "salesforceLeadSourceDetail": "Website",
       "salesforcePrimaryInterest": "Insurance",
