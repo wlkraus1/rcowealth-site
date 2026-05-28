@@ -1,6 +1,7 @@
 (() => {
   const GTM_ID = 'GTM-N49D7RC';
   const GA4_ID = 'G-HQTS4WYCQC';
+  const GOOGLE_ADS_ID = 'AW-9718091691';
   const META_PIXEL_ID = '1272338378394957';
   const w = window;
   w.dataLayer = w.dataLayer || [];
@@ -19,6 +20,7 @@
   firstScript.parentNode.insertBefore(gaScript, firstScript);
   w.gtag('js', new Date());
   w.gtag('config', GA4_ID, { send_page_view: true });
+  w.gtag('config', GOOGLE_ADS_ID);
 
   if (!w.fbq) {
     const fbq = function fbq(){ fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };

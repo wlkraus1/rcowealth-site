@@ -1,0 +1,25 @@
+{
+  "published": true,
+  "liveDomain": "https://rcowealth.com/",
+  "commits": {
+    "initialPublish": "f792625",
+    "mobileFix": "a2a1b95"
+  },
+  "githubActions": {
+    "orchestrationRuns": ["26165806008", "26166000167"],
+    "deployRuns": ["26165834653", "26166027970"]
+  },
+  "salesforceWebToLead": {
+    "submitted": true,
+    "testEmail": "atlas.website.test+20260520093549@rcowealth.com",
+    "verifiedLeadId": "00QbV00000PZvTFUA1",
+    "verifiedCreatedDate": "2026-05-20T13:35:51.000+0000",
+    "cleanup": "Deleted the internal test lead after verification."
+  },
+  "externalLinkChecks": {
+    "zoomScheduler": "HTTP 200",
+    "schwabClientLogin": "HTTP 200",
+    "mutualOfOmahaLogin": "HTTP 200"
+  },
+  "rollbackSnapshot": "website/ionos-site/rollback-live-before-v22-premium-v10-20260520T093015.zip"
+}
