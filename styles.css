@@ -211,22 +211,3 @@ h3{
   .btn-secondary{background:rgba(255,255,255,.07)}
   .virtual-flag{font-size:9.5px;padding:7px 9px}
 }
-+
-/* Paid-search life insurance landing page */
-.ad-landing .page-hero{padding:70px 0 58px;background:radial-gradient(circle at 82% 18%,rgba(239,216,164,.18),transparent 32%),linear-gradient(135deg,#050b14,#06111f 58%,#0b1e33);color:#fff}
-.ad-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,460px);gap:34px;align-items:start}
-.ad-landing .page-hero h1{color:#fff;max-width:760px}
-.ad-landing .page-hero .lead{color:rgba(246,239,224,.78);max-width:700px}
-.ad-actions{display:flex;margin-top:24px}
-.ad-trust-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px}
-.ad-trust-strip span{border:1px solid rgba(246,239,224,.18);background:rgba(255,255,255,.07);border-radius:14px;padding:12px;color:rgba(246,239,224,.8);font-size:13px;font-weight:650;text-align:center}
-.ad-conversion-panel{position:sticky;top:96px}
-.ad-conversion-panel .lead-form{background:#fff;color:var(--ink);box-shadow:0 34px 90px rgba(0,0,0,.28)}
-.ad-conversion-panel .lead-form p{color:var(--muted)}
-.ad-checklist li{border-radius:16px}
-.ad-landing .content-panel{background:#fff;color:var(--ink)}
-.ad-landing .content-panel h3{margin-top:0}
-.ad-landing .content-panel li{color:#3b4a5c;margin:9px 0}
-@media(max-width:1000px){.ad-hero-grid{grid-template-columns:1fr}.ad-conversion-panel{position:relative;top:auto}.ad-trust-strip{grid-template-columns:1fr 1fr}}
-@media(max-width:820px){.ad-landing .page-hero{padding:36px 0 36px}.ad-actions{display:flex;margin-top:14px}.ad-trust-strip{margin-top:18px}}
-@media(max-width:560px){.ad-trust-strip{grid-template-columns:1fr}.ad-trust-strip span{text-align:left}.ad-conversion-panel .lead-form{box-shadow:0 18px 50px rgba(0,0,0,.2)}}
