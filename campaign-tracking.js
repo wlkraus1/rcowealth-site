@@ -89,6 +89,52 @@
       .join('\n');
   }
 
+  function compactBackNineMetadata(content) {
+    const meta = {
+      src: captured.utm_source || 'web',
+      med: captured.utm_medium || '',
+      camp: captured.utm_campaign || '',
+      asset: content || captured.utm_content || 'quote',
+      term: captured.utm_term || '',
+      gclid: captured.gclid || '',
+    };
+    let text = JSON.stringify(Object.fromEntries(Object.entries(meta).filter(([, value]) => value)), null, 0);
+    if (text.length <= 240) return text;
+    delete meta.term;
+    text = JSON.stringify(Object.fromEntries(Object.entries(meta).filter(([, value]) => value)), null, 0);
+    if (text.length <= 240) return text;
+    delete meta.gclid;
+    return JSON.stringify(Object.fromEntries(Object.entries(meta).filter(([, value]) => value)), null, 0).slice(0, 240);
+  }
+
+  function hydrateBackNineQuoteLinks() {
+    document.querySelectorAll('a[href*="app.back9ins.com/apply/rcowealth"]').forEach((link) => {
+      let url;
+      try { url = new URL(link.href); } catch { return; }
+      const cta = link.dataset.quoteCta || url.searchParams.get('utm_content') || 'quote_cta';
+      const passthrough = {
+        utm_source: captured.utm_source || 'google',
+        utm_medium: captured.utm_medium || 'cpc',
+        utm_campaign: captured.utm_campaign || 'life-insurance-protection-review',
+        utm_content: cta,
+        utm_term: captured.utm_term || '',
+        utm_id: captured.utm_id || '',
+        gclid: captured.gclid || '',
+        msclkid: captured.msclkid || '',
+        fbclid: captured.fbclid || '',
+        lead_source: sourceDetail(),
+        campaign: captured.utm_campaign || 'life-insurance-protection-review',
+        asset: cta,
+        metadata: compactBackNineMetadata(cta),
+      };
+      Object.entries(passthrough).forEach(([key, value]) => {
+        if (value) url.searchParams.set(key, String(value).slice(0, 255));
+      });
+      link.href = url.toString();
+      link.setAttribute('data-attribution-ready', 'true');
+    });
+  }
+
   function applyNewsletterFields(form) {
     const optedIn = !!form.querySelector('input[name="newsletter_opt_in_display"]')?.checked;
     if (!optedIn) return;
@@ -104,6 +150,8 @@
   }
 
   ready(() => {
+    hydrateBackNineQuoteLinks();
+
     document.querySelectorAll('form.campaign-form, form.lead-form, form.newsletter-form').forEach((form) => {
       form.dataset.startedAt = String(Date.now());
       ensureHoneypot(form);
