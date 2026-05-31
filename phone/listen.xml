@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Gather input="speech" action="https://spokesman-skin-paso-annually.trycloudflare.com/respond" method="POST" speechTimeout="auto" timeout="12">
+    <Say voice="Polly.Matthew">I am still here. What do you want next?</Say>
+  </Gather>
+  <Pause length="2"/>
+  <Redirect method="POST">https://rcowealth.com/phone/listen.xml</Redirect>
+</Response>
