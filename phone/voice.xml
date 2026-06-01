@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Gather input="speech" action="https://spokesman-skin-paso-annually.trycloudflare.com/respond" method="POST" speechTimeout="auto" timeout="12">
-    <Say voice="Polly.Matthew">Hello Tyler! What can I help you with?</Say>
+  <Gather input="speech" action="https://rcowealth.com/phone/listen.xml" method="POST" speechTimeout="auto" timeout="12">
+    <Say voice="Polly.Matthew">Hello Tyler. The phone line is on IONOS static mode with Cloudflare removed. Say what you need, then use Hermes chat for dynamic work until the stable hosted backend is deployed.</Say>
   </Gather>
   <Redirect method="POST">https://rcowealth.com/phone/listen.xml</Redirect>
 </Response>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Gather input="speech" action="https://spokesman-skin-paso-annually.trycloudflare.com/client-respond" method="POST" speechTimeout="auto" timeout="12">
-    <Say voice="Polly.Matthew">I am still here. Say schedule a call if you would like Tyler to follow up, or say stop to end the call.</Say>
+  <Gather input="speech" action="https://rcowealth.com/phone/prospect-listen.xml" method="POST" speechTimeout="auto" timeout="12">
+    <Say voice="Polly.Matthew">Thanks. Tyler can follow up personally. Please say the best day and time for a short call, and the best phone number or email if different from this one. Say stop if you do not want follow up.</Say>
   </Gather>
-  <Say voice="Polly.Matthew">No problem. Goodbye.</Say>
+  <Say voice="Polly.Matthew">Thank you. Goodbye.</Say>
 </Response>

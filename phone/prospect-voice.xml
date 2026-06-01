@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Gather input="speech" action="https://spokesman-skin-paso-annually.trycloudflare.com/client-respond" method="POST" speechTimeout="auto" timeout="12">
+  <Gather input="speech" action="https://rcowealth.com/phone/prospect-listen.xml" method="POST" speechTimeout="auto" timeout="12">
     <Say voice="Polly.Matthew">Hi, this is Rae and Co Capital Wealth Management. This is an automated assistant calling to help schedule a short conversation with Tyler. Are you interested in financial planning, retirement planning, or life insurance support?</Say>
   </Gather>
   <Redirect method="POST">https://rcowealth.com/phone/prospect-listen.xml</Redirect>

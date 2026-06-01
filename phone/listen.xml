@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Gather input="speech" action="https://spokesman-skin-paso-annually.trycloudflare.com/respond" method="POST" speechTimeout="auto" timeout="12">
-    <Say voice="Polly.Matthew">I am still here. What do you want next?</Say>
+  <Gather input="speech" action="https://rcowealth.com/phone/listen.xml" method="POST" speechTimeout="auto" timeout="12">
+    <Say voice="Polly.Matthew">I am still here on IONOS static mode. Dynamic phone responses are paused until the stable hosted backend is deployed.</Say>
   </Gather>
-  <Pause length="2"/>
-  <Redirect method="POST">https://rcowealth.com/phone/listen.xml</Redirect>
+  <Say voice="Polly.Matthew">Goodbye.</Say>
 </Response>
