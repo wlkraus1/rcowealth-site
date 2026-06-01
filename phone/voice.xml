@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Gather input="speech" action="https://roll-correlation-libraries-rental.trycloudflare.com/respond" method="POST" speechTimeout="auto" timeout="12">
+  <Gather input="speech" action="https://rae-hermes-runtime-1640.twil.io/hermes" method="POST" speechTimeout="auto" timeout="12">
     <Say voice="Polly.Matthew">Hello Tyler. This is Hermes for Rae and Co. What can I help you with today?</Say>
   </Gather>
-  <Redirect method="POST">https://roll-correlation-libraries-rental.trycloudflare.com/listen</Redirect>
+  <Redirect method="POST">https://rae-hermes-runtime-1640.twil.io/hermes</Redirect>
 </Response>
