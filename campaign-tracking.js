@@ -144,6 +144,16 @@
     ensureHidden(form, '00NbV000003Urba', today); // Lead.Newsletter_Enrolled_Date__c
   }
 
+  function applySmsConsentField(form) {
+    const optedIn = !!form.querySelector('input[name="sms_consent_display"]')?.checked;
+    const existing = form.querySelector('input[name="00NbV000003ZxDB"]'); // Lead.SMS_Consent__c
+    if (!optedIn) {
+      if (existing) existing.remove();
+      return;
+    }
+    ensureHidden(form, '00NbV000003ZxDB', '1'); // Lead.SMS_Consent__c
+  }
+
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
     else fn();
@@ -173,6 +183,7 @@
         const campaign = form.dataset.campaign || captured.utm_campaign || '';
         if (campaign) ensureHidden(form, '00NbV000003RzSl', campaign.slice(0, 255)); // Insurance_Campaign__c / campaign identifier
         applyNewsletterFields(form);
+        applySmsConsentField(form);
 
         let description = form.querySelector('textarea[name="description"], input[name="description"]');
         if (!description) {
