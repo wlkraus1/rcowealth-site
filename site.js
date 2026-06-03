@@ -111,11 +111,31 @@
     form.addEventListener('submit', e => {
       const honey = form.querySelector('input[name="website_url"], input[data-honeypot="true"]');
       if (honey && honey.value.trim()) { e.preventDefault(); return; }
+      const newsletterChecked = !!form.querySelector('input[name="Newsletter_Enrolled__c"], input[name="newsletter_opt_in_display"]')?.checked;
+      const existingNewsletterField = form.querySelector('input[type="hidden"][name="Newsletter_Enrolled__c"]');
+      if (!form.querySelector('input[type="checkbox"][name="Newsletter_Enrolled__c"]')) {
+        if (existingNewsletterField) existingNewsletterField.value = newsletterChecked ? 'true' : 'false';
+        else {
+          const hidden = document.createElement('input');
+          hidden.type = 'hidden';
+          hidden.name = 'Newsletter_Enrolled__c';
+          hidden.value = newsletterChecked ? 'true' : 'false';
+          form.appendChild(hidden);
+        }
+      }
+      let newsletterStatus = form.querySelector('input[type="hidden"][name="Newsletter_Status__c"]');
+      if (!newsletterStatus) {
+        newsletterStatus = document.createElement('input');
+        newsletterStatus.type = 'hidden';
+        newsletterStatus.name = 'Newsletter_Status__c';
+        form.appendChild(newsletterStatus);
+      }
+      newsletterStatus.value = newsletterChecked ? 'Active' : '';
       const desc = form.querySelector('textarea[name="description"]');
       if (desc && !desc.dataset.enriched) {
         const interest = form.querySelector('select[name="00Nfn0000089jXZ"], input[name="00Nfn0000089jXZ"]')?.value || '';
         const next = form.querySelector('select[name="preferred_next_step_display"], input[name="preferred_next_step_display"]')?.value || '';
-        const newsletter = form.querySelector('input[name="newsletter_opt_in_display"]')?.checked ? 'Yes' : 'No';
+        const newsletter = newsletterChecked ? 'Yes' : 'No';
         const sms = form.querySelector('input[name="sms_consent_display"]')?.checked ? 'Yes' : 'No';
         const base = desc.value.trim();
         desc.value = [base, `Primary interest: ${interest}`, `Preferred next step: ${next}`, `Newsletter opt-in: ${newsletter}`, `SMS consent: ${sms}`, `Source page: ${location.pathname || 'index.html'}`].filter(Boolean).join('\n');
