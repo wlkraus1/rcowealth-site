@@ -112,6 +112,7 @@
       const honey = form.querySelector('input[name="website_url"], input[data-honeypot="true"]');
       if (honey && honey.value.trim()) { e.preventDefault(); return; }
       const newsletterChecked = !!form.querySelector('input[name="Newsletter_Enrolled__c"], input[name="newsletter_opt_in_display"]')?.checked;
+      const smsChecked = !!form.querySelector('input[name="SMS_Consent__c"], input[name="sms_consent_display"]')?.checked;
       const existingNewsletterField = form.querySelector('input[type="hidden"][name="Newsletter_Enrolled__c"]');
       if (!form.querySelector('input[type="checkbox"][name="Newsletter_Enrolled__c"]')) {
         if (existingNewsletterField) existingNewsletterField.value = newsletterChecked ? 'true' : 'false';
@@ -122,6 +123,16 @@
           hidden.value = newsletterChecked ? 'true' : 'false';
           form.appendChild(hidden);
         }
+      }
+      let smsConsentField = form.querySelector('input[type="hidden"][name="SMS_Consent__c"]');
+      if (!form.querySelector('input[type="checkbox"][name="SMS_Consent__c"]')) {
+        if (!smsConsentField) {
+          smsConsentField = document.createElement('input');
+          smsConsentField.type = 'hidden';
+          smsConsentField.name = 'SMS_Consent__c';
+          form.appendChild(smsConsentField);
+        }
+        smsConsentField.value = smsChecked ? 'true' : 'false';
       }
       let newsletterStatus = form.querySelector('input[type="hidden"][name="Newsletter_Status__c"]');
       if (!newsletterStatus) {
@@ -136,7 +147,7 @@
         const interest = form.querySelector('select[name="00Nfn0000089jXZ"], input[name="00Nfn0000089jXZ"]')?.value || '';
         const next = form.querySelector('select[name="preferred_next_step_display"], input[name="preferred_next_step_display"]')?.value || '';
         const newsletter = newsletterChecked ? 'Yes' : 'No';
-        const sms = form.querySelector('input[name="sms_consent_display"]')?.checked ? 'Yes' : 'No';
+        const sms = smsChecked ? 'Yes' : 'No';
         const base = desc.value.trim();
         desc.value = [base, `Primary interest: ${interest}`, `Preferred next step: ${next}`, `Newsletter opt-in: ${newsletter}`, `SMS consent: ${sms}`, `Source page: ${location.pathname || 'index.html'}`].filter(Boolean).join('\n');
         desc.dataset.enriched = 'true';
