@@ -1,4 +1,9 @@
 {
-  "version": "v10-professional-type",
-  "notes": "Typography scale reduced; display face shifted to sharper system serif stack; rounded UI softened; Salesforce form preserved."
+  "version": "v11-premium-cinematic",
+  "notes": "Cinematic scroll-animated homepage rebuild. Added premium.css + premium.js (GSAP/ScrollTrigger), Fraunces+Inter type, animated hero/proof/process, partner trust strip, OG+Twitter+canonical+FinancialService schema, compliance-ready testimonials placeholder. Retired mobile.html redirect (now one responsive site). Salesforce form, tabs, and all tracking preserved. Animations are reduced-motion aware and fail-safe (content never hidden if GSAP/JS fails).",
+  "fill_before_launch": [
+    "Credentials strip: years advising + designations (CFP/ChFC/Series 65) + insurance licenses",
+    "Testimonials: add real client quotes with truthful disclosures, then remove hidden attribute",
+    "Optional: fee-transparency line, 404.html"
+  ]
 }
