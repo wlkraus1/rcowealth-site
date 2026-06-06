@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Tyler Krause portrait placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#10243a"/>
+      <stop offset="1" stop-color="#06111f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="78%" cy="14%" r="60%">
+      <stop offset="0" stop-color="#c8a15a" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#c8a15a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <rect width="400" height="500" fill="url(#glow)"/>
+  <text x="200" y="248" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="170" font-style="italic" fill="#c8a15a" letter-spacing="-6">TK</text>
+  <line x1="150" y1="300" x2="250" y2="300" stroke="#c8a15a" stroke-width="1.5" opacity=".7"/>
+  <text x="200" y="332" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" letter-spacing="3" fill="#efe6d2" opacity=".82">TYLER KRAUSE</text>
+  <text x="200" y="356" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="10.5" letter-spacing="2.5" fill="#efe6d2" opacity=".5">FOUNDER &amp; PRIVATE WEALTH ADVISOR</text>
+</svg>
