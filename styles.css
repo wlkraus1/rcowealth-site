@@ -211,3 +211,19 @@ h3{
   .btn-secondary{background:rgba(255,255,255,.07)}
   .virtual-flag{font-size:9.5px;padding:7px 9px}
 }
+
+/* ---- Minor fixes: gold accent pill, founder/advisor block, transparency note ---- */
+.meta-pill-accent{border-color:rgba(200,161,90,.55);color:var(--gold-2);background:rgba(200,161,90,.14)}
+.advisor-split{align-items:center}
+.advisor-photo-wrap{position:relative;border-radius:24px;overflow:hidden;background:linear-gradient(160deg,#0a192b,#06111f);aspect-ratio:4/5;width:100%;max-width:420px;border:1px solid rgba(17,25,39,.12);box-shadow:0 30px 80px rgba(6,17,31,.18)}
+.advisor-photo{width:100%;height:100%;object-fit:cover;display:block}
+.advisor-photo-wrap:after{content:"";position:absolute;inset:12px;border:1px solid rgba(239,216,164,.45);border-radius:14px;pointer-events:none;z-index:2}
+.advisor-photo-ph{display:none}
+.advisor-photo-wrap.noimg{display:grid;place-items:center}
+.advisor-photo-wrap.noimg .advisor-photo-ph{display:block;color:rgba(246,239,224,.62);font-size:12px;text-align:center;letter-spacing:.1em;text-transform:uppercase;line-height:1.9}
+.advisor-creds{margin-top:24px}
+.advisor-creds .meta-pill{color:#3a4558;border-color:rgba(17,25,39,.16);background:#fbfaf7}
+.advisor-creds .meta-pill-accent{color:#8c6b32;border-color:rgba(200,161,90,.5);background:rgba(200,161,90,.1)}
+.transparency-note{margin:14px 0 0;font-size:13px;color:rgba(246,239,224,.72)}
+.transparency-note strong{color:#fff}
+.transparency-note a{color:var(--gold-2);text-decoration:underline}
