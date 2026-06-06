@@ -221,6 +221,7 @@ h3{
 .advisor-photo-ph{display:none}
 .advisor-photo-wrap.noimg{display:grid;place-items:center}
 .advisor-photo-wrap.noimg .advisor-photo-ph{display:block;color:rgba(246,239,224,.62);font-size:12px;text-align:center;letter-spacing:.1em;text-transform:uppercase;line-height:1.9}
+.advisor-role{margin:-4px 0 16px;font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#8c6b32}
 .advisor-creds{margin-top:24px}
 .advisor-creds .meta-pill{color:#3a4558;border-color:rgba(17,25,39,.16);background:#fbfaf7}
 .advisor-creds .meta-pill-accent{color:#8c6b32;border-color:rgba(200,161,90,.5);background:rgba(200,161,90,.1)}
