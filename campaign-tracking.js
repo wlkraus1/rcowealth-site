@@ -135,24 +135,28 @@
     });
   }
 
+  // The newsletter checkbox posts Lead.Newsletter_Enrolled__c (00NbV000003Urbb) itself, the same way
+  // the SMS consent checkbox posts 00NbV000003ZxDB. Web-to-Lead binds by field id, not API name, so
+  // the box has to carry the id or the opt-in is silently discarded.
+  //
+  // The opt-in flag must NOT be re-added as a hidden field here. An unticked checkbox submits nothing,
+  // which is the whole mechanism; writing the flag from script would post an opt-in for someone who
+  // deliberately left the box blank. Only the companion fields are stamped, and only when it is ticked.
   function applyNewsletterFields(form) {
-    const optedIn = !!form.querySelector('input[name="newsletter_opt_in_display"]')?.checked;
-    if (!optedIn) return;
+    const box = form.querySelector('input[name="00NbV000003Urbb"]');
+    if (!box || !box.checked) return;
     const today = new Date().toISOString().slice(0, 10);
-    ensureHidden(form, '00NbV000003Urbb', '1'); // Lead.Newsletter_Enrolled__c
     ensureHidden(form, '00NbV000003Urbc', 'Active'); // Lead.Newsletter_Status__c
     ensureHidden(form, '00NbV000003Urba', today); // Lead.Newsletter_Enrolled_Date__c
   }
 
-  function applySmsConsentField(form) {
-    const optedIn = !!form.querySelector('input[name="sms_consent_display"]')?.checked;
-    const existing = form.querySelector('input[name="00NbV000003ZxDB"]'); // Lead.SMS_Consent__c
-    if (!optedIn) {
-      if (existing) existing.remove();
-      return;
-    }
-    ensureHidden(form, '00NbV000003ZxDB', '1'); // Lead.SMS_Consent__c
-  }
+  // `applySmsConsentField` was removed rather than repaired. It read a checkbox named
+  // `sms_consent_display`, which stopped existing when the SMS mapping was fixed to post the field id
+  // directly — so `optedIn` was false on every submit and the function fell through to
+  // `existing.remove()`, stripping the real 00NbV000003ZxDB checkbox out of the form before it posted.
+  // A client who ticked "I consent to receive text messages" had that consent deleted on the way out.
+  // The checkbox carries the field itself and there are no companion fields to stamp, so the correct
+  // amount of script here is none.
 
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -183,7 +187,6 @@
         const campaign = form.dataset.campaign || captured.utm_campaign || '';
         if (campaign) ensureHidden(form, '00NbV000003RzSl', campaign.slice(0, 255)); // Insurance_Campaign__c / campaign identifier
         applyNewsletterFields(form);
-        applySmsConsentField(form);
 
         let description = form.querySelector('textarea[name="description"], input[name="description"]');
         if (!description) {

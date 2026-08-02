@@ -111,27 +111,19 @@
     form.addEventListener('submit', e => {
       const honey = form.querySelector('input[name="website_url"], input[data-honeypot="true"]');
       if (honey && honey.value.trim()) { e.preventDefault(); return; }
-      const smsOptedIn = !!form.querySelector('[name="sms_consent_display"]')?.checked;
-      const existingSms = form.querySelector('input[name="00NbV000003ZxDB"]');
-      if (smsOptedIn) {
-        if (!existingSms) {
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = '00NbV000003ZxDB';
-          input.value = '1';
-          form.appendChild(input);
-        } else {
-          existingSms.value = '1';
-        }
-      } else if (existingSms) {
-        existingSms.remove();
-      }
+      // The SMS consent checkbox posts 00NbV000003ZxDB itself and needs no help from here. The block
+      // that used to sit at this spot read a checkbox named `sms_consent_display`, which has not
+      // existed since the web-to-lead mapping was fixed — so it evaluated false on every submit and
+      // fell through to `existingSms.remove()`, deleting the real consent checkbox from the form
+      // before it posted. Consent the client had actually given was being thrown away on the way out.
       const desc = form.querySelector('textarea[name="description"]');
       if (desc && !desc.dataset.enriched) {
         const interest = form.querySelector('select[name="00Nfn0000089jXZ"], input[name="00Nfn0000089jXZ"]')?.value || '';
         const next = form.querySelector('select[name="preferred_next_step_display"], input[name="preferred_next_step_display"]')?.value || '';
-        const newsletter = form.querySelector('input[name="newsletter_opt_in_display"]')?.checked ? 'Yes' : 'No';
-        const sms = form.querySelector('input[name="sms_consent_display"]')?.checked ? 'Yes' : 'No';
+        // Read the real checkboxes. These previously named fields that do not exist, so the summary
+        // written into the lead description reported "No" for both on every submission ever made.
+        const newsletter = form.querySelector('input[name="00NbV000003Urbb"]')?.checked ? 'Yes' : 'No';
+        const sms = form.querySelector('input[name="00NbV000003ZxDB"]')?.checked ? 'Yes' : 'No';
         const base = desc.value.trim();
         desc.value = [base, `Primary interest: ${interest}`, `Preferred next step: ${next}`, `Newsletter opt-in: ${newsletter}`, `SMS consent: ${sms}`, `Source page: ${location.pathname || 'index.html'}`].filter(Boolean).join('\n');
         desc.dataset.enriched = 'true';
