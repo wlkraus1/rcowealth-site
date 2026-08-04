@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Insurance Needs Calculator | Rae &amp; Co Capital</title>
+<meta name="description" content="Estimate how much life insurance your family would actually need. Takes about a minute, no contact information required to see your number.">
+<meta name="theme-color" content="#06111f">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico?v=goldleaf-20260521-1647">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=goldleaf-20260521-1647">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=goldleaf-20260521-1647">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=goldleaf-20260521-1647">
+<link rel="stylesheet" href="styles.css">
+<script src="tracking-tags.js" defer></script>
+<style>
+.calc-shell{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:34px;align-items:start}
+@media(max-width:940px){.calc-shell{grid-template-columns:1fr}}
+.calc-panel{border:1px solid var(--line);border-radius:30px;background:#fff;padding:32px}
+.calc-group{border-top:1px solid var(--line);padding:22px 0}
+.calc-group:first-of-type{border-top:0;padding-top:0}
+.calc-group h3{margin:0 0 4px;font-size:19px}
+.calc-group .hint{margin:0 0 16px;color:var(--muted);font-size:14px}
+.calc-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:560px){.calc-row{grid-template-columns:1fr}}
+.money{position:relative}
+.money span{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#8c93a1;font-weight:700}
+.money input{padding-left:26px !important}
+.result-card{position:sticky;top:98px;border:1px solid rgba(200,161,90,.45);border-radius:26px;background:linear-gradient(180deg,#fffdf8,#fbf5e9);padding:26px;height:max-content}
+.result-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;font-weight:900;color:#8c6b32;margin:0 0 8px}
+.result-big{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1;letter-spacing:-.04em;color:var(--ink);margin:0 0 6px}
+.result-sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+.result-line{display:flex;justify-content:space-between;gap:14px;border-top:1px solid rgba(17,25,39,.1);padding:11px 0;font-size:14px;color:#4f5d73}
+.result-line b{color:var(--ink)}
+.result-actions{display:grid;gap:10px;margin-top:20px}
+.result-actions .btn{width:100%}
+.covered{border-color:rgba(47,191,130,.5);background:linear-gradient(180deg,#f8fdfa,#eef8f2)}
+.calc-note{margin:18px 0 0;font-size:12px;color:#6e7788}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="Rae &amp; Co Capital home"><img src="assets/rae-co-logo-light.png" alt="Rae &amp; Co Capital Wealth Management"></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navlinks" data-menu>Menu</button>
+    <nav class="navlinks" id="navlinks" aria-label="Main navigation">
+      <a href="index.html#virtual">Virtual Model</a>
+      <a href="services.html">Services</a>
+      <a href="index.html#method">Planning Areas</a>
+      <a href="client-login.html">Client Login</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="phone" href="tel:+18645588440">864-558-8440</a>
+    <a class="btn btn-primary header-cta" href="contact.html">Virtual intro</a>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-hero">
+  <div class="wrap">
+    <a class="breadcrumb" href="life-insurance-greenville-sc.html">← Protection Planning</a>
+    <p class="eyebrow">Free tool</p>
+    <h1>How much life insurance do you actually need?</h1>
+    <p class="lead">Most people guess, or they assume what they have through work is enough. Answer a few questions and see your number. No contact information required to get the result.</p>
+  </div>
+</section>
+
+<section class="section light">
+  <div class="wrap calc-shell">
+
+    <div class="calc-panel">
+      <div class="calc-group">
+        <h3>Replacing your income</h3>
+        <p class="hint">The paycheck your family would lose. Most people plan for the years until the kids are grown or the house is paid off.</p>
+        <div class="calc-row">
+          <div class="field"><label for="income">Your annual income</label><div class="money"><span>$</span><input id="income" type="number" inputmode="numeric" min="0" step="1000" value="75000"></div></div>
+          <div class="field"><label for="years">Years to replace it</label><input id="years" type="number" inputmode="numeric" min="0" max="40" step="1" value="10"></div>
+        </div>
+      </div>
+
+      <div class="calc-group">
+        <h3>Debts you would leave behind</h3>
+        <p class="hint">What would have to be paid off so nobody inherits a payment they cannot make.</p>
+        <div class="calc-row">
+          <div class="field"><label for="mortgage">Mortgage balance</label><div class="money"><span>$</span><input id="mortgage" type="number" inputmode="numeric" min="0" step="1000" value="250000"></div></div>
+          <div class="field"><label for="debts">Other debt (cars, cards, loans)</label><div class="money"><span>$</span><input id="debts" type="number" inputmode="numeric" min="0" step="500" value="25000"></div></div>
+        </div>
+      </div>
+
+      <div class="calc-group">
+        <h3>Children</h3>
+        <p class="hint">If you want to help with school, put in what you would want set aside per child.</p>
+        <div class="calc-row">
+          <div class="field"><label for="kids">Number of children</label><input id="kids" type="number" inputmode="numeric" min="0" max="12" step="1" value="2"></div>
+          <div class="field"><label for="percollege">Education support per child</label><div class="money"><span>$</span><input id="percollege" type="number" inputmode="numeric" min="0" step="1000" value="40000"></div></div>
+        </div>
+      </div>
+
+      <div class="calc-group">
+        <h3>Final expenses</h3>
+        <p class="hint">Funeral, burial, medical bills, and the cost of settling an estate.</p>
+        <div class="calc-row">
+          <div class="field"><label for="final">Final expenses</label><div class="money"><span>$</span><input id="final" type="number" inputmode="numeric" min="0" step="1000" value="15000"></div></div>
+        </div>
+      </div>
+
+      <div class="calc-group">
+        <h3>What you already have</h3>
+        <p class="hint">Include coverage through work. Check the actual number before you enter it. Employer coverage is often far smaller than people assume, and it usually ends the day you leave the job.</p>
+        <div class="calc-row">
+          <div class="field"><label for="existing">Existing life insurance</label><div class="money"><span>$</span><input id="existing" type="number" inputmode="numeric" min="0" step="1000" value="50000"></div></div>
+        </div>
+      </div>
+
+      <p class="calc-note">This is an estimate built from the numbers you entered. It is a starting point for a conversation, not individualized advice, and it does not account for your savings, taxes, Social Security survivor benefits, or a spouse's income. Life insurance is subject to underwriting and carrier approval.</p>
+    </div>
+
+    <aside class="result-card" id="resultCard">
+      <p class="result-label">Estimated coverage gap</p>
+      <p class="result-big" id="gapOut">$0</p>
+      <p class="result-sub" id="gapNote">Adjust the numbers to see your estimate.</p>
+      <div class="result-line"><span>Total need</span><b id="needOut">$0</b></div>
+      <div class="result-line"><span>Coverage you have</span><b id="haveOut">$0</b></div>
+      <div class="result-actions">
+        <a class="btn btn-primary" id="quoteBtn" href="life-insurance-quote.html?utm_source=website&amp;utm_medium=referral&amp;utm_campaign=website_needs_calculator&amp;utm_content=result_get_quote" data-quote-cta="calculator_result_get_quote">See real quotes →</a>
+        <a class="btn btn-ghost" href="#summaryForm">Have Tyler review it</a>
+      </div>
+      <p class="calc-note">Quotes are processed through BackNine Insurance across major carriers. Rae &amp; Co may receive a commission on insurance products, a conflict of interest that is disclosed.</p>
+    </aside>
+
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="wrap" style="max-width:760px">
+    <form class="lead-form campaign-form contact-lead-form" id="summaryForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" data-campaign="needs-calculator" data-asset="life-insurance-calculator.html" data-form-purpose="needs-calculator">
+      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
+      <input type="hidden" name="retURL" value="https://rcowealth.com/thank-you.html">
+      <input type="hidden" name="lead_source" value="Website">
+      <input type="hidden" name="company" value="Individual / Household">
+      <input type="hidden" name="00Nfn0000089jHR" value="Needs Calculator">
+      <input type="hidden" name="00Nfn0000089jXZ" value="Insurance">
+      <input type="hidden" name="00NbV000002pcrh" value="Yes">
+      <input type="hidden" name="preferred_next_step_display" value="Life insurance needs calculator">
+      <input type="hidden" name="description" id="calcSummary" value="">
+      <h3>Want a second set of eyes on it?</h3>
+      <p>Send it over and I will tell you whether the number looks right for your situation, and what it would actually cost. No obligation. Do not include Social Security numbers, policy numbers, or account numbers.</p>
+      <div class="form-grid">
+        <div class="field"><label for="first_name">First name</label><input id="first_name" name="first_name" autocomplete="given-name" required></div>
+        <div class="field"><label for="last_name">Last name</label><input id="last_name" name="last_name" autocomplete="family-name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" autocomplete="email" required></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" type="tel" name="phone" autocomplete="tel"></div>
+        <div class="field full"><label for="coverage_goal">What is this coverage for?</label><select id="coverage_goal" name="coverage_goal_display"><option>Income replacement for family</option><option>Mortgage or home protection</option><option>Coverage for spouse or children</option><option>Reviewing what I have through work</option><option>Business owner / key person / buy-sell need</option><option>Not sure yet</option></select></div>
+        <div class="checks">
+          <label class="checkline"><input type="checkbox" name="00NbV000003ZxDB" value="1"><span>I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message and data rates may apply. Consent is not required to work with Rae &amp; Co Capital.</span></label>
+          <label class="checkline"><input type="checkbox" name="00NbV000003Urbb" value="1"><span>Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</span></label>
+        </div>
+      </div>
+      <div class="form-actions"><button class="btn btn-dark" type="submit">Send My Estimate</button></div>
+      <p class="fine">Submitting this form does not create an advisory relationship. Life insurance is subject to underwriting and carrier approval. Rae &amp; Co Capital may receive insurance commissions if you purchase coverage through the firm.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-logo">
+      <img src="assets/rae-co-logo-light.png" alt="Rae &amp; Co Capital">
+      <p>Virtual wealth management, retirement income planning, financial planning, investment management, and protection planning.</p>
+      <p><a href="tel:+18645588440">864-558-8440</a><a href="mailto:info@rcowealth.com">info@rcowealth.com</a></p>
+    </div>
+    <div><h4>Services</h4><a href="investment-management-greenville-sc.html">Investment Management</a><a href="retirement-planning-greenville-sc.html">Retirement Planning</a><a href="financial-advisor-greenville-sc.html">Financial Planning</a><a href="life-insurance-greenville-sc.html">Protection Planning</a><a href="client-login.html">Client Login</a></div>
+    <div><h4>Firm</h4><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="disclosures.html">Disclosures</a><a href="form-crs.html">Form CRS</a><a href="life-insurance-review-checklist.html">Life Insurance Checklist</a></div>
+  </div>
+  <div class="wrap disclaimer">Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is a South Carolina registered investment adviser. Registration does not imply a certain level of skill or training. Investing involves risk, including possible loss of principal. Insurance products are subject to underwriting and carrier approval; commissions may create a conflict of interest and are disclosed. This website is for informational purposes only and should not be treated as individualized investment, tax, legal, or insurance advice. © 2026 Rae &amp; Co Capital.</div>
+</footer>
+<script>
+(function(){
+  var ids=["income","years","mortgage","debts","kids","percollege","final","existing"];
+  var f=function(n){return "$"+Math.round(n).toLocaleString("en-US");};
+  var get=function(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)||v<0?0:v;};
+  var card=document.getElementById("resultCard");
+  function calc(){
+    var need=get("income")*get("years")+get("mortgage")+get("debts")+get("kids")*get("percollege")+get("final");
+    var have=get("existing");
+    var gap=need-have;
+    document.getElementById("needOut").textContent=f(need);
+    document.getElementById("haveOut").textContent=f(have);
+    if(gap>0){
+      card.classList.remove("covered");
+      document.getElementById("gapOut").textContent=f(gap);
+      document.getElementById("gapNote").textContent="This is roughly what you are short by today.";
+    }else{
+      card.classList.add("covered");
+      document.getElementById("gapOut").textContent="Covered";
+      document.getElementById("gapNote").textContent="Your current coverage meets the estimate. Worth confirming it is not tied to your job.";
+    }
+    var s=document.getElementById("calcSummary");
+    if(s){s.value="Needs calculator estimate. Total need "+f(need)+". Existing coverage "+f(have)+". Gap "+f(gap>0?gap:0)+". Inputs: income "+f(get("income"))+" x "+get("years")+" yrs, mortgage "+f(get("mortgage"))+", other debt "+f(get("debts"))+", "+get("kids")+" children at "+f(get("percollege"))+" each, final expenses "+f(get("final"))+".";}
+  }
+  ids.forEach(function(id){var el=document.getElementById(id);if(el){el.addEventListener("input",calc);}});
+  calc();
+})();
+</script>
+<script src="campaign-tracking.js"></script>
+<script src="scheduler-links.js"></script>
+<script src="site.js"></script>
+</body>
+</html>
