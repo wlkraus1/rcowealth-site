@@ -60,6 +60,26 @@ body{background:var(--paper)}
 .hero.virtual-hero .meta-pill-accent{background:linear-gradient(135deg,rgba(200,161,90,.18),rgba(239,216,164,.28));border-color:rgba(200,161,90,.45);color:#7a5e26}
 .btn-secondary.on-light{border-color:rgba(17,25,39,.18);color:var(--ink);background:rgba(255,255,255,.7)}
 
+/* The first-touch strip. The revamp flipped this hero to light and converted the eyebrow, the h1,
+   the lead and the pills, and stopped there — the strip below them kept its light-on-dark colours
+   and rendered as a near-blank cream band. Measured: the lead-in at 1.32:1, the strong at 1.06:1,
+   the three item titles at 2.47:1 and their descriptions at 1.7:1, all against a 4.5 floor. It is
+   the first thing under the fold on the desktop homepage.
+   Scoped to .hero.virtual-hero like every rule above it, so the strip keeps its dark styling
+   anywhere it is used on a dark section. */
+.hero.virtual-hero .strip-lead span{color:#7a5e26}
+.hero.virtual-hero .strip-lead strong{color:var(--ink)}
+/* The item card itself is the reason ink text still failed here. .strip-item carries
+   background:rgba(6,17,31,.36) — a 36% dark tint that read as a subtly darker card over the old
+   dark hero and composites to mid grey-blue over the light one, holding even #3a4658 to 3.87:1.
+   The same shape of defect as .private-room on mobile: a translucent dark panel that only ever
+   worked because of what was behind it. */
+.hero.virtual-hero .strip-item{background:rgba(255,255,255,.72);border-color:rgba(17,25,39,.10)}
+.hero.virtual-hero .strip-item b{color:var(--ink)}
+.hero.virtual-hero .strip-item span{color:#3a4658}
+/* 3.68:1 — the same darker gold the meta pill and the .virtual-hero-badge already use. */
+.hero.virtual-hero .eyebrow{color:#7a5e26}
+
 /* cinematic video frame (replaces the old screen card) */
 .hero-media{position:relative;justify-self:center;width:100%;max-width:560px}
 .hero-media-frame{
