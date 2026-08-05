@@ -160,3 +160,45 @@ body{background:var(--paper)}
 /* CTA emphasis on the BackNine quote nudge */
 .quote-nudge .quote-link{font-weight:800;color:#9a7327}
 .quote-nudge .quote-link:hover{text-decoration:underline}
+
+/* =====================================================
+   PROTECTION BAND — the on-ramp into the needs calculator
+   and the on-site quoter. These two pages were reachable
+   from exactly one page before this; they are the only
+   instant-quote path any Upstate competitor offers.
+   ===================================================== */
+.protect-band{
+  margin-top:34px;
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:28px;
+  align-items:center;
+  padding:30px 32px;
+  border-radius:20px;
+  border:1px solid rgba(200,161,90,.34);
+  background:
+    radial-gradient(120% 140% at 100% 0%,rgba(200,161,90,.16),transparent 55%),
+    linear-gradient(135deg,#fffdf8 0%,#f6efdf 100%);
+  box-shadow:0 24px 60px -34px rgba(12,28,48,.4);
+}
+.protect-band-copy h3{
+  font-family:var(--serif);
+  font-size:clamp(22px,2.4vw,29px);
+  line-height:1.15;
+  letter-spacing:-.03em;
+  color:var(--ink);
+  margin:6px 0 10px;
+}
+.protect-band-copy p:last-child{
+  color:rgba(17,25,39,.72);
+  font-size:15px;
+  line-height:1.6;
+  max-width:52ch;
+  margin:0;
+}
+.protect-band-actions{display:grid;gap:11px}
+.protect-band-actions .btn{width:100%;justify-content:center}
+
+@media(max-width:860px){
+  .protect-band{grid-template-columns:1fr;padding:26px 22px;gap:20px}
+}

@@ -63,6 +63,13 @@ h1,h2,h3,p{margin:0}
 h1{font-family:var(--serif);font-weight:500;letter-spacing:-.06em;line-height:.98;font-size:43px;margin-top:16px;max-width:365px}
 .lead{margin-top:14px;color:rgba(246,239,224,.78);font-size:15px;line-height:1.58;max-width:380px}
 .hero-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:22px}
+/* Protection on-ramp: the needs calculator + on-site quoter were reachable
+   from exactly one page before this. On mobile they get top billing. */
+.protect-band{display:grid;gap:9px;margin-top:20px;padding:18px 16px;border-radius:16px;border:1px solid rgba(200,161,90,.42);background:linear-gradient(150deg,rgba(200,161,90,.16),rgba(200,161,90,.05))}
+.protect-band b{font-size:10px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2)}
+.protect-band strong{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.16;letter-spacing:-.03em;color:var(--paper)}
+.protect-band span{font-size:13.5px;line-height:1.55;color:rgba(246,239,224,.76)}
+.protect-band .btn{margin-top:3px}
 .btn{min-height:48px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:0 16px;font-weight:900;font-size:13px;letter-spacing:.02em;border:1px solid transparent;cursor:pointer}
 .btn-primary{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#08111d;box-shadow:0 16px 40px rgba(200,161,90,.22)}
 .btn-secondary{border-color:rgba(246,239,224,.18);background:rgba(255,255,255,.055);color:var(--paper)}
@@ -198,6 +205,7 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
   </div>
   <nav class="menu-panel" id="menuPanel" aria-label="Mobile navigation">
     <a href="#virtual">Virtual Model</a>
+    <a href="life-insurance-greenville-sc.html">Life Insurance</a>
     <a href="#work">Planning Areas</a>
     <a href="#process">How It Works</a>
     <a href="#advisor">Your Advisor</a>
@@ -215,6 +223,13 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a>
       <a class="btn btn-secondary" href="#contact">Or send a message</a>
+    </div>
+    <div class="protect-band">
+      <b>Start with coverage</b>
+      <strong>Find out what you actually need, then see real pricing.</strong>
+      <span>Run the numbers yourself in about two minutes. No email required.</span>
+      <a class="btn btn-primary" href="life-insurance-calculator.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_mobile&amp;utm_content=mobile_protect_band_calculator">Estimate your coverage need →</a>
+      <a class="btn btn-secondary" href="life-insurance-quote.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_mobile&amp;utm_content=mobile_protect_band_quote">Compare real quotes</a>
     </div>
     <div class="m-hero-video">
       <span class="vbadge"><span class="live-dot" aria-hidden="true"></span> Virtual office · live</span>
