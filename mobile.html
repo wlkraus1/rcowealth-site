@@ -19,6 +19,21 @@
   --gold-2:#efd7a4;
   --line:rgba(246,239,224,.14);
   --dark-line:rgba(18,25,35,.12);
+  /* Light-surface tokens, added for the dark-to-light conversion.
+     Deliberately NOT a redefinition of --navy and --paper. Those two mean the
+     OPPOSITE thing here than they do on desktop: styles.css uses --paper as a
+     background and --ink as text, while this file uses --navy as the background
+     and --paper as the text colour. Swapping them would silently invert every
+     one of the ~50 places they are used correctly inside the dark bands.
+     Values are taken from styles.css rather than invented, so mobile and
+     desktop are the same brand instead of two that nearly match. */
+  --surface:#fbf7ef;
+  --surface-2:#f6efe3;
+  --text:#111927;
+  --text-soft:rgba(17,25,39,.72);
+  --text-faint:rgba(17,25,39,.58);
+  --light-line:rgba(17,25,39,.13);
+  --gold-ink:#7a5f24;
   --shadow:0 28px 90px rgba(0,0,0,.42);
   --radius:18px;
   --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,serif;
@@ -26,12 +41,12 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--navy)}
-body{margin:0;background:var(--navy);color:var(--paper);font-family:var(--sans);line-height:1.45;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;background:var(--surface);color:var(--text);font-family:var(--sans);line-height:1.45;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
 .skip{position:absolute;left:-999px;top:10px;background:#fff;color:#000;padding:10px 14px;z-index:50}
 .skip:focus{left:10px}
-.mobile-stage{width:100%;max-width:450px;margin:0 auto;min-height:100vh;background:linear-gradient(180deg,#050b13 0%,#06111f 42%,#050b13 100%);box-shadow:0 0 0 1px rgba(246,239,224,.08), var(--shadow);position:relative;overflow:hidden}
+.mobile-stage{width:100%;max-width:450px;margin:0 auto;min-height:100vh;background:linear-gradient(180deg,#fbf7ef 0%,#f6efe3 42%,#fbf7ef 100%);box-shadow:0 0 0 1px rgba(17,25,39,.09), 0 30px 90px rgba(6,17,31,.16);position:relative;overflow:hidden}
 .mobile-stage:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 90% 8%,rgba(239,215,164,.22),transparent 32%),radial-gradient(circle at 10% 26%,rgba(200,161,90,.11),transparent 38%),linear-gradient(90deg,rgba(246,239,224,.04) 1px,transparent 1px),linear-gradient(rgba(246,239,224,.035) 1px,transparent 1px);background-size:auto,auto,64px 64px,64px 64px;pointer-events:none}
 .site-content{position:relative;z-index:1;padding-bottom:106px}
 .wrap{width:calc(100% - 30px);margin:0 auto}
@@ -56,31 +71,31 @@ button,input,select,textarea{font:inherit}
 .menu-panel a:last-child{border-bottom:0}
 .menu-panel .menu-cta{margin-top:10px;background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#08111d;border-radius:12px;text-align:center;font-weight:900}
 .hero{padding:30px 0 18px}
-.kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(239,215,164,.34);background:linear-gradient(135deg,rgba(239,215,164,.2),rgba(200,161,90,.12));color:var(--gold-2);border-radius:999px;padding:8px 10px;font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
+.kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(200,161,90,.46);background:linear-gradient(135deg,rgba(200,161,90,.20),rgba(200,161,90,.10));color:var(--gold-ink);border-radius:999px;padding:8px 10px;font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
 .live-dot{width:7px;height:7px;border-radius:50%;background:#57dda1;display:inline-block;box-shadow:0 0 0 0 rgba(87,221,161,.45);animation:pulse 1.8s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(87,221,161,.45)}70%{box-shadow:0 0 0 8px rgba(87,221,161,0)}100%{box-shadow:0 0 0 0 rgba(87,221,161,0)}}
 h1,h2,h3,p{margin:0}
 h1{font-family:var(--serif);font-weight:500;letter-spacing:-.06em;line-height:.98;font-size:43px;margin-top:16px;max-width:365px}
-.lead{margin-top:14px;color:rgba(246,239,224,.78);font-size:15px;line-height:1.58;max-width:380px}
+.lead{margin-top:14px;color:var(--text-soft);font-size:15px;line-height:1.58;max-width:380px}
 .hero-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:22px}
 /* Protection on-ramp: the needs calculator + on-site quoter were reachable
    from exactly one page before this. On mobile they get top billing. */
-.protect-band{display:grid;gap:9px;margin-top:20px;padding:18px 16px;border-radius:16px;border:1px solid rgba(200,161,90,.42);background:linear-gradient(150deg,rgba(200,161,90,.16),rgba(200,161,90,.05))}
-.protect-band b{font-size:10px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2)}
-.protect-band strong{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.16;letter-spacing:-.03em;color:var(--paper)}
-.protect-band span{font-size:13.5px;line-height:1.55;color:rgba(246,239,224,.76)}
+.protect-band{display:grid;gap:9px;margin-top:20px;padding:18px 16px;border-radius:16px;border:1px solid rgba(200,161,90,.5);background:linear-gradient(150deg,rgba(200,161,90,.17),rgba(251,247,239,.9))}
+.protect-band b{font-size:10px;font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink)}
+.protect-band strong{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.16;letter-spacing:-.03em;color:var(--text)}
+.protect-band span{font-size:13.5px;line-height:1.55;color:var(--text-soft)}
 .protect-band .btn{margin-top:3px}
 .btn{min-height:48px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;text-align:center;padding:0 16px;font-weight:900;font-size:13px;letter-spacing:.02em;border:1px solid transparent;cursor:pointer}
 .btn-primary{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#08111d;box-shadow:0 16px 40px rgba(200,161,90,.22)}
-.btn-secondary{border-color:rgba(246,239,224,.18);background:rgba(255,255,255,.055);color:var(--paper)}
+.btn-secondary{border-color:rgba(17,25,39,.22);background:#fff;color:var(--text)}
 .btn-dark{background:#06111f;color:#fff;border-color:#06111f}
 .no-office{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.no-office span{border:1px solid rgba(246,239,224,.12);background:rgba(255,255,255,.045);border-radius:13px;padding:10px 8px;min-height:62px;display:flex;align-items:center;justify-content:center;text-align:center;color:rgba(246,239,224,.74);font-size:11px;font-weight:850;line-height:1.25}
-.virtual-card{margin-top:24px;border:1px solid rgba(246,239,224,.14);background:linear-gradient(180deg,rgba(255,255,255,.105),rgba(255,255,255,.045));border-radius:22px;padding:16px;box-shadow:0 24px 80px rgba(0,0,0,.34)}
+.no-office span{border:1px solid var(--light-line);background:#fff;border-radius:13px;padding:10px 8px;min-height:62px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--text-soft);font-size:11px;font-weight:850;line-height:1.25}
+.virtual-card{margin-top:24px;border:1px solid var(--light-line);background:linear-gradient(180deg,#fff,#fbf8f0);border-radius:22px;padding:16px;box-shadow:0 18px 50px rgba(6,17,31,.10)}
 .virtual-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px}
 .virtual-card-top img{width:126px}
-.virtual-card-top b{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-2);white-space:nowrap}
-.private-room{border:1px solid rgba(246,239,224,.12);background:rgba(6,17,31,.62);border-radius:16px;padding:15px}
+.virtual-card-top b{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-ink);white-space:nowrap}
+.private-room{border:1px solid rgba(6,17,31,.9);background:#06111f;border-radius:16px;padding:15px;box-shadow:0 18px 50px rgba(6,17,31,.16)}
 .private-room h2{font-family:var(--serif);font-weight:500;letter-spacing:-.045em;line-height:1.05;font-size:28px;color:#fff}
 .private-room p{margin-top:9px;color:rgba(246,239,224,.66);font-size:13px}
 .room-steps{display:grid;gap:8px;margin-top:14px}
@@ -92,7 +107,7 @@ h1{font-family:var(--serif);font-weight:500;letter-spacing:-.06em;line-height:.9
 .section-soft{background:#fbf8f0;color:var(--ink)}
 .section-dark{background:linear-gradient(180deg,#06111f,#050b13);color:var(--paper)}
 .section-head{margin-bottom:18px}
-.eyebrow{display:block;color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:950;margin-bottom:8px}
+.eyebrow{display:block;color:var(--gold-ink);font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:950;margin-bottom:8px}
 .section h2{font-family:var(--serif);font-weight:500;letter-spacing:-.055em;line-height:1.04;font-size:31px;max-width:380px}
 .section-head p{margin-top:10px;color:var(--muted);font-size:14px;line-height:1.55}
 .section-dark .section-head p{color:rgba(246,239,224,.68)}
@@ -183,7 +198,7 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
   .people-grid{grid-template-columns:1fr}
 }
 @media(min-width:700px){
-  body{background:radial-gradient(circle at 50% -8%,rgba(239,215,164,.18),transparent 30%),#02060a;padding:24px 0}
+  body{background:radial-gradient(circle at 50% -8%,rgba(200,161,90,.16),transparent 30%),var(--surface-2);padding:24px 0}
   .mobile-stage{border-radius:32px;min-height:calc(100vh - 48px)}
   .mobile-header{border-radius:32px 32px 0 0}
   .bottom-cta{bottom:24px;border-radius:0 0 32px 32px}
@@ -259,13 +274,13 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
 
 <section class="section" id="advisor" style="padding:30px 0">
   <div class="wrap">
-    <div style="display:flex;gap:16px;align-items:center;border:1px solid rgba(246,239,224,.16);border-radius:20px;background:rgba(255,255,255,.05);padding:16px">
+    <div style="display:flex;gap:16px;align-items:center;border:1px solid rgba(17,25,39,.13);border-radius:20px;background:#fff;padding:16px;box-shadow:0 18px 50px rgba(6,17,31,.10)">
       <img src="assets/tyler-krause.jpg" alt="Tyler Krause, Founder &amp; Private Wealth Advisor at Rae &amp; Co Capital" onerror="this.style.display='none'" style="width:96px;height:120px;object-fit:cover;border-radius:14px;flex-shrink:0;border:1px solid rgba(239,216,164,.4)">
       <div>
         <span class="eyebrow" style="display:block;margin-bottom:6px">Your private advisor · Veteran-owned</span>
-        <h3 style="font-size:22px;margin:0 0 2px;color:#fff">Tyler Krause</h3>
-        <p style="font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#d8b878;margin:0 0 8px">Founder &amp; Private Wealth Advisor</p>
-        <p style="font-size:13px;color:rgba(246,239,224,.72);margin:0 0 12px;line-height:1.5">Founded by U.S. Marine Corps veteran Tyler Krause — 15+ years in insurance and financial services, an M.S. in Psychology from Arizona State, and businesses built and sold. The firm runs on the psychology of money: most decisions are behavior, not math. Independent, fiduciary-minded advice; assets at Charles Schwab. Series 65 · CFPA · SC Life/A&amp;H.</p>
+        <h3 style="font-size:22px;margin:0 0 2px;color:var(--text)">Tyler Krause</h3>
+        <p style="font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 8px">Founder &amp; Private Wealth Advisor</p>
+        <p style="font-size:13px;color:var(--text-soft);margin:0 0 12px;line-height:1.5">Founded by U.S. Marine Corps veteran Tyler Krause — 15+ years in insurance and financial services, an M.S. in Psychology from Arizona State, and businesses built and sold. The firm runs on the psychology of money: most decisions are behavior, not math. Independent, fiduciary-minded advice; assets at Charles Schwab. Series 65 · CFPA · SC Life/A&amp;H.</p>
         <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener" style="width:auto;padding:0 16px;min-height:42px">Book a call with Tyler →</a>
       </div>
     </div>
