@@ -115,6 +115,17 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
 .access-actions{display:grid;gap:8px}
 .note{border:1px solid rgba(239,215,164,.18);background:rgba(239,215,164,.08);border-radius:14px;padding:12px;color:rgba(246,239,224,.72);font-size:12px;line-height:1.45;margin-top:12px}
 .people-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m-hero-video{margin-top:20px;border-radius:18px;overflow:hidden;position:relative;border:1px solid rgba(239,215,164,.28);box-shadow:0 24px 70px rgba(0,0,0,.5);aspect-ratio:16/11;background:#0c1118}
+.m-hero-video video{width:100%;height:100%;object-fit:cover;display:block}
+.m-hero-video .vbadge{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.04em;color:#fff;background:rgba(8,14,22,.6);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 9px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.people-media{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pm-card{position:relative;border-radius:16px;overflow:hidden;min-height:172px;display:flex;align-items:flex-end;isolation:isolate}
+.pm-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.pm-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(5,11,19,.93),rgba(5,11,19,.35) 56%,transparent)}
+.pm-card .pm-body{padding:12px}
+.pm-card b{display:block;color:var(--gold-2);font-size:9.5px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:3px}
+.pm-card strong{display:block;color:#fff;font-family:var(--serif);font-weight:500;font-size:17px;letter-spacing:-.02em;line-height:1.05;margin-bottom:4px}
+.pm-card span{display:block;color:rgba(246,239,224,.82);font-size:11.5px;line-height:1.4}
 .person-card{background:#fff;border:1px solid rgba(18,25,35,.12);border-radius:16px;padding:14px;min-height:130px}
 .person-card b{display:block;color:#8a672e;font-size:12px;margin-bottom:7px}
 .person-card span{display:block;color:#516075;font-size:13px;line-height:1.42}
@@ -204,6 +215,13 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a>
       <a class="btn btn-secondary" href="#contact">Or send a message</a>
+    </div>
+    <div class="m-hero-video">
+      <span class="vbadge"><span class="live-dot" aria-hidden="true"></span> Virtual office · live</span>
+      <video autoplay muted loop playsinline poster="assets/media/tyler-hero.jpg" preload="metadata">
+        <source src="assets/media/tyler-hero.mp4" type="video/mp4">
+        <img src="assets/media/tyler-hero.jpg" alt="Tyler Krause meeting clients virtually">
+      </video>
     </div>
     <div class="no-office" aria-label="Virtual-only benefits">
       <span>No office visit</span><span>No waiting room</span><span>No branch appointment</span>
@@ -303,11 +321,11 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
       <span class="eyebrow">Who it serves</span>
       <h2>For clients with real obligations, not theoretical goals.</h2>
     </div>
-    <div class="people-grid">
-      <div class="person-card"><b>Owners</b><span>Personal wealth, company liquidity, continuity, and income planning.</span></div>
-      <div class="person-card"><b>Retirees</b><span>Income timing, reserves, investment risk, and survivor needs.</span></div>
-      <div class="person-card"><b>Families</b><span>Protection, education, beneficiaries, cash flow, and long-term planning.</span></div>
-      <div class="person-card"><b>Professionals</b><span>Compensation, savings, insurance, and major decisions organized cleanly.</span></div>
+    <div class="people-media">
+      <article class="pm-card"><img src="assets/media/clients-owners.jpg" alt="Business owner" loading="lazy"><div class="pm-body"><b>Owners</b><strong>Business owners</strong><span>Wealth, liquidity, continuity, and income.</span></div></article>
+      <article class="pm-card"><img src="assets/media/clients-retirees.jpg" alt="Pre-retiree couple" loading="lazy"><div class="pm-body"><b>Retirement</b><strong>Pre-retirees &amp; retirees</strong><span>Income timing, reserves, and risk.</span></div></article>
+      <article class="pm-card"><img src="assets/media/clients-families.jpg" alt="Young family" loading="lazy"><div class="pm-body"><b>Families</b><strong>Families with dependents</strong><span>Protection, education, and cash flow.</span></div></article>
+      <article class="pm-card"><img src="assets/media/clients-military.jpg" alt="Military family" loading="lazy"><div class="pm-body"><b>Veterans</b><strong>Military households</strong><span>Benefits, transitions, and protection.</span></div></article>
     </div>
   </div>
 </section>
