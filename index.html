@@ -97,12 +97,18 @@
   <a class="hero-scroll" href="#advisor" aria-label="Scroll to learn more"><span>Scroll</span><span class="mouse" aria-hidden="true"></span></a>
 </section>
 
-<div class="trust-marquee" aria-hidden="true">
-  <div class="trust-track">
-    <span>Veteran-owned firm</span><span>Series 65 · Investment Adviser Representative</span><span>Fiduciary standard</span><span>Assets custodied at Charles Schwab</span><span>M.S. Psychology · Arizona State</span><span>100% virtual</span><span>South Carolina RIA</span>
-    <span>Veteran-owned firm</span><span>Series 65 · Investment Adviser Representative</span><span>Fiduciary standard</span><span>Assets custodied at Charles Schwab</span><span>M.S. Psychology · Arizona State</span><span>100% virtual</span><span>South Carolina RIA</span>
+<!-- The firm's four strongest facts, static and readable. This replaced a scrolling marquee
+     that carried the same credentials with aria-hidden="true" - i.e. the strongest trust signals on
+     the page were marked as decoration, duplicated in the DOM for the scroll loop, and moving.
+     Every value here is already stated elsewhere on this page and on main; nothing is new. -->
+<section class="trust-band" aria-label="Credentials">
+  <div class="wrap trust-band-grid">
+    <div class="trust-stat"><strong>15+</strong><span>Years in insurance and financial services</span></div>
+    <div class="trust-stat"><strong>100%</strong><span>Virtual. No office visit required</span></div>
+    <div class="trust-stat"><strong>Series 65</strong><span>Investment Adviser Representative, held to a fiduciary standard</span></div>
+    <div class="trust-stat"><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
   </div>
-</div>
+</section>
 
 <section class="section alt" id="advisor">
   <div class="wrap split advisor-split">

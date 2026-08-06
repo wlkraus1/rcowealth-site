@@ -133,12 +133,17 @@ body{background:var(--paper)}
 /* =====================================================
    BELIEF / TRUST MARQUEE
    ===================================================== */
-.trust-marquee{background:var(--navy);color:#fff;padding:15px 0;overflow:hidden;border-block:1px solid rgba(246,239,224,.1)}
-.trust-track{display:flex;gap:46px;width:max-content;animation:marq 34s linear infinite;font-family:var(--geist);font-weight:600;font-size:14px;white-space:nowrap;color:rgba(246,239,224,.82)}
-.trust-track span{display:inline-flex;align-items:center;gap:11px}
-.trust-track span:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold-2)}
-@keyframes marq{to{transform:translateX(-50%)}}
-@media(prefers-reduced-motion:reduce){.trust-track{animation:none}}
+/* Static credential band, replacing the scrolling marquee. A moving line is harder to read than a
+   still one, and this one was aria-hidden, so its facts reached neither a skimming eye nor a screen
+   reader. Values are sized like the stat bands a visitor expects on an advisory site - the honest
+   version of that pattern for an RIA is credentials and structure, never performance or AUM. */
+.trust-band{background:var(--paper);border-block:1px solid rgba(17,25,39,.10);padding:26px 0}
+.trust-band-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.trust-stat{display:grid;gap:6px;align-content:start}
+.trust-stat strong{font-family:Georgia,serif;font-weight:500;font-size:34px;line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.trust-stat span{font-family:var(--geist);font-size:13px;line-height:1.45;color:#48566b}
+@media(max-width:900px){.trust-band-grid{grid-template-columns:repeat(2,1fr);gap:22px}}
+@media(max-width:520px){.trust-stat strong{font-size:28px}}
 
 /* =====================================================
    ADVISOR — cinematic portrait
