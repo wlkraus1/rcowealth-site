@@ -175,6 +175,17 @@ body{background:var(--paper)}
    keep ONE navy anchor section (#method tabs) for contrast
    ===================================================== */
 .section.dark#clients,.section.dark#process{background:var(--paper);color:var(--ink)}
+/* Lighting those two sections converted the section BACKGROUND and the inherited colour, and left
+   the section lead paragraph on its dark-section rule — `.section.dark .section-head p` still
+   resolves to rgba(246,239,224,.66), i.e. 1.05:1 on cream. The heading above it inherits --ink and
+   reads fine, so the section looked converted and its one paragraph was invisible.
+   The photo tiles below it are NOT affected and are deliberately untouched: .client-card-body sits
+   at the bottom of the card where the :after scrim is at .92 opacity, so its white text is over a
+   near-opaque dark overlay rather than over the section. A contrast checker cannot see that and
+   scores all twelve strings against the cream behind the photograph. */
+.section.dark#clients .section-head p,.section.dark#process .section-head p{color:#48566b}
+/* 4.3:1 on the cream band. Same darker gold the hero overrides already use. */
+.protect-band .eyebrow.dark{color:#7a5e26}
 #client-access.section.dark{background:linear-gradient(180deg,#0a192b,#06111f)}
 
 /* CTA emphasis on the BackNine quote nudge */
