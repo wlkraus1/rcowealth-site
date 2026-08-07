@@ -25,35 +25,73 @@ So, in order of what it is for: **life insurance is the revenue engine and it is
 
 ## Queue
 
-- [x] **1. A mobile visitor to any deep link lands on the homepage instead.** Done 2026-08-05 (`545aaa8`). Highest value in this file: it is a conversion defect and an SEO defect at once, and it is exactly the "links that need fixing".
-  - **Measured, not assumed.** `mobile-redirect.js` runs `window.location.replace('/mobile.html' + hash)` — it **drops the path entirely**. Ten pages load it: `index`, `services`, `contact`, `client-login`, `financial-advisor-greenville-sc`, `investment-management-greenville-sc`, `retirement-planning-greenville-sc`, plus the three that are in its own exclusion list.
-  - So a phone tapping through to **Services**, **Investment Management**, **Retirement Planning** or **Contact** is bounced to the mobile homepage and has to find the page again. Traffic is reels and social, i.e. almost entirely mobile, so this is most visitors.
-  - **And it is an SEO problem, not only a UX one.** Googlebot Smartphone's UA matches `Android` + `Mobile` and it renders at a mobile viewport, so under mobile-first indexing every one of those URLs redirects to the homepage for the crawler too.
-  - **Three pages load the script AND are excluded by it** (`life-insurance-protection-review`, `life-insurance-review-checklist`, `life-insurance-greenville-sc`) — dead weight, harmless, tidy it in the same pass.
-  - ✅ **Checked and NOT a defect, so nobody re-opens it:** `life-insurance-calculator.html` and `life-insurance-quote.html` do **not** load the redirect at all, so the new funnel pages are reachable on a phone. I expected a trap here and there is none.
-  - Direction: the fix is a mobile-friendly destination per page, not a single `mobile.html` catch-all. That is bigger than one iteration — start by making the redirect **preserve the path** for pages that have a mobile equivalent and leave the rest alone, then take pages one at a time.
+**Reset 2026-08-07 at Tyler's direction.** Everything above the fold has been iterated on by taste
+for three days. He called it: *"we need to do real analysis on competitors, other local firms, local
+agents sites, ext, to see what is working and what is not and then design this site the correct
+way!"* So research comes first and design follows it. Items 1 to 4b and the old item 5/6 are in Done
+and the Log; do not re-open them from here.
 
-- [x] **2. `mobile.html` is dark, and mobile is what nearly every prospect actually sees.** Tyler's "it is dark and boring". The June cinematic revamp lit up desktop and never touched mobile. Repo rule is light/bright for business work.
-  - **Measured:** `--navy:#050b13` on `body`, 91KB, inline CSS, and roughly **65 colour decisions that assume a dark background** — 34 `rgba(246,239,224,…)`, 11 `rgba(255,255,255,…)`, 20 dark hex literals. **Not a variable swap.**
-  - **(a) tokens, stage and hero — DONE 2026-08-05 (`9b9b1ae`).** **(b) cards and bands — DONE 2026-08-05 (`1393ad6`).** **(c) forms and footer — DONE 2026-08-05 (`b38815e`).** **(d) full read at 390 and 430 — DONE 2026-08-05 (`792f784`). ITEM 2 CLOSED.**
-  - **Staged across iterations, not one pass** — my call, since Tyler did not answer the question. This is the single highest-risk change in the file: it is the page every prospect sees, on a branch nobody has reviewed yet. Order: (a) the token layer and body/hero, (b) cards and bands, (c) forms and footer, (d) a full-page read at 390 and 430 wide.
+- [ ] **R1. RESEARCH FIRST, and nothing below R1 starts until R1 has produced findings.** Tyler has
+  asked for the competitor benchmark three times and no iteration has done it. It is now the gate.
+  - **Cohort, three tiers, because they compete for different things.** (a) **Upstate SC RIAs and
+    financial advisors** — Greenville, Greer, Simpsonville, Spartanburg, Anderson. (b) **Local
+    life-insurance agents and agencies**, including the captive shops (State Farm, Northwestern
+    Mutual, NYL agents in the Upstate) because those are who a protection prospect actually compares
+    against. (c) **The virtual-first national RIAs** already benchmarked in June: Farther, Facet,
+    Domain Money, Range, Savvy Wealth.
+  - **What to bring back, per site, as data and not vibes.** Word count and longest paragraph.
+    Number of pages and what the top-level nav is (this is the answer to the homepage-split
+    question). What is above the fold. Whether protection/life is visible at all and where. Whether
+    there is a calculator, a quoter, or online scheduling. Whether pricing is published. What trust
+    device they use in place of performance numbers. Load feel and whether they animate.
+  - **Use `/firecrawl-competitive-intel` and `/firecrawl-market-research`.** Both skills exist and
+    are pointed at exactly this. `/firecrawl-seo-audit` for the SERP comparison on
+    "financial advisor greenville sc" and "life insurance greenville sc".
+  - **Output is a comparison TABLE plus a ranked list of what to change**, appended to this file as
+    new queue items with measurements attached. **Not a report nobody opens** — see
+    [[feedback-obsidian-never-opened]]. Push a Telegram link when it lands.
+  - ⚠️ **Do not copy a competitor's copy.** Read for structure and pattern, write our own words.
 
-- [x] **3. Contrast bug on the desktop homepage.** Done 2026-08-05 (`7389983`). The "Virtual Model" strip text is near-invisible — light text left on cream after the section flipped light. Opacity is 1, so it is a colour choice and not the reveal animation. ~~Small, and it is on the live site today.~~ **Both halves of that were wrong — see the iteration 6 log.**
+- [ ] **R2. The homepage does too much, and it repeats itself. Tyler, 2026-08-07:** *"the homepage
+  feels like alot maybe we split that up ya know its like everything is on one page and some tings
+  are duplicated like the services offered."*
+  - **Measured and he is right.** `index.html` carries **eleven blocks**: hero, virtual strip, About,
+    four-disciplines, live coverage, carriers, planning-area tabs, who-it-serves, process, client
+    access, contact. **The four services appear twice on one page** — `#wealth` renders them as four
+    cards and `#method` renders the same four as tabs, and the cards even link into the tabs
+    (`data-service` → `data-tab`). One of the two goes.
+  - **Do the split AFTER R1**, because the right page structure is the single thing the competitor
+    nav survey answers directly. Likely shape, to be confirmed by the data, not by me: homepage
+    becomes hero + proof + the two funnel entrances + About, with services, planning areas, process
+    and who-it-serves moving to their own pages. `services.html` already exists and is thin.
+  - Watch the mobile redirect: it is an allow-list now, so **any new page needs a mobile plan** or it
+    ships desktop-only to most of the traffic.
 
-- [x] **4. Em-dashes out of public copy.** Done 2026-08-05 (`ce919c8`). ~~7 occurrences in `index.html`, 4 in `mobile.html`~~ — **there were 13**, two of them on pages no earlier count had looked at. Site-wide sweep now returns zero.
+- [ ] **R3. Products: final expense, IUL and VUL. Tyler, 2026-08-07:** *"we need to offer final
+  expense and IULs for sure VUL as well!!"*
+  - 🚩 **This reverses two of his own standing rules**, recorded from the v2 research and the 80/20
+    pivot: *final expense stays OFF the main site, separate landing pages only*, and *IUL never
+    leads*. His call, and it is his business; the rules were his too, so both memory files need
+    updating rather than silently contradicting the site.
+  - ✅ **Final expense and IUL: build them.** Suggested shape once R1 lands: each gets a real page,
+    and IUL is presented after term rather than in front of it, because leading a cold visitor with
+    a permanent product is what the original rule was protecting against.
+  - ⛔ **VUL IS BLOCKED, and this is a licensing question rather than a design one.** VUL is a
+    **variable** product, i.e. a security. Selling or soliciting it needs a **FINRA registration
+    (Series 6 or Series 7) held through a broker-dealer**. The site currently states Series 65 (IAR)
+    and SC Life, Accident & Health, and **Series 65 does not permit variable products**. BackNine
+    listing "Protection VUL" in the console is not evidence of a registration, the same way "All
+    Carriers Enabled" was not evidence of appointment. **Do not put VUL on a public page until Tyler
+    confirms an active Series 6 or 7 and the BD relationship.**
 
-- [x] **3b. 15 contrast failures remain on the desktop homepage, outside the hero.** Done 2026-08-05 (`4df4025`) — and **3 of the 15 were real**. Found while closing item 3, not fixed there to keep that change reviewable. Same likely cause: the revamp lit sections that still carry light-on-dark text and translucent dark panels. Audit with the alpha-aware checker, **counting hidden elements rather than skipping them**, and fix band by band.
+- [ ] **R4. Design the site from R1's findings.** Only after R1 and R2. Tyler wants professional and
+  attention-grabbing without the AI-template look, and has explicitly rejected the generic
+  bento/neon/Lottie vocabulary. What has worked so far: photography, editorial typography, motion
+  with a job (the hero drift, the line-by-line headline, the coverage slider that answers you).
+  Extend that from evidence rather than adding decoration.
 
-- [ ] **4b. THE SITE IS WORD-HEAVY AND DOES NOT SKIM. Tyler, 2026-08-05, with a reference:** *"ours is word heavy and ppl just skim sites and look for trust… this looks a bit cheap and not to great but its pretty decent"* — https://weblium.com/templates/demo/wealth-management-website-design-33 (renders from `wealth-management.weblium.site`). **He is not asking for a copy of it; he is pointing at the shape.**
-  - **Measured, both sides.** Ours `index.html`: **1,233 words**, 44 paragraphs, **7 over 25 words, longest 94**, 25 headings, 11 CTAs. `mobile.html`: 920 words, longest 55. The reference: **934 words, only 2 blocks over 25, longest 50** — and it carries roughly the same number of sections. So the gap is not section count, it is **paragraph length**.
-  - **The reference's trust device is BIG NUMBERS as headings** — `30+`, `20,000+`, `480`, `$500 M` — sitting in their own band right after the hero. That is what makes it skim: a reader gets four facts in one glance without reading a sentence.
-  - 🚩 **The RIA constraint, and it is the whole design problem.** Tyler cannot run AUM or performance numbers, and **nothing may be invented**. So the honest version of that band is **credentials and structure, not results**: 15+ years in insurance and financial services, Series 65, Marine Corps veteran, assets custodied at Charles Schwab, SC registered investment adviser, 100% virtual, and the **published flat planning fees** ($750 / $2,000 / $3,000 — see [[rae-co-planning-fee-schedule]]), which is a genuinely strong trust signal because almost no competitor publishes price. **Every one of those is already true and already on the site as prose.** The work is turning prose into glanceable facts, not writing new claims.
-  - **Slices, in order.** ~~(a) A stat/credential band under the hero, built only from facts already on the page.~~ **DONE 2026-08-05 (`149146d`).** ~~(b) Cut the 7 paragraphs over 25 words on `index.html`, starting with the 94-word one.~~ **DONE 2026-08-05 (`351189e`) — 3 cut, 4 deliberately kept.** (c) Same on `mobile.html` (2 over 25, longest 55). (d) Reconsider 11 CTAs on one page — the reference has far fewer paths and it is easier to act on. (e) Social proof: the reference runs testimonials and "Latest News"; SC allows client testimonials with conditions, see [[gbp-setup-reviews]] — **clients only, never compensated, and Tyler approves each one.**
-  - ⚠️ **All of this is copy work, so every word is a DRAFT for Tyler.** No performance language, no "you'll earn", never "fee-only".
-
-- [ ] **5. Competitor benchmark — Tyler asked for it and no iteration has done it.** Use `/firecrawl-competitive-intel` against Upstate SC life-insurance and RIA sites. What to bring back: how they surface protection above the fold, what their quote/calculator funnel looks like, and where Rae & Co's page loses the comparison. **Findings become queue items here, not a report nobody opens** — see [[feedback-obsidian-never-opened]].
-
-- [ ] **6. Life insurance prominence across all 17 pages.** Iteration 2 fixed the two homepages. The other 15 have not been looked at against "life is bread and butter". Audit, then fix the worst offenders one page per iteration. Financial planning and wealth management stay visible throughout — the ask was to lead with protection, not to hide what the firm is.
+- [ ] **R5. Life insurance prominence across the other 15 pages.** Carried over. Both homepages are
+  done; the rest have not been looked at against "life is bread and butter". One page per iteration.
 
 ## Done
 
