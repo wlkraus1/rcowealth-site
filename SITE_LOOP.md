@@ -418,7 +418,25 @@ and the Log; do not re-open them from here.
   - **(a-orig) Link integrity.** Every internal href on all 18 pages resolves; no anchor points at a
     section removed during R2 (`#wealth`, `#client-access`, the strip). 15 files still point at
     `index.html#method` — confirm it is still there.
-  - **(b) Lead capture, end to end.** All 10 forms: Salesforce action, `oid`, `retURL`, the custom
+  - ✅ **(b) Lead capture — DONE 2026-08-07. 10 forms audited, never submitted.** All 10 carry the
+    same Salesforce action and the same `oid` (`00Dfn00000AW6kiEAD`), and all 10 have `oid`, `retURL`,
+    `lead_source` and `company` present.
+    🚩 **TWO FORMS HAD NO HONEYPOT AT ALL** — `life-insurance-calculator.html` and
+    `life-insurance-protection-review.html`. Both are lead-magnet pages, and bot leads are a
+    documented past problem for this org (see [[sf-web-lead-spam-defense]]). **Fixed:** the canonical
+    `hp-field` markup added to both, verified present, positioned at `left:-9999px`, and
+    `tabindex="-1"` so it stays unreachable by keyboard. The calculator's maths still works after the
+    edit (income 95,000 gives a $1,270,000 gap). Re-audit: **zero Salesforce forms without a
+    honeypot.**
+  - 🚨 **(b2) THE BIGGEST THING THIS PASS FOUND, AND IT IS A BUSINESS RISK RATHER THAN A WEBSITE ONE.**
+    **All 10 forms still post to `webto.salesforce.com`, and NOTHING on this branch references
+    `lead.php`.** The file is in the repo and on `main`; no form points at it. Per
+    [[salesforce-cutover]] the whole goal is to cancel that org, and `lead.php`'s own commit message
+    says it exists because "on the day it goes, every website lead dies at a dead endpoint." **That
+    wiring was never done.** [[website-lead-flow]] records that all 10 forms already moved to the Pi's
+    Funnel intake — **the branch contradicts that memory**, so one of the two is wrong and it matters
+    which. **This is Tyler's call, not the loop's**: repointing 10 live forms changes the real lead
+    path and can silently lose leads if it is wrong. Do not change it inside a review pass. All 10 forms: Salesforce action, `oid`, `retURL`, the custom
     field ids, both consent ids, honeypot present and still unreachable. **Never actually submit** —
     it posts to the live org and creates a real lead.
   - **(c) Mobile.** Every page at 390 and 430: no overflow, nothing past the viewport, tap targets
