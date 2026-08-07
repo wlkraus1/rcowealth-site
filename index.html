@@ -284,16 +284,18 @@
   </div>
 </section>
 
-<section class="section dark" id="client-access">
-  <div class="wrap">
-    <div class="section-head reveal"><div><p class="eyebrow">Client access</p><h2>Direct portal access for clients.</h2></div><p>Use the custodian or carrier portal directly. Rae &amp; Co should never ask clients to enter Schwab or carrier credentials into a Rae &amp; Co form.</p></div>
-    <div class="access-grid stagger">
-      <article class="access-card"><div><small>Investment accounts</small><h3>Charles Schwab</h3><p>For Schwab-custodied investment and retirement accounts.</p></div><div class="access-actions"><a class="btn btn-primary" href="https://client.schwab.com/Areas/Access/Login" target="_blank" rel="noopener noreferrer">Open Schwab login →</a><a class="btn btn-secondary" href="contact.html">Need help?</a></div></article>
-      <article class="access-card"><div><small>Insurance accounts</small><h3>Mutual of Omaha</h3><p>For Mutual of Omaha policy, billing, and customer access.</p></div><div class="access-actions"><a class="btn btn-primary" href="https://accounts.mutualofomaha.com/" target="_blank" rel="noopener noreferrer">Open Mutual of Omaha →</a><a class="btn btn-secondary" href="https://www.mutualofomaha.com/welcome/customer-access" target="_blank" rel="noopener noreferrer">Customer access help</a></div></article>
-    </div>
-    <div class="credential-note">Credential reminder: never send passwords, account numbers, policy numbers, or sensitive financial data through a contact form.</div>
-  </div>
-</section>
+<!-- Was #client-access, 603px. Removed 2026-08-07. It was a near-verbatim duplicate of
+     client-login.html, which already exists, is linked from the nav on all 16 pages, and says the
+     same thing at more length. Nothing linked to the anchor. Same defect class as the service cards
+     removed in the previous iteration: a homepage section restating a page that already exists.
+     ⚠️ The credential-security warning it carried is NOT preserved verbatim - checked, because the
+     first version of this comment claimed it was and that was wrong. index.html said "Rae & Co
+     should never ask clients to enter Schwab or carrier credentials into a Rae & Co form", and that
+     exact sentence is now gone from the site. client-login.html carries the same protection in
+     different words - "credential entry should happen only through the provider portal", plus "Do
+     not send account numbers, policy numbers, passwords, Social Security numbers, or sensitive
+     financial data through any website form" - and it is the page a person about to log in actually
+     lands on. Equivalent in substance, not identical in wording. -->
 
 <section class="section dark" id="contact">
   <div class="wrap contact-grid">

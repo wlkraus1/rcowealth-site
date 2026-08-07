@@ -246,8 +246,23 @@ and the Log; do not re-open them from here.
     it is `#coverage` now. **Result: 8,603 → 8,181px, 9.6 → 9.1 screens, "Investment management"
     appears once on the homepage instead of twice.** Tabs, prefill button, Salesforce action, oid and
     honeypot all verified intact after the cut; no console errors.
-    **(b) Then the split**, by measured height, nav shaped like the cohort: 5–8 top-level items,
-    services on their own pages.
+    **(b) The split — IN PROGRESS. ⚠️ SECOND CORRECTION TO THE HEIGHT NUMBERS.** Re-measured at a
+    consistent 1440x900, `#advisor` is **1,090px, not the 2,288px reported earlier** — that figure was
+    the same bad-viewport artifact as "11.5 screens". **There is no dominant block.** The nine
+    remaining sections run 245–1,090px and cluster tightly: advisor 1,090, method 1,061, coverage
+    1,056, contact 1,002, hero 792, clients 664, virtual 595, process 542, strip 245. **So the split
+    cannot be driven by height. It has to be driven by purpose: which sections restate a page that
+    already exists.** That test has now found two in two iterations, so use it first.
+    ~~`#client-access`~~ **REMOVED 2026-08-07, 603px.** Near-verbatim duplicate of `client-login.html`,
+    which exists and is linked from the nav on all 16 pages. Nothing linked to the anchor.
+    ⚠️ **The credential-security sentence it carried is gone from the site verbatim** — the first
+    version of the removal comment claimed it survived and that was wrong, caught by grepping instead
+    of trusting the claim. `client-login.html` carries the same protection in different words, on the
+    page a person about to log in actually lands on. Equivalent in substance, not identical.
+    **Still to test against the same "does a page already say this?" rule:** `#method` (services.html
+    + 4 service pages), `#virtual`, `#process`, `#clients`, `#advisor`.
+    Nav is still 6 items (Virtual Model, Life Insurance, Services, Planning Areas, Client Login,
+    Contact) which is already inside the cohort's 5–8, so the nav does not need reshaping yet.
     **(c) Vertical rhythm LAST, and it is worth about one screen, not five.** R1 phase 3 measured our layout at 93 words per screen
     against 160–166 for the premium references. Tighten section padding, kill full-viewport
     min-heights below the hero, and reduce oversized gaps. **No words change, so no compliance copy is
