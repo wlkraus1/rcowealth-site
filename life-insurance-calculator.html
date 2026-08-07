@@ -25,6 +25,46 @@
 .money{position:relative}
 .money span{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#8c93a1;font-weight:700}
 .money input{padding-left:26px !important}
+
+/* ---- Drag-first fields ----------------------------------------------------
+   Eight number inputs meant eight keyboard sessions, and on a phone the keypad
+   covers the result the whole time you are typing, so you never see the number
+   move. Sliders let the answer respond while your thumb is still on it.
+   The typed field is kept, not replaced: it is the readout, it is still the
+   element the calculator reads, and it still accepts a value above the slider's
+   range. A slider alone would have quietly capped anyone with a mortgage over
+   the top of the track. Drag for speed, type for precision.
+   ------------------------------------------------------------------------- */
+.slide-field{display:grid;gap:8px}
+.slide-field label{font-size:12px;font-weight:900;color:#3a4558}
+.sf-val{display:flex;align-items:baseline;gap:2px;font-family:Georgia,"Times New Roman",serif;
+  font-size:30px;line-height:1.05;letter-spacing:-.035em;color:var(--ink)}
+.sf-val .sf-cur{font-size:20px;color:#8c6b32}
+.sf-val input{font:inherit;color:inherit;width:100%;border:0;background:transparent;padding:2px 0;
+  border-bottom:1px dashed rgba(17,25,39,.22);outline:none;-moz-appearance:textfield}
+.sf-val input::-webkit-outer-spin-button,.sf-val input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.sf-val input:focus{border-bottom-color:var(--gold);background:rgba(200,161,90,.07)}
+.sf-suffix{font-size:15px;color:var(--muted);font-family:Inter,system-ui,sans-serif;white-space:nowrap}
+
+.sf-range{-webkit-appearance:none;appearance:none;width:100%;height:34px;background:transparent;
+  margin:0;cursor:pointer;touch-action:pan-y}
+/* --p is the filled fraction, written by the sync script on every input. */
+.sf-range::-webkit-slider-runnable-track{height:8px;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold) 0 calc(var(--p,0)*100%),rgba(17,25,39,.13) calc(var(--p,0)*100%) 100%)}
+.sf-range::-moz-range-track{height:8px;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold) 0 calc(var(--p,0)*100%),rgba(17,25,39,.13) calc(var(--p,0)*100%) 100%)}
+/* 30px thumb. A default range thumb is ~14px, well under the 40px a thumb needs
+   on a phone, and this control is now the primary way the page is used. */
+.sf-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;
+  border-radius:50%;background:#fff;border:2px solid var(--gold);margin-top:-11px;
+  box-shadow:0 4px 14px rgba(6,17,31,.28);transition:transform .12s ease}
+.sf-range::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:#fff;
+  border:2px solid var(--gold);box-shadow:0 4px 14px rgba(6,17,31,.28);transition:transform .12s ease}
+.sf-range:active::-webkit-slider-thumb{transform:scale(1.12)}
+.sf-range:active::-moz-range-thumb{transform:scale(1.12)}
+.sf-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(200,161,90,.35)}
+.sf-scale{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:-4px}
+@media(prefers-reduced-motion:reduce){.sf-range::-webkit-slider-thumb,.sf-range::-moz-range-thumb{transition:none}}
 .result-card{position:sticky;top:98px;border:1px solid rgba(200,161,90,.45);border-radius:26px;background:linear-gradient(180deg,#fffdf8,#fbf5e9);padding:26px;height:max-content}
 .result-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;font-weight:900;color:#8c6b32;margin:0 0 8px}
 .result-big{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1;letter-spacing:-.04em;color:var(--ink);margin:0 0 6px}
@@ -73,8 +113,18 @@
         <h3>Replacing your income</h3>
         <p class="hint">The paycheck your family would lose. Most people plan for the years until the kids are grown or the house is paid off.</p>
         <div class="calc-row">
-          <div class="field"><label for="income">Your annual income</label><div class="money"><span>$</span><input id="income" type="number" inputmode="numeric" min="0" step="1000" value="75000"></div></div>
-          <div class="field"><label for="years">Years to replace it</label><input id="years" type="number" inputmode="numeric" min="0" max="40" step="1" value="10"></div>
+          <div class="field slide-field">
+            <label for="income">Your annual income</label>
+            <div class="sf-val"><span class="sf-cur">$</span><input id="income" type="text" inputmode="numeric" min="0" step="1000" value="75000"></div>
+            <input class="sf-range" type="range" min="0" max="400000" step="5000" value="75000" data-for="income" aria-label="Your annual income, slider">
+            <div class="sf-scale"><span>$0</span><span>$400k+</span></div>
+          </div>
+          <div class="field slide-field">
+            <label for="years">Years to replace it</label>
+            <div class="sf-val"><input id="years" type="number" inputmode="numeric" min="0" max="40" step="1" value="10"><span class="sf-suffix">years</span></div>
+            <input class="sf-range" type="range" min="0" max="40" step="1" value="10" data-for="years" aria-label="Years to replace it, slider">
+            <div class="sf-scale"><span>0</span><span>40</span></div>
+          </div>
         </div>
       </div>
 
@@ -82,8 +132,18 @@
         <h3>Debts you would leave behind</h3>
         <p class="hint">What would have to be paid off so nobody inherits a payment they cannot make.</p>
         <div class="calc-row">
-          <div class="field"><label for="mortgage">Mortgage balance</label><div class="money"><span>$</span><input id="mortgage" type="number" inputmode="numeric" min="0" step="1000" value="250000"></div></div>
-          <div class="field"><label for="debts">Other debt (cars, cards, loans)</label><div class="money"><span>$</span><input id="debts" type="number" inputmode="numeric" min="0" step="500" value="25000"></div></div>
+          <div class="field slide-field">
+            <label for="mortgage">Mortgage balance</label>
+            <div class="sf-val"><span class="sf-cur">$</span><input id="mortgage" type="text" inputmode="numeric" min="0" step="1000" value="250000"></div>
+            <input class="sf-range" type="range" min="0" max="750000" step="5000" value="250000" data-for="mortgage" aria-label="Mortgage balance, slider">
+            <div class="sf-scale"><span>$0</span><span>$750k+</span></div>
+          </div>
+          <div class="field slide-field">
+            <label for="debts">Other debt (cars, cards, loans)</label>
+            <div class="sf-val"><span class="sf-cur">$</span><input id="debts" type="text" inputmode="numeric" min="0" step="500" value="25000"></div>
+            <input class="sf-range" type="range" min="0" max="150000" step="2500" value="25000" data-for="debts" aria-label="Other debt, slider">
+            <div class="sf-scale"><span>$0</span><span>$150k+</span></div>
+          </div>
         </div>
       </div>
 
@@ -91,8 +151,18 @@
         <h3>Children</h3>
         <p class="hint">If you want to help with school, put in what you would want set aside per child.</p>
         <div class="calc-row">
-          <div class="field"><label for="kids">Number of children</label><input id="kids" type="number" inputmode="numeric" min="0" max="12" step="1" value="2"></div>
-          <div class="field"><label for="percollege">Education support per child</label><div class="money"><span>$</span><input id="percollege" type="number" inputmode="numeric" min="0" step="1000" value="40000"></div></div>
+          <div class="field slide-field">
+            <label for="kids">Number of children</label>
+            <div class="sf-val"><input id="kids" type="number" inputmode="numeric" min="0" max="12" step="1" value="2"></div>
+            <input class="sf-range" type="range" min="0" max="8" step="1" value="2" data-for="kids" aria-label="Number of children, slider">
+            <div class="sf-scale"><span>0</span><span>8+</span></div>
+          </div>
+          <div class="field slide-field">
+            <label for="percollege">Education support per child</label>
+            <div class="sf-val"><span class="sf-cur">$</span><input id="percollege" type="text" inputmode="numeric" min="0" step="1000" value="40000"></div>
+            <input class="sf-range" type="range" min="0" max="150000" step="5000" value="40000" data-for="percollege" aria-label="Education support per child, slider">
+            <div class="sf-scale"><span>$0</span><span>$150k+</span></div>
+          </div>
         </div>
       </div>
 
@@ -100,7 +170,12 @@
         <h3>Final expenses</h3>
         <p class="hint">Funeral, burial, medical bills, and the cost of settling an estate.</p>
         <div class="calc-row">
-          <div class="field"><label for="final">Final expenses</label><div class="money"><span>$</span><input id="final" type="number" inputmode="numeric" min="0" step="1000" value="15000"></div></div>
+          <div class="field slide-field">
+            <label for="final">Final expenses</label>
+            <div class="sf-val"><span class="sf-cur">$</span><input id="final" type="text" inputmode="numeric" min="0" step="1000" value="15000"></div>
+            <input class="sf-range" type="range" min="0" max="40000" step="1000" value="15000" data-for="final" aria-label="Final expenses, slider">
+            <div class="sf-scale"><span>$0</span><span>$40k+</span></div>
+          </div>
         </div>
       </div>
 
@@ -108,7 +183,12 @@
         <h3>What you already have</h3>
         <p class="hint">Include coverage through work. Check the actual number before you enter it. Employer coverage is often far smaller than people assume, and it usually ends the day you leave the job.</p>
         <div class="calc-row">
-          <div class="field"><label for="existing">Existing life insurance</label><div class="money"><span>$</span><input id="existing" type="number" inputmode="numeric" min="0" step="1000" value="50000"></div></div>
+          <div class="field slide-field">
+            <label for="existing">Existing life insurance</label>
+            <div class="sf-val"><span class="sf-cur">$</span><input id="existing" type="text" inputmode="numeric" min="0" step="1000" value="50000"></div>
+            <input class="sf-range" type="range" min="0" max="1000000" step="10000" value="50000" data-for="existing" aria-label="Existing life insurance, slider">
+            <div class="sf-scale"><span>$0</span><span>$1M+</span></div>
+          </div>
         </div>
       </div>
 
@@ -179,7 +259,21 @@
 (function(){
   var ids=["income","years","mortgage","debts","kids","percollege","final","existing"];
   var f=function(n){return "$"+Math.round(n).toLocaleString("en-US");};
-  var get=function(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)||v<0?0:v;};
+  /* Strip anything that is not a digit or a decimal point before parsing.
+     This also fixes a live defect: the money fields were type="number", and
+     parseFloat("$75,000") is NaN, so a visitor who typed or pasted a dollar sign
+     or a comma had that field silently counted as ZERO. The estimate came back
+     confidently wrong and nothing on screen said why. */
+  var get=function(id){
+    var el=document.getElementById(id);
+    if(!el){return 0;}
+    var v=parseFloat(String(el.value).replace(/[^0-9.]/g,""));
+    return isNaN(v)||v<0?0:v;
+  };
+  var fmtField=function(el){
+    var v=parseFloat(String(el.value).replace(/[^0-9.]/g,""));
+    if(!isNaN(v)&&el.dataset.money==="1"){el.value=Math.round(v).toLocaleString("en-US");}
+  };
   var card=document.getElementById("resultCard");
   function calc(){
     var need=get("income")*get("years")+get("mortgage")+get("debts")+get("kids")*get("percollege")+get("final");
@@ -200,6 +294,45 @@
     if(s){s.value="Needs calculator estimate. Total need "+f(need)+". Existing coverage "+f(have)+". Gap "+f(gap>0?gap:0)+". Inputs: income "+f(get("income"))+" x "+get("years")+" yrs, mortgage "+f(get("mortgage"))+", other debt "+f(get("debts"))+", "+get("kids")+" children at "+f(get("percollege"))+" each, final expenses "+f(get("final"))+".";}
   }
   ids.forEach(function(id){var el=document.getElementById(id);if(el){el.addEventListener("input",calc);}});
+
+  /* Slider sync. The number inputs above keep their ids and stay the values the
+     calculator reads, so calc() is untouched by this. Each range writes into its
+     partner and fires the partner's input event, which is what runs the maths.
+
+     Deliberately one-directional at the edges: a typed value ABOVE a slider's max
+     is allowed to stand and simply parks the thumb at the end. Clamping the typed
+     number to the track would have silently rewritten a real $900k mortgage down
+     to $750k, which is the kind of quiet wrong answer this tool must never give. */
+  var ranges=document.querySelectorAll(".sf-range");
+  function paint(r){
+    var min=parseFloat(r.min), max=parseFloat(r.max);
+    var p=max>min?(parseFloat(r.value)-min)/(max-min):0;
+    r.style.setProperty("--p", Math.max(0,Math.min(1,p)));
+  }
+  Array.prototype.forEach.call(ranges,function(r){
+    var target=document.getElementById(r.getAttribute("data-for"));
+    if(!target){return;}
+    r.addEventListener("input",function(){
+      target.value=r.value;
+      fmtField(target);            /* dragging shows 250,000 rather than 250000 */
+      target.dispatchEvent(new Event("input",{bubbles:true}));
+      paint(r);
+    });
+    target.addEventListener("input",function(){
+      var v=parseFloat(String(target.value).replace(/[^0-9.]/g,""));
+      if(!isNaN(v)){r.value=v;}   /* the browser parks the thumb at the end if v is out of range */
+      paint(r);
+    });
+    /* Reformat on blur, never mid-keystroke: inserting commas while someone is
+       still typing moves the caret and makes the field fight the typist. */
+    target.addEventListener("blur",function(){fmtField(target);});
+    paint(r);
+  });
+  /* Money fields carry the separator; counts (years, children) do not. */
+  ["income","mortgage","debts","percollege","final","existing"].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){el.dataset.money="1";fmtField(el);}
+  });
   calc();
 })();
 </script>
