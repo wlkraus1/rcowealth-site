@@ -93,21 +93,18 @@
   </div>
 </section>
 
-<!-- The virtual-model strip used to sit inside the hero. The photographic hero has no room for it,
-     so it becomes its own light band. Its colour overrides move with it: the strip ships styled for
-     a dark surface, so on a light one its text drops to ~1.3:1 unless the overrides follow. -->
-<section class="strip-section">
-  <div class="wrap virtual-first-strip reveal">
-    <div class="strip-shell">
-      <div class="strip-lead"><span>Virtual model</span><strong>From first conversation to ongoing review, the relationship is designed to work remotely.</strong></div>
-      <div class="strip-grid stagger">
-        <div class="strip-item"><b>Meet remotely</b><span>Video or phone, based on the decision and the client’s preference.</span></div>
-        <div class="strip-item"><b>Organize digitally</b><span>Documents, notes, next steps, and follow-up are handled without office logistics.</span></div>
-        <div class="strip-item"><b>Access directly</b><span>Schwab and carrier portals stay separate from Rae &amp; Co forms.</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- Was the virtual-model strip, 245px. Removed 2026-08-07. THIRD duplicate found on this homepage
+     by the same test, and this one was a duplicate of another SECTION rather than of a page:
+       strip "Meet remotely"      = #virtual "Access"   (video or phone)
+       strip "Organize digitally" = #virtual "Workflow" (documents, notes, next steps)
+       strip "Access directly"    = #virtual "Portals"  (Schwab and carrier access stay separate)
+     Three of three. #virtual says all of it and adds a fourth card, "Review".
+     Kept #virtual and cut the strip on the same dependency rule that decided the last two: SIXTEEN
+     files link to index.html#virtual, it is the "Virtual Model" nav destination, and nothing at all
+     linked to the strip. Its colour overrides in revamp.css (.strip-section ...) are now unused but
+     are left in place: .virtual-first-strip / .strip-shell markup may still be reused elsewhere, and
+     deleting live-looking CSS in the same commit as markup is how the contrast defects in iterations
+     6 and 7 happened. -->
 
 <!-- ABOUT. Editorial rather than a card grid, deliberately: a credential rail set in small caps on
      hairline rules is a magazine device and reads as typeset, where boxed tiles read as generated.

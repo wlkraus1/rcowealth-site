@@ -259,8 +259,19 @@ and the Log; do not re-open them from here.
     version of the removal comment claimed it survived and that was wrong, caught by grepping instead
     of trusting the claim. `client-login.html` carries the same protection in different words, on the
     page a person about to log in actually lands on. Equivalent in substance, not identical.
-    **Still to test against the same "does a page already say this?" rule:** `#method` (services.html
-    + 4 service pages), `#virtual`, `#process`, `#clients`, `#advisor`.
+    ~~virtual-model strip~~ **REMOVED 2026-08-07, 245px. THIRD duplicate, and this one duplicated a
+    SECTION rather than a page**, so widen the rule: *does anything else on this page already say
+    this?* Item for item — strip "Meet remotely" = `#virtual` "Access"; strip "Organize digitally" =
+    `#virtual` "Workflow"; strip "Access directly" = `#virtual` "Portals". Three of three, and
+    `#virtual` adds a fourth card the strip did not have. Same dependency rule decided it again:
+    **16 files link to `index.html#virtual`** (the "Virtual Model" nav item) and **nothing linked to
+    the strip**. Its now-unused `.strip-section` CSS is deliberately left in revamp.css — deleting
+    live-looking CSS in the same commit as markup is how the iteration 6 and 7 contrast defects
+    happened.
+    **Still to test:** `#method` (services.html + 4 service pages already exist — but 15 files link
+    to it, so it needs a nav repoint, not a delete), `#process`, `#clients`, `#advisor`.
+    📊 **Split running total: 9.6 → 8.1 screens, 10 sections → 8, three duplicates removed, no copy
+    rewritten and nothing lost that another page or section did not already carry.**
     Nav is still 6 items (Virtual Model, Life Insurance, Services, Planning Areas, Client Login,
     Contact) which is already inside the cohort's 5–8, so the nav does not need reshaping yet.
     **(c) Vertical rhythm LAST, and it is worth about one screen, not five.** R1 phase 3 measured our layout at 93 words per screen
