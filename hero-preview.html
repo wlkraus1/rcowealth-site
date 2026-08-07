@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero options — Rae &amp; Co Capital (internal preview, not a live page)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="revamp.css">
+<style>
+/* ---------------------------------------------------------------------------
+   INTERNAL PREVIEW ONLY. This file is not linked from the site and carries
+   noindex. It exists so the hero can be judged by looking at it rather than
+   by describing it. Nothing here is wired into index.html yet.
+   Every string below already appears on index.html or on main. No new claims.
+   --------------------------------------------------------------------------- */
+body{background:#f4f1ea}
+.opt-head{background:#0d1826;color:#f6efe0;padding:18px 28px;font:600 15px/1.5 Inter,system-ui,sans-serif;position:sticky;top:0;z-index:50}
+.opt-head b{color:#efd8a4;font-size:17px;letter-spacing:.02em}
+.opt-head span{display:block;color:#b9c4d2;font-weight:400;font-size:13.5px;margin-top:3px;max-width:78ch}
+.opt-note{background:#fffdf7;border-bottom:1px solid rgba(17,25,39,.1);padding:14px 28px;font:400 13.5px/1.6 Inter,system-ui,sans-serif;color:#46566a}
+.opt-note b{color:#7a5e26}
+
+/* ---- Shared: the full-bleed photographic hero (options A and B) ----
+   Left-aligned rather than centred like the reference: the reference's photo is a wide
+   boardroom scene with dead space in the middle, ours are tight portraits, and centred
+   type lands straight on a face. A directional scrim keeps the left readable and lets
+   the subject sit in the right half where nothing overlaps it. */
+.ph-hero{position:relative;isolation:isolate;min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.ph-hero img.ph-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 32%;z-index:0}
+.ph-hero .ph-scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(96deg,rgba(6,13,24,.9) 0%,rgba(6,13,24,.74) 34%,rgba(6,13,24,.28) 62%,rgba(6,13,24,.35) 100%),
+             linear-gradient(180deg,rgba(6,13,24,.45) 0%,transparent 30%,rgba(6,13,24,.6) 100%)}
+.ph-hero .wrap{position:relative;z-index:3}
+.ph-copy{padding:118px 0 38px;max-width:660px}
+.ph-copy .ph-flag{display:inline-flex;align-items:center;gap:9px;font:600 12.5px/1 Inter,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+  color:#efd8a4;border:1px solid rgba(239,216,164,.42);background:rgba(8,16,28,.34);border-radius:999px;padding:9px 16px;margin-bottom:26px}
+.ph-copy .ph-flag i{width:7px;height:7px;border-radius:50%;background:#7ddba4;display:block}
+.ph-copy h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;color:#fff;letter-spacing:-.055em;line-height:.94;
+  font-size:clamp(3.1rem,5.6vw,5.2rem);margin:0 0 22px}
+.ph-copy h1 .accent{color:#e8cf9a;display:block}
+.ph-copy .ph-lead{color:#e4e9ef;font:400 clamp(1.05rem,1.35vw,1.24rem)/1.55 Inter,system-ui,sans-serif;max-width:52ch;margin:0 0 30px}
+.ph-actions{display:flex;gap:14px;flex-wrap:wrap}
+.ph-ghost{border:1px solid rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.06);backdrop-filter:blur(6px)}
+.ph-ghost:hover{background:rgba(255,255,255,.14)}
+
+/* The credential band overlapping the bottom edge — the reference's trust device,
+   built only from facts already on the page. Credentials and structure, never performance. */
+.ph-band{position:relative;z-index:4;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding-bottom:44px}
+.ph-band .ph-stat{background:rgba(11,20,33,.72);backdrop-filter:blur(10px);border:1px solid rgba(239,216,164,.22);
+  border-radius:14px;padding:20px 22px}
+.ph-band .ph-stat strong{display:block;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(1.7rem,2.6vw,2.3rem);color:#efd8a4;line-height:1;margin-bottom:8px;letter-spacing:-.03em}
+.ph-band .ph-stat span{display:block;font:400 13px/1.45 Inter,system-ui,sans-serif;color:#cfd8e2}
+@media(max-width:940px){
+  .ph-band{grid-template-columns:repeat(2,1fr)}
+  .ph-copy{padding-top:88px;max-width:none}
+  .ph-hero{min-height:auto}
+}
+
+/* ---- Option C: light typographic hero, no people ---- */
+.tp-hero{position:relative;isolation:isolate;background:#f6f2e9;overflow:hidden;min-height:86vh;display:flex;flex-direction:column;justify-content:center}
+.tp-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.85}
+.tp-hero .tp-veil{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 90% at 18% 8%,rgba(255,255,255,.2),rgba(246,242,233,.86) 62%)}
+.tp-hero .wrap{position:relative;z-index:3}
+.tp-copy{padding:118px 0 46px;max-width:900px}
+.tp-copy .eyebrow{color:#7a5e26;font:600 12.5px/1 Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;margin:0 0 20px}
+.tp-copy h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.062em;line-height:.9;color:#111927;
+  font-size:clamp(3.2rem,7vw,6.2rem);margin:0 0 24px}
+.tp-copy h1 .accent{color:#b08c3f;display:block}
+.tp-copy .tp-lead{color:#3a4658;font:400 clamp(1.08rem,1.3vw,1.3rem)/1.55 Inter,system-ui,sans-serif;max-width:52ch;margin:0 0 30px}
+.tp-actions{display:flex;gap:14px;flex-wrap:wrap}
+.tp-band{position:relative;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(17,25,39,.12);padding-top:30px;margin-top:14px}
+.tp-band .tp-stat{padding-right:26px}
+.tp-band .tp-stat strong{display:block;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(1.8rem,2.8vw,2.5rem);color:#111927;line-height:1;letter-spacing:-.035em;margin-bottom:9px}
+.tp-band .tp-stat i{display:block;width:34px;height:2px;background:#c8a15a;margin-bottom:11px}
+.tp-band .tp-stat span{display:block;font:400 13px/1.45 Inter,system-ui,sans-serif;color:#46566a}
+@media(max-width:940px){
+  .tp-band{grid-template-columns:repeat(2,1fr);gap:26px 0}
+  .tp-copy{padding-top:88px;max-width:none}
+  .tp-hero{min-height:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="opt-note">
+  <b>Internal preview.</b> Three hero directions, same real copy, so the choice is made by looking.
+  Nothing here is wired into <code>index.html</code>. Every word already appears on the site today.
+  The photographs in A and B are <b>stock, not clients</b> and carry no caption implying otherwise.
+</div>
+
+<!-- ============================ OPTION A ============================ -->
+<div class="opt-head">
+  <b>Option A — Veteran lead.</b>
+  <span>The reference's shape: one full-bleed environmental photo, a big serif headline, and the credential band sitting on the bottom edge. Left-aligned rather than centred, because our photos are close-ups and centred type lands on a face. Leads with the differentiator no competitor can copy.</span>
+</div>
+<section class="ph-hero">
+  <img class="ph-bg" src="assets/media/clients-military.jpg" alt="">
+  <div class="ph-scrim" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="ph-copy">
+      <span class="ph-flag"><i></i> Veteran-owned · 100% virtual</span>
+      <h1>Premium advice.<span class="accent">No office visit required.</span></h1>
+      <p class="ph-lead">Investments, retirement income, planning, and protection. One virtual relationship, led by a Marine Corps veteran.</p>
+      <div class="ph-actions">
+        <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a>
+        <a class="btn ph-ghost" href="#contact">Or send a message</a>
+      </div>
+    </div>
+    <div class="ph-band">
+      <div class="ph-stat"><strong>15+</strong><span>Years in insurance and financial services</span></div>
+      <div class="ph-stat"><strong>100%</strong><span>Virtual. No office visit required</span></div>
+      <div class="ph-stat"><strong>Series 65</strong><span>Investment Adviser Representative, fiduciary standard</span></div>
+      <div class="ph-stat"><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ OPTION B ============================ -->
+<div class="opt-head">
+  <b>Option B — Protection lead.</b>
+  <span>Same shape, different subject. A young family instead of a uniform, because life insurance is the revenue engine and the ICP is under 50. Keeps veteran-owned as the flag rather than the whole picture.</span>
+</div>
+<section class="ph-hero">
+  <img class="ph-bg" src="assets/media/clients-families.jpg" alt="">
+  <div class="ph-scrim" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="ph-copy">
+      <span class="ph-flag"><i></i> Veteran-owned · 100% virtual</span>
+      <h1>Protect it first.<span class="accent">Then grow it.</span></h1>
+      <p class="ph-lead">Coverage, investments, retirement income, and planning in one virtual relationship, led by a Marine Corps veteran.</p>
+      <div class="ph-actions">
+        <a class="btn btn-primary" href="life-insurance-calculator.html">Estimate your coverage need →</a>
+        <a class="btn ph-ghost" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call</a>
+      </div>
+    </div>
+    <div class="ph-band">
+      <div class="ph-stat"><strong>15+</strong><span>Years in insurance and financial services</span></div>
+      <div class="ph-stat"><strong>100%</strong><span>Virtual. No office visit required</span></div>
+      <div class="ph-stat"><strong>Series 65</strong><span>Investment Adviser Representative, fiduciary standard</span></div>
+      <div class="ph-stat"><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ OPTION C ============================ -->
+<div class="opt-head">
+  <b>Option C — No people at all.</b>
+  <span>Cream, oversized type, the existing ambient light video behind it, credentials as a ruled band. Closest to the Apple/Stripe register, zero stock-photo risk, and the headshot stops appearing twice because the hero never had one.</span>
+</div>
+<section class="tp-hero">
+  <video autoplay muted loop playsinline preload="metadata" poster="assets/media/hero-ambient.jpg" aria-hidden="true">
+    <source src="assets/media/hero-ambient.mp4" type="video/mp4">
+  </video>
+  <div class="tp-veil" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="tp-copy">
+      <p class="eyebrow">Veteran-owned · Rae &amp; Co Capital</p>
+      <h1>Premium advice.<span class="accent">No office visit required.</span></h1>
+      <p class="tp-lead">Investments, retirement income, planning, and protection. One virtual relationship, led by a Marine Corps veteran.</p>
+      <div class="tp-actions">
+        <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a>
+        <a class="btn btn-secondary on-light" href="#contact">Or send a message</a>
+      </div>
+    </div>
+    <div class="tp-band">
+      <div class="tp-stat"><i></i><strong>15+</strong><span>Years in insurance and financial services</span></div>
+      <div class="tp-stat"><i></i><strong>100%</strong><span>Virtual. No office visit required</span></div>
+      <div class="tp-stat"><i></i><strong>Series 65</strong><span>Investment Adviser Representative, fiduciary standard</span></div>
+      <div class="tp-stat"><i></i><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="opt-note" style="border-top:1px solid rgba(17,25,39,.1);border-bottom:0">
+  In all three the headshot moves out of the hero and stays in the About section, where a face earns its place.
+</div>
+
+</body>
+</html>
