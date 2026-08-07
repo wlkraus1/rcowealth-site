@@ -31,7 +31,7 @@ agents sites, ext, to see what is working and what is not and then design this s
 way!"* So research comes first and design follows it. Items 1 to 4b and the old item 5/6 are in Done
 and the Log; do not re-open them from here.
 
-- [ ] **R1. RESEARCH FIRST, and nothing below R1 starts until R1 has produced findings.** Tyler has
+- [x] **R1. RESEARCH FIRST, and nothing below R1 starts until R1 has produced findings.** Tyler has
   asked for the competitor benchmark three times and no iteration has done it. It is now the gate.
   - **Cohort, three tiers, because they compete for different things.** (a) **Upstate SC RIAs and
     financial advisors** — Greenville, Greer, Simpsonville, Spartanburg, Anderson. (b) **Local
@@ -52,7 +52,7 @@ and the Log; do not re-open them from here.
     [[feedback-obsidian-never-opened]]. Push a Telegram link when it lands.
   - ⚠️ **Do not copy a competitor's copy.** Read for structure and pattern, write our own words.
 
-- [ ] **R1 — PHASE 1 DONE 2026-08-07, five sites measured. Phase 2 owed: 5+ more, and the SERP check.**
+- [x] **R1 — PHASE 1 DONE 2026-08-07, five sites measured. Phase 2 owed: 5+ more, and the SERP check.**
   - ⚠️ **Method note: Firecrawl was not available.** The `/firecrawl-*` skills are installed but their MCP
     tools are not loaded in the session, so every number below was taken by loading the page in a real
     browser at 1440x900 and measuring the rendered DOM — the same method used on our own pages, which
@@ -100,7 +100,7 @@ and the Log; do not re-open them from here.
     plus the `/firecrawl-seo-audit`-style SERP comparison on "financial advisor greenville sc" and
     "life insurance greenville sc".
 
-- [ ] **R1 — PHASE 2, 2026-08-07. ⚠️ THIS PHASE OVERTURNS PHASE 1'S MAIN CONCLUSION. Read it before acting on anything above.**
+- [x] **R1 — PHASE 2, 2026-08-07. ⚠️ THIS PHASE OVERTURNS PHASE 1'S MAIN CONCLUSION. Read it before acting on anything above.**
 
   | Site | Page height | Screens | **Fold words** | Total words |
   |---|---|---|---|---|
@@ -141,6 +141,53 @@ and the Log; do not re-open them from here.
     Southern Insurance Group (advertises IUL/VUL/final expense, so it is the R3 comparable), one
     captive shop, Domain Money, Range, Savvy Wealth, and the SERP comparison.
 
+- [x] **R1 — PHASE 3, 2026-08-07. GATE CLOSED. The prescription is density and structure, not word count.**
+
+  | Site | Words | Screens | **Words per screen** |
+  |---|---|---|---|
+  | **rcowealth.com** (branch) | 1,072 | **11.5** | **93** |
+  | Facet | 1,492 | 9.0 | **166** |
+  | Farther | 1,534 | 9.6 | **160** |
+  | 1st & Main | 449 | 5.1 | 88 |
+
+  - 🎯 **THE FINDING THE WHOLE GATE WAS FOR. Our layout is roughly HALF as dense as the two premium
+    references.** They fit 160–166 words per screen; we fit 93. Farther carries 43% more words than we
+    do in 1.9 fewer screens. **We are not writing too much. We are spending about twice the vertical
+    space per word.** At Farther's density our existing 1,072 words would occupy **6.7 screens instead
+    of 11.5, with nothing deleted.**
+  - **So the three phases land here, and each one corrected the last:** phase 1 said cut words (wrong,
+    drawn from the wrong cohort); phase 2 said move sections (half right); phase 3 says **tighten the
+    vertical rhythm first, then move what is still too long.** Padding, section min-heights, oversized
+    gaps and full-viewport blocks are the actual defect. That is also the cheapest fix and the one
+    least likely to break compliance copy, because no words change.
+  - ⚠️ **Note for whoever does R4: 1st & Main sits at 88 words per screen, close to ours.** Low density
+    is the local norm and the premium references are the outlier. Copying local practice here is
+    copying the thing that makes a site feel amateur.
+
+  - 🚩 **SERP CHECK, and it is the worst result in this whole gate. rcowealth.com does not appear in the
+    top ten for EITHER money keyword.**
+    - `life insurance Greenville SC` → top ten is captive carriers (Western & Southern, Globe Life,
+      New York Life, Bankers Life, Nationwide) and local independents (Life Insurance Upstate, Kendall
+      & Associates, Premier Insurance Consultants, SC Insurance Brokers). **We are not on it**, despite
+      shipping a dedicated `life-insurance-greenville-sc.html`.
+    - `financial advisor Greenville SC` → directories (Unbiased, Indyfin, FinTRX) plus Godsey & Gibb,
+      1st & Main, HB Wealth. **We are not on it either.**
+    - **This reframes the whole project.** Every design decision in this loop improves the conversion
+      of traffic that arrives. **Nothing in this loop creates traffic**, and the measurement says there
+      is almost none arriving from search. The site polish is worth doing and is not the constraint.
+      This belongs in front of Tyler as a business finding, not buried as a queue item — it is the same
+      conclusion [[sf-pipeline-brief]] reached about outbound: the problem is volume at the top.
+
+  - **Products, for R3.** Southern Insurance Group (SC, the closest product comparable) names term,
+    whole, universal, **IUL and final expense** — and does **not** name VUL. Publishes an indicative
+    price ("$22 to $26 per month for a healthy 35-year-old, $500,000 term"), runs an online quote path
+    and promises a reply in 15 minutes. **So: final expense and IUL are normal in this market and
+    Tyler should have them. VUL is absent even from the agency that advertises it in search snippets,
+    which is one more reason to leave it until the Series 6/7 question is answered.**
+  - **Cohort total: 8 sites measured across three tiers, plus two SERPs.** Enough to design from.
+    Remaining nice-to-haves, not blockers: Godsey & Gibb, Southeast Financial Advisors, a captive shop,
+    Domain Money, Savvy Wealth.
+
 - [ ] **R2. The homepage does too much, and it repeats itself. Tyler, 2026-08-07:** *"the homepage
   feels like alot maybe we split that up ya know its like everything is on one page and some tings
   are duplicated like the services offered."*
@@ -155,6 +202,18 @@ and the Log; do not re-open them from here.
     and who-it-serves moving to their own pages. `services.html` already exists and is thin.
   - Watch the mobile redirect: it is an allow-list now, so **any new page needs a mobile plan** or it
     ships desktop-only to most of the traffic.
+  - ✅ **R1 IS CLOSED, so R2 IS UNBLOCKED — but do the cheap half FIRST, in this order:**
+    **(a) Vertical rhythm before surgery.** R1 phase 3 measured our layout at 93 words per screen
+    against 160–166 for the premium references. Tighten section padding, kill full-viewport
+    min-heights below the hero, and reduce oversized gaps. **No words change, so no compliance copy is
+    at risk, and the modelled result is 11.5 screens down to about 6.7 with nothing deleted.** Measure
+    words-per-screen before and after; that is the acceptance test.
+    **(b) Then cut the duplication.** `#wealth` (four cards) and `#method` (same four as tabs) are the
+    same content twice. Keep one. The tabs carry more detail; the cards are the better skim. Decide by
+    looking, not by preference.
+    **(c) Then move what is still too long.** Shortlist by measured height: `#advisor` 2,288px is the
+    tallest block on the page and belongs on its own page with a short version linking to it.
+    Structure the nav to match the cohort: 5–8 top-level items, services as their own pages.
 
 - [ ] **R3. Products: final expense, IUL and VUL. Tyler, 2026-08-07:** *"we need to offer final
   expense and IULs for sure VUL as well!!"*
