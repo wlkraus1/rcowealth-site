@@ -100,6 +100,47 @@ and the Log; do not re-open them from here.
     plus the `/firecrawl-seo-audit`-style SERP comparison on "financial advisor greenville sc" and
     "life insurance greenville sc".
 
+- [ ] **R1 — PHASE 2, 2026-08-07. ⚠️ THIS PHASE OVERTURNS PHASE 1'S MAIN CONCLUSION. Read it before acting on anything above.**
+
+  | Site | Page height | Screens | **Fold words** | Total words |
+  |---|---|---|---|---|
+  | **rcowealth.com** (branch) | **10,307px** | **11.5** | **16** | 1,072 |
+  | Facet | 8,090px | 9.0 | 24 | 1,492 |
+  | Farther | not captured | — | 22 | 1,534 |
+  | 1st & Main | 4,600px | 5.1 | 3 | 449 |
+
+  - ❌ **Phase 1 said "target under 600 words on the homepage". That was wrong, and it was wrong
+    because the comparison set was wrong.** It drew the target from local sites only. The two
+    virtual-first nationals that are Tyler's actual stated north star both carry **more** words than we
+    do — Facet 1,492 and Farther 1,534 against our 1,072. A word target taken from a solo local RIA
+    would have made the site thinner than the firms it wants to be mistaken for.
+  - ✅ **The metric that actually separates them is WORDS IN THE FIRST SCREEN, and ours is already
+    fine.** Farther 22, Facet 24, ours **16**. The hero is not the problem and has not been the problem;
+    three days of cutting hero copy were spent on a healthy number.
+  - 🚩 **THE REAL DEFECT, and it is the one Tyler named: our homepage is the TALLEST page measured at
+    11.5 screens.** Facet does a bigger job in **9.0** screens while carrying 40% more words, so its
+    sections are denser and fewer. 1st & Main does it in **5.1**. We are not too wordy; **we are too
+    long, and the length comes from section count, not sentence length.** Ten sections on one page.
+  - **So the prescription changes. Stop cutting copy. Move sections.** That is R2, and Tyler said it
+    before any of this was measured: *"its like everything is on one page."* The evidence now says he
+    was right for a more precise reason than either of us had.
+  - 📌 **Section heights, ours, tallest first** — this is the split shortlist:
+    `#advisor` **2,288px**, `#wealth` 1,468, `#hero` 1,308, `#method` 1,061, `#contact` 1,002,
+    `#clients` 664, `#client-access` 603, `#virtual` 595, `#process` 542, `strip-section` 245.
+  - ⚠️ **And the biggest block on the page is the About section I built earlier today.** 2,288px, more
+    than a fifth of the page, taller than the hero. It is good work in the wrong place: it belongs on
+    its own page, with a short version linking to it from home. **Whoever does R2 should not treat
+    recent work as protected.**
+  - ✅ **Facet publishes pricing and runs a calculator.** Both nationals publish pricing. That is a
+    second, independent argument for the flat-fee question — still Tyler's business call, still not
+    being re-asked here, just recorded that the comparison set is one-sided.
+  - **Confirmed again: zero animation libraries on Facet or Farther either.** Seven sites now, no GSAP,
+    no Lottie, no AOS, no Framer Motion. The restrained CSS approach is right and the heavy-animation
+    advice remains wrong for this market.
+  - **Still owed in phase 3:** Farther page height, Southeast Financial Advisors, Godsey & Gibb,
+    Southern Insurance Group (advertises IUL/VUL/final expense, so it is the R3 comparable), one
+    captive shop, Domain Money, Range, Savvy Wealth, and the SERP comparison.
+
 - [ ] **R2. The homepage does too much, and it repeats itself. Tyler, 2026-08-07:** *"the homepage
   feels like alot maybe we split that up ya know its like everything is on one page and some tings
   are duplicated like the services offered."*
