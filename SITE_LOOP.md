@@ -358,7 +358,33 @@ and the Log; do not re-open them from here.
     Carriers Enabled" was not evidence of appointment. **Do not put VUL on a public page until Tyler
     confirms an active Series 6 or 7 and the BD relationship.**
 
-- [ ] **R4. Design the site from R1's findings.** Only after R1 and R2. Tyler wants professional and
+- [ ] **R4. Design. ⚠️ DIAGNOSIS CHANGED 2026-08-07 — the problem was never motion.** Tyler, third
+  time: *"the site still doesnt flow or look has i imagined... things stick out things are clickable
+  internactive and motion and all that."*
+  - **Measured Wise, an Awwwards winner in finance, against ours:**
+
+  | | h1 size | h1 weight | Hero background | CTAs in fold | Tool position | Animation libs |
+  |---|---|---|---|---|---|---|
+  | Wise | 89px | **900** | one flat saturated colour | **1** | starts before the fold ends | **0** |
+  | ours | 80px | **400** | photograph + scrim | 2 | **three screens down** | 0 |
+
+  - 🎯 **Wise runs ZERO animation libraries. That is now NINE sites measured with zero.** Tyler keeps
+    asking for motion, but the sites he would call good are not moving — **they are LOUD and they put
+    the interactive thing at the top.** Chasing "more motion" would have been chasing the wrong
+    variable for a third time.
+  - **The two real variables are TYPE WEIGHT and TOOL POSITION.** Georgia 400 over a photograph is a
+    refined register; Inter 900 on flat colour is a loud one. Both are legitimate and we picked
+    refined without ever asking. And the coverage slider — the one thing on this site no competitor
+    has — is buried three screens down while Wise starts its currency widget above the fold.
+  - ✅ **`direction-preview.html` built (noindex, unlinked, nothing wired in): the SAME real copy in
+    both registers, A refined and B bold, with the coverage tool promoted to the fold in B.** Tyler
+    picks one and it becomes the system for the whole site. This is the same method that settled the
+    hero in one message earlier today; describing design to him has failed three times, showing him
+    two versions has worked twice.
+  - **Whichever he picks, promote the tool.** That part is not a taste question: it is the only
+    genuinely differentiated thing on the site and it is currently below three screens of prose.
+
+- [ ] **R4b. Design the site from R1's findings.** Only after R1 and R2. Tyler wants professional and
   attention-grabbing without the AI-template look, and has explicitly rejected the generic
   bento/neon/Lottie vocabulary. What has worked so far: photography, editorial typography, motion
   with a job (the hero drift, the line-by-line headline, the coverage slider that answers you).
