@@ -384,6 +384,43 @@ and the Log; do not re-open them from here.
   - **Whichever he picks, promote the tool.** That part is not a taste question: it is the only
     genuinely differentiated thing on the site and it is currently below three screens of prose.
 
+- [x] **R4. DECIDED 2026-08-07: Tyler picked A, refined.** *"A i guess"* — lukewarm, and that is
+  recorded on purpose. **A is the register he has called quiet three times.** Choosing it means the
+  presence has to come from somewhere other than type weight, so the two levers that remain are
+  **(1) promoting the tool** and **(2) spending boldness in one place per page** rather than raising
+  the volume everywhere. Do not re-open the A/B question; do not drift toward B by degrees.
+  - **The design system, now fixed:** Georgia serif at 400 for display, photography leads, gold accent,
+    two-button heroes allowed, restrained CSS motion only, zero animation libraries.
+
+- [ ] **R5. PROMOTE THE COVERAGE TOOL. Not a taste question, and it survived the A/B decision.**
+  Nine sites measured, zero animation libraries, and the ones that feel alive put the interactive
+  thing at the top. Our slider is the only feature no Upstate competitor has and it sits three
+  screens down inside `#coverage`. Move it directly under the hero on `index.html` and keep the mobile
+  order matching. Watch: `#coverage` also holds the carrier band, and `prefillForm()` must keep
+  working. Verify at 1440 and 390, measure position before and after.
+
+- [ ] **R6. REVIEW PASSES — Tyler asked for "tested and reviewed multiple times", so this is a real
+  queue item, not a formality.** Run each pass as its own iteration, log findings, fix, re-verify:
+  - **(a) Link integrity.** Every internal href on all 18 pages resolves; no anchor points at a
+    section removed during R2 (`#wealth`, `#client-access`, the strip). 15 files still point at
+    `index.html#method` — confirm it is still there.
+  - **(b) Lead capture, end to end.** All 10 forms: Salesforce action, `oid`, `retURL`, the custom
+    field ids, both consent ids, honeypot present and still unreachable. **Never actually submit** —
+    it posts to the live org and creates a real lead.
+  - **(c) Mobile.** Every page at 390 and 430: no overflow, nothing past the viewport, tap targets
+    over 40px except the honeypot, redirect allow-list correct for any page added since.
+  - **(d) Contrast.** Alpha-composited, counting hidden elements rather than skipping them, and
+    photograph-backed text judged by screenshot — the checker has produced a false reading in every
+    iteration it has been used.
+  - **(e) Copy and compliance.** Em-dashes zero; no performance language; "fee-only" absent; the
+    fiduciary/compensation disclosure, form disclaimer, TCPA consent and credential warning all
+    present; every product claim matches what Tyler has confirmed.
+  - **(f) Console and network.** No errors on any page; no 404s on assets.
+
+- [ ] **R7. Rebase onto `origin/main` before any merge.** `lead.php` exists twice with different
+  SHAs (`127b4da` here, `b3f8b01` on main). Local `main` is one behind. This is owed and is not
+  optional.
+
 - [ ] **R4b. Design the site from R1's findings.** Only after R1 and R2. Tyler wants professional and
   attention-grabbing without the AI-template look, and has explicitly rejected the generic
   bento/neon/Lottie vocabulary. What has worked so far: photography, editorial typography, motion
