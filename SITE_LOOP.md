@@ -52,6 +52,54 @@ and the Log; do not re-open them from here.
     [[feedback-obsidian-never-opened]]. Push a Telegram link when it lands.
   - ⚠️ **Do not copy a competitor's copy.** Read for structure and pattern, write our own words.
 
+- [ ] **R1 — PHASE 1 DONE 2026-08-07, five sites measured. Phase 2 owed: 5+ more, and the SERP check.**
+  - ⚠️ **Method note: Firecrawl was not available.** The `/firecrawl-*` skills are installed but their MCP
+    tools are not loaded in the session, so every number below was taken by loading the page in a real
+    browser at 1440x900 and measuring the rendered DOM — the same method used on our own pages, which
+    makes the comparison like-for-like rather than skill-versus-skill.
+
+  | Site | Type | Words | Longest para | Top nav | Calc | Quoter | Scheduling | Price |
+  |---|---|---|---|---|---|---|---|---|
+  | **rcowealth.com** (branch) | **ours** | **1,072** | 37 | 6 | **yes** | **yes** | **yes** | no |
+  | 1st & Main Investment Advisors | local RIA | **449** | 32 | 5 | no | no | no | no |
+  | Wealth Enhancement (was Fintrust) | national | 389 | 80 | 8 | no | no | no | no |
+  | Strategic Benefits | local agency | 986 | 87 | 7 | no | form only | no | no |
+  | The Sullivan Agency | local agency | 692 | 99 | 8 | no | no | no | no |
+
+  - **1. We are the wordiest site in the cohort, and it is not close.** 1,072 against a 449–986 range,
+    and 449 is the closest local RIA comparable. **Tyler's read was right and this is the number that
+    proves it.** Target for R4: **under 600 on the homepage**, which is only reachable by moving
+    sections out, not by trimming sentences. That is the same conclusion R2 reaches from a different
+    direction, which is worth trusting.
+  - **2. THE MOAT IS REAL AND IT IS BIGGER THAN EXPECTED. Not one competitor measured has a
+    calculator, an instant quoter, or online scheduling. We have all three.** The June research said no
+    local incumbent publishes pricing or offers online scheduling; that still holds, and the tooling gap
+    is wider. **This should be the loudest thing on the site and it currently is not.**
+  - **3. Nobody publishes pricing.** The flat fee schedule remains an uncontested position. Still
+    Tyler's business call, still not re-asked.
+  - **4. THE ANSWER TO THE SPLIT QUESTION, and it is unanimous.** Every site runs a **multi-page nav,
+    5 to 8 top-level items, with services as their own pages**. Not one runs an eleven-block
+    single-page homepage. 1st & Main is the cleanest model: Services / Advisors / Locations / Contact /
+    Resources, with four service children. **R2 is confirmed by evidence, not taste. Proceed.**
+  - **5. The Sullivan Agency carries "Our Carriers" as a top-level nav item.** Independent agencies
+    treat the carrier list as a trust asset worth its own page, not a band. Reconsider where ours lives.
+  - **6. Products.** Term and whole life are universal. **Final expense appears on Sullivan.** IUL and
+    VUL appear on neither local agency measured, though Southern Insurance Group advertises
+    Term/IUL/VUL/final expense in its search listing. So R3 is a genuine differentiator locally rather
+    than table stakes — worth doing, and worth doing carefully.
+  - **7. ZERO animation libraries across all five sites.** No GSAP, no Lottie, no AOS, no Framer.
+    Motion is genuinely differentiating in this market rather than expected, which supports the
+    restrained approach already shipped and argues against the heavy-animation advice Tyler was given.
+  - **8. Market signal worth more than a layout note: Fintrust Capital Advisors, the largest Greenville
+    independent at roughly $1.3B, now redirects to wealthenhancement.com. It has been acquired.** The
+    local independents are being rolled up, which makes "actually independent, actually local, actually
+    a person who answers the phone" a stronger and more defensible position than it was in June.
+  - **Phase 2, still owed:** Southeast Financial Advisors (sole proprietor, the closest size match),
+    Godsey & Gibb Greenville, Allen Thomas Group, Southern Insurance Group, at least one captive
+    (Northwestern Mutual or NYL Greenville), plus the five virtual-first nationals from the June set,
+    plus the `/firecrawl-seo-audit`-style SERP comparison on "financial advisor greenville sc" and
+    "life insurance greenville sc".
+
 - [ ] **R2. The homepage does too much, and it repeats itself. Tyler, 2026-08-07:** *"the homepage
   feels like alot maybe we split that up ya know its like everything is on one page and some tings
   are duplicated like the services offered."*
