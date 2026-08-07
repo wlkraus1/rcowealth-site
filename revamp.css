@@ -296,6 +296,24 @@ body{background:var(--paper)}
   .lc-result{padding:26px 22px}
 }
 
+/* =====================================================
+   CARRIER BAND — names as type, not logos
+   ===================================================== */
+.carriers{margin-top:30px;padding:30px 34px;border-radius:22px;border:1px solid rgba(17,25,39,.12);background:#fff;
+  box-shadow:0 26px 60px -40px rgba(12,28,48,.32)}
+.carriers-head h3{font-family:Georgia,serif;font-size:clamp(23px,2.4vw,31px);line-height:1.14;letter-spacing:-.035em;color:var(--ink);margin:6px 0 8px}
+.carriers-head h3 b{color:#9a7327;font-weight:500}
+.carriers-sub{font-family:var(--geist);font-size:15px;line-height:1.55;color:#46566a;margin:0 0 22px;max-width:62ch}
+.carrier-list{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:0;padding:0;
+  border-top:1px solid rgba(17,25,39,.1)}
+.carrier-list li{font-family:var(--geist);font-size:14px;font-weight:600;color:#2c3849;
+  padding:12px 10px 12px 0;border-bottom:1px solid rgba(17,25,39,.08)}
+.carriers-note{font-family:var(--geist);font-size:11.5px;line-height:1.55;color:#6e7788;margin:18px 0 0}
+@media(max-width:860px){
+  .carriers{padding:24px 20px}
+  .carrier-list{grid-template-columns:repeat(2,1fr)}
+}
+
 /* One quiet line where the four credential tiles used to be. */
 .photo-hero-note{
   position:relative;z-index:4;margin:0;padding:0 0 40px;

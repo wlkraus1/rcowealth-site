@@ -147,12 +147,13 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
    no uniform, no face, so the picture stops saying "military family" on the surface most visitors
    actually see. 40% 22% holds the cover, his face and the child together. Chosen by looking at
    three crops at 390 wide, not by reasoning about the numbers. */
-.photo-hero .photo-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 22%;z-index:0}
+.photo-hero .photo-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 34%;z-index:0}
 /* Vertical rather than the desktop's horizontal pass: on a narrow screen the copy runs the full
    width, so there is no clear column to protect and the gradient has to work top to bottom. */
 .photo-hero .photo-hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(6,13,24,.72) 0%,rgba(6,13,24,.42) 30%,rgba(6,13,24,.55) 62%,rgba(6,13,24,.92) 100%)}
-.photo-hero .wrap{position:relative;z-index:3;padding-top:26px;padding-bottom:22px}
+.photo-hero .wrap{position:relative;z-index:3;padding-top:26px;padding-bottom:30px}
+.m-funnel{padding-top:22px}
 .photo-hero .kicker{border-color:rgba(239,216,164,.44);background:rgba(8,16,28,.42);color:#efd8a4}
 .photo-hero h1{color:#fff}
 .photo-hero .lead{color:#e4e9ef}
@@ -164,7 +165,6 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
    washes out to unreadable. Third time this shape of defect has appeared on this site after
    .private-room and .strip-item: a translucent panel that only ever worked because of what was
    behind it. An opaque cream base under the same gradient keeps the look and fixes the read. */
-.photo-hero .protect-band{background:linear-gradient(150deg,rgba(200,161,90,.17),rgba(251,247,239,.9)),#fbf7ef}
 /* ABOUT, editorial. Square corners and hairline rules on purpose: the rounded white card this
    replaces is the shape that reads as generated, and it is the shape everything else on this page
    already uses, so the section had no way to feel authored. */
@@ -180,6 +180,30 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
 .m-cred dt{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink)}
 .m-cred dd{margin:0;font-size:13.5px;line-height:1.55;color:var(--text-soft)}
 .photo-hero-note{margin:18px 0 0;font-size:12px;font-weight:600;letter-spacing:.03em;color:rgba(246,239,224,.84)}
+
+/* Live coverage sliders. Track and thumb match the full calculator page so the two
+   controls read as one product. 30px thumb: the default is about 14, which is well
+   under what a thumb needs, and this is the main thing to do on the page. */
+.sf-range{-webkit-appearance:none;appearance:none;width:100%;height:34px;background:transparent;margin:0;cursor:pointer;touch-action:pan-y}
+.sf-range::-webkit-slider-runnable-track{height:8px;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold-ink) 0 calc(var(--p,0)*100%),rgba(17,25,39,.16) calc(var(--p,0)*100%) 100%)}
+.sf-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;
+  background:#fff;border:2px solid var(--gold-ink);margin-top:-11px;box-shadow:0 4px 14px rgba(6,17,31,.3)}
+.lc-field{margin:2px 0 6px}
+.lc-field label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:12px;font-weight:800;color:var(--text-soft)}
+.lc-field label b{font-family:Georgia,serif;font-weight:500;font-size:19px;letter-spacing:-.03em;color:var(--text)}
+.lc-out{margin:10px 0 14px;padding:16px;border-radius:14px;background:linear-gradient(180deg,#0c1a2b,#08131f);color:#fff}
+.lc-out span{display:block;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#e8cf9a;margin-bottom:6px}
+.lc-out strong{display:block;font-family:Georgia,serif;font-weight:500;font-size:36px;line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.lc-out em{display:block;font-style:normal;font-size:11.5px;line-height:1.5;color:rgba(246,239,224,.72);margin-top:8px}
+
+/* Carriers as type, not logos. */
+.m-carriers{margin-top:18px;padding:20px 18px;border-radius:16px;border:1px solid var(--light-line);background:#fff}
+.m-carriers>b{display:block;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:8px}
+.m-carriers>strong{display:block;font-family:Georgia,serif;font-weight:500;font-size:22px;line-height:1.15;letter-spacing:-.03em;color:var(--text);margin-bottom:16px}
+.m-carriers ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(17,25,39,.1)}
+.m-carriers li{font-size:13px;font-weight:600;color:#2c3849;padding:10px 8px 10px 0;border-bottom:1px solid rgba(17,25,39,.08)}
+.m-carriers em{display:block;font-style:normal;font-size:11px;line-height:1.5;color:var(--muted,#6e7788);margin-top:14px}
 .people-media{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pm-card{position:relative;border-radius:16px;overflow:hidden;min-height:172px;display:flex;align-items:flex-end;isolation:isolate}
 .pm-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
@@ -286,12 +310,45 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
          so they held "15+" and "100%" - the shape of a metric without the substance of one. The
          facts moved into the About section, where a person says them. -->
     <p class="photo-hero-note">Veteran-owned · Series 65 fiduciary · Assets at Charles Schwab</p>
-    <div class="protect-band">
+  </div>
+</section>
+
+<section class="section section-light m-funnel">
+  <div class="wrap">
+    <!-- Live coverage band, same as the desktop homepage. Mobile is where nearly all the traffic
+         is, and dragging beats typing hardest on a phone, so if this only shipped to one surface it
+         should have been this one. -->
+    <div class="protect-band" id="liveCover">
       <b>Start with coverage</b>
-      <strong>Find out what you actually need, then see real pricing.</strong>
-      <span>Run the numbers yourself in about two minutes. No email required.</span>
-      <a class="btn btn-primary" href="life-insurance-calculator.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_mobile&amp;utm_content=mobile_protect_band_calculator">Estimate your coverage need →</a>
+      <strong>Most people are guessing. Move the sliders.</strong>
+      <div class="lc-field">
+        <label for="lcIncome">Your income <b id="lcIncomeOut">$75,000</b></label>
+        <input class="sf-range" type="range" id="lcIncome" min="20000" max="400000" step="5000" value="75000">
+      </div>
+      <div class="lc-field">
+        <label for="lcMortgage">What you owe on the house <b id="lcMortgageOut">$250,000</b></label>
+        <input class="sf-range" type="range" id="lcMortgage" min="0" max="750000" step="10000" value="250000">
+      </div>
+      <div class="lc-out">
+        <span>Rough coverage need</span>
+        <strong id="lcOut">$1,000,000</strong>
+        <em>Income for 10 years, plus the mortgage. A starting point, not advice.</em>
+      </div>
+      <a class="btn btn-primary" id="lcFull" href="life-insurance-calculator.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_mobile&amp;utm_content=mobile_live_cover">Run the full number →</a>
       <a class="btn btn-secondary" href="life-insurance-quote.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_mobile&amp;utm_content=mobile_protect_band_quote">Compare real quotes</a>
+    </div>
+    <!-- Carrier band. Names as type rather than logos: carrier marks are trademarks and most
+         carriers require advertising approval before a producer uses them. Final expense is
+         deliberately not listed; it stays on its own landing pages, off the main site. -->
+    <div class="m-carriers">
+      <b>Independent</b>
+      <strong>We do not work for one carrier. We shop 40+ of them.</strong>
+      <ul>
+        <li>Prudential</li><li>Lincoln Financial</li><li>Pacific Life</li><li>John Hancock</li>
+        <li>Transamerica</li><li>Protective</li><li>Nationwide</li><li>Principal</li>
+        <li>Symetra</li><li>Mutual of Omaha</li><li>Corebridge</li><li>Securian</li>
+      </ul>
+      <em>Availability varies by product, state, and underwriting. Rae &amp; Co is paid a commission on insurance placed; that conflict is disclosed in our Form CRS.</em>
     </div>
   </div>
 </section>
@@ -489,6 +546,28 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
   <a class="ghost" href="tel:+18645588440">Call</a>
 </nav>
 </div>
+<script>
+/* Live coverage band. Same two sliders and the same maths as the desktop homepage;
+   this page does not load reveal.js, so the logic is inline rather than shared. */
+(function(){
+  var lc=document.getElementById("liveCover"); if(!lc){return;}
+  var inc=document.getElementById("lcIncome"), mor=document.getElementById("lcMortgage");
+  var out=document.getElementById("lcOut"), full=document.getElementById("lcFull");
+  if(!inc||!mor||!out){return;}
+  var YEARS=10;
+  var money=function(n){return "$"+Math.round(n).toLocaleString("en-US");};
+  var paint=function(r){var a=+r.min,b=+r.max;r.style.setProperty("--p",b>a?(+r.value-a)/(b-a):0);};
+  var base=full?full.getAttribute("href"):"";
+  function run(){
+    out.textContent=money((+inc.value)*YEARS+(+mor.value));
+    document.getElementById("lcIncomeOut").textContent=money(+inc.value);
+    document.getElementById("lcMortgageOut").textContent=money(+mor.value);
+    if(full){full.href=base+"&income="+(+inc.value)+"&mortgage="+(+mor.value);}
+    paint(inc);paint(mor);
+  }
+  inc.addEventListener("input",run); mor.addEventListener("input",run); run();
+})();
+</script>
 <script src="campaign-tracking.js"></script>
 <script>
 (function(){
