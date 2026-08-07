@@ -318,9 +318,26 @@ and the Log; do not re-open them from here.
     pivot: *final expense stays OFF the main site, separate landing pages only*, and *IUL never
     leads*. His call, and it is his business; the rules were his too, so both memory files need
     updating rather than silently contradicting the site.
-  - ✅ **Final expense and IUL: build them.** Suggested shape once R1 lands: each gets a real page,
-    and IUL is presented after term rather than in front of it, because leading a cold visitor with
-    a permanent product is what the original rule was protecting against.
+  - ✅ **DONE 2026-08-07 as ONE page, not two: `types-of-life-insurance.html`, 904 words.**
+    **Checked the duplicate rule first, and it passed:** across the three existing life pages, "final
+    expense" appears once, and whole life, universal life and IUL appear **zero** times. The product
+    menu was genuinely missing, not repeated. **One page rather than two on purpose** — two thin
+    product pages is how the duplication problem this loop just spent four iterations removing gets
+    recreated.
+    **Order is the argument:** term, whole, universal, IUL, final expense — simplest and cheapest
+    first, so a reader meets term before IUL and can tell whether they are being sold a solution or a
+    product. Each type gets the same three boxes: what it solves, **what it costs you**, and **when it
+    is the wrong tool**. Naming when a product is wrong is the trust device an RIA can actually use.
+    **Compliance, deliberate:** the term section says plainly that term usually wins for under-50
+    households *and that it pays the firm least*; the commission conflict is stated in its own block
+    with a pointer to Form CRS; the IUL section says the projected columns are **not a forecast and
+    not guaranteed** and tells a reader to ask for the guaranteed column and years one to ten costs.
+    No performance language, no projections, no "you'll earn".
+    Wired from the life-insurance hub hero, that page's footer, the homepage carrier band, and
+    sitemap.xml. Verified 1440 and 390: no overflow, mobile does not redirect away, 230 words/screen.
+  - ⚠️ **Two sub-40px tap targets on the new page (menu toggle 37px, breadcrumb 19px) are SITE-WIDE
+    patterns inherited from the template, not introduced here.** Fixing them is a separate change
+    across every page; logged, not smuggled in.
   - ⛔ **VUL IS BLOCKED, and this is a licensing question rather than a design one.** VUL is a
     **variable** product, i.e. a security. Selling or soliciting it needs a **FINRA registration
     (Series 6 or Series 7) held through a broker-dealer**. The site currently states Series 65 (IAR)
