@@ -1,3 +1,8 @@
 .DS_Store
 *.bak
 *.bak-*
+
+# Lead intake: the spill file holds a prospect's details on the one path where
+# mail() failed, and the Telegram config holds a bot token. Neither belongs in git.
+.lead-spill/leads.jsonl
+.telegram.json

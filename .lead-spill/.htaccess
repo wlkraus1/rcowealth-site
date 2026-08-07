@@ -1,0 +1,4 @@
+# The spill file holds a prospect's name, email and phone on the one path where
+# mail() failed and the alternative was losing the enquiry entirely. Nothing in
+# here is ever served.
+Require all denied
