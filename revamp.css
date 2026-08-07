@@ -314,6 +314,25 @@ body{background:var(--paper)}
   .carrier-list{grid-template-columns:repeat(2,1fr)}
 }
 
+/* =====================================================
+   VERTICAL RHYTHM — R2(c)
+   The last item in R2, and the only one left after three duplicate sections came
+   out. Measured against the two references Tyler named as the north star, the one
+   remaining gap is DENSITY, not length: we run ~131 words per screen against
+   Facet's 166 and Farther's 160, i.e. more vertical space per word. That is
+   padding, not content, so nothing here touches a single word and no compliance
+   copy is at risk.
+   82px top and bottom on every section is the culprit, and it compounds: eight
+   sections carry it, and .card also holds a 224px min-height that pads short
+   cards out with empty space.
+   ===================================================== */
+.section{padding:60px 0}
+.section-head{margin-bottom:26px}
+/* A four-word card and a forty-word card were both being held to 224px, so the
+   short ones carried dead space. Let them size to their content. */
+.card{min-height:0}
+@media(max-width:900px){.section{padding:46px 0}}
+
 /* One quiet line where the four credential tiles used to be. */
 .photo-hero-note{
   position:relative;z-index:4;margin:0;padding:0 0 40px;

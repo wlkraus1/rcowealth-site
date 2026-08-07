@@ -274,7 +274,33 @@ and the Log; do not re-open them from here.
     rewritten and nothing lost that another page or section did not already carry.**
     Nav is still 6 items (Virtual Model, Life Insurance, Services, Planning Areas, Client Login,
     Contact) which is already inside the cohort's 5–8, so the nav does not need reshaping yet.
-    **(c) Vertical rhythm LAST, and it is worth about one screen, not five.** R1 phase 3 measured our layout at 93 words per screen
+    ~~**(c) Vertical rhythm**~~ **DONE 2026-08-07.** 82px section padding to 60px, section-head margin
+    34 to 26, and `.card{min-height:224px}` released so a four-word card stops being padded to the
+    height of a forty-word one. **8.1 → 7.8 screens, 131 → 136 words per screen.** Real but modest, as
+    the correction predicted; no words touched, so no compliance copy was at risk. Checked by
+    screenshot as well as by number — the About section still breathes, it is not cramped.
+
+  - ✅ **R2 IS DONE. Stopping the split here is a judgement call, and here is the evidence for it:**
+
+  | | Words | Screens | Words/screen | Fold words |
+  |---|---|---|---|---|
+  | **ours, before the split** | 1,289 | 9.6 | 134 | 16 |
+  | **ours, now** | **1,060** | **7.8** | **136** | 25 |
+  | Facet | 1,492 | 9.0 | 166 | 24 |
+  | Farther | 1,534 | 9.6 | 160 | 22 |
+  | 1st & Main | 449 | 5.1 | 88 | 3 |
+
+    **We are now shorter than both premium references and our fold sits in their band.** Cutting
+    further would move us toward 1st & Main's thin local shape, which R1 phase 3 explicitly warned
+    against copying. The one gap left is density, 136 against 160–166, and that is a typography and
+    spacing question for R4, not more deletion.
+  - ✅ **`#process` and `#clients` were TESTED AND KEPT.** The duplicate rule does not flag them: both
+    appear only on `index.html` and `mobile.html`, and no other page says either. They are genuine
+    homepage content, not repetition.
+  - 🚩 **`#method` deliberately NOT removed, and the reasoning should survive.** The service pages do
+    carry most of its panel detail, so it is largely redundant — but removing it needs a nav repoint
+    across **15 files** plus preservation of `prefillForm()`, and the page is already shorter than both
+    references, so the benefit is small and the risk is real. **Revisit only if R4 needs the room.** R1 phase 3 measured our layout at 93 words per screen
     against 160–166 for the premium references. Tighten section padding, kill full-viewport
     min-heights below the hero, and reduce oversized gaps. **No words change, so no compliance copy is
     at risk, and the modelled result is 11.5 screens down to about 6.7 with nothing deleted.** Measure
