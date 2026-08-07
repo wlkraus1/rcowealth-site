@@ -220,7 +220,7 @@ and the Log; do not re-open them from here.
     Roughly one screen is available from tightening padding. **The duplication and the split are where
     the real length is.** Reordered below.
 
-- [ ] **R2. The homepage does too much, and it repeats itself. Tyler, 2026-08-07:** *"the homepage
+- [x] **R2. The homepage does too much, and it repeats itself. Tyler, 2026-08-07:** *"the homepage
   feels like alot maybe we split that up ya know its like everything is on one page and some tings
   are duplicated like the services offered."*
   - **Measured and he is right.** `index.html` carries **eleven blocks**: hero, virtual strip, About,
