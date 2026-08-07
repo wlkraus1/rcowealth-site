@@ -188,6 +188,38 @@ and the Log; do not re-open them from here.
     Remaining nice-to-haves, not blockers: Godsey & Gibb, Southeast Financial Advisors, a captive shop,
     Domain Money, Savvy Wealth.
 
+- [x] **R1 — CORRECTION, 2026-08-07, issued one iteration after phase 3. The "half as dense" finding was WRONG and the arithmetic error is worth understanding.**
+  - **What happened:** ours was measured at a **1200px-tall** viewport (10,307px page) and then divided by
+    **900** to get "11.5 screens". Every competitor was measured at 900 and divided by 900. Dividing a
+    tall-viewport measurement by a short-viewport denominator inflated our height by about 33% and
+    deflated our words-per-screen to match. **A hero with `min-height:88vh` also literally changes size
+    with the viewport, so the page is not the same height at both.**
+  - **Re-measured, all at 1440x900, all with `innerText`, like for like:**
+
+  | Site | Page height | Screens | Words | **Words per screen** |
+  |---|---|---|---|---|
+  | **rcowealth.com** (branch) | 8,603px | **9.6** | 1,289 | **135** |
+  | Facet | 8,090px | 9.0 | 1,492 | 166 |
+  | Farther | 8,675px | **9.6** | 1,534 | 160 |
+  | 1st & Main | 4,600px | 5.1 | 449 | 88 |
+
+  - ❌ **"We are the tallest page measured" was false.** We are **9.6 screens, identical to Farther's
+    9.6**, and 0.6 taller than Facet. We are in line with the premium references on height.
+  - ❌ **"Roughly half as dense" was false.** 135 against 160–166 is a **15 to 19% gap**, not 80%. The
+    modelled "6.7 screens with nothing deleted" does not survive; the honest number is around 8.4
+    screens if we hit 160, i.e. **about one screen of savings**, not five.
+  - ✅ **What survives.** There is still a real but modest density gap, and **the duplication is
+    untouched by any of this** — `#wealth` and `#method` are the same four services twice, which is a
+    fact about the DOM and not about measurement. Tyler spotted that by eye and he is still right.
+  - ⚠️ **STANDING RULE, now earned the hard way: always divide page height by the SAME viewport height
+    you measured it at, and measure every site in a comparison at one fixed viewport.** This is the
+    fourth false reading automated measurement has produced in this loop, after the alpha compositing,
+    the photograph contrast, and the stale-CSS "blank hero". **Same lesson every time: the tool is for
+    finding candidates, the verdict comes from checking.**
+  - 🚩 **Consequence for the plan: R2(a), the rhythm pass, is now a MINOR item, not the headline.**
+    Roughly one screen is available from tightening padding. **The duplication and the split are where
+    the real length is.** Reordered below.
+
 - [ ] **R2. The homepage does too much, and it repeats itself. Tyler, 2026-08-07:** *"the homepage
   feels like alot maybe we split that up ya know its like everything is on one page and some tings
   are duplicated like the services offered."*
@@ -202,8 +234,13 @@ and the Log; do not re-open them from here.
     and who-it-serves moving to their own pages. `services.html` already exists and is thin.
   - Watch the mobile redirect: it is an allow-list now, so **any new page needs a mobile plan** or it
     ships desktop-only to most of the traffic.
-  - ✅ **R1 IS CLOSED, so R2 IS UNBLOCKED — but do the cheap half FIRST, in this order:**
-    **(a) Vertical rhythm before surgery.** R1 phase 3 measured our layout at 93 words per screen
+  - ✅ **R1 IS CLOSED, so R2 IS UNBLOCKED. Order revised after the correction above:**
+    **(a) DEDUPLICATION FIRST — it is the only unambiguous defect and Tyler named it.**
+    `#wealth` (four cards, 1,478px) and `#method` (the same four as tabs, 1,061px) are the same content
+    twice on one page. Keep the one that skims, move the detail it carries rather than deleting it.
+    **(b) Then the split**, by measured height, nav shaped like the cohort: 5–8 top-level items,
+    services on their own pages.
+    **(c) Vertical rhythm LAST, and it is worth about one screen, not five.** R1 phase 3 measured our layout at 93 words per screen
     against 160–166 for the premium references. Tighten section padding, kill full-viewport
     min-heights below the hero, and reduce oversized gaps. **No words change, so no compliance copy is
     at risk, and the modelled result is 11.5 screens down to about 6.7 with nothing deleted.** Measure
