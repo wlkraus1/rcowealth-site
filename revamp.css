@@ -209,6 +209,60 @@ body{background:var(--paper)}
 @media(max-width:900px){.trust-band-grid{grid-template-columns:repeat(2,1fr);gap:22px}}
 @media(max-width:520px){.trust-stat strong{font-size:28px}}
 
+/* One quiet line where the four credential tiles used to be. */
+.photo-hero-note{
+  position:relative;z-index:4;margin:0;padding:0 0 40px;
+  font-family:var(--geist);font-size:13px;font-weight:600;letter-spacing:.04em;
+  color:rgba(246,239,224,.82);
+}
+
+/* =====================================================
+   ABOUT — editorial, not a card grid
+   The tiles this replaces were the most templated block on the page. A credential
+   rail set in small caps on hairline rules is a magazine device: it reads as
+   typeset where boxes read as generated, and it holds far more detail per inch.
+   ===================================================== */
+.about-grid{display:grid;grid-template-columns:minmax(300px,.82fr) minmax(0,1.18fr);gap:60px;align-items:start}
+.about-portrait{position:relative}
+.about-portrait .advisor-photo{
+  width:100%;display:block;border-radius:4px;aspect-ratio:4/5;object-fit:cover;
+  box-shadow:0 40px 90px -46px rgba(6,17,31,.6);
+}
+/* Square corners and a caption, because a rounded card with a soft shadow is the
+   look Tyler is reacting against. This is a photograph on a page, not a widget. */
+.about-portrait-cap{
+  margin:14px 0 0;font-family:var(--geist);font-size:11.5px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:#7a5e26;
+}
+.about-name{font-size:clamp(46px,5vw,72px);letter-spacing:-.055em;margin:6px 0 10px}
+.about-role{
+  font-family:var(--geist);font-size:13px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:#7a5e26;margin:0 0 28px;
+}
+.about-lede{font-size:clamp(18px,1.55vw,21px);line-height:1.55;color:#313d4f;max-width:56ch;margin:0 0 18px}
+.about-quote{
+  margin:30px 0;padding:0 0 0 22px;border-left:2px solid var(--gold);
+  font-family:Georgia,serif;font-size:clamp(22px,2.3vw,30px);line-height:1.25;
+  letter-spacing:-.03em;color:var(--ink);
+}
+.about-creds{margin:34px 0 0;padding:0;border-top:1px solid rgba(17,25,39,.14)}
+.about-creds .cred{
+  display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;
+  padding:15px 0;border-bottom:1px solid rgba(17,25,39,.1);
+}
+.about-creds dt{
+  font-family:var(--geist);font-size:11px;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;color:#7a5e26;padding-top:3px;
+}
+.about-creds dd{margin:0;font-size:15px;line-height:1.55;color:#3a4658}
+.about-actions{margin-top:30px}
+@media(max-width:940px){
+  .about-grid{grid-template-columns:1fr;gap:34px}
+  .about-portrait{max-width:340px}
+  .about-creds .cred{grid-template-columns:1fr;gap:5px}
+  .about-creds dt{padding-top:0}
+}
+
 /* =====================================================
    ADVISOR — cinematic portrait
    ===================================================== */

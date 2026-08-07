@@ -82,17 +82,14 @@
       <p class="lead">Investments, retirement income, planning, and protection. One virtual relationship, led by a Marine Corps veteran.</p>
       <div class="hero-actions"><a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a><a class="btn btn-ghost-light" href="#contact">Or send a message</a></div>
     </div>
-    <!-- The firm's four strongest facts. These were a scrolling marquee carrying the same
-         credentials with aria-hidden="true", i.e. the strongest trust signals on the page were
-         marked as decoration and moving. Every value is already stated elsewhere on this page and
-         on main; nothing here is new. The honest version of a stat band for an RIA is credentials
-         and structure, never performance or AUM. -->
-    <div class="photo-hero-band" aria-label="Credentials">
-      <div class="phb-stat"><strong>15+</strong><span>Years in insurance and financial services</span></div>
-      <div class="phb-stat"><strong>100%</strong><span>Virtual. No office visit required</span></div>
-      <div class="phb-stat"><strong>Series 65</strong><span>Investment Adviser Representative, held to a fiduciary standard</span></div>
-      <div class="phb-stat"><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
-    </div>
+    <!-- The four-card credential band that used to sit here is gone. Tyler: it "screams AI created".
+         He is right, and it is worth naming why so it does not come back. A row of big-number tiles
+         under a hero is the single most templated block on the modern web, and ours could not even
+         carry real numbers - an RIA cannot publish AUM or performance, so the tiles held "15+" and
+         "100%", which is the shape of a metric without the substance of one. The facts are true and
+         worth stating; they just belong in a sentence a person wrote, which is now the About
+         section. One quiet line here, and the detail lives below. -->
+    <p class="photo-hero-note">Veteran-owned · Series 65 fiduciary · Assets custodied at Charles Schwab</p>
   </div>
 </section>
 
@@ -112,25 +109,49 @@
   </div>
 </section>
 
-<section class="section alt" id="advisor">
-  <div class="wrap split advisor-split">
-    <div class="advisor-photo-wrap reveal">
+<!-- ABOUT. Editorial rather than a card grid, deliberately: a credential rail set in small caps on
+     hairline rules is a magazine device and reads as typeset, where boxed tiles read as generated.
+     Short, first person, and specific. The pieces only Tyler has - accounting, then psychology, then
+     the Marine Corps, then a practice built on the gap between what the numbers say and what people
+     actually do - are the part no competitor can copy and the part no template produces.
+     ⚠️ EVERY WORD IS A DRAFT PENDING TYLER'S APPROVAL, and two credential lines need his
+     confirmation before this can ever ship. See the notes on those lines. -->
+<section class="section alt about-section" id="advisor">
+  <div class="wrap about-grid">
+    <div class="about-portrait reveal">
       <img class="advisor-photo" src="assets/tyler-krause.jpg" alt="Tyler Krause, Founder &amp; Private Wealth Advisor at Rae &amp; Co Capital">
+      <p class="about-portrait-cap">Greenville, South Carolina</p>
     </div>
-    <div class="reveal">
-      <p class="eyebrow dark">Your private advisor · Veteran-owned</p>
-      <h2>Tyler Krause</h2>
-      <p class="advisor-role">Founder &amp; Private Wealth Advisor</p>
-      <p class="lead dark">Rae &amp; Co Capital was founded by Marine Corps veteran Tyler Krause on a simple belief: most money decisions are driven by behavior, not math.</p>
-      <p class="lead dark">He holds a Master's in Psychology from Arizona State and has built and sold businesses of his own. As an independent advisor, he coordinates investments, planning, and insurance around one strategy.</p>
-      <div class="hero-meta advisor-creds stagger">
-        <span class="meta-pill meta-pill-accent"><i class="meta-dot"></i> Veteran-owned</span>
-        <span class="meta-pill"><i class="meta-dot"></i> Series 65 · Investment Adviser Rep</span>
-        <span class="meta-pill"><i class="meta-dot"></i> Certified Corporate Financial Planning Analyst (CFPA)</span>
-        <span class="meta-pill"><i class="meta-dot"></i> M.S. Psychology · Arizona State</span>
-        <span class="meta-pill"><i class="meta-dot"></i> SC Life / Accident &amp; Health licensed</span>
-      </div>
-      <div class="hero-actions" style="margin-top:1.5rem"><a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a call with Tyler →</a></div>
+    <div class="about-body reveal">
+      <p class="eyebrow dark">Your advisor</p>
+      <h2 class="about-name">Tyler Krause</h2>
+      <p class="about-role">Founder &amp; Private Wealth Advisor · U.S. Marine Corps veteran</p>
+
+      <p class="about-lede">I studied accounting first, so I know what the numbers say. Then I studied psychology, because after fifteen years in this business I had watched too many capable people know the right answer and not do it.</p>
+      <p class="about-lede">That gap is the whole job. Rae &amp; Co Capital is built around it: coverage, investments, retirement income, and planning handled as one decision instead of five, by one person who answers the phone.</p>
+
+      <blockquote class="about-quote">Most money decisions are behavior, not math.</blockquote>
+
+      <!-- Credential rail. Typeset list on hairline rules, not tiles. -->
+      <dl class="about-creds stagger">
+        <div class="cred"><dt>Licensed</dt><dd>Series 65, Investment Adviser Representative, held to a fiduciary standard. South Carolina Life, Accident &amp; Health.</dd></div>
+        <!-- ⚠️ VERIFY BEFORE SHIPPING. The site has said "Certified Corporate Financial Planning
+             Analyst (CFPA)" since June. The AFP designation is "Certified Corporate FP&A
+             Professional", post-nominal FPAC. If the certificate reads FPAC, the live site has been
+             carrying a mis-stated credential, which on an RIA site is not a typo. Tyler confirms
+             the exact wording off the certificate and this line matches it. -->
+        <div class="cred"><dt>Certified</dt><dd>Certified Corporate Financial Planning Analyst</dd></div>
+        <!-- ⚠️ VERIFY BEFORE SHIPPING. "M.S. Psychology, Arizona State" is what the site says today
+             and is the only degree with a level and an institution on record. Tyler named accounting
+             and an applied business and technology degree in progress; neither has a level or a
+             school here and neither is invented below. An in-progress degree must never be written
+             as earned. -->
+        <div class="cred"><dt>Studied</dt><dd>M.S. Psychology, Arizona State University. Accounting. Currently completing a degree in applied business and technology.</dd></div>
+        <div class="cred"><dt>Experience</dt><dd>Fifteen years in insurance and financial services. Businesses built and sold.</dd></div>
+        <div class="cred"><dt>Custody</dt><dd>Client assets held at Charles Schwab. Insurance access through Mutual of Omaha.</dd></div>
+      </dl>
+
+      <div class="hero-actions about-actions"><a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a call with Tyler →</a></div>
     </div>
   </div>
 </section>
