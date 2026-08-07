@@ -165,11 +165,21 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
    .private-room and .strip-item: a translucent panel that only ever worked because of what was
    behind it. An opaque cream base under the same gradient keeps the look and fixes the read. */
 .photo-hero .protect-band{background:linear-gradient(150deg,rgba(200,161,90,.17),rgba(251,247,239,.9)),#fbf7ef}
-.photo-hero-band{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:20px}
-.phb-stat{background:rgba(11,20,33,.74);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  border:1px solid rgba(239,216,164,.24);border-radius:13px;padding:13px 13px}
-.phb-stat strong{display:block;font-family:Georgia,serif;font-weight:500;font-size:23px;line-height:1;letter-spacing:-.03em;color:#efd8a4;margin-bottom:6px}
-.phb-stat span{display:block;font-size:11.5px;line-height:1.4;color:#cfd8e2}
+/* ABOUT, editorial. Square corners and hairline rules on purpose: the rounded white card this
+   replaces is the shape that reads as generated, and it is the shape everything else on this page
+   already uses, so the section had no way to feel authored. */
+.m-about{padding-top:28px}
+.m-about-photo{width:160px;height:200px;object-fit:cover;display:block;border-radius:3px;box-shadow:0 26px 60px -34px rgba(6,17,31,.55)}
+.m-about-cap{margin:10px 0 22px;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink)}
+.m-about-name{font-family:Georgia,serif;font-size:38px;line-height:.95;letter-spacing:-.045em;margin:4px 0 8px;color:var(--text)}
+.m-about-role{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 20px}
+.m-about-lede{font-size:15.5px;line-height:1.6;color:var(--text);margin:0 0 14px}
+.m-about-quote{margin:22px 0;padding:0 0 0 16px;border-left:2px solid var(--gold-ink);font-family:Georgia,serif;font-size:21px;line-height:1.25;letter-spacing:-.025em;color:var(--text)}
+.m-creds{margin:26px 0 22px;padding:0;border-top:1px solid rgba(17,25,39,.14)}
+.m-cred{display:grid;gap:4px;padding:13px 0;border-bottom:1px solid rgba(17,25,39,.1)}
+.m-cred dt{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink)}
+.m-cred dd{margin:0;font-size:13.5px;line-height:1.55;color:var(--text-soft)}
+.photo-hero-note{margin:18px 0 0;font-size:12px;font-weight:600;letter-spacing:.03em;color:rgba(246,239,224,.84)}
 .people-media{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pm-card{position:relative;border-radius:16px;overflow:hidden;min-height:172px;display:flex;align-items:flex-end;isolation:isolate}
 .pm-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
@@ -271,13 +281,11 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
       <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a>
       <a class="btn btn-secondary" href="#contact">Or send a message</a>
     </div>
-    <!-- Same four credentials as the desktop hero band. Every value already appears on this page. -->
-    <div class="photo-hero-band" aria-label="Credentials">
-      <div class="phb-stat"><strong>15+</strong><span>Years in insurance and financial services</span></div>
-      <div class="phb-stat"><strong>100%</strong><span>Virtual. No office visit required</span></div>
-      <div class="phb-stat"><strong>Series 65</strong><span>Investment Adviser Representative, fiduciary standard</span></div>
-      <div class="phb-stat"><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
-    </div>
+    <!-- The four stat tiles are gone here for the same reason as on the desktop homepage: they are
+         the most templated block on the modern web, and an RIA cannot fill them with real numbers,
+         so they held "15+" and "100%" - the shape of a metric without the substance of one. The
+         facts moved into the About section, where a person says them. -->
+    <p class="photo-hero-note">Veteran-owned · Series 65 fiduciary · Assets at Charles Schwab</p>
     <div class="protect-band">
       <b>Start with coverage</b>
       <strong>Find out what you actually need, then see real pricing.</strong>
@@ -314,18 +322,31 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
   </div>
 </section>
 
-<section class="section" id="advisor" style="padding:30px 0">
+<!-- ABOUT, matching the desktop rebuild. This was a single 68-word block of run-on credentials inside
+     a rounded white card - the mobile version of the same "generated" problem. Same editorial
+     treatment now: portrait, name, two short first-person paragraphs, pull quote, credential rail on
+     hairline rules. Stacked rather than two-column, so the rail reads as label-over-value.
+     ⚠️ Same two lines await Tyler's confirmation as on index.html: the exact credential name off the
+     certificate, and the level/institution of the accounting and applied-business degrees. The
+     in-progress degree is written as in progress. All copy is DRAFT. -->
+<section class="section section-light m-about" id="advisor">
   <div class="wrap">
-    <div style="display:flex;gap:16px;align-items:flex-start;border:1px solid rgba(17,25,39,.13);border-radius:20px;background:#fff;padding:16px;box-shadow:0 18px 50px rgba(6,17,31,.10)">
-      <img src="assets/tyler-krause.jpg" alt="Tyler Krause, Founder &amp; Private Wealth Advisor at Rae &amp; Co Capital" onerror="this.style.display='none'" style="width:96px;height:120px;object-fit:cover;border-radius:14px;flex-shrink:0;border:1px solid rgba(239,216,164,.4)">
-      <div>
-        <span class="eyebrow" style="display:block;margin-bottom:6px">Your private advisor · Veteran-owned</span>
-        <h3 style="font-size:22px;margin:0 0 2px;color:var(--text)">Tyler Krause</h3>
-        <p style="font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 8px">Founder &amp; Private Wealth Advisor</p>
-        <p style="font-size:13px;color:var(--text-soft);margin:0 0 12px;line-height:1.5">Founded by U.S. Marine Corps veteran Tyler Krause. 15+ years in insurance and financial services, an M.S. in Psychology from Arizona State, and businesses built and sold. The firm runs on the psychology of money: most decisions are behavior, not math. Independent, fiduciary-minded advice; assets at Charles Schwab. Series 65 · CFPA · SC Life/A&amp;H.</p>
-        <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener" style="width:auto;padding:0 16px;min-height:42px">Book a call with Tyler →</a>
-      </div>
-    </div>
+    <img class="m-about-photo" src="assets/tyler-krause.jpg" alt="Tyler Krause, Founder &amp; Private Wealth Advisor at Rae &amp; Co Capital" onerror="this.style.display='none'">
+    <p class="m-about-cap">Greenville, South Carolina</p>
+    <span class="eyebrow">Your advisor</span>
+    <h2 class="m-about-name">Tyler Krause</h2>
+    <p class="m-about-role">Founder &amp; Private Wealth Advisor · U.S. Marine Corps veteran</p>
+    <p class="m-about-lede">I studied accounting first, so I know what the numbers say. Then I studied psychology, because after fifteen years in this business I had watched too many capable people know the right answer and not do it.</p>
+    <p class="m-about-lede">That gap is the whole job. Coverage, investments, retirement income, and planning handled as one decision instead of five, by one person who answers the phone.</p>
+    <blockquote class="m-about-quote">Most money decisions are behavior, not math.</blockquote>
+    <dl class="m-creds">
+      <div class="m-cred"><dt>Licensed</dt><dd>Series 65, Investment Adviser Representative, held to a fiduciary standard. South Carolina Life, Accident &amp; Health.</dd></div>
+      <div class="m-cred"><dt>Certified</dt><dd>Certified Corporate Financial Planning Analyst</dd></div>
+      <div class="m-cred"><dt>Studied</dt><dd>M.S. Psychology, Arizona State University. Accounting. Currently completing a degree in applied business and technology.</dd></div>
+      <div class="m-cred"><dt>Experience</dt><dd>Fifteen years in insurance and financial services. Businesses built and sold.</dd></div>
+      <div class="m-cred"><dt>Custody</dt><dd>Client assets held at Charles Schwab. Insurance access through Mutual of Omaha.</dd></div>
+    </dl>
+    <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a call with Tyler →</a>
   </div>
 </section>
 
