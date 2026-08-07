@@ -9,6 +9,37 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
+  // ---- Live coverage band -------------------------------------------------
+  // Two sliders and a number that moves while your thumb is still down. The
+  // point is that a visitor gets an answer without clicking anything, so the
+  // maths is deliberately the simplest honest version and the note under it
+  // says exactly what it does and does not include.
+  const lc = document.getElementById('liveCover');
+  if (lc) {
+    const inc = document.getElementById('lcIncome');
+    const mor = document.getElementById('lcMortgage');
+    const out = document.getElementById('lcOut');
+    const full = document.getElementById('lcFull');
+    const YEARS = 10; // stated in the note beside the number
+    const money = n => '$' + Math.round(n).toLocaleString('en-US');
+    const paint = r => {
+      const min = +r.min, max = +r.max;
+      r.style.setProperty('--p', max > min ? (+r.value - min) / (max - min) : 0);
+    };
+    const baseHref = full ? full.getAttribute('href') : '';
+    const run = () => {
+      const need = (+inc.value) * YEARS + (+mor.value);
+      out.textContent = money(need);
+      document.getElementById('lcIncomeOut').textContent = money(+inc.value);
+      document.getElementById('lcMortgageOut').textContent = money(+mor.value);
+      // Carry the two values into the full calculator so nothing is retyped.
+      if (full) full.href = baseHref + '&income=' + (+inc.value) + '&mortgage=' + (+mor.value);
+      paint(inc); paint(mor);
+    };
+    [inc, mor].forEach(r => r.addEventListener('input', run));
+    run();
+  }
+
   // scroll-reveal
   const targets = document.querySelectorAll('.reveal, .stagger');
   if (!targets.length) return;

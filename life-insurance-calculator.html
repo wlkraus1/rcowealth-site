@@ -333,6 +333,22 @@
     var el=document.getElementById(id);
     if(el){el.dataset.money="1";fmtField(el);}
   });
+
+  /* Values handed over from the homepage's live coverage band, so someone who
+     already dragged two sliders there does not start from the defaults again. */
+  (function(){
+    var q=new URLSearchParams(location.search);
+    ["income","mortgage"].forEach(function(id){
+      var v=parseFloat(q.get(id));
+      if(isNaN(v)||v<0){return;}
+      var el=document.getElementById(id);
+      if(!el){return;}
+      el.value=v; fmtField(el);
+      var r=document.querySelector('.sf-range[data-for="'+id+'"]');
+      if(r){r.value=v;r.dispatchEvent(new Event("input",{bubbles:true}));}
+    });
+  })();
+
   calc();
 })();
 </script>

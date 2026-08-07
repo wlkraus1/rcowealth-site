@@ -44,6 +44,42 @@ body{background:var(--paper)}
              linear-gradient(180deg,rgba(6,13,24,.45) 0%,transparent 30%,rgba(6,13,24,.62) 100%);
 }
 .photo-hero>.wrap{position:relative;z-index:3}
+
+/* ---- Motion ----------------------------------------------------------------
+   Tyler: nothing stands out, no animation. The answer is not decoration bolted on
+   top; it is the page arriving with intent. Three things only.
+
+   1. The photograph never stops moving. A 28s scale from 1.0 to 1.06 is slow
+      enough that you cannot catch it happening and obvious enough that the hero
+      feels alive rather than printed. This is the oldest trick in film titling
+      and it survives because it does not call attention to itself.  */
+.photo-hero-bg{animation:heroDrift 28s ease-in-out infinite alternate;will-change:transform}
+@keyframes heroDrift{from{transform:scale(1)}to{transform:scale(1.06)}}
+
+/* 2. The headline arrives a line at a time, rising out of its own baseline behind
+      a clip. Type that assembles itself reads as craft; type that fades in reads
+      as a template with a transition on it. */
+.photo-hero h1 .hl{display:block;overflow:hidden}
+.photo-hero h1 .hl>span{display:block;transform:translateY(105%);opacity:0;
+  animation:lineUp .95s cubic-bezier(.16,1,.3,1) forwards}
+.photo-hero h1 .hl:nth-child(1)>span{animation-delay:.12s}
+.photo-hero h1 .hl:nth-child(2)>span{animation-delay:.26s}
+@keyframes lineUp{to{transform:none;opacity:1}}
+/* Everything under the headline follows it up, in order. */
+.photo-hero .photo-hero-flag,.photo-hero .lead,.photo-hero .hero-actions,.photo-hero-note{
+  opacity:0;animation:riseIn .8s cubic-bezier(.16,1,.3,1) forwards}
+.photo-hero .photo-hero-flag{animation-delay:.05s}
+.photo-hero .lead{animation-delay:.44s}
+.photo-hero .hero-actions{animation-delay:.56s}
+.photo-hero-note{animation-delay:.68s}
+@keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* Motion is a preference, not a decoration: honour the system setting. */
+@media(prefers-reduced-motion:reduce){
+  .photo-hero-bg{animation:none}
+  .photo-hero h1 .hl>span,.photo-hero .photo-hero-flag,.photo-hero .lead,
+  .photo-hero .hero-actions,.photo-hero-note{animation:none;opacity:1;transform:none}
+}
 .photo-hero-copy{padding:118px 0 38px;max-width:660px}
 .photo-hero-flag{
   display:inline-flex;align-items:center;font-family:var(--geist);font-weight:700;
@@ -208,6 +244,57 @@ body{background:var(--paper)}
 .trust-stat span{font-family:var(--geist);font-size:13px;line-height:1.45;color:#48566b}
 @media(max-width:900px){.trust-band-grid{grid-template-columns:repeat(2,1fr);gap:22px}}
 @media(max-width:520px){.trust-stat strong{font-size:28px}}
+
+/* =====================================================
+   LIVE COVERAGE BAND — the interactive block on the homepage
+   ===================================================== */
+.live-cover{
+  margin-top:34px;display:grid;grid-template-columns:1.15fr .85fr;gap:0;
+  border:1px solid rgba(200,161,90,.36);border-radius:22px;overflow:hidden;
+  background:linear-gradient(135deg,#fffdf8 0%,#f7f0e0 100%);
+  box-shadow:0 30px 70px -38px rgba(12,28,48,.42);
+}
+.lc-copy{padding:32px 34px}
+.lc-copy h3{font-family:Georgia,serif;font-size:clamp(24px,2.5vw,32px);line-height:1.12;letter-spacing:-.035em;color:var(--ink);margin:6px 0 26px}
+.lc-field{margin-bottom:20px}
+.lc-field label{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  font-family:var(--geist);font-size:13px;font-weight:700;color:#46566a;margin-bottom:2px}
+.lc-field label b{font-family:Georgia,serif;font-weight:500;font-size:23px;letter-spacing:-.03em;color:var(--ink)}
+/* Reuses the calculator's .sf-range track and thumb so the two controls feel like
+   one product rather than two things that happen to both be sliders. */
+.lc-range{width:100%}
+/* Same track and thumb as the full calculator page, which carries its own copy of
+   these rules inline. Kept in sync by hand; if one changes, change both. */
+.sf-range{-webkit-appearance:none;appearance:none;height:34px;background:transparent;margin:0;cursor:pointer;touch-action:pan-y}
+.sf-range::-webkit-slider-runnable-track{height:8px;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold) 0 calc(var(--p,0)*100%),rgba(17,25,39,.15) calc(var(--p,0)*100%) 100%)}
+.sf-range::-moz-range-track{height:8px;border-radius:99px;
+  background:linear-gradient(90deg,var(--gold) 0 calc(var(--p,0)*100%),rgba(17,25,39,.15) calc(var(--p,0)*100%) 100%)}
+.sf-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:30px;height:30px;border-radius:50%;
+  background:#fff;border:2px solid var(--gold);margin-top:-11px;box-shadow:0 4px 14px rgba(6,17,31,.28);transition:transform .12s ease}
+.sf-range::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid var(--gold);
+  box-shadow:0 4px 14px rgba(6,17,31,.28);transition:transform .12s ease}
+.sf-range:active::-webkit-slider-thumb{transform:scale(1.12)}
+.sf-range:active::-moz-range-thumb{transform:scale(1.12)}
+.sf-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(200,161,90,.35)}
+.lc-result{
+  padding:32px 30px;display:flex;flex-direction:column;justify-content:center;
+  background:linear-gradient(180deg,#0c1a2b,#08131f);color:#fff;
+}
+.lc-label{font-family:var(--geist);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#e8cf9a;margin:0 0 10px}
+.lc-big{
+  font-family:Georgia,serif;font-size:clamp(38px,4.4vw,58px);line-height:1;letter-spacing:-.045em;
+  color:#fff;margin:0 0 10px;font-variant-numeric:tabular-nums;
+}
+.lc-note{font-family:var(--geist);font-size:12.5px;line-height:1.5;color:rgba(246,239,224,.72);margin:0 0 20px}
+.lc-result .btn{width:100%;justify-content:center}
+.lc-result .btn+.btn{margin-top:9px}
+.lc-result .btn-secondary.on-light{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.42);color:#fff}
+@media(max-width:860px){
+  .live-cover{grid-template-columns:1fr}
+  .lc-copy{padding:26px 22px}
+  .lc-result{padding:26px 22px}
+}
 
 /* One quiet line where the four credential tiles used to be. */
 .photo-hero-note{
