@@ -235,9 +235,17 @@ and the Log; do not re-open them from here.
   - Watch the mobile redirect: it is an allow-list now, so **any new page needs a mobile plan** or it
     ships desktop-only to most of the traffic.
   - ✅ **R1 IS CLOSED, so R2 IS UNBLOCKED. Order revised after the correction above:**
-    **(a) DEDUPLICATION FIRST — it is the only unambiguous defect and Tyler named it.**
-    `#wealth` (four cards, 1,478px) and `#method` (the same four as tabs, 1,061px) are the same content
-    twice on one page. Keep the one that skims, move the detail it carries rather than deleting it.
+    ~~**(a) DEDUPLICATION FIRST**~~ **DONE 2026-08-07.** And it was worse than reported: **the four
+    services appeared THREE times site-wide** — `#wealth` cards, `#method` tabs on the same page, and
+    the same four again on `services.html` linking to four dedicated service pages that already exist.
+    **`#wealth`'s cards were removed and `#method` kept**, decided by dependency rather than taste:
+    nothing anywhere links to `#wealth`, while **fifteen files link to `index.html#method`** (the
+    "Planning Areas" nav destination), and `#method` additionally drives `prefillForm()` in `site.js`,
+    which fills the Salesforce interest and next-step fields — deleting it would have broken lead
+    capture. The section itself survives because the live coverage band and carrier band sit inside it;
+    it is `#coverage` now. **Result: 8,603 → 8,181px, 9.6 → 9.1 screens, "Investment management"
+    appears once on the homepage instead of twice.** Tabs, prefill button, Salesforce action, oid and
+    honeypot all verified intact after the cut; no console errors.
     **(b) Then the split**, by measured height, nav shaped like the cohort: 5–8 top-level items,
     services on their own pages.
     **(c) Vertical rhythm LAST, and it is worth about one screen, not five.** R1 phase 3 measured our layout at 93 words per screen

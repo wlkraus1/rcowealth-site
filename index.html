@@ -164,15 +164,23 @@
   </div>
 </section>
 
-<section class="section alt" id="wealth">
+<!-- Was #wealth: an "Advisory work" heading plus four service cards. Removed 2026-08-07.
+     THE FOUR SERVICES APPEARED THREE TIMES ACROSS THE SITE: these cards, the #method tabs further
+     down this same page, and the same four again as cards on services.html pointing at the four
+     dedicated service pages that already exist. Tyler spotted two of the three by eye.
+     These cards were the copy to cut, not #method, and the reasoning is not preference:
+       - Nothing anywhere links to #wealth. FIFTEEN files link to index.html#method, the "Planning
+         Areas" nav destination, so removing that one would have broken the nav site-wide.
+       - #method is not a duplicate of equal weight. It carries the per-service detail panel AND
+         drives prefillForm() in site.js, which populates the Salesforce interest and next-step
+         fields. Deleting it would have broken lead capture, a standing guardrail in this file.
+       - The skimmable card layer is not lost. services.html already carries this exact grid and its
+         cards point at the four real pages rather than an anchor further down one page, which is
+         where the competitor research says services belong.
+     The section stays because the live coverage band and the carrier band live inside it. Renamed
+     to #coverage: it is the protection funnel now, not an advisory overview. -->
+<section class="section alt" id="coverage">
   <div class="wrap">
-    <div class="section-head reveal"><div><p class="eyebrow dark">Advisory work</p><h2>Four disciplines. One coordinated financial view.</h2></div><p>How portfolio, income, planning, and protection affect each other, before a move is made.</p></div>
-    <div class="grid-4 stagger">
-      <article class="card clickable" tabindex="0" data-service="portfolio"><span class="card-label">Portfolio</span><h3>Investment management</h3><p>Risk, allocation, taxes, and structure, tied to the purpose of the money.</p><span class="card-link">Explore the investment work →</span></article>
-      <article class="card clickable" tabindex="0" data-service="income"><span class="card-label">Income</span><h3>Retirement planning</h3><p>Withdrawals, reserves, survivor needs, and the shift from saving to spending.</p><span class="card-link">Explore retirement income →</span></article>
-      <article class="card clickable" tabindex="0" data-service="protection"><span class="card-label">Protection</span><h3>Life insurance planning</h3><p>Coverage matched to debt, family obligations, and business exposure.</p><span class="card-link">Explore protection planning →</span></article>
-      <article class="card clickable" tabindex="0" data-service="planning"><span class="card-label">Planning</span><h3>Financial planning</h3><p>Cash flow, taxes, estate priorities, and business decisions, organized into action.</p><span class="card-link">Explore the planning work →</span></article>
-    </div>
     <!-- LIVE COVERAGE BAND. This replaces a paragraph that TOLD people a calculator existed on
          another page. Almost nobody clicks through to be told a number; a great many people will
          drag a handle sitting in front of them. Two sliders, one number that moves while you hold
