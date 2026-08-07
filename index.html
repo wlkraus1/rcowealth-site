@@ -61,29 +61,45 @@
 </header>
 <main id="main">
 
-<section class="hero virtual-hero">
-  <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/media/hero-ambient.jpg" aria-hidden="true">
-    <source src="assets/media/hero-ambient.mp4" type="video/mp4">
-  </video>
-  <div class="hero-bg-veil" aria-hidden="true"></div>
-  <div class="wrap hero-inner virtual-hero-inner">
-    <div class="hero-copy">
-      <div class="virtual-flag"><span class="live-dot" aria-hidden="true"></span> 100% virtual wealth management</div>
-      <p class="eyebrow">Rae &amp; Co Capital</p>
+<!-- Photographic hero. The previous one framed assets/tyler-krause.jpg, which is the same file the
+     advisor section below uses - one headshot doing two jobs, and it could not carry the page.
+     The shape here follows the reference Tyler pointed at: one full-bleed environmental photograph
+     under a scrim, a large serif headline, and the credential band on the bottom edge where a
+     skimming reader gets four facts without reading a sentence.
+     Left-aligned rather than centred like the reference, because this photograph is a close-up and
+     centred type lands on a face.
+     The photograph is stock and is not captioned as a client. It carries an empty alt because it is
+     decorative - the meaning is all in the text above it.
+     The "Virtual office · live" badge and its pulsing dot are gone with the old frame; they read as
+     a broken stream over a still image. -->
+<section class="hero photo-hero">
+  <img class="photo-hero-bg" src="assets/media/clients-military.jpg" alt="" aria-hidden="true">
+  <div class="photo-hero-scrim" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="photo-hero-copy">
+      <p class="photo-hero-flag">Veteran-owned · 100% virtual</p>
       <h1>Premium advice.<br><span class="accent">No office visit required.</span></h1>
-      <p class="lead">Serious wealth management without sitting in a conference room. Investments, retirement income, planning, and protection. One virtual relationship, led by a Marine Corps veteran.</p>
-      <div class="hero-actions"><a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a><a class="btn btn-secondary on-light" href="#contact">Or send a message</a></div>
-      <div class="hero-meta"><span class="meta-pill meta-pill-accent"><i class="meta-dot"></i> Veteran-owned</span><span class="meta-pill"><i class="meta-dot"></i> Video-led planning</span><span class="meta-pill"><i class="meta-dot"></i> Schwab + Mutual of Omaha access</span><span class="meta-pill"><i class="meta-dot"></i> South Carolina registered investment adviser</span></div>
+      <p class="lead">Investments, retirement income, planning, and protection. One virtual relationship, led by a Marine Corps veteran.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a><a class="btn btn-ghost-light" href="#contact">Or send a message</a></div>
     </div>
-    <div class="hero-media">
-      <div class="hero-media-frame">
-        <span class="hero-media-badge"><span class="live-dot" aria-hidden="true"></span> Virtual office · live</span>
-          <img class="hero-media-photo" src="assets/tyler-krause.jpg" alt="Tyler Krause, Founder &amp; Private Wealth Advisor at Rae &amp; Co Capital">
-      </div>
-      <div class="float-chip fc1"><small>Custody</small>Charles Schwab</div>
-      <div class="float-chip fc2"><small>Standard</small>Fiduciary advice</div>
+    <!-- The firm's four strongest facts. These were a scrolling marquee carrying the same
+         credentials with aria-hidden="true", i.e. the strongest trust signals on the page were
+         marked as decoration and moving. Every value is already stated elsewhere on this page and
+         on main; nothing here is new. The honest version of a stat band for an RIA is credentials
+         and structure, never performance or AUM. -->
+    <div class="photo-hero-band" aria-label="Credentials">
+      <div class="phb-stat"><strong>15+</strong><span>Years in insurance and financial services</span></div>
+      <div class="phb-stat"><strong>100%</strong><span>Virtual. No office visit required</span></div>
+      <div class="phb-stat"><strong>Series 65</strong><span>Investment Adviser Representative, held to a fiduciary standard</span></div>
+      <div class="phb-stat"><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
     </div>
   </div>
+</section>
+
+<!-- The virtual-model strip used to sit inside the hero. The photographic hero has no room for it,
+     so it becomes its own light band. Its colour overrides move with it: the strip ships styled for
+     a dark surface, so on a light one its text drops to ~1.3:1 unless the overrides follow. -->
+<section class="strip-section">
   <div class="wrap virtual-first-strip reveal">
     <div class="strip-shell">
       <div class="strip-lead"><span>Virtual model</span><strong>From first conversation to ongoing review, the relationship is designed to work remotely.</strong></div>
@@ -93,20 +109,6 @@
         <div class="strip-item"><b>Access directly</b><span>Schwab and Mutual of Omaha portals stay separate from Rae &amp; Co forms.</span></div>
       </div>
     </div>
-  </div>
-  <a class="hero-scroll" href="#advisor" aria-label="Scroll to learn more"><span>Scroll</span><span class="mouse" aria-hidden="true"></span></a>
-</section>
-
-<!-- The firm's four strongest facts, static and readable. This replaced a scrolling marquee
-     that carried the same credentials with aria-hidden="true" - i.e. the strongest trust signals on
-     the page were marked as decoration, duplicated in the DOM for the scroll loop, and moving.
-     Every value here is already stated elsewhere on this page and on main; nothing is new. -->
-<section class="trust-band" aria-label="Credentials">
-  <div class="wrap trust-band-grid">
-    <div class="trust-stat"><strong>15+</strong><span>Years in insurance and financial services</span></div>
-    <div class="trust-stat"><strong>100%</strong><span>Virtual. No office visit required</span></div>
-    <div class="trust-stat"><strong>Series 65</strong><span>Investment Adviser Representative, held to a fiduciary standard</span></div>
-    <div class="trust-stat"><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
   </div>
 </section>
 

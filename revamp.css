@@ -20,7 +20,71 @@ body{background:var(--paper)}
 .header.scrolled{background:rgba(7,16,28,.94);box-shadow:0 10px 40px -20px rgba(0,0,0,.6)}
 
 /* =====================================================
-   HERO — light, cinematic, video-framed
+   HERO — full-bleed photograph, serif headline, credential band
+   Replaces the light video-framed hero. That one framed the same headshot the
+   advisor section uses; a portrait cannot do both jobs, and the reference Tyler
+   pointed at uses an environmental photograph rather than a face.
+   Inherits the dark .hero base from styles.css, so white text is correct here.
+   ===================================================== */
+.photo-hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.photo-hero-bg{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  /* the family sits right of centre, so the copy column stays off the faces */
+  object-position:72% 32%;z-index:0;
+}
+/* Two scrims, not one. The horizontal pass buys contrast for the copy column on the
+   left; the vertical pass darkens the very bottom so the credential band reads.
+   A single flat overlay dark enough for text would grey out the whole photograph. */
+.photo-hero-scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(96deg,rgba(6,13,24,.9) 0%,rgba(6,13,24,.74) 34%,rgba(6,13,24,.28) 62%,rgba(6,13,24,.35) 100%),
+             linear-gradient(180deg,rgba(6,13,24,.45) 0%,transparent 30%,rgba(6,13,24,.62) 100%);
+}
+.photo-hero>.wrap{position:relative;z-index:3}
+.photo-hero-copy{padding:118px 0 38px;max-width:660px}
+.photo-hero-flag{
+  display:inline-flex;align-items:center;font-family:var(--geist);font-weight:700;
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#efd8a4;
+  border:1px solid rgba(239,216,164,.42);background:rgba(8,16,28,.34);
+  border-radius:999px;padding:9px 16px;margin:0 0 26px;
+}
+.photo-hero h1{color:#fff;letter-spacing:-.055em;line-height:.94;font-size:clamp(50px,5.6vw,84px);margin:0 0 22px}
+.photo-hero h1 .accent{color:#e8cf9a;display:block}
+.photo-hero .lead{color:#e4e9ef;max-width:52ch;margin:0 0 30px}
+.btn-ghost-light{border-color:rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.08);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.btn-ghost-light:hover{background:rgba(255,255,255,.16)}
+
+/* Credential band, sitting on the bottom edge of the photograph. */
+.photo-hero-band{
+  position:relative;z-index:4;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding-bottom:44px;
+}
+.phb-stat{
+  background:rgba(11,20,33,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgba(239,216,164,.22);border-radius:14px;padding:20px 22px;
+}
+.phb-stat strong{display:block;font-family:Georgia,serif;font-weight:500;font-size:clamp(27px,2.6vw,37px);line-height:1;letter-spacing:-.03em;color:#efd8a4;margin-bottom:8px}
+.phb-stat span{display:block;font-family:var(--geist);font-size:13px;line-height:1.45;color:#cfd8e2}
+@media(max-width:940px){
+  .photo-hero{min-height:auto}
+  .photo-hero-copy{padding-top:96px}
+  .photo-hero-band{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .photo-hero-copy{padding-top:84px}
+  .photo-hero-band{grid-template-columns:1fr;padding-bottom:34px}
+}
+
+/* The virtual-model strip, now its own light band below the hero. */
+.strip-section{background:var(--paper);padding-top:58px}
+.strip-section .virtual-first-strip{padding-bottom:0}
+
+/* =====================================================
+   HERO — light, cinematic, video-framed  (SUPERSEDED)
+   Kept only so the rules below can be read against the diff; nothing on the
+   site carries .virtual-hero any more.
    ===================================================== */
 .hero.virtual-hero{
   background:
@@ -67,16 +131,16 @@ body{background:var(--paper)}
    the first thing under the fold on the desktop homepage.
    Scoped to .hero.virtual-hero like every rule above it, so the strip keeps its dark styling
    anywhere it is used on a dark section. */
-.hero.virtual-hero .strip-lead span{color:#7a5e26}
-.hero.virtual-hero .strip-lead strong{color:var(--ink)}
+.hero.virtual-hero .strip-lead span,.strip-section .strip-lead span{color:#7a5e26}
+.hero.virtual-hero .strip-lead strong,.strip-section .strip-lead strong{color:var(--ink)}
 /* The item card itself is the reason ink text still failed here. .strip-item carries
    background:rgba(6,17,31,.36) — a 36% dark tint that read as a subtly darker card over the old
    dark hero and composites to mid grey-blue over the light one, holding even #3a4658 to 3.87:1.
    The same shape of defect as .private-room on mobile: a translucent dark panel that only ever
    worked because of what was behind it. */
-.hero.virtual-hero .strip-item{background:rgba(255,255,255,.72);border-color:rgba(17,25,39,.10)}
-.hero.virtual-hero .strip-item b{color:var(--ink)}
-.hero.virtual-hero .strip-item span{color:#3a4658}
+.hero.virtual-hero .strip-item,.strip-section .strip-item{background:rgba(255,255,255,.72);border-color:rgba(17,25,39,.10)}
+.hero.virtual-hero .strip-item b,.strip-section .strip-item b{color:var(--ink)}
+.hero.virtual-hero .strip-item span,.strip-section .strip-item span{color:#3a4658}
 /* 3.68:1 — the same darker gold the meta pill and the .virtual-hero-badge already use. */
 .hero.virtual-hero .eyebrow{color:#7a5e26}
 
