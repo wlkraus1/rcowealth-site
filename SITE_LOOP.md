@@ -346,14 +346,7 @@ and the Log; do not re-open them from here.
     **Annuities (MYGA, income riders) are pointed to the retirement planning page rather than covered
     here**, because they are retirement income products and this is a protection page. Putting them
     here would have started the duplication cycle again.
-  - ⛔ **VUL IS STILL THE ONLY THING MISSING, AND IT IS STILL NOT A DESIGN DECISION.** Tyler has now
-    raised it twice without answering the licensing question, and asking again is not obstruction:
-    **VUL is a variable product, i.e. a security. Selling or soliciting it requires a FINRA
-    registration — Series 6 or Series 7 — held through a broker-dealer.** The site states Series 65
-    (IAR) and SC Life, Accident & Health. Series 65 does not permit variable products. **The single
-    question that unblocks it: does Tyler hold an active Series 6 or 7 through a BD?** If yes, the
-    section takes fifteen minutes. If no, listing it on a public page is soliciting a product he
-    cannot sell.
+  - ⛔ **VUL: CLOSED 2026-08-07. Tyler: "no leave the VUL out then." DO NOT RE-RAISE IT.** Kept off the site. The reasoning, for the record: VUL is a variable product, i.e. a security, and selling or soliciting it needs a FINRA Series 6 or 7 through a broker-dealer; the firm holds Series 65 plus SC Life, Accident & Health. If Tyler ever adds that registration, the section is fifteen minutes of work.
   - ⚠️ **Two sub-40px tap targets on the new page (menu toggle 37px, breadcrumb 19px) are SITE-WIDE
     patterns inherited from the template, not introduced here.** Fixing them is a separate change
     across every page; logged, not smuggled in.
