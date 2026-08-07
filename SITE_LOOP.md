@@ -401,7 +401,21 @@ and the Log; do not re-open them from here.
 
 - [ ] **R6. REVIEW PASSES — Tyler asked for "tested and reviewed multiple times", so this is a real
   queue item, not a formality.** Run each pass as its own iteration, log findings, fix, re-verify:
-  - **(a) Link integrity.** Every internal href on all 18 pages resolves; no anchor points at a
+  - ✅ **(a) Link integrity — DONE 2026-08-07. 20 pages, 0 broken file or asset references, 0 broken
+    anchors on any real page.** `#wealth` and `#client-access` have no inbound links anywhere, so the
+    R2 removals left nothing dangling, and `#method` is still present for the 15 files that point at
+    it. ⚠️ **The first run of the checker reported 90 broken links and every one was false** — it
+    compared hrefs against the list of HTML files only, so `styles.css`, the favicons and every image
+    counted as missing. Fifth false reading from automated tooling in this loop. Check the filesystem,
+    not a list you built.
+    🚩 **What the pass actually caught was not a link.** `hero-preview.html` and
+    `direction-preview.html` are internal scaffolding and were **tracked in git, so the IONOS deploy
+    would have published them** at `rcowealth.com/hero-preview.html`. Both carry noindex, so Google
+    would have stayed away, but they were publicly reachable pages on a regulated firm's site showing
+    half-finished design options. **Both deleted now that Tyler has chosen A**; git history retains
+    them and the decisions they drove are recorded above. The published comparison Tyler is looking at
+    is a separate copy outside the repo, so removing these does not break that link.
+  - **(a-orig) Link integrity.** Every internal href on all 18 pages resolves; no anchor points at a
     section removed during R2 (`#wealth`, `#client-access`, the strip). 15 files still point at
     `index.html#method` — confirm it is still there.
   - **(b) Lead capture, end to end.** All 10 forms: Salesforce action, `oid`, `retURL`, the custom
