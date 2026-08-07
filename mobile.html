@@ -138,9 +138,38 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
 .access-actions{display:grid;gap:8px}
 .note{border:1px solid rgba(239,215,164,.18);background:rgba(239,215,164,.08);border-radius:14px;padding:12px;color:rgba(246,239,224,.72);font-size:12px;line-height:1.45;margin-top:12px}
 .people-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.m-hero-video{margin-top:20px;border-radius:18px;overflow:hidden;position:relative;border:1px solid rgba(200,161,90,.32);box-shadow:0 20px 56px rgba(6,17,31,.18);aspect-ratio:4/5;background:#0c1118}
-.m-hero-video video,.m-hero-video img{width:100%;height:100%;object-fit:cover;display:block}
-.m-hero-video .vbadge{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.04em;color:#fff;background:rgba(8,14,22,.6);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 9px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+/* Photographic hero, matching the desktop homepage. This page previously opened with type on
+   cream and put assets/tyler-krause.jpg in a 4:5 frame further down, which is the same file the
+   advisor card below uses. Mobile is nearly all of the traffic, so it gets the same treatment. */
+.photo-hero{position:relative;isolation:isolate;overflow:hidden;padding:0;background:#0b1421}
+/* Not the desktop's 72% 32%. A 3:2 landscape photograph cover-cropped into a tall narrow box keeps
+   roughly the middle third, and at the desktop value that third is the back of the child's head:
+   no uniform, no face, so the picture stops saying "military family" on the surface most visitors
+   actually see. 40% 22% holds the cover, his face and the child together. Chosen by looking at
+   three crops at 390 wide, not by reasoning about the numbers. */
+.photo-hero .photo-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 22%;z-index:0}
+/* Vertical rather than the desktop's horizontal pass: on a narrow screen the copy runs the full
+   width, so there is no clear column to protect and the gradient has to work top to bottom. */
+.photo-hero .photo-hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,13,24,.72) 0%,rgba(6,13,24,.42) 30%,rgba(6,13,24,.55) 62%,rgba(6,13,24,.92) 100%)}
+.photo-hero .wrap{position:relative;z-index:3;padding-top:26px;padding-bottom:22px}
+.photo-hero .kicker{border-color:rgba(239,216,164,.44);background:rgba(8,16,28,.42);color:#efd8a4}
+.photo-hero h1{color:#fff}
+.photo-hero .lead{color:#e4e9ef}
+/* Scoped to .hero-actions, NOT to the whole hero. The protection band is a light card inside this
+   same section and it has its own btn-secondary; a hero-wide rule turned that one white on cream. */
+.photo-hero .hero-actions .btn-secondary{border-color:rgba(255,255,255,.5);color:#fff;background:rgba(255,255,255,.1)}
+/* The protection band is a translucent light card - rgba(251,247,239,.9) over a .17 gold wash. On
+   the old cream page it read as cream. Over a photograph it composites dark and its gold eyebrow
+   washes out to unreadable. Third time this shape of defect has appeared on this site after
+   .private-room and .strip-item: a translucent panel that only ever worked because of what was
+   behind it. An opaque cream base under the same gradient keeps the look and fixes the read. */
+.photo-hero .protect-band{background:linear-gradient(150deg,rgba(200,161,90,.17),rgba(251,247,239,.9)),#fbf7ef}
+.photo-hero-band{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:20px}
+.phb-stat{background:rgba(11,20,33,.74);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border:1px solid rgba(239,216,164,.24);border-radius:13px;padding:13px 13px}
+.phb-stat strong{display:block;font-family:Georgia,serif;font-weight:500;font-size:23px;line-height:1;letter-spacing:-.03em;color:#efd8a4;margin-bottom:6px}
+.phb-stat span{display:block;font-size:11.5px;line-height:1.4;color:#cfd8e2}
 .people-media{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pm-card{position:relative;border-radius:16px;overflow:hidden;min-height:172px;display:flex;align-items:flex-end;isolation:isolate}
 .pm-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
@@ -231,14 +260,23 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
   </nav>
 </header>
 <main id="main" class="site-content">
-<section class="hero" id="top">
+<section class="hero photo-hero" id="top">
+  <img class="photo-hero-bg" src="assets/media/clients-military.jpg" alt="" aria-hidden="true">
+  <div class="photo-hero-scrim" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="kicker"><span class="live-dot" aria-hidden="true"></span> Veteran-owned · 100% virtual wealth management</span>
+    <span class="kicker">Veteran-owned · 100% virtual wealth management</span>
     <h1>Premium advice. Built to meet virtually.</h1>
     <p class="lead">Rae &amp; Co Capital coordinates investments, retirement income, financial planning, and protection planning through a clean virtual advisory relationship.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call →</a>
       <a class="btn btn-secondary" href="#contact">Or send a message</a>
+    </div>
+    <!-- Same four credentials as the desktop hero band. Every value already appears on this page. -->
+    <div class="photo-hero-band" aria-label="Credentials">
+      <div class="phb-stat"><strong>15+</strong><span>Years in insurance and financial services</span></div>
+      <div class="phb-stat"><strong>100%</strong><span>Virtual. No office visit required</span></div>
+      <div class="phb-stat"><strong>Series 65</strong><span>Investment Adviser Representative, fiduciary standard</span></div>
+      <div class="phb-stat"><strong>Schwab</strong><span>Client assets custodied at Charles Schwab</span></div>
     </div>
     <div class="protect-band">
       <b>Start with coverage</b>
@@ -247,10 +285,16 @@ details[open] .plus{background:#06111f;color:#fff;border-color:#06111f}
       <a class="btn btn-primary" href="life-insurance-calculator.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_mobile&amp;utm_content=mobile_protect_band_calculator">Estimate your coverage need →</a>
       <a class="btn btn-secondary" href="life-insurance-quote.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_mobile&amp;utm_content=mobile_protect_band_quote">Compare real quotes</a>
     </div>
-    <div class="m-hero-video">
-      <span class="vbadge"><span class="live-dot" aria-hidden="true"></span> Virtual office · live</span>
-      <img class="m-hero-photo" src="assets/tyler-krause.jpg" alt="Tyler Krause, Founder &amp; Private Wealth Advisor at Rae &amp; Co Capital">
-    </div>
+  </div>
+</section>
+
+<!-- Everything below used to sit inside the hero. The hero is a photograph now, so it ends at the
+     protection band and the rest becomes a light section.
+     The 4:5 frame that held assets/tyler-krause.jpg is gone with it, along with its
+     "Virtual office · live" badge: the same headshot still appears in the advisor card below, and a
+     pulsing live dot over a still portrait reads as a broken stream. -->
+<section class="section section-light">
+  <div class="wrap">
     <div class="no-office" aria-label="Virtual-only benefits">
       <span>No office visit</span><span>No waiting room</span><span>No branch appointment</span>
     </div>
