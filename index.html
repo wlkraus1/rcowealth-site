@@ -93,6 +93,80 @@
   </div>
 </section>
 
+<!-- COVERAGE MOVED UP, 2026-08-07. It was three screens down; it is now the first thing after the
+     hero. This survived the A/B decision because it was never a taste question: nine sites were
+     measured across this project and every one of them runs zero animation libraries, so the ones
+     that feel alive are not moving - they put the interactive thing at the top. Wise starts its
+     currency widget before the fold ends. This slider is the only feature on this site no Upstate
+     competitor has, and burying it under three screens of prose was the single biggest gap between
+     what the firm owns and what a visitor sees. The carrier band travels with it: a visitor who has
+     just been handed a number immediately asks who it gets shopped to. -->
+<section class="section alt" id="coverage">
+  <div class="wrap">
+    <!-- LIVE COVERAGE BAND. This replaces a paragraph that TOLD people a calculator existed on
+         another page. Almost nobody clicks through to be told a number; a great many people will
+         drag a handle sitting in front of them. Two sliders, one number that moves while you hold
+         it, and the full tool one tap away with the values carried across in the query string so
+         nothing is retyped.
+         This is the one genuinely distinctive thing on the site: no Upstate competitor publishes an
+         instant coverage figure, and it puts the revenue engine above the fold instead of three
+         clicks down. It is also motion with a job, which is the only kind worth having.
+         The maths is deliberately the simplest honest version - income x years + mortgage - and the
+         label says so, because a homepage teaser that pretends to be a full needs analysis would be
+         the wrong kind of confident. The real tool carries debts, children, final expenses and
+         existing coverage. -->
+    <div class="live-cover reveal" id="liveCover">
+      <div class="lc-copy">
+        <p class="eyebrow dark">Start with coverage</p>
+        <h3>Most people are guessing. Move the sliders.</h3>
+        <div class="lc-field">
+          <label for="lcIncome">Your income <b id="lcIncomeOut">$75,000</b></label>
+          <input class="sf-range lc-range" type="range" id="lcIncome" min="20000" max="400000" step="5000" value="75000">
+        </div>
+        <div class="lc-field">
+          <label for="lcMortgage">What you owe on the house <b id="lcMortgageOut">$250,000</b></label>
+          <input class="sf-range lc-range" type="range" id="lcMortgage" min="0" max="750000" step="10000" value="250000">
+        </div>
+      </div>
+      <div class="lc-result">
+        <p class="lc-label">Rough coverage need</p>
+        <p class="lc-big" id="lcOut">$1,000,000</p>
+        <p class="lc-note">Income for 10 years, plus the mortgage. A starting point, not advice.</p>
+        <a class="btn btn-primary" id="lcFull" href="life-insurance-calculator.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_homepage&amp;utm_content=home_live_cover">Run the full number →</a>
+        <a class="btn btn-secondary on-light" href="life-insurance-quote.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_homepage&amp;utm_content=home_protect_band_quote">Compare real quotes</a>
+      </div>
+    </div>
+
+    <!-- CARRIER BAND. Sits directly under the coverage slider on purpose: a visitor has just been
+         given a number, and the obvious next question is who it gets shopped to.
+         Names are set as TYPE, not logos. Two reasons, both practical. Carrier marks are trademarks
+         and most carriers require a producer to get advertising approval before using them, so logos
+         need Tyler's BGA to confirm which carriers permit it and to supply the approved files.
+         Type also loads instantly, reads on a phone, and is indexable, which forty image files
+         would not be.
+         The list is a subset chosen for recognition. The count says 40+ rather than the 48 toggles
+         in the BackNine console because a good number of those are New York subsidiaries that a
+         South Carolina client will never be written with, and a number nobody can defend is worth
+         less than a smaller one that holds up.
+         ⚠️ Final expense is deliberately absent from the product line: it stays on its own landing
+         pages and off the main site. IUL is not led with. -->
+    <div class="carriers reveal">
+      <div class="carriers-head">
+        <p class="eyebrow dark">Independent</p>
+        <h3>We do not work for one carrier. We shop <b>40+</b> of them.</h3>
+        <p class="carriers-sub">Term, whole life, universal life, long term care, and linked benefit, quoted side by side. You see the pricing we see.</p>
+      </div>
+      <ul class="carrier-list">
+        <li>Prudential</li><li>Lincoln Financial</li><li>Pacific Life</li><li>John Hancock</li>
+        <li>Transamerica</li><li>Protective</li><li>Nationwide</li><li>Principal</li>
+        <li>Symetra</li><li>Mutual of Omaha</li><li>Corebridge</li><li>Securian</li>
+        <li>Banner Life</li><li>Allianz</li><li>Thrivent</li><li>SBLI</li>
+      </ul>
+      <p class="carriers-note"><a href="types-of-life-insurance.html" style="color:#8c6b32;font-weight:700">What the five types of life insurance actually do →</a><br>Carrier availability varies by product, state, and underwriting. Rae &amp; Co is compensated by commission on insurance placed; that conflict is disclosed in our Form CRS.</p>
+    </div>
+  </div>
+</section>
+
 <!-- Was the virtual-model strip, 245px. Removed 2026-08-07. THIRD duplicate found on this homepage
      by the same test, and this one was a duplicate of another SECTION rather than of a page:
        strip "Meet remotely"      = #virtual "Access"   (video or phone)
@@ -176,71 +250,6 @@
          where the competitor research says services belong.
      The section stays because the live coverage band and the carrier band live inside it. Renamed
      to #coverage: it is the protection funnel now, not an advisory overview. -->
-<section class="section alt" id="coverage">
-  <div class="wrap">
-    <!-- LIVE COVERAGE BAND. This replaces a paragraph that TOLD people a calculator existed on
-         another page. Almost nobody clicks through to be told a number; a great many people will
-         drag a handle sitting in front of them. Two sliders, one number that moves while you hold
-         it, and the full tool one tap away with the values carried across in the query string so
-         nothing is retyped.
-         This is the one genuinely distinctive thing on the site: no Upstate competitor publishes an
-         instant coverage figure, and it puts the revenue engine above the fold instead of three
-         clicks down. It is also motion with a job, which is the only kind worth having.
-         The maths is deliberately the simplest honest version - income x years + mortgage - and the
-         label says so, because a homepage teaser that pretends to be a full needs analysis would be
-         the wrong kind of confident. The real tool carries debts, children, final expenses and
-         existing coverage. -->
-    <div class="live-cover reveal" id="liveCover">
-      <div class="lc-copy">
-        <p class="eyebrow dark">Start with coverage</p>
-        <h3>Most people are guessing. Move the sliders.</h3>
-        <div class="lc-field">
-          <label for="lcIncome">Your income <b id="lcIncomeOut">$75,000</b></label>
-          <input class="sf-range lc-range" type="range" id="lcIncome" min="20000" max="400000" step="5000" value="75000">
-        </div>
-        <div class="lc-field">
-          <label for="lcMortgage">What you owe on the house <b id="lcMortgageOut">$250,000</b></label>
-          <input class="sf-range lc-range" type="range" id="lcMortgage" min="0" max="750000" step="10000" value="250000">
-        </div>
-      </div>
-      <div class="lc-result">
-        <p class="lc-label">Rough coverage need</p>
-        <p class="lc-big" id="lcOut">$1,000,000</p>
-        <p class="lc-note">Income for 10 years, plus the mortgage. A starting point, not advice.</p>
-        <a class="btn btn-primary" id="lcFull" href="life-insurance-calculator.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_homepage&amp;utm_content=home_live_cover">Run the full number →</a>
-        <a class="btn btn-secondary on-light" href="life-insurance-quote.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=website_homepage&amp;utm_content=home_protect_band_quote">Compare real quotes</a>
-      </div>
-    </div>
-
-    <!-- CARRIER BAND. Sits directly under the coverage slider on purpose: a visitor has just been
-         given a number, and the obvious next question is who it gets shopped to.
-         Names are set as TYPE, not logos. Two reasons, both practical. Carrier marks are trademarks
-         and most carriers require a producer to get advertising approval before using them, so logos
-         need Tyler's BGA to confirm which carriers permit it and to supply the approved files.
-         Type also loads instantly, reads on a phone, and is indexable, which forty image files
-         would not be.
-         The list is a subset chosen for recognition. The count says 40+ rather than the 48 toggles
-         in the BackNine console because a good number of those are New York subsidiaries that a
-         South Carolina client will never be written with, and a number nobody can defend is worth
-         less than a smaller one that holds up.
-         ⚠️ Final expense is deliberately absent from the product line: it stays on its own landing
-         pages and off the main site. IUL is not led with. -->
-    <div class="carriers reveal">
-      <div class="carriers-head">
-        <p class="eyebrow dark">Independent</p>
-        <h3>We do not work for one carrier. We shop <b>40+</b> of them.</h3>
-        <p class="carriers-sub">Term, whole life, universal life, long term care, and linked benefit, quoted side by side. You see the pricing we see.</p>
-      </div>
-      <ul class="carrier-list">
-        <li>Prudential</li><li>Lincoln Financial</li><li>Pacific Life</li><li>John Hancock</li>
-        <li>Transamerica</li><li>Protective</li><li>Nationwide</li><li>Principal</li>
-        <li>Symetra</li><li>Mutual of Omaha</li><li>Corebridge</li><li>Securian</li>
-        <li>Banner Life</li><li>Allianz</li><li>Thrivent</li><li>SBLI</li>
-      </ul>
-      <p class="carriers-note"><a href="types-of-life-insurance.html" style="color:#8c6b32;font-weight:700">What the five types of life insurance actually do →</a><br>Carrier availability varies by product, state, and underwriting. Rae &amp; Co is compensated by commission on insurance placed; that conflict is disclosed in our Form CRS.</p>
-    </div>
-  </div>
-</section>
 
 <section class="section dark" id="method">
   <div class="wrap">

@@ -392,7 +392,7 @@ and the Log; do not re-open them from here.
   - **The design system, now fixed:** Georgia serif at 400 for display, photography leads, gold accent,
     two-button heroes allowed, restrained CSS motion only, zero animation libraries.
 
-- [ ] **R5. PROMOTE THE COVERAGE TOOL. Not a taste question, and it survived the A/B decision.**
+- [x] **R5. PROMOTE THE COVERAGE TOOL. DONE 2026-08-07 — tool now starts 991px in, 1.1 screens, first thing after the hero; was three screens down. Section order: hero, coverage, advisor, virtual, method, clients, process, contact. Carrier band travelled with it, tabs and prefill intact, 7.8 screens unchanged. Not a taste question, and it survived the A/B decision.**
   Nine sites measured, zero animation libraries, and the ones that feel alive put the interactive
   thing at the top. Our slider is the only feature no Upstate competitor has and it sits three
   screens down inside `#coverage`. Move it directly under the hero on `index.html` and keep the mobile
