@@ -636,6 +636,30 @@ and the Log; do not re-open them from here.
     1,108 words / 142 w/s both ways, delta 0** — and `index.html` was confirmed **not** to redirect at
     1440, so the desktop homepage is what got measured.
 
+- [x] **R8. Shared-component parity sweep, added and run 2026-08-08, iteration 21.** Three of this
+  loop's biggest findings were the same bug — a shared component fixed on one page and recorded as
+  done site-wide (tap targets, fiduciary disclosure, nav). **So this ran the systematic version:
+  dump every shared component from all 18 pages and diff.**
+  - 🚨 **`rel="canonical"` existed on 3 pages out of 18.** Fixed on the other 15. **This one was
+    partly self-inflicted:** iterations 18 to 20 added `utm_`-tagged internal links to the calculator
+    and quoter, and utm parameters are exactly what creates indexable duplicate URLs. **The loop
+    added the duplicate-URL surface and the canonical that answers it was missing.** `mobile.html`
+    points at `https://rcowealth.com/` rather than itself, the standard separate-mobile-URL pattern;
+    every other page self-references. Verified: 18 of 18 have exactly one canonical, in `<head>`,
+    well-formed, no query strings, all 18 still parse, lead capture untouched.
+  - 🚩 **`types-of-life-insurance.html` has a footer with the compliance text but ZERO links**, where
+    15 pages carry the full footer link set. Not fixed: the page is recent and a deliberate minimal
+    footer is plausible, so it needs one look rather than a reflex fix. **Compliance text is present,
+    so nothing is at risk — this is a navigation dead end, not a disclosure gap.**
+  - 🚩 **`og:image` exists on `index.html` only.** Every other page shared to social gets no preview
+    image. Low urgency, genuinely cosmetic, but it is 17 pages of missing card art.
+  - 🚩 **`thank-you.html` is indexable and has no `noindex`.** Confirmation pages generally should not
+    be indexed. **Left alone on purpose:** it is the `retURL` for every form, and changing indexing
+    policy on the page that receives conversions is a decision, not a cleanup.
+  - 📝 **`life-insurance-protection-review.html` runs a deliberate 4-item nav** (Life Insurance,
+    Checklist, Services, Contact) rather than the 6-item site nav. **Looks intentional for a paid
+    landing page — fewer exits — so it was flagged, not normalised.** Confirm it was a choice.
+
 - [ ] **R5. Life insurance prominence across the other 15 pages.** Carried over. Both homepages are
   done; the rest have not been looked at against "life is bread and butter". One page per iteration.
   - 🚨 **NAV FIXED SITE-WIDE 2026-08-08, iteration 17 — and this was not a one-page job.** Measured
@@ -803,6 +827,8 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-08 — iteration 21, R8: the parity sweep, and the loop caught its own tail.** With the queue down to items that need Tyler, the useful work was not to invent scope but to run **the systematic version of the check that produced three of this loop's biggest findings** — tap targets, the fiduciary disclosure and the nav were all "fixed on one page, recorded as done everywhere". Dumped every shared component from all 18 pages and diffed. 🚨 **`rel="canonical"` was on 3 pages out of 18.** Added to the other 15. **The uncomfortable part is that this was partly self-inflicted:** iterations 18 to 20 added `utm_`-tagged internal links to the calculator and quoter, and utm parameters are precisely what creates indexable duplicate URLs. **I built the duplicate-URL surface across three iterations and never once checked whether the tag that answers it existed.** `mobile.html` canonicals to `https://rcowealth.com/` rather than itself, the standard separate-mobile-URL pattern; the rest self-reference. Verified 18 of 18: exactly one canonical each, in `<head>`, well-formed, no query strings, all pages still parse, lead capture and consent ids untouched. 🚩 **Three more divergences found and deliberately not fixed**, because each is a judgement rather than a cleanup: `types-of-life-insurance.html` has a footer carrying the compliance text but **zero links** where 15 pages have the full set (navigation dead end, not a disclosure gap); **`og:image` exists on `index.html` alone**, so 17 pages share to social with no card art; and **`thank-you.html` is indexable with no `noindex`** — normally wrong for a confirmation page, but it is the `retURL` for every form and changing indexing policy on the page that receives conversions is a decision, not housekeeping. 📝 Also noted: `life-insurance-protection-review.html` runs a deliberate **4-item nav** instead of the site's 6, which reads as an intentional paid-landing-page choice, so it was flagged rather than normalised. **The pattern this sweep exists to catch is now written down as a standing item rather than relearned a fourth time.**
 
 - **2026-08-08 — iteration 20, R5 page 3 of 4, and a recommendation to stop at three.** `financial-advisor-greenville-sc.html` was the strongest hook of the four: its review list already promises *"Insurance and protection gaps"*, *"Business-owner or family obligations"* and *"Estate, beneficiary, tax, and liquidity coordination points"*. The callout leans on **the group-life gap**, which the 80/20 pivot records as the actual moat — employer cover is commonly one or two times salary and it usually ends when the job does. Verified at both widths: 38px gap, outside the grid, width matched, contrast 16.48 / 5.11 / 4.61, buttons 45px, no overflow. **Copy distinctness measured across all three callouts: 19%, 23%, 25% pairwise, and the shared words are the button labels** — three different arguments, one consistent action, which is what I wanted rather than one block pasted four times. 🚩 **Then I assessed page 4 and am recommending against it.** `investment-management-greenville-sc.html`'s review list is **entirely portfolio mechanics** — allocation, concentration, liquidity, tax, rebalancing — with **no protection content at all**, and the "risk" it names is concentration risk, not the risk a family carries. **The one honest bridge is liquidity at death for estate and buy-sell purposes, but that is a business-owner argument aimed at a different reader than the under-50 ICP the site is built around.** Three reasons to stop: weakest fit by a distance; **a fourth callout of identical shape starts to read as a template, which is the exact "AI-template look" Tyler rejected in R4**; and the page already reaches protection via the sidebar and the now site-wide nav, so nobody is stranded. **Completing the set for symmetry would be decoration, and R4b forbids decoration.** If Tyler wants it there anyway, it is fifteen minutes — but the loop should not add it on its own. ⚠️ **Third iteration with no screenshot: a fresh tab also reported `innerWidth:0`, so the pane is collapsed at the app level rather than a stuck tab.** Geometry and computed contrast only, and said plainly rather than dressed up as a visual check.
 
