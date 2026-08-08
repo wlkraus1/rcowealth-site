@@ -428,17 +428,28 @@ and the Log; do not re-open them from here.
     `tabindex="-1"` so it stays unreachable by keyboard. The calculator's maths still works after the
     edit (income 95,000 gives a $1,270,000 gap). Re-audit: **zero Salesforce forms without a
     honeypot.**
-  - 🚨 **(b2) THE BIGGEST THING THIS PASS FOUND, AND IT IS A BUSINESS RISK RATHER THAN A WEBSITE ONE.**
-    **All 10 forms still post to `webto.salesforce.com`, and NOTHING on this branch references
-    `lead.php`.** The file is in the repo and on `main`; no form points at it. Per
-    [[salesforce-cutover]] the whole goal is to cancel that org, and `lead.php`'s own commit message
-    says it exists because "on the day it goes, every website lead dies at a dead endpoint." **That
-    wiring was never done.** [[website-lead-flow]] records that all 10 forms already moved to the Pi's
-    Funnel intake — **the branch contradicts that memory**, so one of the two is wrong and it matters
-    which. **This is Tyler's call, not the loop's**: repointing 10 live forms changes the real lead
-    path and can silently lose leads if it is wrong. Do not change it inside a review pass. All 10 forms: Salesforce action, `oid`, `retURL`, the custom
-    field ids, both consent ids, honeypot present and still unreachable. **Never actually submit** —
-    it posts to the live org and creates a real lead.
+  - ✅ **(b2) RESOLVED 2026-08-07, and the diagnosis above was wrong in a way worth keeping.** Both
+    halves of the "contradiction" were true of different refs. **The live site was never on
+    Salesforce** — `rcowealth.com` serves the Funnel action and fetches clean (0 Salesforce hits, 1
+    `pi-nas.tail34488a.ts.net` hit on `/` and `/contact.html`). [[website-lead-flow]] was right.
+    **This branch was the stale one:** it was cut from local `main` at `e563b41` (Aug 5), and the
+    form flip `dd1bc2d` landed on `origin/main` on Aug 6, *after* the branch point. So the branch
+    never had it. **Shipping this branch as-is would have silently reverted the cutover** and killed
+    lead capture on cancel day — the opposite of the risk described above.
+    **Fixed by merging `origin/main` (`2b69591`)**, not by hand-editing endpoints. Conflicts in
+    `index.html` and `life-insurance-greenville-sc.html` were the revamp's newer copy versus the old
+    copy carrying the new action; kept the revamp markup, applied the Funnel endpoint, after
+    confirming `origin/main` changed nothing but `action=` in those two files.
+    🚫 **`lead.php` is NOT the target and must never be wired to.** [[website-lead-flow]]: IONOS Deploy
+    Now is static, **it will not run PHP** — the file sits in the repo inert (403). The real chain is
+    **form → `https://pi-nas.tail34488a.ts.net/` (Tailscale Funnel) → `lead-intake.service` on
+    pi-nas → queue append FIRST → FSC `/api/public/lead` → Telegram.** Endpoint confirmed live (303).
+    Verified after the merge, in a real browser over `http://localhost:5187` rather than off the diff:
+    all 10 forms on the Funnel action, `oid` and `retURL` present on all 10, both consent ids
+    (`00NbV000003Urbb`, `00NbV000003ZxDB`) and the `website_url` honeypot (`tabindex="-1"`) intact on
+    all 10. **The Salesforce field vocabulary is kept on purpose** — the Pi handler and
+    `/api/public/lead` accept it as aliases, so only `action=` ever needed to change. **Never actually
+    submit** — a POST creates a real lead.
   - **(c) Mobile.** Every page at 390 and 430: no overflow, nothing past the viewport, tap targets
     over 40px except the honeypot, redirect allow-list correct for any page added since.
   - **(d) Contrast.** Alpha-composited, counting hidden elements rather than skipping them, and
@@ -449,9 +460,14 @@ and the Log; do not re-open them from here.
     present; every product claim matches what Tyler has confirmed.
   - **(f) Console and network.** No errors on any page; no 404s on assets.
 
-- [ ] **R7. Rebase onto `origin/main` before any merge.** `lead.php` exists twice with different
-  SHAs (`127b4da` here, `b3f8b01` on main). Local `main` is one behind. This is owed and is not
-  optional.
+- [x] **R7. Rebase onto `origin/main` before any merge.** ✅ **Done 2026-08-07 (`2b69591`)** — merged
+  rather than rebased, to keep the 56 commits of revamp history intact and reviewable. The feared
+  duplicate did not materialise: `127b4da` and `b3f8b01` carry identical content, so `lead.php`
+  merged clean and `git ls-files` shows it exactly once. Branch is now **0 behind `origin/main`**.
+  **Nothing pushed.** Safety ref before the merge: `life-forward-revamp-pre-funnel-merge` (`c1194ca`).
+  ⚠️ **The lesson is the standing one:** this branch went 56 commits and two days without noticing
+  `origin/main` had moved underneath it, and the drift was in the lead path. **Check
+  `git rev-list --count HEAD..origin/main` at the top of every iteration, not just before a merge.**
 
 - [ ] **R4b. Design the site from R1's findings.** Only after R1 and R2. Tyler wants professional and
   attention-grabbing without the AI-template look, and has explicitly rejected the generic
@@ -518,3 +534,5 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-07 — out of band, at Tyler's direction from his phone (`2b69591`). R6(b2) and R7 closed together; the loop had stalled and the finding it stopped on was misdiagnosed.** The loop's own tick never fired after 17:05 EDT, so this was done from a separate session. **The "all 10 forms still post to Salesforce" alarm was real about the branch and wrong about the business.** `rcowealth.com` was already serving the Funnel action — fetched live, 0 Salesforce hits — so the cutover Tyler was told was done really was done. What had happened is that **this branch was cut from local `main` before the flip reached `origin/main`**, so it carried the pre-cutover forms forward under 56 commits of revamp work. The danger was therefore **the reverse of what was written**: not that the cutover had never happened, but that merging this branch would have **undone it silently**, with the failure only surfacing on the day the org is cancelled and every website lead dies at once. ⚠️ **The near-miss worth remembering: the previous pass proposed wiring the forms to `lead.php`, which would have taken lead capture from working to dead** — IONOS runs no PHP and that file 403s. A fix aimed at the wrong target is more dangerous than the bug, because it ships with confidence. **Merged `origin/main` instead of hand-editing ten endpoints**, so the branch now carries the real commit rather than a lookalike. Verified in a browser on `localhost:5187`, not off the diff: 10/10 forms on `https://pi-nas.tail34488a.ts.net/` (303, live), `oid` + `retURL` + both consent ids + the `website_url` honeypot intact on all 10. **No form was submitted** — a POST creates a real lead. **Nothing pushed; `main` untouched.**
