@@ -402,7 +402,7 @@ and the Log; do not re-open them from here.
   order matching. Watch: `#coverage` also holds the carrier band, and `prefillForm()` must keep
   working. Verify at 1440 and 390, measure position before and after.
 
-- [ ] **R6. REVIEW PASSES — Tyler asked for "tested and reviewed multiple times", so this is a real
+- [x] **R6. REVIEW PASSES — Tyler asked for "tested and reviewed multiple times", so this is a real
   queue item, not a formality.** Run each pass as its own iteration, log findings, fix, re-verify:
   - ✅ **(a) Link integrity — DONE 2026-08-07. 20 pages, 0 broken file or asset references, 0 broken
     anchors on any real page.** `#wealth` and `#client-access` have no inbound links anywhere, so the
@@ -550,7 +550,45 @@ and the Log; do not re-open them from here.
     📝 **For Tyler, not a loop decision:** the disclosure is verbatim from what is already live, so it
     introduces no claim he has not approved. **If he wants different wording on the campaign pages
     than the homepage, that is a copy decision and it is his.**
-  - **(f) Console and network.** No errors on any page; no 404s on assets.
+  - ✅ **(f) Console and network. DONE 2026-08-07. Genuinely clean — and this time the instrument was
+    tested before the result was believed.**
+    **0 console errors and 0 resource errors across all 18 pages** (each loaded, scrolled and resized
+    to exercise the observer/reveal paths). **0 broken same-origin assets out of 35** — every `src`,
+    `href`, `srcset` and `url()` in the pages *and* inside `styles.css`/`revamp.css`, HEAD-checked.
+    ⚠️ **A clean result from an untested checker is worth nothing, and this loop has now produced
+    three false readings in three iterations.** So the sweep was validated with a **control**: a
+    deliberate `ReferenceError` and a deliberate 404 image injected into a loaded page. Both were
+    caught (`instrumentWorks:true`). **Only then was the zero trusted.** Do this every time a checker
+    reports all-clear — a broken detector and a clean site produce identical output.
+    **Only one externally loaded resource exists site-wide:** Google Fonts on `index.html`, with
+    `display=swap` and `preconnect`, so it degrades to system fonts rather than blocking. No page
+    depends on an external stylesheet for layout.
+    🚩 **Real finding, flagged not fixed — the quote page cannot tell "widget loaded" from "widget
+    loaded an error".** `life-insurance-quote.html` embeds the BackNine/Strife widget and guards it
+    with `setTimeout(… if(!container.children.length){ fallback.classList.add("show") })`. **The test
+    is whether a child element exists, not whether that child is the widget.** Locally the iframe
+    returns **403 Forbidden** and renders it at full size, the container therefore *has* a child, the
+    `.quote-fallback` never shows, and the page displays a giant **"403 Forbidden"** where the quoter
+    should be.
+    ⚠️ **The 403 itself is an artifact, and saying so matters:** the iframe src carries
+    `parent_url=http%3A%2F%2Flocalhost%3A5187%2F…`, so BackNine is domain-gating an unauthorised
+    origin. **On `rcowealth.com` this will load.** **The gap it exposed is not an artifact** — any
+    production condition where BackNine answers with an error *page* rather than failing to connect
+    (account, plan, appointment or domain misconfiguration) will show a raw vendor error on the
+    firm's own quote page, with the designed fallback sitting hidden behind it.
+    **Not fixed on purpose.** The iframe is cross-origin, so its contents cannot be inspected;
+    `children.length` really is the only cheap signal available. A robust fix needs BackNine's
+    `postMessage`/ready contract, and **guessing at the failure handling of the page that hands
+    prospects to the quoter risks breaking a working revenue path to fix a hypothetical one.**
+    📝 **For Tyler:** worth asking BackNine whether the widget emits a ready or error event. If it
+    does, the fallback becomes three lines and the failure mode disappears.
+
+- [x] **R6 COMPLETE 2026-08-07 — all six slices (a)–(f) done.** Across the block: 2 forms with no
+  honeypot, 2 preview pages that would have deployed publicly, 16 pages of missed mobile tap targets,
+  4 contrast defects including invisible text on a compliance block, and the fiduciary disclosure
+  missing from 8 of 10 lead-capture pages. ⚠️ **The review passes also produced more false readings
+  than real defects.** Standing rule earned the hard way: **verify the checker before believing the
+  check**, and treat *undetermined* as its own state rather than folding it into pass or fail.
 
 - [x] **R7. Rebase onto `origin/main` before any merge.** ✅ **Done 2026-08-07 (`2b69591`)** — merged
   rather than rebased, to keep the 56 commits of revamp history intact and reviewable. The feared
@@ -626,6 +664,8 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-07 — iteration 15, R6(f) console and network. Clean, and R6 is complete.** **0 console errors and 0 resource errors across 18 pages; 0 broken assets out of 35 same-origin references**, including the `url()`s inside `styles.css` and `revamp.css`. ⚠️ **But the useful part of this iteration is what I did before believing that zero.** Three iterations in a row this loop has been handed confident, wrong numbers, so the sweep was **validated with a control** — a deliberate `ReferenceError` and a deliberate 404 image injected into a real page load. Both were caught, and only then was the all-clear trusted. **A broken detector and a healthy site emit exactly the same output;** the only thing separating them is a planted fault. That is now the standing rule for any check that reports nothing wrong. 🚩 **One real finding, flagged rather than fixed.** `life-insurance-quote.html` guards the BackNine widget with `if(!container.children.length){ show fallback }` — **it tests whether a child exists, not whether that child is the quoter.** Locally the iframe returns **403 Forbidden** and renders it full-size, so the container has a child, the fallback stays hidden, and the page shows a giant "403 Forbidden" where the quoter belongs. ⚠️ **The 403 is an artifact and I checked rather than assumed:** the iframe src carries `parent_url=…localhost:5187…`, so BackNine is domain-gating an unauthorised origin, and this will load fine on `rcowealth.com`. **The logic gap is not an artifact** — any production condition where BackNine returns an error *page* instead of failing to connect puts a raw vendor error on the firm's quote page with the designed fallback hidden behind it. **Left unfixed deliberately:** the iframe is cross-origin so its contents cannot be read, `children.length` genuinely is the only cheap signal, and guessing at the failure handling of the page that hands prospects to the quoter risks breaking a working revenue path to fix a hypothetical one. **Ask BackNine whether the widget emits a ready/error event; if it does, this is a three-line fix.** **R6 is now complete.** Across six slices it found 2 unprotected forms, 2 preview pages that would have deployed publicly, 16 pages of missed tap targets, 4 contrast defects including invisible text on a compliance block, and a fiduciary disclosure missing from 8 of 10 lead-capture pages — **and it produced more false readings than real defects while doing it.**
 
 - **2026-08-07 — iteration 14, R6(e) copy and compliance. Five checks clean, one real gap, and the gap was on the pages that matter most.** **Em-dashes zero, "fee-only" absent, VUL absent, no performance language, TCPA consent and form disclaimer and credential warning on all 10 form pages.** The two `guarantee` hits are the MYGA product name and the IUL *"not a forecast and are not guaranteed"* disclaimer — compliance text doing its job, not a violation. 🚩 **The gap: the fiduciary and compensation disclosure lived on `index.html` and `mobile.html` only. The other 8 lead-capture pages carried none** — no fiduciary standard, no compensation-and-conflicts language, no Form CRS pointer. **The homepage set the framing and the 8 pages that actually take a prospect's contact details did not.** Propagated the homepage's already-live wording verbatim so no new claim was drafted; all 10 now carry one canonical sentence, confirmed by `sort -u` returning exactly 1. ⚠️ **Polarity nearly caught me an eighth time.** `.transparency-note` is cream for the dark `#contact` sections — right on 7 pages, invisible on the two where the form sits on white: the calculator's `.section.alt` and `mobile.html`'s `.section-soft`. Both got an ink variant, and because **`mobile.html` links no shared stylesheet** — straight from R6(c) — its rule had to be self-contained in that page's own `<style>`. **The R6(c) and R6(d) lessons were the two things that made this iteration safe;** without them I would have pasted cream onto white and called it done. ⚠️ **And a third self-inflicted false reading, same family as the last two:** my verifier printed 1.0–1.4 "failures" for the 7 dark-section notes. It had hit a `background-image`, set a `skip` flag meaning *could not determine the background*, **fallen back to assuming white, and then reported a ratio against that assumption.** Screenshots showed all 7 perfectly legible. **Undetermined is a third state, and a checker that collapses it into "fail" will keep manufacturing bugs.** 📝 **Left for Tyler:** the wording is verbatim from what is already published, so nothing new is claimed — but if he wants different disclosure copy on campaign pages than on the homepage, that is his call, not the loop's.
 
