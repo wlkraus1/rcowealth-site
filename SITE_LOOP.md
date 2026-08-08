@@ -518,9 +518,38 @@ and the Log; do not re-open them from here.
     and now these). **The pattern is never "the colour is wrong" — it is "a `.dark`/`.on-light`
     modifier was omitted on one element while its siblings got it."** Grep for `btn-secondary`,
     `eyebrow` and `lead` without a modifier whenever a section changes polarity.
-  - **(e) Copy and compliance.** Em-dashes zero; no performance language; "fee-only" absent; the
-    fiduciary/compensation disclosure, form disclaimer, TCPA consent and credential warning all
-    present; every product claim matches what Tyler has confirmed.
+  - ✅ **(e) Copy and compliance. DONE 2026-08-07. Five of six checks were already clean; the sixth
+    was on 2 pages out of 10.**
+    **Clean, verified rather than assumed:** em-dashes **zero** across all HTML (and none introduced —
+    re-checked after the edit); **"fee-only" absent**; **VUL absent**, matching Tyler's "no leave the
+    VUL out then"; **no performance language** — the only two `guarantee` hits are the MYGA product
+    name and the IUL disclaimer *"not a forecast and are not guaranteed"*, i.e. compliance text doing
+    its job; **TCPA consent, form disclaimer and credential warning present on all 10 form pages.**
+    🚩 **The gap: the fiduciary/compensation disclosure existed on `index.html` and `mobile.html` only.
+    The other 8 lead-capture pages had none** — no fiduciary-standard statement, no compensation and
+    conflicts language, no pointer to Form CRS or disclosures. **Every one of those 8 pages asks a
+    prospect for their contact details.** The homepage set the framing and the pages that actually
+    capture the lead did not carry it.
+    **Fixed by propagating the homepage's existing, already-live wording verbatim — no new claims
+    drafted.** All 10 now carry one canonical sentence (verified: `sort -u` over the rendered string
+    returns exactly **1**, so there is no per-page drift to review).
+    ⚠️ **Polarity was the trap again, and it nearly caught me an eighth time.** `.transparency-note`
+    is cream, built for the dark `#contact` sections — correct on 7 pages, invisible on the two it
+    would have been wrong on. **The calculator's form sits on `.section.alt` (`#fff`)** and
+    **`mobile.html`'s on `.section-soft` (`#fbf8f0`) with a white card**, so both got an ink variant
+    instead: a new `.transparency-note.dark` following the existing `.eyebrow.dark`/`.lead.dark`
+    convention, and — because **`mobile.html` links no shared stylesheet** (the R6(c) lesson) — a
+    self-contained rule in that page's own `<style>`.
+    **Measured after, not assumed:** dark sections screenshotted and legible; calculator 6.68 body /
+    17.61 strong / 4.92 link; mobile 6.29 / 16.64 / 4.64; no overflow.
+    ⚠️ **One more self-inflicted false reading, same shape as the last two.** My verifier reported the
+    7 dark-section notes at 1.0–1.4 "failing". They were not: the ancestor walk hit a
+    `background-image`, set its `skip` flag, and **fell back to white as the assumed background — then
+    I printed a ratio against that fallback.** A checker must not emit a number when it has just
+    admitted it could not determine the background. **Undetermined is a third state, not a fail.**
+    📝 **For Tyler, not a loop decision:** the disclosure is verbatim from what is already live, so it
+    introduces no claim he has not approved. **If he wants different wording on the campaign pages
+    than the homepage, that is a copy decision and it is his.**
   - **(f) Console and network.** No errors on any page; no 404s on assets.
 
 - [x] **R7. Rebase onto `origin/main` before any merge.** ✅ **Done 2026-08-07 (`2b69591`)** — merged
@@ -597,6 +626,8 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-07 — iteration 14, R6(e) copy and compliance. Five checks clean, one real gap, and the gap was on the pages that matter most.** **Em-dashes zero, "fee-only" absent, VUL absent, no performance language, TCPA consent and form disclaimer and credential warning on all 10 form pages.** The two `guarantee` hits are the MYGA product name and the IUL *"not a forecast and are not guaranteed"* disclaimer — compliance text doing its job, not a violation. 🚩 **The gap: the fiduciary and compensation disclosure lived on `index.html` and `mobile.html` only. The other 8 lead-capture pages carried none** — no fiduciary standard, no compensation-and-conflicts language, no Form CRS pointer. **The homepage set the framing and the 8 pages that actually take a prospect's contact details did not.** Propagated the homepage's already-live wording verbatim so no new claim was drafted; all 10 now carry one canonical sentence, confirmed by `sort -u` returning exactly 1. ⚠️ **Polarity nearly caught me an eighth time.** `.transparency-note` is cream for the dark `#contact` sections — right on 7 pages, invisible on the two where the form sits on white: the calculator's `.section.alt` and `mobile.html`'s `.section-soft`. Both got an ink variant, and because **`mobile.html` links no shared stylesheet** — straight from R6(c) — its rule had to be self-contained in that page's own `<style>`. **The R6(c) and R6(d) lessons were the two things that made this iteration safe;** without them I would have pasted cream onto white and called it done. ⚠️ **And a third self-inflicted false reading, same family as the last two:** my verifier printed 1.0–1.4 "failures" for the 7 dark-section notes. It had hit a `background-image`, set a `skip` flag meaning *could not determine the background*, **fallen back to assuming white, and then reported a ratio against that assumption.** Screenshots showed all 7 perfectly legible. **Undetermined is a third state, and a checker that collapses it into "fail" will keep manufacturing bugs.** 📝 **Left for Tyler:** the wording is verbatim from what is already published, so nothing new is claimed — but if he wants different disclosure copy on campaign pages than on the homepage, that is his call, not the loop's.
 
 - **2026-08-07 — iteration 13, R6(d) contrast. 4 real defects, 20 false alarms, and the checker lied twice more.** **A whole paragraph and a compliance heading were unreadable on the protection-review page** — `h3 "Important notes"` rendered **white on a white card**, and the `.lead` under "How the review works" was **cream on cream at 1.05**. Both invisible, both live. ⚠️ **But the headline is that this slice's warning earned itself again.** The checker opened with **12 failures on both homepages at ratios near 1.0** — every one fake. The people-media cards paint their dark panel with `.pm-card::after{position:absolute;inset:0;z-index:-1;background:linear-gradient(…)}`, and **a checker that walks ancestor `background-color` cannot see a pseudo-element.** It read the cream section behind the card and condemned text that is actually white-on-near-black. I nearly "fixed" a card that was never broken. **Teaching pseudo-backdrop detection took those 12 to 0.** ⚠️ **Then my own fix produced the next false reading.** Busting the stylesheet — the cure for R6(c)'s `?cb=` trap — races the page load, and `life-insurance-quote.html` also pulls an unreachable external CDN sheet, so the nav was measured **mid-restyle in browser-default link blue**: 5 more fake failures, and they **reproduce identically every run**. A live probe shows the nav styled correctly. **Reproducible is not the same as real** — that is the one lesson from this iteration I would keep if I could keep only one. **All 4 real defects were the same family: a light surface carrying dark-surface styling.** Three of them needed **no CSS whatsoever** — `.eyebrow.dark`, `.lead.dark` and `.btn-secondary.dark` already exist and the markup simply omitted the modifier. **The section indicts itself: "Schedule a Review" already carried `.dark` while "Use the Form", inside the same `<div>`, did not.** A previous pass fixed one button and missed the two beside it. Only the `h3` needed a real change, and it was a root-cause one: `.content-panel` set a white background but never set a colour, so inside a dark section the card inherited white — `p` and `li` were already overridden, which is precisely why only the heading exposed it. **Seventh occurrence of this family.** The recurring shape is never "wrong colour", it is **"a modifier omitted on one element while its siblings got it"**.
 

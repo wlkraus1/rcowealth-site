@@ -231,6 +231,13 @@ h3{
 .transparency-note{margin:14px 0 0;font-size:13px;color:rgba(246,239,224,.72)}
 .transparency-note strong{color:#fff}
 .transparency-note a{color:var(--gold-2);text-decoration:underline}
+/* Light-surface variant, R6(e) 2026-08-07. The base note is cream for dark sections; the calculator
+   form sits on .section.alt, which is #fff. Pasting the base class there would have reproduced the
+   light-surface/dark-typography defect for the eighth time. Same .dark modifier convention already
+   used by .eyebrow.dark, .lead.dark and .btn-secondary.dark. */
+.transparency-note.dark{color:#4f5d73}
+.transparency-note.dark strong{color:var(--ink)}
+.transparency-note.dark a{color:#8c6b32}
 
 /* Mobile tap targets, R6(c) 2026-08-07. Iteration 4 raised these to 44px on
    mobile.html only, in that page's inline <style>, so the fix never reached the
