@@ -604,6 +604,37 @@ and the Log; do not re-open them from here.
   bento/neon/Lottie vocabulary. What has worked so far: photography, editorial typography, motion
   with a job (the hero drift, the line-by-line headline, the coverage slider that answers you).
   Extend that from evidence rather than adding decoration.
+  - 🎯 **RE-MEASURED 2026-08-07, iteration 16 — and the premise this item was built on is now gone.**
+    R1's evidence predated R2's section removal, the photo hero and R5's coverage promotion, so it was
+    stale. Re-measured like for like, **1440x900, `innerText`, `/900`**, same method as the correction:
+
+    | Site | Page height | Screens | Words | **Words per screen** |
+    |---|---|---|---|---|
+    | **rcowealth.com — R1 correction** | 8,603px | 9.6 | 1,289 | **135** |
+    | **rcowealth.com — NOW** | **7,019px** | **7.8** | 1,108 | **142** |
+    | Facet | 8,090px | 9.0 | 1,492 | 166 |
+    | Farther | 8,675px | 9.6 | 1,534 | 160 |
+
+  - **The homepage is now SHORTER than both premium references** — 7.8 screens against Facet's 9.0 and
+    Farther's 9.6 — having lost **1,584px (18%)** since the correction was written. **The "we spend
+    about twice the vertical space per word" finding is dead.** It was wrong once (phase 3's viewport
+    arithmetic), corrected to "19% behind", and is now **11% behind Farther on density while being 1.8
+    screens shorter.** There is no layout-bloat defect left to fix.
+  - **The two least dense sections were measured rather than guessed, and both are load-bearing:**
+    the coverage-tool section (**1,030px, 136 words, 120 w/s**) is `.live-cover` + `.carriers`, and the
+    About section (**1,046px, 140 words, 119 w/s**) is a 606px portrait beside a 926px editorial
+    column. **Both are exactly the vocabulary this item names as working** — the interactive tool that
+    answers you, and photography with editorial type. **Compressing them would attack the things that
+    are working to chase a number.** The hero is sparser still (52 w/s) and is supposed to be.
+  - 🚩 **What is left is a content decision, not a layout one, and it is Tyler's.** We now say **380–430
+    fewer words than the references in less vertical space.** The options are (a) leave it lean, which
+    is defensible and reads faster than either reference, or (b) add substance somewhere specific.
+    **The loop should not pick.** Adding words to hit a density benchmark is exactly the "decoration"
+    this item forbids, and any new public copy is a draft for him regardless.
+  - ✅ **Method note, since this file has a history of bad measurements:** the number was validated with
+    a control — the same page measured by normal load and by `document.write` returned **7,019px /
+    1,108 words / 142 w/s both ways, delta 0** — and `index.html` was confirmed **not** to redirect at
+    1440, so the desktop homepage is what got measured.
 
 - [ ] **R5. Life insurance prominence across the other 15 pages.** Carried over. Both homepages are
   done; the rest have not been looked at against "life is bread and butter". One page per iteration.
@@ -664,6 +695,8 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-07 — iteration 16, R4b. Re-measured before designing, and the thing R4b exists to fix is already fixed.** R1's density evidence predated R2's section removal, the photo hero and R5's coverage promotion, so the first honest move was to refresh it rather than build on a stale number. Measured like for like at 1440x900: **the homepage is now 7,019px / 7.8 screens / 1,108 words / 142 words per screen**, against **8,603px / 9.6 / 1,289 / 135** when the correction was written. **It has lost 1,584px — 18% of its height — and it is now shorter than both premium references** (Facet 9.0 screens, Farther 9.6). 🎯 **So the finding this whole item was built on is dead.** "We spend about twice the vertical space per word" was wrong once already (phase 3's viewport arithmetic), was corrected to 19% behind, and now reads **11% behind Farther on density while being 1.8 screens shorter than it**. **There is no layout-bloat defect left to attack.** I measured the two least dense sections rather than assuming: the coverage tool (120 w/s) and About (119 w/s). **Both are precisely the vocabulary R4b names as working** — the interactive tool that answers you, and photography beside editorial type. **Compressing them would damage what works in order to move a benchmark**, so I did not. 🚩 **What remains is a content decision and it is Tyler's, not the loop's:** we say 380–430 fewer words than the references in less space. Leave it lean, which reads faster than either reference and is defensible, or add substance somewhere specific. **Adding words to hit a density number is the exact "decoration" this item forbids**, and any new public copy is his draft to approve regardless. ✅ **Given this file's history of bad measurements, the number was controlled:** normal load and `document.write` load returned **7,019px / 1,108 / 142 both ways, delta 0**, and `index.html` was confirmed not to redirect at 1440, so the desktop homepage is genuinely what was measured. **No code changed this iteration** — the correct output of an evidence item was evidence.
 
 - **2026-08-07 — iteration 15, R6(f) console and network. Clean, and R6 is complete.** **0 console errors and 0 resource errors across 18 pages; 0 broken assets out of 35 same-origin references**, including the `url()`s inside `styles.css` and `revamp.css`. ⚠️ **But the useful part of this iteration is what I did before believing that zero.** Three iterations in a row this loop has been handed confident, wrong numbers, so the sweep was **validated with a control** — a deliberate `ReferenceError` and a deliberate 404 image injected into a real page load. Both were caught, and only then was the all-clear trusted. **A broken detector and a healthy site emit exactly the same output;** the only thing separating them is a planted fault. That is now the standing rule for any check that reports nothing wrong. 🚩 **One real finding, flagged rather than fixed.** `life-insurance-quote.html` guards the BackNine widget with `if(!container.children.length){ show fallback }` — **it tests whether a child exists, not whether that child is the quoter.** Locally the iframe returns **403 Forbidden** and renders it full-size, so the container has a child, the fallback stays hidden, and the page shows a giant "403 Forbidden" where the quoter belongs. ⚠️ **The 403 is an artifact and I checked rather than assumed:** the iframe src carries `parent_url=…localhost:5187…`, so BackNine is domain-gating an unauthorised origin, and this will load fine on `rcowealth.com`. **The logic gap is not an artifact** — any production condition where BackNine returns an error *page* instead of failing to connect puts a raw vendor error on the firm's quote page with the designed fallback hidden behind it. **Left unfixed deliberately:** the iframe is cross-origin so its contents cannot be read, `children.length` genuinely is the only cheap signal, and guessing at the failure handling of the page that hands prospects to the quoter risks breaking a working revenue path to fix a hypothetical one. **Ask BackNine whether the widget emits a ready/error event; if it does, this is a three-line fix.** **R6 is now complete.** Across six slices it found 2 unprotected forms, 2 preview pages that would have deployed publicly, 16 pages of missed tap targets, 4 contrast defects including invisible text on a compliance block, and a fiduciary disclosure missing from 8 of 10 lead-capture pages — **and it produced more false readings than real defects while doing it.**
 
