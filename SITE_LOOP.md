@@ -638,6 +638,38 @@ and the Log; do not re-open them from here.
 
 - [ ] **R5. Life insurance prominence across the other 15 pages.** Carried over. Both homepages are
   done; the rest have not been looked at against "life is bread and butter". One page per iteration.
+  - 🚨 **NAV FIXED SITE-WIDE 2026-08-08, iteration 17 — and this was not a one-page job.** Measured
+    first: **"Life Insurance" was in the nav on `index.html` and `mobile.html` and nowhere else.**
+    14 of 18 pages had no nav path to life insurance at all — **including
+    `life-insurance-greenville-sc.html`, the life hub itself, whose own nav did not mention it.**
+    Iteration 2 recorded "Life Insurance in the nav" as done; it was done on the two homepages.
+  - ⚠️ **Third time this loop has found the same shape.** R6(c): tap targets fixed on `mobile.html`
+    only. R6(e): the fiduciary disclosure on the two homepages only. Now the nav. **"Verified on the
+    page I edited" keeps getting recorded as "done site-wide."** The check that catches it is cheap —
+    dump the component from every page and diff — and it should be the default for any change to a
+    shared header, footer or nav.
+  - **Why it matters more than a missing link:** the campaign pages are where paid traffic lands
+    (they carry the `utm_*` plumbing), the [[insurance-8020-pivot]] makes life the revenue priority,
+    and a visitor arriving on any of them had **no navigation route to the life funnel** — they would
+    have had to go back to the homepage to find it.
+  - **Fixed by inserting the identical anchor in the identical position** (after "Virtual Model",
+    `href="life-insurance-greenville-sc.html"`), not by rewriting navs. 14 pages changed, 3 already
+    had it, `mobile.html` has its own menu and already carried it.
+    **Verified in a browser at 1440 and 390:** all 17 `.navlinks` pages carry the link, one canonical
+    href, **no horizontal overflow and no collision with the header CTA** at 1440 — the interior nav
+    went from 5 items to 6, matching the homepage that already fit. At 390 the menu opens with all six
+    items at **44px each**, inheriting R6(c)'s tap-target rule for free.
+  - 📝 **Observed, deliberately not touched:** in headless capture the open mobile menu appears to let
+    hero text bleed through. **The evidence disagrees with itself and I did not act on it:** the
+    computed background is `rgba(6,17,31,0.97)`, `elementFromPoint` at the panel centre returns the
+    nav anchor, so the menu is genuinely on top and clickable. The likeliest explanation is the
+    header's `backdrop-filter:blur(18px)` compositing oddly in screenshots rather than a real
+    translucency defect. **Nothing in this iteration changed that background**, so it is pre-existing
+    either way. Worth one look on a real phone before anyone "fixes" it.
+  - **Still open under R5:** per-page body prominence on the four commercial pages (`services`,
+    `financial-advisor`, `investment-management`, `retirement-planning`) — each currently has exactly
+    **one** in-body life link and no life CTA. That is the one-page-per-iteration work; the nav was
+    the site-wide blocker sitting in front of it.
 
 ## Done
 
@@ -695,6 +727,8 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-08 — iteration 17, R5. The life-insurance nav link existed on two pages out of eighteen.** Measured before touching anything, and the result reframed the item: **"Life Insurance" was in the nav on `index.html` and `mobile.html` and nowhere else.** Fourteen pages had no nav route to life insurance — **including `life-insurance-greenville-sc.html`, the life hub itself, whose own nav did not mention life insurance.** Iteration 2 logged "Life Insurance in the nav" as done, and it was, on the two pages it was tested on. ⚠️ **That is the third time this loop has found the identical shape:** R6(c) fixed tap targets on `mobile.html` only, R6(e) had the fiduciary disclosure on the two homepages only, now the nav. **"Verified on the page I edited" keeps getting written down as "done site-wide."** The catch is cheap — dump the shared component from every page and diff it — and it should now be automatic for any header, footer or nav change. **This mattered more than a missing link:** the campaign pages carry the `utm_*` plumbing, so they are where paid traffic lands, life insurance is the revenue priority under the 80/20 pivot, and a prospect landing on any of them had **no navigational route to the life funnel at all** — back to the homepage or nothing. Fixed by inserting the identical anchor in the identical position rather than rewriting navs; 14 pages changed, 3 already had it, `mobile.html` has its own menu and already carried it. **Verified at 1440 and 390:** all 17 pages carry it, one canonical href, no overflow and no collision with the header CTA now that interior navs went from 5 items to 6, and the mobile menu opens with all six at 44px, inheriting R6(c)'s tap-target fix for free. 📝 **One thing observed and deliberately left alone:** the open mobile menu appears to let hero text bleed through in headless capture, but the computed background is `rgba(6,17,31,0.97)` and `elementFromPoint` returns the nav anchor, so it is on top and clickable. **The signals disagree, the likeliest cause is the header's `backdrop-filter` compositing badly in screenshots, and nothing this iteration touched that background** — so it gets logged for a look on a real phone rather than a speculative fix. **R5 is not closed:** the four commercial pages each still have exactly one in-body life link and no life CTA. That is the per-page work; the nav was the site-wide blocker sitting in front of it.
 
 - **2026-08-07 — iteration 16, R4b. Re-measured before designing, and the thing R4b exists to fix is already fixed.** R1's density evidence predated R2's section removal, the photo hero and R5's coverage promotion, so the first honest move was to refresh it rather than build on a stale number. Measured like for like at 1440x900: **the homepage is now 7,019px / 7.8 screens / 1,108 words / 142 words per screen**, against **8,603px / 9.6 / 1,289 / 135** when the correction was written. **It has lost 1,584px — 18% of its height — and it is now shorter than both premium references** (Facet 9.0 screens, Farther 9.6). 🎯 **So the finding this whole item was built on is dead.** "We spend about twice the vertical space per word" was wrong once already (phase 3's viewport arithmetic), was corrected to 19% behind, and now reads **11% behind Farther on density while being 1.8 screens shorter than it**. **There is no layout-bloat defect left to attack.** I measured the two least dense sections rather than assuming: the coverage tool (120 w/s) and About (119 w/s). **Both are precisely the vocabulary R4b names as working** — the interactive tool that answers you, and photography beside editorial type. **Compressing them would damage what works in order to move a benchmark**, so I did not. 🚩 **What remains is a content decision and it is Tyler's, not the loop's:** we say 380–430 fewer words than the references in less space. Leave it lean, which reads faster than either reference and is defensible, or add substance somewhere specific. **Adding words to hit a density number is the exact "decoration" this item forbids**, and any new public copy is his draft to approve regardless. ✅ **Given this file's history of bad measurements, the number was controlled:** normal load and `document.write` load returned **7,019px / 1,108 / 142 both ways, delta 0**, and `index.html` was confirmed not to redirect at 1440, so the desktop homepage is genuinely what was measured. **No code changed this iteration** — the correct output of an evidence item was evidence.
 
