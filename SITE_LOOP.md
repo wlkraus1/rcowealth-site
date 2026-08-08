@@ -484,9 +484,40 @@ and the Log; do not re-open them from here.
     the HTML does not refetch the stylesheet; the numbers only moved once the `<link href>` itself was
     re-pointed. **This is the sixth false reading from automated measurement in this loop** and the
     second from this exact cause. Bust the sheet, not the page.
-  - **(d) Contrast.** Alpha-composited, counting hidden elements rather than skipping them, and
-    photograph-backed text judged by screenshot — the checker has produced a false reading in every
-    iteration it has been used.
+  - ✅ **(d) Contrast. DONE 2026-08-07. 18 pages. 4 real defects fixed, 20 false alarms rejected —
+    and the checker produced a false reading AGAIN, so the warning above stands and now has a cause.**
+    **The blind spot was pseudo-element backdrops.** A checker that walks ancestor `background-color`
+    cannot see `.pm-card::after{position:absolute;inset:0;z-index:-1;background:linear-gradient(...)}`,
+    which is how the people-media cards paint their dark panel. It read the cream section behind them
+    and reported **12 failures at 1.0–1.23 on both homepages — all fake.** Adding pseudo-backdrop
+    detection dropped those 12 to 0. **Anything painted by `::before`/`::after` is invisible to
+    `getComputedStyle(el).backgroundColor`; a contrast checker that ignores pseudo-elements will
+    condemn every scrim-backed card on the site.**
+    ⚠️ **Then the fix caused its own false reading.** Busting the stylesheet (the cure for the `?cb=`
+    trap in R6(c)) races the page: `life-insurance-quote.html` also pulls
+    `cdn.quoteandapply.io/css/widget.css`, which cannot be fetched here, and measuring at ~180ms
+    caught the nav **mid-restyle, showing browser-default link blue** `rgb(0,0,238)` — 5 fake
+    failures at 1.44 that reproduce every run. A live probe of the same nav shows the correct
+    `rgba(246,239,224,.78)`. **Reproducible is not the same as real.** Not fixed, because it is not
+    broken.
+    **The 4 real defects were all one family — a light surface carrying dark-surface styling:**
+    1. `h3 "Important notes"` was **white on a white `.content-panel`, i.e. invisible, on a
+       compliance disclosure block.** `.content-panel` sets `background:#fff` but never set `color`,
+       so inside a dark `.section` it inherited white. `p` and `li` were already overridden, which is
+       exactly why only the heading showed the bug. Fixed at the root: `.content-panel{color:var(--ink)}`.
+       Now 17.61:1.
+    2. `.eyebrow` "How the review works" — gold on cream, 1.31.
+    3. `.lead` "The goal is to identify…" — cream on cream, 1.05, a whole paragraph unreadable.
+    4. `.btn-secondary` "Use the Form" and "Talk it through on a call" — cream on white, 1.14.
+    **2–4 needed no CSS at all — `.eyebrow.dark`, `.lead.dark` and `.btn-secondary.dark` already
+    exist.** The markup just omitted the modifier. **The section indicts itself: "Schedule a Review"
+    already carried `.dark` while its sibling "Use the Form", inside the same `<div>`, did not.**
+    Someone fixed one button and missed the two beside it. Now 4.61 / 9.32 / 16.48, all screenshotted.
+    ⚠️ **This is the SEVENTH occurrence of the light-surface/dark-typography family** (`.private-room`,
+    `.strip-item`, `.protect-band`, the hero-wide `.btn-secondary` rule, the mobile protect-band,
+    and now these). **The pattern is never "the colour is wrong" — it is "a `.dark`/`.on-light`
+    modifier was omitted on one element while its siblings got it."** Grep for `btn-secondary`,
+    `eyebrow` and `lead` without a modifier whenever a section changes polarity.
   - **(e) Copy and compliance.** Em-dashes zero; no performance language; "fee-only" absent; the
     fiduciary/compensation disclosure, form disclaimer, TCPA consent and credential warning all
     present; every product claim matches what Tyler has confirmed.
@@ -566,6 +597,8 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-07 — iteration 13, R6(d) contrast. 4 real defects, 20 false alarms, and the checker lied twice more.** **A whole paragraph and a compliance heading were unreadable on the protection-review page** — `h3 "Important notes"` rendered **white on a white card**, and the `.lead` under "How the review works" was **cream on cream at 1.05**. Both invisible, both live. ⚠️ **But the headline is that this slice's warning earned itself again.** The checker opened with **12 failures on both homepages at ratios near 1.0** — every one fake. The people-media cards paint their dark panel with `.pm-card::after{position:absolute;inset:0;z-index:-1;background:linear-gradient(…)}`, and **a checker that walks ancestor `background-color` cannot see a pseudo-element.** It read the cream section behind the card and condemned text that is actually white-on-near-black. I nearly "fixed" a card that was never broken. **Teaching pseudo-backdrop detection took those 12 to 0.** ⚠️ **Then my own fix produced the next false reading.** Busting the stylesheet — the cure for R6(c)'s `?cb=` trap — races the page load, and `life-insurance-quote.html` also pulls an unreachable external CDN sheet, so the nav was measured **mid-restyle in browser-default link blue**: 5 more fake failures, and they **reproduce identically every run**. A live probe shows the nav styled correctly. **Reproducible is not the same as real** — that is the one lesson from this iteration I would keep if I could keep only one. **All 4 real defects were the same family: a light surface carrying dark-surface styling.** Three of them needed **no CSS whatsoever** — `.eyebrow.dark`, `.lead.dark` and `.btn-secondary.dark` already exist and the markup simply omitted the modifier. **The section indicts itself: "Schedule a Review" already carried `.dark` while "Use the Form", inside the same `<div>`, did not.** A previous pass fixed one button and missed the two beside it. Only the `h3` needed a real change, and it was a root-cause one: `.content-panel` set a white background but never set a colour, so inside a dark section the card inherited white — `p` and `li` were already overridden, which is precisely why only the heading exposed it. **Seventh occurrence of this family.** The recurring shape is never "wrong colour", it is **"a modifier omitted on one element while its siblings got it"**.
 
 - **2026-08-07 — iteration 12, R6(c) mobile, and R3 ticked (`c01ba5d`).** **The pass found no overflow anywhere** — 18 pages at 390 and 430, zero horizontal scroll, zero elements past the viewport, which is the first review slice to come back clean on its headline metric. **What it did find is a category of bug worth naming: a fix that lives in the wrong file looks identical to a fix that is done.** Iteration 4 raised the mobile tap targets and verified them on `mobile.html` — but `mobile.html` is the one page that links no shared stylesheet, so the rules went into its inline `<style>` and never reached the 16 pages on `styles.css`. Those pages carried **12 footer links at 21px, a 37px menu button and a 19px breadcrumb** for two days, on every service and legal page, while the checkbox in this file was effectively ticked. **Verifying on the page you edited proves the rule works, not that it applies.** ⚠️ **Second lesson, smaller and sharper: `width:18px` on the consent box produced `13x18`.** `.checkline` is `display:flex`, so the consent sentence beside it shrank the box on the cross axis and only the height survived — **a dimension on a flex child is advisory until `flex:none` says otherwise.** ⚠️ **And the `?cb=` trap took another round off me**: the first re-measure came back byte-for-byte identical to the baseline and read as a no-op fix. It was the stylesheet cache, exactly as this Log warned two iterations ago — **the numbers only moved when the `<link href>` was re-pointed, not the page URL.** Sixth false automated reading in this loop, second from this cause. Everything left under 40px is exempt by category and now says so in the queue: the consent checkboxes (the label is the target), inline links inside sentences, and the honeypot. **Guardrails re-checked after the CSS change, not assumed:** 8 lead forms still on the Funnel action with `oid`, `retURL`, both consent ids and the honeypot, and the calculator still returns $1,270,000 for the documented 95,000 case.
 
