@@ -722,6 +722,30 @@ and the Log; do not re-open them from here.
     changes, some income stops while most of the expenses continue. Life insurance is one way to cover
     that gap."* Deliberately **general about why income drops** — no Social Security or pension
     survivor specifics, since that edges into advice. No guarantee, no product named, no em-dashes.
+  - ✅ **`financial-advisor-greenville-sc.html` DONE 2026-08-08, iteration 20. Page 3 of 4.**
+    **The strongest hook of the four:** its review list already promises *"Insurance and protection
+    gaps"*, *"Business-owner or family obligations"* and *"Estate, beneficiary, tax, and liquidity
+    coordination points"*. The callout leans on **the group-life gap**, which [[insurance-8020-pivot]]
+    records as the actual moat: employer cover is commonly one or two times salary and usually ends
+    with the job. Verified at 1440 and 390 — gap 38px, outside the grid, width matched, contrast
+    **16.48 / 5.11 / 4.61**, buttons **45px**, no overflow, `utm_campaign=website_financial_planning`.
+    **Copy distinctness measured across all three:** 19%, 23% and 25% pairwise overlap, and the shared
+    words are the button labels. Three genuinely different arguments, one consistent action.
+  - 🚩 **`investment-management-greenville-sc.html` — RECOMMEND NOT ADDING ONE. Page 4 assessed and
+    deliberately left alone. Tyler's call if he disagrees.**
+    **Measured, not felt:** its review list is **entirely portfolio mechanics** — allocation and
+    account structure, risk exposure and concentration, liquidity needs and time horizon,
+    tax-sensitive decisions, rebalancing cadence. **No protection content anywhere in it**, and
+    "risk" there means concentration risk, not the risk a family carries.
+    **The one honest bridge is liquidity** — life insurance is a liquidity instrument at death for
+    estate and buy-sell purposes. **But that is a business-owner and estate argument aimed at a
+    different segment than the under-50 ICP the site is built around**, so leading with it here would
+    be selling to the wrong reader.
+    **Three reasons to stop at three:** the fit is the weakest of the four by a distance; **a fourth
+    callout of identical shape starts reading as a template, which is precisely the "AI-template look"
+    Tyler rejected in R4**; and the page already reaches protection through the sidebar link and the
+    now site-wide nav, so a visitor is not stranded. **Completing the set for symmetry would be
+    decoration, and R4b forbids exactly that.**
 
 ## Done
 
@@ -779,6 +803,8 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-08 — iteration 20, R5 page 3 of 4, and a recommendation to stop at three.** `financial-advisor-greenville-sc.html` was the strongest hook of the four: its review list already promises *"Insurance and protection gaps"*, *"Business-owner or family obligations"* and *"Estate, beneficiary, tax, and liquidity coordination points"*. The callout leans on **the group-life gap**, which the 80/20 pivot records as the actual moat — employer cover is commonly one or two times salary and it usually ends when the job does. Verified at both widths: 38px gap, outside the grid, width matched, contrast 16.48 / 5.11 / 4.61, buttons 45px, no overflow. **Copy distinctness measured across all three callouts: 19%, 23%, 25% pairwise, and the shared words are the button labels** — three different arguments, one consistent action, which is what I wanted rather than one block pasted four times. 🚩 **Then I assessed page 4 and am recommending against it.** `investment-management-greenville-sc.html`'s review list is **entirely portfolio mechanics** — allocation, concentration, liquidity, tax, rebalancing — with **no protection content at all**, and the "risk" it names is concentration risk, not the risk a family carries. **The one honest bridge is liquidity at death for estate and buy-sell purposes, but that is a business-owner argument aimed at a different reader than the under-50 ICP the site is built around.** Three reasons to stop: weakest fit by a distance; **a fourth callout of identical shape starts to read as a template, which is the exact "AI-template look" Tyler rejected in R4**; and the page already reaches protection via the sidebar and the now site-wide nav, so nobody is stranded. **Completing the set for symmetry would be decoration, and R4b forbids decoration.** If Tyler wants it there anyway, it is fifteen minutes — but the loop should not add it on its own. ⚠️ **Third iteration with no screenshot: a fresh tab also reported `innerWidth:0`, so the pane is collapsed at the app level rather than a stuck tab.** Geometry and computed contrast only, and said plainly rather than dressed up as a visual check.
 
 - **2026-08-08 — iteration 19, R5 page 2 of 4: the retirement page, where the page wrote its own copy.** Its review list already promises *"Survivor needs and legacy considerations"*, so the callout expands a line the page has already committed to instead of importing the services pitch. **That was deliberate**: R3 recorded that two thin near-identical pages is exactly how the duplication problem this loop spent four iterations removing gets recreated, so I checked rather than assumed — **19% word overlap with the services callout, and the shared words are almost entirely the button labels** (`estimate`, `coverage`, `compare`, `real`, `quotes`) which *should* stay consistent. The prose is genuinely different. **The component ported with zero new CSS**, which is the payoff for having built it out of site-wide classes last iteration rather than copying the orphaned `.protect-band` — the decision to not spread a half-dead pattern paid for itself one page later. Verified at 1440 and 390: outside `.page-grid`, 38px gap, width matching the grid, contrast 16.48 / 5.11 / 4.61, buttons 45px, no overflow, `utm_campaign=website_retirement_planning` on both links. ⚠️ **Still no screenshot — the browser pane has now been collapsed at `innerWidth:0` for two straight iterations**, so this was verified by geometry and computed contrast rather than by eye. **Recording that plainly instead of letting "verified" imply I looked at it.** The zero-gap defect on `services.html` shows the geometry check is worth having; it is still not the same as seeing the page. 📝 **DRAFT FOR TYLER:** *"Survivor needs / What happens to the income plan if one of you is not there? / Retirement income is usually planned around two people. If that changes, some income stops while most of the expenses continue. Life insurance is one way to cover that gap."* Kept **deliberately general about why the income drops** — naming Social Security or pension survivor mechanics would edge into advice. **Two commercial pages left.**
 
