@@ -41,7 +41,7 @@
   font-size:30px;line-height:1.05;letter-spacing:-.035em;color:var(--ink)}
 .sf-val .sf-cur{font-size:20px;color:#8c6b32}
 .sf-val input{font:inherit;color:inherit;width:100%;border:0;background:transparent;padding:2px 0;
-  border-bottom:1px dashed rgba(17,25,39,.22);outline:none;-moz-appearance:textfield}
+  border-bottom:1px dashed rgba(17,25,39,.22);outline:none;-moz-appearance:textfield}@media(max-width:820px){.sf-val input{padding:5px 0}}/* R6(c) 2026-08-07: 37px was 3px under the 40px floor. Padding rather than min-height on purpose: .sf-val is display:flex/align-items:baseline, so a min-height would grow the box downward and drag the dashed "editable" underline away from the digits. This keeps it tight to the number. */
 .sf-val input::-webkit-outer-spin-button,.sf-val input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .sf-val input:focus{border-bottom-color:var(--gold);background:rgba(200,161,90,.07)}
 .sf-suffix{font-size:15px;color:var(--muted);font-family:Inter,system-ui,sans-serif;white-space:nowrap}
@@ -60,7 +60,7 @@
   box-shadow:0 4px 14px rgba(6,17,31,.28);transition:transform .12s ease}
 .sf-range::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:#fff;
   border:2px solid var(--gold);box-shadow:0 4px 14px rgba(6,17,31,.28);transition:transform .12s ease}
-.sf-range:active::-webkit-slider-thumb{transform:scale(1.12)}
+@media(max-width:820px){.sf-range{height:44px}}/* R6(c) 2026-08-07: the slider is the primary control on this page and 34px is a small drag target on a phone. Track and thumb are drawn by the ::-slider-runnable-track/::-slider-thumb rules and stay put; only the hit area grows. */.sf-range:active::-webkit-slider-thumb{transform:scale(1.12)}
 .sf-range:active::-moz-range-thumb{transform:scale(1.12)}
 .sf-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(200,161,90,.35)}
 .sf-scale{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:-4px}

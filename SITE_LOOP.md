@@ -312,8 +312,11 @@ and the Log; do not re-open them from here.
     tallest block on the page and belongs on its own page with a short version linking to it.
     Structure the nav to match the cohort: 5–8 top-level items, services as their own pages.
 
-- [ ] **R3. Products: final expense, IUL and VUL. Tyler, 2026-08-07:** *"we need to offer final
-  expense and IULs for sure VUL as well!!"*
+- [x] **R3. Products: final expense, IUL and VUL. Tyler, 2026-08-07:** *"we need to offer final
+  expense and IULs for sure VUL as well!!"* **Closed 2026-08-07** — the page shipped and expanded to
+  8 sections, VUL is closed on licensing, and the one open sub-item (the site-wide sub-40px tap
+  targets logged here rather than smuggled into that change) was fixed in R6(c). Box had been left
+  unticked while the work underneath was complete.
   - 🚩 **This reverses two of his own standing rules**, recorded from the v2 research and the 80/20
     pivot: *final expense stays OFF the main site, separate landing pages only*, and *IUL never
     leads*. His call, and it is his business; the rules were his too, so both memory files need
@@ -450,8 +453,37 @@ and the Log; do not re-open them from here.
     all 10. **The Salesforce field vocabulary is kept on purpose** — the Pi handler and
     `/api/public/lead` accept it as aliases, so only `action=` ever needed to change. **Never actually
     submit** — a POST creates a real lead.
-  - **(c) Mobile.** Every page at 390 and 430: no overflow, nothing past the viewport, tap targets
-    over 40px except the honeypot, redirect allow-list correct for any page added since.
+  - ✅ **(c) Mobile. DONE 2026-08-07 (`0912b6b`). 18 pages at 390 and 430.** **Overflow was already
+    clean** — 0 horizontal overflow and 0 elements past the viewport on all 18, at both widths. **The
+    real finding was that iteration 4's tap-target fixes only ever existed on `mobile.html`**, in that
+    page's inline `<style>`, and `mobile.html` links no shared stylesheet. So the 16 pages on
+    `styles.css` still had **21px footer links (12 per page), a 37px menu button and a 19px
+    breadcrumb** — the fix had looked done for two days because the page it was tested on was the one
+    page that had it. **A fix applied in a page-local stylesheet is not a site fix; check where the
+    rule lives, not just that it works on the page in front of you.**
+    Offenders per page went **13–17 → 0** on 12 of 17, with the rest exempt by category (below).
+    Raised in the shared sheet: `.footer a` 21→44, `.menu-toggle` 37→44, `.breadcrumb` 19→44.
+    ⚠️ **The checkbox fix half-worked and the half that failed is the instructive part.** Setting
+    `width:18px;height:18px` produced **13x18** — `.checkline` is `display:flex`, so the long consent
+    sentence beside it shrank the box back on the cross axis and only the height took. **`flex:none`
+    is what made it 18x18.** A size set on a flex child is a suggestion until you say otherwise.
+    Calculator and `mobile.html` sliders 34→44 (page-local copies, fixed in both); calculator number
+    inputs 37→43 via padding rather than `min-height`, because `.sf-val` is `align-items:baseline` and
+    a min-height drags the dashed "editable" underline away from the digits.
+    **Exempt by category, deliberately, not overlooked:** the consent checkboxes (18x18 — the label
+    wraps the text and is the real target, same logic recorded in iteration 4), inline prose links
+    inside sentences (`a 170x20`, `.quote-link 193x19` — WCAG 2.5.8 exempts these and forcing 44px
+    would wreck line spacing), and the honeypot.
+    **Redirect allow-list correct:** `index.html` → `mobile.html` at 390; the six pages added since,
+    including `types-of-life-insurance.html`, all stay put.
+    **Lead capture re-verified after the CSS change** (guardrail): 8 lead forms, all on the Funnel
+    action, `oid` + `retURL` + 2 consent ids + honeypot on every one. **Calculator maths re-verified
+    against the documented case — income 95,000 still gives $1,270,000.**
+    ⚠️ **The `?cb=` stylesheet trap caught me too, and it cost a full measurement round.** The first
+    re-measure came back byte-identical to the baseline and read as "the fix did nothing". A buster on
+    the HTML does not refetch the stylesheet; the numbers only moved once the `<link href>` itself was
+    re-pointed. **This is the sixth false reading from automated measurement in this loop** and the
+    second from this exact cause. Bust the sheet, not the page.
   - **(d) Contrast.** Alpha-composited, counting hidden elements rather than skipping them, and
     photograph-backed text judged by screenshot — the checker has produced a false reading in every
     iteration it has been used.
@@ -534,5 +566,7 @@ and the Log; do not re-open them from here.
 - 🚩 **`origin/main` moved during the session.** `lead.php` was pushed to `main` at 22:01 on 2026-08-06 (`b3f8b01`) and, since push to main auto-deploys, went out. **The same file already exists on this branch as `127b4da` with identical content but a different SHA, so this branch must be rebased onto the new `origin/main` before any merge** or the change lands twice. Local `main` is one commit behind `origin/main`.
 - 🚩 **Waiting on Tyler:** publishing the flat fees (he is undecided, do not re-ask); the exact accounting-degree level and school if he wants it named; and whether the surviving **V11 redesign** on `origin/claude/rcowealth-premium-redesign-qjdZ2` should be served for review. Carrier **logos** need his BGA to confirm which carriers permit logo use and to supply approved files.
 - **Next: back to the queue — slice (c)**, then item 5 (competitor benchmark) and item 6 (life-insurance prominence across the other 15 pages).
+
+- **2026-08-07 — iteration 12, R6(c) mobile, and R3 ticked (`0912b6b`).** **The pass found no overflow anywhere** — 18 pages at 390 and 430, zero horizontal scroll, zero elements past the viewport, which is the first review slice to come back clean on its headline metric. **What it did find is a category of bug worth naming: a fix that lives in the wrong file looks identical to a fix that is done.** Iteration 4 raised the mobile tap targets and verified them on `mobile.html` — but `mobile.html` is the one page that links no shared stylesheet, so the rules went into its inline `<style>` and never reached the 16 pages on `styles.css`. Those pages carried **12 footer links at 21px, a 37px menu button and a 19px breadcrumb** for two days, on every service and legal page, while the checkbox in this file was effectively ticked. **Verifying on the page you edited proves the rule works, not that it applies.** ⚠️ **Second lesson, smaller and sharper: `width:18px` on the consent box produced `13x18`.** `.checkline` is `display:flex`, so the consent sentence beside it shrank the box on the cross axis and only the height survived — **a dimension on a flex child is advisory until `flex:none` says otherwise.** ⚠️ **And the `?cb=` trap took another round off me**: the first re-measure came back byte-for-byte identical to the baseline and read as a no-op fix. It was the stylesheet cache, exactly as this Log warned two iterations ago — **the numbers only moved when the `<link href>` was re-pointed, not the page URL.** Sixth false automated reading in this loop, second from this cause. Everything left under 40px is exempt by category and now says so in the queue: the consent checkboxes (the label is the target), inline links inside sentences, and the honeypot. **Guardrails re-checked after the CSS change, not assumed:** 8 lead forms still on the Funnel action with `oid`, `retURL`, both consent ids and the honeypot, and the calculator still returns $1,270,000 for the documented 95,000 case.
 
 - **2026-08-07 — out of band, at Tyler's direction from his phone (`2b69591`). R6(b2) and R7 closed together; the loop had stalled and the finding it stopped on was misdiagnosed.** The loop's own tick never fired after 17:05 EDT, so this was done from a separate session. **The "all 10 forms still post to Salesforce" alarm was real about the branch and wrong about the business.** `rcowealth.com` was already serving the Funnel action — fetched live, 0 Salesforce hits — so the cutover Tyler was told was done really was done. What had happened is that **this branch was cut from local `main` before the flip reached `origin/main`**, so it carried the pre-cutover forms forward under 56 commits of revamp work. The danger was therefore **the reverse of what was written**: not that the cutover had never happened, but that merging this branch would have **undone it silently**, with the failure only surfacing on the day the org is cancelled and every website lead dies at once. ⚠️ **The near-miss worth remembering: the previous pass proposed wiring the forms to `lead.php`, which would have taken lead capture from working to dead** — IONOS runs no PHP and that file 403s. A fix aimed at the wrong target is more dangerous than the bug, because it ships with confidence. **Merged `origin/main` instead of hand-editing ten endpoints**, so the branch now carries the real commit rather than a lookalike. Verified in a browser on `localhost:5187`, not off the diff: 10/10 forms on `https://pi-nas.tail34488a.ts.net/` (303, live), `oid` + `retURL` + both consent ids + the `website_url` honeypot intact on all 10. **No form was submitted** — a POST creates a real lead. **Nothing pushed; `main` untouched.**

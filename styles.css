@@ -231,3 +231,23 @@ h3{
 .transparency-note{margin:14px 0 0;font-size:13px;color:rgba(246,239,224,.72)}
 .transparency-note strong{color:#fff}
 .transparency-note a{color:var(--gold-2);text-decoration:underline}
+
+/* Mobile tap targets, R6(c) 2026-08-07. Iteration 4 raised these to 44px on
+   mobile.html only, in that page's inline <style>, so the fix never reached the
+   16 pages that use this shared sheet: footer links were 21px, the menu button
+   37px and the breadcrumb 19px on every one of them. Same min-height +
+   flex-centring pattern .contact-shortcuts a already used, not a new one.
+   display:flex (block-level) rather than inline-flex on purpose: the interior
+   footers stack one link per row and inline-flex would reflow them side by side. */
+@media(max-width:820px){
+  .footer a{display:flex;align-items:center;min-height:44px;margin:0}
+  .menu-toggle{min-height:44px;align-items:center}
+  .breadcrumb{display:inline-flex;align-items:center;min-height:44px}
+  /* The label wraps the text, so the tap area was already compliant; 13px was a
+     legibility problem, not a target one. Matches the homepage's 18px + navy.
+     flex:none is load-bearing — .checkline is display:flex, so without it the box
+     is shrunk back to 13px wide by the long consent sentence beside it and only
+     the height takes effect. */
+  .lead-form input[type=checkbox]{width:18px;height:18px;accent-color:var(--navy)}
+  .checkline input[type=checkbox]{flex:none;width:18px;height:18px}
+}
