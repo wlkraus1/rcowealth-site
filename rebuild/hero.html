@@ -133,6 +133,19 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .readout a:hover{transform:translateY(-2px)}
 .fine{margin:14px 0 0;font:400 12px/1.55 var(--sans);color:#6d7787}
 
+/* ---- floating proof chips ---- */
+.float-chip{position:absolute;z-index:3;background:#fff;border:1px solid rgba(200,161,90,.45);border-radius:13px;
+  padding:10px 14px;font:700 13px/1.2 var(--sans);color:var(--ink);
+  box-shadow:0 18px 44px -20px rgba(15,26,38,.4);animation:floaty 6s ease-in-out infinite}
+.float-chip small{display:block;font:800 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:4px}
+.fc1{top:-16px;left:-22px}
+.fc2{bottom:-16px;right:-18px;animation-delay:1.4s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* Hidden on small screens: at 390 the top chip sat over the tool's own label,
+   and the .proof line already states both facts. Decoration never outranks the
+   control it decorates. */
+@media(max-width:960px){.float-chip{display:none}}
+
 /* ---- scroll cue + disclosure ---- */
 .cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:2;
   font:800 10.5px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);opacity:.8}
@@ -177,6 +190,11 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
     </div>
 
     <div class="tool" id="tool">
+      <!-- Floating proof chips, the reference reels' stat-chip device - but every
+           string is a fact already on the site. An RIA cannot float "$500M" so it
+           floats structure instead. aria-hidden: the same facts are in .proof. -->
+      <span class="float-chip fc1" aria-hidden="true"><small>Standard</small>Fiduciary, Series 65</span>
+      <span class="float-chip fc2" aria-hidden="true"><small>Quotes</small>40+ carriers, one ask</span>
       <p class="tt">60-second answer</p>
       <p class="tq">What would your family need if your income stopped?</p>
       <div class="chips" role="group" aria-label="What are you protecting?">
@@ -204,31 +222,56 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---- gold filament field. Vanilla canvas, no library. ---- */
+  /* ---- the centerpiece: a rotating 3D particle sphere, vanilla canvas. ----
+     Upgraded 2026-08-07 after Tyler's five reference reels. Their common thread
+     is ONE dimensional object with real presence (a particle cube, a glowing
+     orb) rather than scattered ambience - my first pass, loose drifting
+     filaments, was too timid against them. Same move here, but in the brand:
+     gold on cream, not neon on black, because light-and-bright is a hard rule.
+     ~170 points on a fibonacci sphere, neighbor links precomputed once in 3D so
+     the wireframe is stable, continuous Y rotation, and the cursor leans the
+     axis. Still zero libraries. */
   var cv=document.getElementById('field'), cx=cv.getContext('2d');
-  var W,H,pts=[],mouse={x:-9e3,y:-9e3};
-  function size(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio;cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);}
+  var mouse={x:.5,y:.5};
+  function size(){cv.width=cv.offsetWidth*devicePixelRatio;cv.height=cv.offsetHeight*devicePixelRatio;
+    cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);}
   size();addEventListener('resize',size);
-  var N = innerWidth<760 ? 26 : 52;
-  for(var i=0;i<N;i++)pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
-    a:Math.random()*Math.PI*2,s:.14+Math.random()*.3,r:.7+Math.random()*1.6});
-  addEventListener('pointermove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;},{passive:true});
+  addEventListener('pointermove',function(e){mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight;},{passive:true});
+  var N=innerWidth<760?110:170, P=[], phi=Math.PI*(3-Math.sqrt(5));
+  for(var i=0;i<N;i++){var y=1-(i/(N-1))*2, r=Math.sqrt(1-y*y), th=phi*i;
+    P.push([Math.cos(th)*r, y, Math.sin(th)*r]);}
+  var links=[];                             /* precomputed: stable wireframe, O(n) per frame */
+  for(var i=0;i<N;i++)for(var j=i+1;j<N;j++){
+    var dx=P[i][0]-P[j][0],dy=P[i][1]-P[j][1],dz=P[i][2]-P[j][2];
+    if(dx*dx+dy*dy+dz*dz<.075)links.push([i,j]);}
+  var rotY=0, tiltX=0;
   function tick(){
-    cx.clearRect(0,0,innerWidth,innerHeight);
-    for(var i=0;i<N;i++){var p=pts[i];
-      p.a+=.002+p.s*.004; p.x+=Math.cos(p.a)*p.s; p.y+=Math.sin(p.a*.8)*p.s*.7;
-      var dx=p.x-mouse.x,dy=p.y-mouse.y,d2=dx*dx+dy*dy;
-      if(d2<22500){var d=Math.sqrt(d2)||1,f=(150-d)/150*1.6;p.x+=dx/d*f;p.y+=dy/d*f;}
-      if(p.x<-40)p.x=innerWidth+40; if(p.x>innerWidth+40)p.x=-40;
-      if(p.y<-40)p.y=innerHeight+40; if(p.y>innerHeight+40)p.y=-40;
-      for(var j=i+1;j<N;j++){var q=pts[j],ddx=p.x-q.x,ddy=p.y-q.y,dd=ddx*ddx+ddy*ddy;
-        if(dd<15000){cx.strokeStyle='rgba(200,161,90,'+(0.14*(1-dd/15000))+')';
-          cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(q.x,q.y);cx.stroke();}}
-      cx.fillStyle='rgba(140,107,50,.5)';cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill();
-    }
-    requestAnimationFrame(tick);
+    var w=cv.offsetWidth,h=cv.offsetHeight;
+    cx.clearRect(0,0,w,h);
+    rotY+=.0022;
+    tiltX+=(((mouse.y-.5)*.55)-tiltX)*.04;                 /* cursor leans the axis, softly */
+    var rotZ=(mouse.x-.5)*.25;
+    var big=innerWidth>960;
+    var cxp=big?w*.66:w*.5, cyp=big?h*.46:h*.30, R=Math.min(w,h)*(big?.44:.5);
+    var sy=Math.sin(rotY),cy2=Math.cos(rotY),sx=Math.sin(tiltX),cx2=Math.cos(tiltX),
+        sz=Math.sin(rotZ),cz=Math.cos(rotZ), pr=[];
+    for(var i=0;i<N;i++){var p=P[i];
+      var x=p[0]*cy2+p[2]*sy, z1=-p[0]*sy+p[2]*cy2;         /* Y spin */
+      var y1=p[1]*cx2-z1*sx,  z=p[1]*sx+z1*cx2;             /* cursor tilt */
+      var x2=x*cz-y1*sz,      y2=x*sz+y1*cz;                /* cursor roll */
+      var s=1.6/(1.6+z);                                    /* perspective */
+      pr.push([cxp+x2*R*s, cyp+y2*R*s, z, s]);}
+    for(var k=0;k<links.length;k++){var a=pr[links[k][0]],b=pr[links[k][1]];
+      var depth=1-((a[2]+b[2])/2+1)/2;                      /* front links brighter */
+      cx.strokeStyle='rgba(178,140,74,'+(.04+depth*.16)+')';
+      cx.beginPath();cx.moveTo(a[0],a[1]);cx.lineTo(b[0],b[1]);cx.stroke();}
+    for(var i=0;i<N;i++){var q=pr[i], depth=1-(q[2]+1)/2;
+      cx.fillStyle='rgba(140,107,50,'+(.18+depth*.5)+')';
+      cx.beginPath();cx.arc(q[0],q[1],(0.6+depth*1.7)*q[3],0,7);cx.fill();}
+    if(!reduce) requestAnimationFrame(tick);
   }
-  if(!reduce) tick();
+  if(reduce){rotY=.7;tiltX=.18;}                            /* one static, well-lit frame */
+  tick();
 
   /* ---- the instrument ---- */
   var inc=document.getElementById('inc'), need=document.getElementById('need'),
