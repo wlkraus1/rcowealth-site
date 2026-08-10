@@ -25,6 +25,63 @@ So, in order of what it is for: **life insurance is the revenue engine and it is
 
 ## Queue
 
+# ⛔ QUEUE SUSPENDED 2026-08-07 — TYLER CALLED A REBUILD. Read this before working any item below.
+
+> *"idk i mean honestly i rather just start completely over and create a great website that attracts.
+> there are some incredible websites out there in other niche areas of course that have motions and
+> all and very interactive more so than the calculator part which is great by the way!!"*
+
+**Do not keep running R6 review passes.** They audit a presentation layer that is being replaced.
+Auditing something scheduled for deletion is the definition of wasted iterations.
+
+### ⚠️ MY RESEARCH FRAMING WAS WRONG, AND IT IS WHY THIS KEPT MISSING
+
+R1 measured nine FINANCE sites and reported "zero animation libraries" nine times, then treated that
+as a design principle. **It is not a principle. It is a fact about a boring industry.** Finance
+comparables tell you what is *credible*; they say nothing about what is *good*. Tyler asked three
+times to look at other niches and every answer came back with Facet and Farther. **A rebuild must
+benchmark OUTSIDE financial services for feel, and inside it only for compliance and trust.**
+
+### WHAT "START OVER" SHOULD AND SHOULD NOT MEAN
+
+**Throw the visible layer** — `index.html`, `mobile.html`, `revamp.css`, `reveal.js`. That is what he
+has rejected, in some form, five separate times.
+
+**Keep the plumbing, because it is invisible, expensive, and already compliance-checked:**
+- **10 Salesforce forms** with oid, retURL, custom field ids, both consent ids and honeypots
+- the compliance strings: "registered investment adviser" on **18 pages**, the advisory-relationship
+  disclaimer and TCPA consent on **10** each, the fiduciary/compensation disclosure
+- `life-insurance-calculator.html` — 8 slider fields **and the `$75,000`-reads-as-zero parse fix**,
+  which was a live defect silently zeroing real inputs
+- `types-of-life-insurance.html` — 1,305 words of product copy written to survive a compliance read
+- `site.js` `prefillForm()`, the BackNine quote path, `campaign-tracking.js` attribution
+- `lead.php`, still unwired, still needed the day the Salesforce org is cancelled
+
+### 🚩 THE PATTERN THAT MATTERS MORE THAN THE DESIGN
+
+**This is redesign attempt five.** v1 dark/space was rejected; three more were built and, per Tyler's
+own correction, **never reviewed at all**; this branch is the fourth to reach ~90% and get rejected.
+**The failure mode is not the design. It is that a whole site gets built before he ever sees a
+finished piece of it.** So the rebuild rule is: **build ONE section to complete, polished, real-content
+finish. Show it. Get a yes. Only then build the second.** Never present 90% of a site again.
+
+### THE SPINE SHOULD BE TOOLS, NOT PAGES
+
+He praised exactly one thing unprompted, twice: the calculator. No Upstate competitor has any tool at
+all (R1, 8 sites). Tools also earn links and rank, which is the one thing that touches the real
+constraint — **rcowealth.com is not in the top ten for either money keyword**. A site whose spine is
+"answer a question, get a number" is differentiated, on-brand for a fiduciary, and the thing he
+actually responds to.
+
+### NEXT ACTION, PENDING TYLER
+
+Pick the first section to build to finish. Recommend the **hero + one interactive block**, because it
+is the piece he has rejected most often and the fastest read on whether the new direction lands.
+
+---
+
+## Queue (SUSPENDED — pre-rebuild, retained for the record)
+
 **Reset 2026-08-07 at Tyler's direction.** Everything above the fold has been iterated on by taste
 for three days. He called it: *"we need to do real analysis on competitors, other local firms, local
 agents sites, ext, to see what is working and what is not and then design this site the correct
