@@ -346,10 +346,10 @@ HOME = """
         <input type="range" id="inc" min="20000" max="400000" step="5000" value="75000" aria-label="Your annual income">
       </div>
       <div class="readout">
-        <div><small>Rough coverage need</small><span class="num" id="need">$1,080,000</span></div>
+        <div><small>Rough coverage need</small><span class="num" id="need">$705,000</span></div>
         <a id="full" href="life-insurance-calculator.html">Run the full number &rarr;</a>
       </div>
-      <p class="fine">Ten years of income, plus what you selected. A starting point, not advice.</p>
+      <p class="fine">Five years of income, plus what you selected. A starting point, not advice.</p>
     </div>
   </div>
 </section>
@@ -399,6 +399,7 @@ HOME = """
   </div>
 </section>
 
+{HOMEFORM}
 <section class="section">
   <div class="wrap split b">
     <figure style="margin:0" data-rv>
@@ -433,10 +434,10 @@ WEALTH = """
 </section>
 
 <section class="section cream" id="tool">
-  <div class="wrap split a">
+  <div class="wrap split a top">
     <div>
       <p class="kicker" data-rv>60-second answer</p>
-      <h2 data-rv style="max-width:17ch">Will the money still be there at <em class="g">85</em>?</h2>
+      <h2 data-rv style="max-width:19ch">Will it pay you <em class="g">enough</em> to stop working?</h2>
       <p class="lede" data-rv>Protection has a calculator, planning has a price list, and until now wealth had a phone number. Drag four sliders and see whether the plan holds. Nothing is stored and no contact details are asked for.</p>
       <p class="lede" data-rv style="font-size:15px">The growth rate is yours to set, not mine to promise. Move it and watch how much the answer depends on an assumption nobody can guarantee. That sensitivity is the actual lesson.</p>
       <div class="acts" data-rv>
@@ -550,7 +551,7 @@ CARRIERWALL = """
 <section class="section dark">
   <div class="wrap center">
     <p class="cnum" data-rv>40+</p>
-    <h2 class="cclaim" data-rv>life insurance carriers, available through one application</h2>
+    <h2 class="cclaim" data-rv>leading carriers available through one application</h2>
     <p class="lede" data-rv style="margin:14px auto 0;max-width:52ch">Compare coverage and pricing across leading life insurance carriers without filling out the same information over and over.</p>
     <p class="cstrip" data-rv><b>Independent access</b><i>&middot;</i><b>No single-carrier bias</b><i>&middot;</i><b>You see the pricing we see</b></p>
     <div class="cgrid" data-rv>
@@ -577,9 +578,24 @@ CARRIERWALL = (CARRIERWALL
   .replace("{MORE}", f"+ {len(ROSTER)} more, all named below")
   .replace("{CELLS}", carrier_cells())
   .replace("{ROSTERCELLS}", "".join(f"<span>{n}</span>" for n in ROSTER)))
-PROTECTION = PROTECTION.replace("{CARRIERWALL}", CARRIERWALL)
+PROTECTION = PROTECTION.replace("{CARRIERWALL}", CARRIERWALL) + form_section(
+  "Not ready to quote", "Have what you already own checked first.",
+  "Send what you have and who depends on you. If the answer is that you do not need more, "
+  "that is the answer you will get. Please leave policy numbers out of the form.",
+  lead_form("protection-page","protection.html","life-insurance-planning",
+            "Request a coverage review","Replies come from me, usually the same day.",
+            "Insurance","Life insurance planning", cta="Request a review", insurance=True,
+            placeholder="Example: 20 year term from 2015 plus group cover at work, "
+                        "two kids under 10, and I am not sure it is still enough."))
 # Same wall closes the home page, with its own utm_content so the two entry
 # points stay separable in reporting.
+HOME = HOME.replace("{HOMEFORM}", form_section(
+  "No appointment needed", "Or just tell me what is going on.",
+  "If none of the self-service paths fit, write a sentence about what is on your mind. "
+  "I read these myself and reply personally, usually the same day.",
+  lead_form("website-general-consultation","index.html","consultation-request",
+            "Send a note","Replies come from me, usually the same day.",
+            "Not sure","Focused intro call", cta="Send it"), cream=True))
 HOME = HOME.replace("{CARRIERWALL}",
   CARRIERWALL.replace("utm_content=protection_carriers","utm_content=home_carriers"))
 
@@ -844,7 +860,7 @@ CLIENTLOGIN = legal_page("Client access","Portals",[
 # wiring are preserved exactly; only the chrome changes.
 CALCFIELDS = [
  ("income","Your annual income",True,0,400000,5000,75000,"$"),
- ("years","Years to replace it",False,0,40,1,10,""),
+ ("years","Years to replace it",False,0,40,1,5,""),
  ("mortgage","Mortgage balance",True,0,750000,5000,250000,"$"),
  ("debts","Other debt (cars, cards, loans)",True,0,150000,2500,25000,"$"),
  ("kids","Number of children",False,0,8,1,2,""),
@@ -1319,6 +1335,16 @@ def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, int
             "Replies come from me, usually the same day.", interest, step,
             cta="Request follow-up", insurance=(interest == "Insurance")), cream=True)}"""
 
+WEALTH = WEALTH + form_section(
+  "Start a conversation", "Want a second read on the portfolio?",
+  "Tell me what you hold and what it is for. If a flat-fee plan serves you better than "
+  "management, I will say so before you ask.",
+  lead_form("wealth-page","wealth.html","consultation-request",
+            "Request a portfolio review","Replies come from me, usually the same day.",
+            "Investments","Portfolio or retirement review", cta="Request a review",
+            placeholder="Example: about $400k across a 401k and a rollover IRA, "
+                        "retiring in roughly eight years."), cream=True)
+
 PAGES = [
  ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% a year with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
@@ -1342,6 +1368,19 @@ PAGES = [
 for g in GEO:
     slug,title,desc = g[0],g[1],g[2]
     PAGES.append((slug,title,desc,geo_page(slug,*g[3:])))
+
+for i,(slug,title,desc,body) in enumerate(PAGES):
+    if slug == "life-insurance-calculator.html":
+        PAGES[i] = (slug, title, desc, body + form_section(
+          "You have the number", "Want it turned into real pricing?",
+          "Send the figure you just worked out and I will come back with what it actually "
+          "costs across the carriers that can write your case.",
+          lead_form("needs-calculator","life-insurance-calculator.html","needs-calculator",
+                    "Price this amount","Replies come from me, usually the same day.",
+                    "Insurance","Life insurance planning", cta="Send my number",
+                    insurance=True,
+                    placeholder="Example: the calculator said about $600,000 and I am 38, "
+                                "non-smoker, in good health."), cream=True))
 
 for slug,title,desc,body in PAGES:
     (OUT/slug).write_text(shell(slug,title,desc,body),encoding="utf-8")

@@ -105,7 +105,14 @@
     draw();
   }
 
-  /* Coverage instrument. Any page can carry one; ids are shared. */
+  /* Coverage instrument. Any page can carry one; ids are shared.
+
+     Five years of income, not ten. Tyler's call: ten produced a number so
+     large it talked people out of the smaller, realistic policy they would
+     actually buy. The full calculator still lets anyone raise the multiple -
+     its "years to replace it" slider defaults to 5 to match, so clicking
+     through does not silently double the answer. */
+  var YEARS=5;
   var inc=document.getElementById('inc');
   if(inc){
     var need=document.getElementById('need'), out=document.getElementById('incOut'),
@@ -117,7 +124,7 @@
     var run=function(anim){
       var extras=0;
       chips.forEach(function(c){if(c.getAttribute('aria-pressed')==='true')extras+=+c.dataset.add;});
-      var v=(+inc.value)*10+extras;
+      var v=(+inc.value)*YEARS+extras;
       if(out) out.textContent=money(+inc.value);
       if(need&&need.textContent!==money(v)){
         need.textContent=money(v);

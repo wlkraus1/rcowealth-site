@@ -443,3 +443,7 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .wresult .rbig{margin-bottom:12px}
 .wresult .wbar{margin:0 0 6px}
 .wresult .rline b.good{color:var(--gold-ink)}
+
+/* Top-align a split row whose right column is much taller than its left, so
+   the left text does not float in the middle with dead space above and below. */
+.split.a.top{align-items:start}
