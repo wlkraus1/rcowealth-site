@@ -607,18 +607,18 @@ TIERS = [
   ["Discovery meeting plus a plan-delivery meeting","Cash flow and emergency fund review",
    "Debt pay-down vs invest analysis, ranked by your actual rates","Retirement savings starting roadmap",
    "Written one-page action plan you keep","30 days of email follow-up"],
-  "https://square.link/u/VJZxUhJ9","Start Foundations",False),
+  "start-plan.html?tier=foundations","Start Foundations",False),
  ("Household","$2,000","For a full picture, usually a couple with a few moving parts.",
   ["Everything in Foundations, plus","Full household cash flow and net worth build-out",
    "Goal planning: retirement, major purchases, education","Insurance needs review, life and disability gaps",
    "Tax-aware account strategy, Roth vs traditional and contribution order",
    "Two working sessions plus a delivery meeting","60 days of email follow-up"],
-  "https://square.link/u/23AsoUVF","Start Household",True),
+  "start-plan.html?tier=household","Start Household",True),
  ("Household + Implementation","$3,000","For help executing, not just a document.",
   ["Everything in Household, plus","Guided implementation support","Account setup walkthroughs",
    "Beneficiary and titling review","Up to three additional working sessions",
    "Completed within the six-month window"],
-  "https://square.link/u/oUQEsSoQ","Start Implementation",False),
+  "start-plan.html?tier=implementation","Start Implementation",False),
 ]
 def tier_html(t):
     name,price,forwho,bullets,link,cta,best=t
@@ -646,7 +646,7 @@ PLANNING = """
     <div class="tiergrid stagger" data-rv>
       """ + "\n      ".join(tier_html(t) for t in TIERS) + """
     </div>
-    <p class="tnote" data-rv>Paying starts the engagement. The written planning agreement comes to you to sign straight after, and the discovery meeting is part of the work rather than a sales call you have to pass first.</p>
+    <p class="tnote" data-rv>Paying starts the engagement. The written planning agreement follows by email the same day for signature, and the discovery meeting is part of the work rather than a sales call you have to pass first.</p>
     <p style="margin:22px auto 0;max-width:80ch;text-align:center;font:400 12px/1.65 var(--sans);color:var(--muted)" data-rv>Flat fee agreed in writing before any work begins. One-time engagement completed within six months; it is not a subscription. If we stop early, any unearned prepaid portion is returned. Insurance is optional and never required through the firm. Planning is analysis and education; there are no performance promises, and investing involves risk including loss of principal.</p>
   </div>
 </section>
@@ -1347,7 +1347,100 @@ WEALTH = WEALTH + form_section(
             placeholder="Example: about $400k across a 401k and a rollover IRA, "
                         "retiring in roughly eight years."), cream=True)
 
+
+# ------------------------------------------------------------ START-PLAN BRIDGE
+# Tyler, on tier buttons deep-linking to bare square.link URLs: "it almost
+# looks scammy to me so it will for sure to anyone else", and "we have to know
+# about them at least bare bones". This page is the branded step between the
+# tier card and Square: it captures name/email/phone as a real lead through the
+# same Pi funnel as every other form (Telegram pings even if they never pay),
+# then forwards to Square checkout.
+#
+# The Pi's safe_return whitelists rcowealth.com only, so the forward cannot
+# ride retURL. Instead the form posts into a hidden iframe and the page
+# navigates to Square 1.2s later. JS off = normal submit: lead still captured,
+# visitor lands on thank-you and can be called. No server change required.
+BRIDGE = """
+<section class="section" style="padding-bottom:0">
+  <div class="wrap" style="max-width:880px">
+    <p class="kicker" data-rv>Start your plan</p>
+    <h1 data-rv style="font-size:clamp(40px,5vw,64px)">Start <em class="g" id="bTierName">Household</em>.</h1>
+    <p class="lede" data-rv>Two quick things, then Square&rsquo;s secure checkout. The charge shows as <b>Rae &amp; Co Capital, LLC</b> on your statement.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap split c" style="max-width:1020px">
+    <div>
+      <div class="card" data-rv style="margin-bottom:16px">
+        <p class="tag">Your plan</p>
+        <h2 class="sub" id="bSummaryName">Household</h2>
+        <p style="margin:2px 0 10px;font-family:var(--serif);font-size:34px;color:var(--ink)" id="bPrice">$2,000</p>
+        <p id="bBlurb">For a full picture, usually a couple with a few moving parts.</p>
+      </div>
+      <div class="card" data-rv>
+        <p class="tag">What happens next</p><h2 class="sub" style="position:absolute;left:-9999px">What happens next</h2>
+        <ul class="ticks" style="margin-top:6px">
+          <li>Pay on Square&rsquo;s secure checkout. You get a receipt immediately.</li>
+          <li>Sign the written planning agreement, which I email you the same day.</li>
+          <li>Meet for discovery. It is part of the work, not a sales call you have to pass first.</li>
+        </ul>
+        <p style="margin:14px 0 0;font:400 12.5px/1.6 var(--sans);color:var(--muted)">One-time engagement completed within six months, not a subscription. If we stop early, any unearned prepaid portion is returned. Questions first? Text 864-558-8440.</p>
+      </div>
+    </div>
+    <div>
+    <form class="lform" data-rv id="bridgeForm" action="https://pi-nas.tail34488a.ts.net/" method="POST" target="paysink"
+          data-campaign="planning-checkout" data-asset="start-plan.html" data-form-purpose="planning-purchase">
+{FORM_HIDDEN}
+      <input type="hidden" name="00Nfn0000089jXZ" value="Not sure yet">
+      <input type="hidden" name="preferred_next_step_display" value="Buying a planning package">
+      <input type="hidden" name="description" id="bDesc" value="Started checkout: Household ($2,000)">
+      <h2 class="sub">Who is this plan for?</h2>
+      <p class="lsub">So the agreement and the plan carry the right name from the start.</p>
+      <div class="fgrid">
+        <div class="fld2"><label for="bp_first">First name</label><input id="bp_first" name="first_name" autocomplete="given-name" required></div>
+        <div class="fld2"><label for="bp_last">Last name</label><input id="bp_last" name="last_name" autocomplete="family-name" required></div>
+        <div class="fld2"><label for="bp_email">Email</label><input id="bp_email" type="email" name="email" autocomplete="email" required></div>
+        <div class="fld2"><label for="bp_phone">Phone</label><input id="bp_phone" type="tel" name="phone" autocomplete="tel" required></div>
+{FORM_CHECKS}
+      </div>
+      <button class="btn btn-gold" type="submit" style="width:100%;margin-top:18px">Continue to secure payment <span class="arr">&rarr;</span></button>
+      <p class="lfine" id="bWait" style="display:none">Opening Square checkout&hellip; <a id="bFallback" href="#">continue manually</a> if nothing happens.</p>
+      <p class="lfine">{FORM_FINE}</p>
+    </form>
+    <iframe name="paysink" title="hidden" aria-hidden="true" tabindex="-1" style="position:absolute;left:-9999px;width:1px;height:1px"></iframe>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var TIERS={
+    foundations:{name:"Foundations",price:"$750",blurb:"For a clear starting plan around one or two priorities.",pay:"https://square.link/u/VJZxUhJ9"},
+    household:{name:"Household",price:"$2,000",blurb:"For a full picture, usually a couple with a few moving parts.",pay:"https://square.link/u/23AsoUVF"},
+    implementation:{name:"Household + Implementation",price:"$3,000",blurb:"For help executing, not just a document.",pay:"https://square.link/u/oUQEsSoQ"}
+  };
+  var key=(new URLSearchParams(location.search).get("tier")||"household").toLowerCase();
+  var t=TIERS[key]||TIERS.household;
+  document.getElementById("bTierName").textContent=t.name;
+  document.getElementById("bSummaryName").textContent=t.name;
+  document.getElementById("bPrice").textContent=t.price+" one time";
+  document.getElementById("bBlurb").textContent=t.blurb;
+  document.getElementById("bDesc").value="Started checkout: "+t.name+" ("+t.price+")";
+  var f=document.getElementById("bridgeForm");
+  f.setAttribute("data-campaign","planning-checkout-"+key);
+  document.getElementById("bFallback").href=t.pay;
+  f.addEventListener("submit",function(){
+    document.getElementById("bWait").style.display="block";
+    setTimeout(function(){window.location.href=t.pay;},1200);
+  });
+})();
+</script>
+"""
+BRIDGE = (BRIDGE.replace("{FORM_HIDDEN}", FORM_HIDDEN)
+                .replace("{FORM_CHECKS}", FORM_CHECKS)
+                .replace("{FORM_FINE}", FORM_FINE))
+
 PAGES = [
+ ("start-plan.html","Start Your Plan | Rae &amp; Co Capital","Confirm your details and continue to secure checkout for your flat-fee financial plan.",BRIDGE),
  ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% per year of assets under management with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
  ("protection.html","Protection Planning | Rae &amp; Co Capital","Term, disability, permanent, long-term care and final expense explained plainly. Quote and apply across 40+ carriers.",PROTECTION),
@@ -1400,7 +1493,7 @@ if not STAGING:
                 "life-insurance-calculator.html":"0.8","life-insurance-quote.html":"0.8",
                 "types-of-life-insurance.html":"0.8","wealth.html":"0.8",
                 "protection.html":"0.8","planning.html":"0.8"}
-    SKIP = {"thank-you.html"}
+    SKIP = {"thank-you.html", "start-plan.html"}
     urls = "\n".join(
       f"  <url><loc>{ORIGIN}/{'' if s=='index.html' else s}</loc>"
       f"<priority>{PRIORITY.get(s,'0.6')}</priority></url>"
