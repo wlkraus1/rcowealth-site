@@ -133,6 +133,54 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .readout a:hover{transform:translateY(-2px)}
 .fine{margin:14px 0 0;font:400 12px/1.55 var(--sans);color:#6d7787}
 
+/* ================================================================
+   SECTION 2 · ABOUT. Built after Tyler approved section 1, same
+   system: cream, Georgia display, gold accents, motion with a job.
+   Copy is the wording he confirmed on 2026-08-07 (CCFPA, the
+   degrees line, finance-first lede) - carried over verbatim, not
+   rewritten. Motion here is scroll-triggered: rows of the
+   credential rail stagger in, the pull-quote's gold rule draws.
+   ================================================================ */
+.about{position:relative;z-index:2;background:#f5f0e6;border-top:1px solid rgba(15,26,38,.07);
+  padding:clamp(72px,9vw,120px) 0}
+.about .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto;
+  display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:clamp(30px,5vw,72px);align-items:start}
+@media(max-width:900px){.about .wrap{grid-template-columns:1fr}}
+.portrait{position:sticky;top:60px}
+.portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;display:block;
+  box-shadow:0 40px 90px -46px rgba(15,26,38,.55)}
+.portrait figcaption{margin-top:13px;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
+@media(max-width:900px){.portrait{position:static;max-width:340px}}
+.about .kicker{margin-bottom:18px}
+.about h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,5.4vw,76px);line-height:.95;
+  letter-spacing:-.045em;margin:0 0 10px}
+.role{font:700 12.5px/1.5 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 26px}
+.about p.body{font:400 clamp(16.5px,1.35vw,19px)/1.62 var(--sans);color:var(--ink-soft);max-width:56ch;margin:0 0 16px}
+.pull{position:relative;margin:30px 0;padding-left:22px;
+  font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.2vw,29px);line-height:1.3;letter-spacing:-.02em}
+.pull::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2.5px;background:var(--gold);
+  transform:scaleY(0);transform-origin:top;transition:transform .9s cubic-bezier(.16,1,.3,1) .15s}
+.inview .pull::before{transform:scaleY(1)}
+.rail{margin:34px 0 0;padding:0;border-top:1px solid rgba(15,26,38,.14)}
+.rail .row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:22px;padding:15px 0;
+  border-bottom:1px solid rgba(15,26,38,.09);
+  opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.inview .rail .row{opacity:1;transform:none}
+.inview .rail .row:nth-child(2){transition-delay:.08s}
+.inview .rail .row:nth-child(3){transition-delay:.16s}
+.inview .rail .row:nth-child(4){transition-delay:.24s}
+.inview .rail .row:nth-child(5){transition-delay:.32s}
+.rail dt{font:800 11px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);padding-top:3px}
+.rail dd{margin:0;font:400 15px/1.55 var(--sans);color:var(--ink-soft)}
+@media(max-width:640px){.rail .row{grid-template-columns:1fr;gap:5px}}
+.about .acts{opacity:1;animation:none;margin-top:30px}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.inview .rv{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv,.rail .row{opacity:1!important;transform:none!important;transition:none!important}
+  .pull::before{transform:scaleY(1)!important;transition:none!important}
+}
+
 /* ---- floating proof chips ---- */
 .float-chip{position:absolute;z-index:3;background:#fff;border:1px solid rgba(200,161,90,.45);border-radius:13px;
   padding:10px 14px;font:700 13px/1.2 var(--sans);color:var(--ink);
@@ -216,6 +264,31 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
   <p class="cue">Scroll</p>
 </section>
 
+<section class="about" id="advisor">
+  <div class="wrap">
+    <figure class="portrait rv">
+      <img src="../assets/tyler-krause.jpg" alt="Tyler Krause, Founder &amp; Private Wealth Advisor at Rae &amp; Co Capital">
+      <figcaption>Greenville, South Carolina</figcaption>
+    </figure>
+    <div>
+      <p class="kicker rv">Your advisor</p>
+      <h2 class="rv">Tyler Krause</h2>
+      <p class="role rv">Founder &amp; Private Wealth Advisor · U.S. Marine Corps veteran</p>
+      <p class="body rv">I studied finance, so I know what the numbers say. Then psychology, because I kept watching capable people know the right answer and not do it.</p>
+      <p class="body rv">That gap is the whole job. Coverage, investments, retirement income, and planning as one decision instead of five. One person, who answers the phone.</p>
+      <blockquote class="pull rv">Most money decisions are behavior, not math.</blockquote>
+      <dl class="rail">
+        <div class="row"><dt>Licensed</dt><dd>Series 65, Investment Adviser Representative, held to a fiduciary standard. South Carolina Life, Accident &amp; Health.</dd></div>
+        <div class="row"><dt>Certified</dt><dd>Certified Corporate Financial Planning Analyst (CCFPA)</dd></div>
+        <div class="row"><dt>Studied</dt><dd>Multiple degrees, including an M.S. in Psychology from Arizona State.</dd></div>
+        <div class="row"><dt>Experience</dt><dd>Fifteen years in insurance and financial services. Businesses built and sold.</dd></div>
+        <div class="row"><dt>Custody</dt><dd>Client assets held at Charles Schwab. Insurance placed through multiple national carriers.</dd></div>
+      </dl>
+      <div class="acts rv"><a class="cta" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a call with Tyler <span class="arr">→</span></a></div>
+    </div>
+  </div>
+</section>
+
 <footer class="legal">Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is a South Carolina registered investment adviser. Registration does not imply a certain level of skill or training. Insurance products are subject to underwriting and carrier approval; commissions may create a conflict of interest and are disclosed. This page is for informational purposes only and is not individualized investment, tax, legal, or insurance advice.</footer>
 
 <script>
@@ -293,6 +366,32 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
     c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true');calc();});});
   inc.addEventListener('input',function(){calc();});
   calc(true);
+
+  /* ---- scroll reveals for section 2 ----
+     IntersectionObserver PLUS a plain scroll-position check, because IO
+     callbacks provably never fire in the headless preview pane this site is
+     verified in - a fresh observer on a fully-visible target stayed silent.
+     The rect check costs nothing and works in every environment; IO is the
+     fast path where it exists. Same lesson reveal.js already carries. */
+  var about=document.getElementById('advisor');
+  if(about){
+    var shown=false;
+    function show(){if(!shown){shown=true;about.classList.add('inview');
+      removeEventListener('scroll',rectCheck);}}
+    function rectCheck(){var r=about.getBoundingClientRect();
+      if(r.top<innerHeight*.82&&r.bottom>0)show();}
+    if(reduce){show();}
+    else{
+      if('IntersectionObserver' in window){
+        new IntersectionObserver(function(es,io){es.forEach(function(e){
+          if(e.isIntersecting){show();io.disconnect();}});},{threshold:.15}).observe(about);}
+      addEventListener('scroll',rectCheck,{passive:true});
+      rectCheck();
+      /* a page opened AT #advisor jumps after scripts run, and that jump
+         dispatches no scroll event here - so check once more, twice */
+      setTimeout(rectCheck,350); setTimeout(rectCheck,1200);
+    }
+  }
 
   /* ---- magnetic CTA + tool tilt: presence without a library ---- */
   var mag=document.getElementById('mag'), tool=document.getElementById('tool');
