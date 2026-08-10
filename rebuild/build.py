@@ -263,7 +263,8 @@ def shell(slug, title, desc, body, canvas=False):
 {index_meta}
 <meta name="theme-color" content="#06111f">
 <link rel="icon" href="/favicon.ico?v=goldleaf-20260521-1647">
-<link rel="stylesheet" href="rco.css?v={asset_v('rco.css')}">{ld}
+<link rel="stylesheet" href="rco.css?v={asset_v('rco.css')}">
+<noscript><style>[data-rv],.stagger>*{{opacity:1!important;transform:none!important}}</style></noscript>{ld}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>

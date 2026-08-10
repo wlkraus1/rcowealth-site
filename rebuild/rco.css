@@ -115,9 +115,15 @@ em.g{font-style:italic;color:var(--gold-ink)}
 .section.dark .ticks li{color:rgba(244,239,228,.76)}
 
 /* ---- reveal: IO plus a rect check, because IO callbacks do not fire in the
-   headless preview pane this site is verified in ---- */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.inview .rv,.rv.inview{opacity:1;transform:none}
+   headless preview pane this site is verified in ----
+   Selector targets [data-rv], the attribute the markup actually uses. It
+   originally targeted a .rv CLASS that appears nowhere in the built pages, so
+   nothing was ever hidden and the entire scroll-reveal system silently did
+   nothing outside the stagger grids - the site shipped with almost no motion
+   while every check passed, because checks look for visible elements and
+   permanently-visible is very visible. */
+[data-rv]{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+[data-rv].inview{opacity:1;transform:none}
 .stagger>*{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 .inview.stagger>*,.stagger.inview>*{opacity:1;transform:none}
 .stagger.inview>*:nth-child(2){transition-delay:.09s}
