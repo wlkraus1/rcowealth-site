@@ -306,6 +306,7 @@ def shell(slug, title, desc, body, canvas=False):
       <nav aria-label="Legal"><p class="ftlabel">Legal</p>
         <a href="disclosures.html">Disclosures</a>
         <a href="form-crs.html">Form CRS</a>
+        <a href="/form-crs.pdf" target="_blank" rel="noopener">Form CRS (PDF)</a>
         <a href="privacy.html">Privacy</a>
         <a href="client-login.html">Client login</a>
       </nav>
@@ -499,7 +500,7 @@ WEALTH = """
   <div class="wrap center">
     <p class="kicker center" data-rv>What it costs</p>
     <h2 data-rv>1% a year. <em class="g" style="color:var(--gold-2)">$750 annual minimum.</em></h2>
-    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">Billed quarterly under a signed advisory agreement. No commission on investments, no product quotas, no sales desk above me.</p>
+    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">Billed quarterly in arrears under a signed advisory agreement. No commission on investments, no product quotas, no sales desk above me.</p>
     <div class="grid g3 stagger" data-rv style="margin-top:36px;text-align:left">
       <div class="card"><p class="tag">Custody</p><h3 style="font-size:22px">Charles Schwab</h3><p>Your money sits with Schwab in your name. I never hold it, and you can see it any time.</p></div>
       <div class="card"><p class="tag">Standard</p><h3 style="font-size:22px">Series 65 fiduciary</h3><p>Held to a fiduciary standard on advisory work. Insurance commissions are a separate, disclosed conflict.</p></div>
@@ -509,7 +510,7 @@ WEALTH = """
       <a class="btn btn-gold" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a portfolio review <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="planning.html">See flat-fee planning</a>
     </div>
-    <p style="margin:26px auto 0;max-width:74ch;font:400 12px/1.65 var(--sans);color:rgba(244,239,228,.5)" data-rv>Advisory fees are 1% per year of assets under management with a $750 annual minimum, billed quarterly under a signed advisory agreement. Investing involves risk including possible loss of principal. No advice is provided until that agreement is in place.</p>
+    <p style="margin:26px auto 0;max-width:74ch;font:400 12px/1.65 var(--sans);color:rgba(244,239,228,.5)" data-rv>Advisory fees are 1% per year of assets under management with a $750 annual minimum, billed quarterly in arrears under a signed advisory agreement. Investing involves risk including possible loss of principal. No advice is provided until that agreement is in place.</p>
   </div>
 </section>
 """
@@ -831,7 +832,7 @@ FORMCRS = legal_page("Form CRS Summary","Legal",[
  ("Relationships and services","We provide discretionary and non-discretionary investment advisory services, financial planning, and insurance consulting. Services are ongoing and tailored to goals, time horizon, and risk tolerance."),
  ("Fees, costs, conflicts and standard of conduct","Our standard annual advisory fee is 1.00% of assets under management with a $750 annual minimum, billed quarterly. Financial planning is a flat one-time fee. We may also receive commissions on insurance placed, which is a conflict of interest because it creates an incentive to recommend insurance. You should understand and ask us about this conflict."),
  ("Questions worth asking","Given my financial situation, should I choose an investment advisory service? Why or why not? How will you choose investments to recommend? What is your relevant experience, and what do your licenses mean? How might your conflicts of interest affect me, and how will you address them?"),
- ("Full document","This is a summary. The complete Form CRS and Form ADV Part 2A are available on request and through the "
+ ("Full document","<a href='/form-crs.pdf' target='_blank' rel='noopener'><b>Download the complete Form CRS (PDF)</b></a>, version dated May 9, 2026. Form ADV Part 2A is available on request and through the "
   "<a href='https://adviserinfo.sec.gov/' target='_blank' rel='noopener'>Investment Adviser Public Disclosure website</a>. "
   "Free and simple tools to research firms and advisers are at "
   "<a href='https://www.investor.gov/CRS' target='_blank' rel='noopener'>Investor.gov/CRS</a>."),
