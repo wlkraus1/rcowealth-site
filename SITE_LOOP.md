@@ -87,7 +87,10 @@ section instead of ninety percent of a site. **The system, binding for every sec
 - **Floating proof chips** carry structure (Series 65, 40+ carriers), never performance or AUM.
   Hidden under 960px; decoration never outranks the control it decorates.
 - **Dark ink pills** for CTAs, magnetic on fine pointers only.
-- **Process rule stays:** one section to finish → shown → yes/no → next. Never 90% again.
+- **Process rule, adjusted 2026-08-07 (Tyler: "ok /loop the build out"):** sections still land one
+  at a time and each is shown, but his review is an async veto rather than a blocking gate - the loop
+  keeps building. Sections 1 and 2 are approved. ⛔ **Two things stay hard-blocked on his explicit
+  word: replacing the live index.html/mobile flow with the rebuild, and any git push.**
 
 ### NEXT ACTION, PENDING TYLER
 
