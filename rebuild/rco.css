@@ -409,3 +409,16 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .callout{margin-top:24px;border-left:3px solid var(--gold);background:rgba(200,161,90,.09);
   border-radius:0 14px 14px 0;padding:18px 22px;font:400 14.5px/1.65 var(--sans);color:var(--ink);max-width:76ch}
 .callout b{display:block;font:800 12px/1.4 var(--sans);letter-spacing:.06em;color:var(--gold-ink);margin-bottom:5px}
+
+/* Retirement income check (wealth page). Reuses the coverage instrument's
+   tool/frow/readout shell; only the age chips and the gap bar are new. */
+.rchip{appearance:none;border:1.5px solid rgba(17,25,39,.22);background:transparent;border-radius:999px;
+  min-height:44px;padding:0 18px;font:700 13.5px/1 var(--sans);color:var(--ink);cursor:pointer;
+  transition:transform .2s var(--ease),background .2s,border-color .2s}
+.rchip:hover{transform:translateY(-2px)}
+.rchip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.wbar{position:relative;height:7px;border-radius:99px;background:rgba(17,25,39,.1);
+  margin:16px 0 0;overflow:hidden}
+.wbar span{display:block;height:100%;width:0;border-radius:99px;background:var(--gold);
+  transition:width .45s var(--ease),background .45s var(--ease)}
+@media(prefers-reduced-motion:reduce){.wbar span{transition:none}}

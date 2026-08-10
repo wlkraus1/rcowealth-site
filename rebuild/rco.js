@@ -210,6 +210,73 @@
     calc();
   }
 
+  /* Retirement income check. The AUM-side twin of the coverage instrument:
+     wealth was the only pillar with no self-service tool, which structurally
+     pushed every self-guided visitor toward insurance.
+
+     The growth rate is a USER input on purpose. A calculator that quietly
+     assumes 8% is making a performance claim on the firm's behalf; making the
+     visitor set it turns the same maths into their assumption, and dragging it
+     teaches the real lesson - how much the answer moves on a guess. */
+  var wAge=document.getElementById('wAge');
+  if(wAge){
+    var wPot=document.getElementById('wPot'),wAdd=document.getElementById('wAdd'),
+        wRet=document.getElementById('wRet'),wWant=document.getElementById('wWant'),
+        wNum=document.getElementById('wNum'),wLabel=document.getElementById('wLabel'),
+        wFill=document.getElementById('wFill'),wCta=document.getElementById('wCta'),
+        chips=[].slice.call(document.querySelectorAll('.rchip')),
+        retAge=65;
+    var money=function(n){return '$'+Math.round(n).toLocaleString('en-US');};
+
+    function wCalc(){
+      var age=+wAge.value, pot=+wPot.value, add=+wAdd.value,
+          r=(+wRet.value)/100, want=+wWant.value,
+          yrs=Math.max(0,retAge-age);
+      document.getElementById('wAgeOut').textContent=age;
+      document.getElementById('wPotOut').textContent=money(pot);
+      document.getElementById('wAddOut').textContent=money(add);
+      document.getElementById('wRetOut').textContent=(+wRet.value).toFixed(1)+'%';
+      document.getElementById('wWantOut').textContent=money(want)+'/mo';
+
+      /* monthly compounding, contributions at period end */
+      var m=r/12, n=yrs*12,
+          fv=m===0 ? pot+add*n
+                   : pot*Math.pow(1+m,n) + add*(Math.pow(1+m,n)-1)/m;
+      var supports=fv*0.04/12;                       /* 4% rule, monthly */
+      var pct=want>0 ? Math.max(0,Math.min(1,supports/want)) : 1;
+
+      if(wNum.textContent!==money(supports)){
+        wNum.textContent=money(supports);
+        wNum.classList.remove('roll');void wNum.offsetWidth;wNum.classList.add('roll');
+      }
+      wFill.style.width=(pct*100).toFixed(1)+'%';
+      wFill.style.background=pct>=1?'var(--gold)':(pct>=.7?'#c8a15a':'#b4763f');
+
+      if(yrs===0){
+        wLabel.textContent='Retiring now, this supports';
+      } else if(supports>=want){
+        wLabel.textContent='Covers your target, with room';
+      } else {
+        wLabel.textContent='Short of your target by '+money(want-supports)+' a month';
+      }
+      wCta.textContent = supports>=want ? 'Keep it that way →' : 'Close the gap →';
+    }
+
+    chips.forEach(function(c){
+      c.addEventListener('click',function(){
+        chips.forEach(function(x){x.setAttribute('aria-pressed','false');});
+        c.setAttribute('aria-pressed','true');
+        retAge=+c.getAttribute('data-age');
+        if(+wAge.value>=retAge) wAge.value=retAge-1;
+        wCalc();
+      });
+    });
+    [wAge,wPot,wAdd,wRet,wWant].forEach(function(el){
+      el.addEventListener('input',wCalc);
+    });
+    wCalc();
+  }
+
   /* "See all carriers" reveals the full roster in place. No new page, and the
      label stays honest because the names really are all there. */
   var ctog=document.querySelector('[data-carriers]'),clist=document.getElementById('carrierlist');

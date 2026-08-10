@@ -180,6 +180,16 @@ SOCIAL = """<div class="social">
         </div>"""
 
 ORIGIN = "https://rcowealth.com"
+
+def asset_v(name):
+    """Content hash appended to rco.css / rco.js. Without it a returning
+    visitor keeps the cached copy after a deploy and sees the new HTML driven
+    by the old stylesheet and old script - which is exactly how the retirement
+    tool appeared dead during testing while its code was sitting right there.
+    The favicon already did this by hand; now the two files that change every
+    build do it automatically."""
+    import hashlib
+    return hashlib.sha1((OUT/name).read_bytes()).hexdigest()[:10]
 # BackNine quote-and-apply, the only place on the site where someone can buy
 # without talking to anyone. Append &utm_content=<where> at each call site.
 B9 = ("https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal"
@@ -237,7 +247,7 @@ def shell(slug, title, desc, body, canvas=False):
 {index_meta}
 <meta name="theme-color" content="#06111f">
 <link rel="icon" href="../favicon.ico?v=goldleaf-20260521-1647">
-<link rel="stylesheet" href="rco.css">{ld}
+<link rel="stylesheet" href="rco.css?v={asset_v('rco.css')}">{ld}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -287,7 +297,7 @@ def shell(slug, title, desc, body, canvas=False):
     <p class="legal">{LEGAL}</p>
   </div>
 </footer>
-<script src="rco.js"></script>
+<script src="rco.js?v={asset_v('rco.js')}"></script>
 </body>
 </html>
 """
@@ -382,6 +392,46 @@ WEALTH = """
     <div class="acts" data-rv>
       <a class="btn btn-ink" data-magnetic href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Start a portfolio review <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="planning.html">Or buy a plan first</a>
+    </div>
+  </div>
+</section>
+
+<section class="section cream">
+  <div class="wrap split a">
+    <div>
+      <p class="kicker" data-rv>60-second answer</p>
+      <h2 data-rv style="max-width:17ch">Will the money still be there at <em class="g">85</em>?</h2>
+      <p class="lede" data-rv>Protection has a calculator, planning has a price list, and until now wealth had a phone number. Drag four sliders and see whether the plan holds. Nothing is stored and no contact details are asked for.</p>
+      <p class="lede" data-rv style="font-size:15px">The growth rate is yours to set, not mine to promise. Move it and watch how much the answer depends on an assumption nobody can guarantee. That sensitivity is the actual lesson.</p>
+      <div class="acts" data-rv>
+        <a class="btn btn-ink" href="contact.html">Have it checked properly <span class="arr">&rarr;</span></a>
+        <a class="btn-line" href="planning.html">Or buy a flat-fee plan</a>
+      </div>
+    </div>
+    <div class="tool" data-rv>
+      <p class="tag" style="font:800 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px">Retirement income check</p>
+      <h3 style="margin-bottom:18px">What would you retire on?</h3>
+      <div class="chips" role="group" aria-label="Retirement age">
+        <button class="rchip" type="button" aria-pressed="false" data-age="60">Retire at 60</button>
+        <button class="rchip" type="button" aria-pressed="true"  data-age="65">at 65</button>
+        <button class="rchip" type="button" aria-pressed="false" data-age="70">at 70</button>
+      </div>
+      <div class="frow"><label for="wAge">Your age now <output id="wAgeOut">40</output></label>
+        <input type="range" id="wAge" min="22" max="69" step="1" value="40" aria-label="Your age now"></div>
+      <div class="frow"><label for="wPot">Saved so far <output id="wPotOut">$150,000</output></label>
+        <input type="range" id="wPot" min="0" max="2000000" step="10000" value="150000" aria-label="Amount saved so far"></div>
+      <div class="frow"><label for="wAdd">Added each month <output id="wAddOut">$1,000</output></label>
+        <input type="range" id="wAdd" min="0" max="6000" step="50" value="1000" aria-label="Added each month"></div>
+      <div class="frow"><label for="wRet">Growth you assume <output id="wRetOut">6.0%</output></label>
+        <input type="range" id="wRet" min="2" max="9" step="0.5" value="6" aria-label="Assumed annual growth rate"></div>
+      <div class="frow"><label for="wWant">Income you want <output id="wWantOut">$6,000/mo</output></label>
+        <input type="range" id="wWant" min="1000" max="20000" step="250" value="6000" aria-label="Monthly income you want in retirement"></div>
+      <div class="readout">
+        <div><small id="wLabel">Monthly income it supports</small><span class="num" id="wNum">$0</span></div>
+        <a id="wCta" href="contact.html">Talk it through &rarr;</a>
+      </div>
+      <p class="wbar" aria-hidden="true"><span id="wFill"></span></p>
+      <p class="fine" id="wFine">An illustration built only from the numbers above, using your growth assumption and a 4% withdrawal rate. It is not a projection of any actual portfolio, not a promise of returns, and not individualized advice. It ignores taxes, fees, Social Security and inflation.</p>
     </div>
   </div>
 </section>
