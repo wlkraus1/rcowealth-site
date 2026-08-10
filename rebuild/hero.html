@@ -316,6 +316,33 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .plan i{font-family:var(--serif);font-style:normal;font-size:19px;letter-spacing:-.02em;color:var(--ink)}
 .dfine{margin:26px auto 0;max-width:82ch;text-align:center;font:400 12px/1.65 var(--sans);color:#6d7787}
 
+/* Planning tiers: a price with no deliverable is a label, not an offer. */
+.tiers{margin-top:54px;border-top:1px solid rgba(15,26,38,.14);padding-top:44px}
+.tierhead{text-align:center;margin-bottom:28px}
+.tierhead h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.2vw,42px);letter-spacing:-.04em;margin:0 0 10px}
+.tierhead p{font:400 15.5px/1.6 var(--sans);color:var(--ink-soft);max-width:54ch;margin:0 auto}
+.tiergrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+@media(max-width:940px){.tiergrid{grid-template-columns:1fr}}
+.tier{position:relative;display:flex;flex-direction:column;background:#fffdf9;
+  border:1px solid rgba(15,26,38,.12);border-radius:20px;padding:26px 24px 24px;transition:box-shadow .25s,border-color .25s}
+.tier:hover{box-shadow:0 26px 60px -34px rgba(15,26,38,.4);border-color:rgba(200,161,90,.5)}
+.tier.best{background:linear-gradient(180deg,#fffdf8,#f7f0df);border-color:rgba(200,161,90,.55)}
+.tbadge{position:absolute;top:-11px;left:24px;background:var(--ink);color:var(--paper);
+  font:800 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;border-radius:999px;padding:7px 12px;margin:0}
+.ttag{font:800 10.5px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 10px}
+.tprice{font-family:var(--serif);font-size:40px;line-height:1;letter-spacing:-.04em;color:var(--ink);margin:0 0 8px}
+.tprice small{font:600 12.5px/1 var(--sans);color:var(--ink-soft);letter-spacing:0}
+.tfor{font:400 14.5px/1.55 var(--sans);color:var(--ink-soft);margin:0 0 16px}
+.tier ul{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:9px}
+.tier li{position:relative;padding-left:21px;font:400 13.5px/1.5 var(--sans);color:var(--ink-soft)}
+.tier li::before{content:"";position:absolute;left:0;top:6px;width:9px;height:9px;border-radius:50%;border:2px solid var(--gold)}
+.tbuy{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px;
+  background:var(--ink);color:var(--paper);border-radius:999px;font:800 14px/1 var(--sans);text-decoration:none;
+  transition:transform .18s cubic-bezier(.16,1,.3,1)}
+.tier.best .tbuy{background:linear-gradient(135deg,#e7cf9c,var(--gold));color:#14202e}
+.tbuy:hover{transform:translateY(-2px)}
+.tnote{margin:24px auto 0;max-width:70ch;text-align:center;font:400 13px/1.6 var(--sans);color:var(--ink-soft)}
+
 /* ================================================================
    SECTION 4 · CONTACT. The lead form is PORTED, not rewritten: the
    endpoint, every field name, both consent ids and the honeypot are
@@ -547,22 +574,6 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
       </div>
 
       <div class="lane">
-        <p class="tag">Financial planning</p>
-        <h3>Pick a plan and pay for it</h3>
-        <p>Flat fees, published, one time. No hourly, no retainer, no discovery call before you can see a price.</p>
-        <div class="plans">
-          <div class="plan"><b>Foundations</b><i>$750</i></div>
-          <div class="plan"><b>Household</b><i>$2,000</i></div>
-          <div class="plan"><b>Household + Implementation</b><i>$3,000</i></div>
-        </div>
-        <ul>
-          <li>Pay by card, start immediately</li>
-          <li>Advisory agreement comes to you to sign right after</li>
-        </ul>
-        <div class="go"><a href="https://square.link/u/VJZxUhJ9" target="_blank" rel="noopener">Choose a plan <span class="arr">→</span></a></div>
-      </div>
-
-      <div class="lane">
         <p class="tag">Free, no email</p>
         <h3>Just get your number</h3>
         <p>Not ready to buy anything. Run the coverage math, keep the number, do nothing else. Nobody chases you.</p>
@@ -573,6 +584,68 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
         </ul>
         <div class="go"><a href="../life-insurance-calculator.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=diy_calculator">Run the numbers <span class="arr">→</span></a></div>
       </div>
+    </div>
+
+    <!-- PLANNING TIERS. Tyler: "the level tiers dont really explain what they are
+         getting for the price nobody is gonna do that shit." Correct - "Household,
+         $2,000" is an internal label, not an offer. Every bullet below is lifted
+         verbatim from his own client-facing fee sheet in ~/Claude_Code/
+         client-deliverables, so nothing is invented and nothing needs a fresh
+         compliance read. Each tier carries its own Square link. -->
+    <div class="tiers">
+      <div class="tierhead rv">
+        <h3>Or buy the plan outright</h3>
+        <p>Flat fee, one time, agreed in writing before any work begins. Here is exactly what lands in your hands.</p>
+      </div>
+      <div class="tiergrid">
+        <div class="tier rv">
+          <p class="ttag">Foundations</p>
+          <p class="tprice">$750 <small>one time</small></p>
+          <p class="tfor">For a clear starting plan around one or two priorities.</p>
+          <ul>
+            <li>Discovery meeting plus a plan-delivery meeting</li>
+            <li>Cash flow and emergency fund review</li>
+            <li>Debt pay-down vs invest analysis, ranked by your actual rates</li>
+            <li>Retirement savings starting roadmap</li>
+            <li>Written one-page action plan you keep</li>
+            <li>30 days of email follow-up</li>
+          </ul>
+          <a class="tbuy" href="https://square.link/u/VJZxUhJ9" target="_blank" rel="noopener">Start Foundations <span class="arr">→</span></a>
+        </div>
+
+        <div class="tier best rv">
+          <p class="tbadge">Most chosen</p>
+          <p class="ttag">Household</p>
+          <p class="tprice">$2,000 <small>one time</small></p>
+          <p class="tfor">For a full picture, usually a couple with a few moving parts.</p>
+          <ul>
+            <li>Everything in Foundations, plus</li>
+            <li>Full household cash flow and net worth build-out</li>
+            <li>Goal planning: retirement, major purchases, education</li>
+            <li>Insurance needs review, life and disability gaps</li>
+            <li>Tax-aware account strategy, Roth vs traditional and contribution order</li>
+            <li>Two working sessions plus a delivery meeting</li>
+            <li>60 days of email follow-up</li>
+          </ul>
+          <a class="tbuy" href="https://square.link/u/23AsoUVF" target="_blank" rel="noopener">Start Household <span class="arr">→</span></a>
+        </div>
+
+        <div class="tier rv">
+          <p class="ttag">Household + Implementation</p>
+          <p class="tprice">$3,000 <small>one time</small></p>
+          <p class="tfor">For help executing, not just a document.</p>
+          <ul>
+            <li>Everything in Household, plus</li>
+            <li>Guided implementation support</li>
+            <li>Account setup walkthroughs</li>
+            <li>Beneficiary and titling review</li>
+            <li>Up to three additional working sessions</li>
+            <li>Completed within the six-month window</li>
+          </ul>
+          <a class="tbuy" href="https://square.link/u/oUQEsSoQ" target="_blank" rel="noopener">Start Implementation <span class="arr">→</span></a>
+        </div>
+      </div>
+      <p class="tnote rv">Paying starts the engagement. The written planning agreement comes to you to sign straight after, and the discovery meeting is part of the work rather than a sales call you have to pass first.</p>
     </div>
 
     <p class="dfine rv">Insurance is optional and never required to work with Rae &amp; Co. Coverage is placed through carriers who pay a commission, which is a conflict of interest and is disclosed in our Form CRS. Planning fees are flat and one time, the engagement completes within six months, and any unearned prepaid portion is refundable. Investment advisory is billed at 1% per year with a $750 annual minimum under a signed advisory agreement. No advice is provided until that agreement is in place.</p>
