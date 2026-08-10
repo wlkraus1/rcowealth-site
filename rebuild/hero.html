@@ -263,6 +263,48 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
   color:#fff;text-decoration:none;box-shadow:inset 0 -2px 0 var(--gold)}
 .pfine{margin:24px auto 0;font:400 12px/1.6 var(--sans);color:rgba(244,239,228,.5);max-width:78ch;text-align:center}
 
+/* ================================================================
+   SECTION 4 · CONTACT. The lead form is PORTED, not rewritten: the
+   endpoint, every field name, both consent ids and the honeypot are
+   byte-identical to index.html. Only the wrapper is new. Getting a
+   field id wrong here does not look broken, it silently drops leads.
+   ================================================================ */
+.contact{position:relative;z-index:2;background:var(--paper);padding:clamp(72px,9vw,116px) 0}
+.contact .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(30px,5vw,64px);align-items:start}
+@media(max-width:900px){.contact .wrap{grid-template-columns:1fr}}
+.contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5vw,68px);line-height:.96;
+  letter-spacing:-.045em;margin:0 0 16px;max-width:14ch}
+.contact h2 em{font-style:italic;color:var(--gold-deep)}
+.contact .csub{font:400 clamp(16px,1.35vw,18.5px)/1.6 var(--sans);color:var(--ink-soft);max-width:46ch;margin:0 0 26px}
+.clines{display:grid;gap:2px;margin:0 0 24px;border-top:1px solid rgba(15,26,38,.14)}
+.clines a,.clines span{display:flex;align-items:center;min-height:46px;gap:12px;
+  border-bottom:1px solid rgba(15,26,38,.1);font:600 15px/1.4 var(--sans);color:var(--ink);text-decoration:none}
+.clines a:hover{color:var(--gold-deep)}
+.clines b{font:800 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);min-width:64px}
+
+.lform{background:#fffdf9;border:1px solid rgba(15,26,38,.1);border-radius:22px;
+  padding:clamp(22px,2.6vw,32px);box-shadow:0 40px 90px -50px rgba(15,26,38,.45)}
+.lform h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.4vw,31px);letter-spacing:-.03em;margin:0 0 4px}
+.lform .lsub{font:400 14.5px/1.55 var(--sans);color:var(--ink-soft);margin:0 0 20px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.fld2{display:grid;gap:6px}
+.fld2.full{grid-column:1/-1}
+.fld2 label{font:800 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.fld2 input,.fld2 select,.fld2 textarea{width:100%;min-height:46px;border:1px solid rgba(15,26,38,.16);
+  border-radius:11px;background:#fff;padding:12px 13px;color:var(--ink);font:400 15px/1.4 var(--sans);outline:none;
+  transition:border-color .18s,box-shadow .18s}
+.fld2 textarea{min-height:104px;resize:vertical}
+.fld2 input:focus,.fld2 select:focus,.fld2 textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(200,161,90,.16)}
+.checks2{grid-column:1/-1;display:grid;gap:11px;margin-top:4px}
+.ckline{display:flex;gap:11px;align-items:flex-start;font:400 12.5px/1.5 var(--sans);color:#5b6675}
+.ckline input{width:19px;height:19px;min-height:0;margin-top:1px;accent-color:var(--ink);flex-shrink:0}
+.lform .cta{width:100%;justify-content:center;margin-top:18px}
+.lfine{margin:16px 0 0;font:400 11.5px/1.6 var(--sans);color:#6d7787}
+/* Must stay unreachable: off-screen and out of the tab order. */
+.hp2{position:absolute;left:-9999px}
+@media(max-width:560px){.fgrid{grid-template-columns:1fr}}
+
 /* ---- floating proof chips ---- */
 .float-chip{position:absolute;z-index:3;background:#fff;border:1px solid rgba(200,161,90,.45);border-radius:13px;
   padding:10px 14px;font:700 13px/1.2 var(--sans);color:var(--ink);
@@ -426,6 +468,65 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
   </div>
 </section>
 
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <p class="kicker rv">Start here</p>
+      <h2 class="rv">One call. <em>No pitch.</em></h2>
+      <p class="csub rv">Tell me what is on your mind and I will tell you whether I can help. If the answer is that you do not need me yet, that is the answer you will get.</p>
+      <div class="clines rv">
+        <a href="tel:+18645588440"><b>Call</b>864-558-8440</a>
+        <a href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener"><b>Book</b>Pick a time that suits you</a>
+        <span><b>Where</b>100% virtual, serving South Carolina</span>
+      </div>
+    </div>
+
+    <!-- PORTED VERBATIM from index.html: action, every field name, both consent
+         field ids, and the website_url honeypot. A wrong id here does not look
+         broken, it silently drops the lead. Endpoint is the Pi's Tailscale
+         Funnel intake, verified reachable from OUTSIDE the tailnet (303 to
+         thank-you.html) - a curl from this Mac would have proved nothing,
+         because this Mac is on the tailnet. -->
+    <form class="lform campaign-form contact-lead-form rv" id="leadForm"
+          action="https://pi-nas.tail34488a.ts.net/" method="POST"
+          data-campaign="website-general-consultation" data-asset="rebuild-hero" data-form-purpose="consultation-request">
+      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
+      <input type="hidden" name="retURL" value="https://rcowealth.com/thank-you.html">
+      <input type="hidden" name="lead_source" value="Web">
+      <input type="hidden" name="company" value="Individual / Household">
+      <input type="hidden" name="00Nfn0000089jHR" value="Website">
+      <label class="hp2" aria-hidden="true">Website<input name="website_url" autocomplete="off" tabindex="-1" data-honeypot="true"></label>
+
+      <h3>Send a note</h3>
+      <p class="lsub">Replies come from me, usually the same day.</p>
+      <div class="fgrid">
+        <div class="fld2"><label for="first_name">First name</label><input id="first_name" name="first_name" autocomplete="given-name" required></div>
+        <div class="fld2"><label for="last_name">Last name</label><input id="last_name" name="last_name" autocomplete="family-name" required></div>
+        <div class="fld2"><label for="email">Email</label><input id="email" type="email" name="email" autocomplete="email" required></div>
+        <div class="fld2"><label for="phone">Phone</label><input id="phone" type="tel" name="phone" autocomplete="tel"></div>
+        <div class="fld2 full"><label for="interest">What is this about?</label>
+          <select id="interest" name="00Nfn0000089jXZ">
+            <option>Not sure yet</option><option>Investments</option>
+            <option>Life insurance / protection</option><option>Both investments and insurance</option>
+          </select></div>
+        <div class="fld2 full"><label for="next_step">Preferred next step</label>
+          <select id="next_step" name="preferred_next_step_display">
+            <option>Focused intro call</option><option>Email reply first</option>
+            <option>Life insurance planning</option><option>Portfolio or retirement review</option>
+          </select></div>
+        <div class="fld2 full"><label for="description">Anything useful to know</label>
+          <textarea id="description" name="description" placeholder="Example: I am five years from retirement and want to know if the plan holds up."></textarea></div>
+        <div class="checks2">
+          <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
+          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message and data rates may apply. Consent is not required to work with Rae &amp; Co Capital.</label>
+        </div>
+      </div>
+      <button class="cta" type="submit">Send it <span class="arr">→</span></button>
+      <p class="lfine">Submitting this form does not create an advisory relationship. Do not include sensitive personal financial information. Rae &amp; Co Capital does not provide individualized advice until an advisory agreement is in place.</p>
+    </form>
+  </div>
+</section>
+
 <footer class="legal">Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is a South Carolina registered investment adviser. Registration does not imply a certain level of skill or training. Insurance products are subject to underwriting and carrier approval; commissions may create a conflict of interest and are disclosed. This page is for informational purposes only and is not individualized investment, tax, legal, or insurance advice.</footer>
 
 <script>
@@ -510,7 +611,7 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
      verified in - a fresh observer on a fully-visible target stayed silent.
      The rect check costs nothing and works in every environment; IO is the
      fast path where it exists. Same lesson reveal.js already carries. */
-  ['advisor','protection'].forEach(function(id){
+  ['advisor','protection','contact'].forEach(function(id){
     var sec=document.getElementById(id); if(!sec) return;
     var shown=false;
     function show(){if(!shown){shown=true;sec.classList.add('inview');
