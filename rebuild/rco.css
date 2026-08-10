@@ -268,6 +268,15 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 @media(max-width:900px){.cnames.open{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:560px){.cnames.open{grid-template-columns:repeat(2,1fr)}}
 
+/* geo landing pages: sibling service links, so the four Greenville pages feed
+   each other instead of each being a dead end */
+.xrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
+.xlink{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 20px;
+  border:1px solid var(--line);border-radius:999px;background:var(--white);
+  font:700 13.5px/1 var(--sans);color:var(--ink);text-decoration:none;
+  transition:border-color .25s var(--ease),transform .25s var(--ease)}
+.xlink:hover{border-color:var(--gold);transform:translateY(-2px)}
+
 /* planning tiers */
 .tiergrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
 @media(max-width:940px){.tiergrid{grid-template-columns:1fr}}

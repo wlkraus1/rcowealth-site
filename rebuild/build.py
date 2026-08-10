@@ -65,6 +65,84 @@ def carrier_cells():
         out.append(f'      <div class="cell">{inner}</div>')
     return "\n".join(out)
 
+# ------------------------------------------------------------- LEAD FORM
+# THE thing the rebuild was missing. Live runs 9 of these; the rebuild had 1,
+# so every self-service path ended offsite at BackNine or Square and nobody who
+# looked-but-did-not-buy was ever captured. Tyler: "that is how we collect their
+# data and reach out later."
+#
+# Wiring is byte-identical to the live forms and must stay that way: oid
+# 00Dfn00000AW6kiEAD, POST to the Pi Funnel intake (queue-first -> FSC ->
+# Telegram), retURL to the live thank-you page, honeypot named website_url.
+# NEVER submit one of these while testing - it posts to the real org.
+FORM_HIDDEN = """      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
+      <input type="hidden" name="retURL" value="https://rcowealth.com/thank-you.html">
+      <input type="hidden" name="lead_source" value="Web">
+      <input type="hidden" name="company" value="Individual / Household">
+      <input type="hidden" name="00Nfn0000089jHR" value="Website">
+      <label class="hp2" aria-hidden="true">Website<input name="website_url" autocomplete="off" tabindex="-1" data-honeypot="true"></label>"""
+
+FORM_CHECKS = """        <div class="checks2">
+          <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
+          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message and data rates may apply. Consent is not required to work with Rae &amp; Co Capital.</label>
+        </div>"""
+
+FORM_FINE = ("Submitting this form does not create an advisory relationship. Do not include sensitive "
+             "personal financial information. Rae &amp; Co Capital does not provide individualized "
+             "advice until an advisory agreement is in place.")
+
+def lead_form(campaign, asset, purpose, heading, blurb, interest, next_step,
+              cta="Send it", placeholder="Example: I am five years from retirement and want to know if the plan holds up.",
+              uid="", insurance=False):
+    """One form, many pages. `uid` suffixes every id so two forms can share a
+    page without colliding label[for] targets. `insurance` sets the same
+    00NbV000002pcrh="Yes" flag the four live life-insurance forms carry, which
+    is what routes the lead correctly in Salesforce - it is easy to miss because
+    only the insurance pages set it."""
+    i = lambda n: n + uid
+    flag = ('\n      <input type="hidden" name="00NbV000002pcrh" value="Yes">'
+            if insurance else "")
+    return f"""<form class="lform campaign-form contact-lead-form" data-rv id="leadForm{uid}"
+          action="https://pi-nas.tail34488a.ts.net/" method="POST"
+          data-campaign="{campaign}" data-asset="{asset}" data-form-purpose="{purpose}">
+{FORM_HIDDEN}
+      <input type="hidden" name="00Nfn0000089jXZ" value="{interest}">{flag}
+      <input type="hidden" name="preferred_next_step_display" value="{next_step}">
+      <h2 class="sub">{heading}</h2>
+      <p class="lsub">{blurb}</p>
+      <div class="fgrid">
+        <div class="fld2"><label for="{i('first_name')}">First name</label><input id="{i('first_name')}" name="first_name" autocomplete="given-name" required></div>
+        <div class="fld2"><label for="{i('last_name')}">Last name</label><input id="{i('last_name')}" name="last_name" autocomplete="family-name" required></div>
+        <div class="fld2"><label for="{i('email')}">Email</label><input id="{i('email')}" type="email" name="email" autocomplete="email" required></div>
+        <div class="fld2"><label for="{i('phone')}">Phone</label><input id="{i('phone')}" type="tel" name="phone" autocomplete="tel"></div>
+        <div class="fld2 full"><label for="{i('description')}">What would you like help with?</label>
+          <textarea id="{i('description')}" name="description" placeholder="{placeholder}"></textarea></div>
+{FORM_CHECKS}
+      </div>
+      <button class="btn btn-ink" type="submit" style="width:100%;margin-top:18px">{cta} <span class="arr">&rarr;</span></button>
+      <p class="lfine">{FORM_FINE}</p>
+    </form>"""
+
+def form_section(kicker, h2, lede, form, cream=False):
+    """Standard closing lead-capture band, so every ported page ends on a
+    capture rather than a dead end."""
+    return f"""
+<section class="section{' cream' if cream else ''}">
+  <div class="wrap split c">
+    <div>
+      <p class="kicker" data-rv>{kicker}</p>
+      <h2 data-rv>{h2}</h2>
+      <p class="lede" data-rv>{lede}</p>
+      <div class="reachrow" data-rv style="max-width:420px">
+        <a class="reach" href="tel:+18645588440"><span><b>Call</b>864-558-8440</span></a>
+        <a class="reach" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20have%20a%20question%20about%20"><span><b>Text</b>Most people start here</span></a>
+      </div>
+    </div>
+    {form}
+  </div>
+</section>
+"""
+
 def legal_page(h1, kicker, blocks):
     """Legal/utility pages must live INSIDE the shell. Before this they linked out
     to the old site, which had the old header and no route back - a one-way door
@@ -736,6 +814,107 @@ CALCULATOR = """
 </section>
 """
 
+# --------------------------------------------------------- GEO LANDING PAGES
+# Ported from the live site, filenames unchanged so existing links and whatever
+# ranking equity exists survive the swap. These four are the ONLY pages on the
+# property built to rank for "greenville sc", and the rebuild had deleted all
+# four. Titles now actually carry the geo term, which the live versions did not
+# ("Financial Planning | Rae & Co Capital" cannot rank for a Greenville query).
+GEO = [
+ ("financial-advisor-greenville-sc.html",
+  "Financial Advisor in Greenville, SC | Rae &amp; Co Capital",
+  "Virtual financial planning from a Greenville, South Carolina fiduciary. Cash flow, investments, protection, retirement and tax decisions organized into one sequence.",
+  "Financial planning", "Financial planning is the <em class=\"g\">decision system</em>.",
+  "Most people do not have an information problem. They have a sequencing problem. Planning is where the pieces get put in an order that actually works.",
+  ["Cash flow, savings, and debt decisions","Investment and retirement account structure",
+   "Insurance and protection gaps","Business-owner or family obligations",
+   "Estate, beneficiary, tax, and liquidity coordination points"],
+  ["A clean decision map","A practical action sequence, ranked","Ongoing review as life changes"],
+  "planning.html","See flat-fee planning",
+  "financial-advisor-greenville-sc","Not sure","Focused intro call"),
+
+ ("investment-management-greenville-sc.html",
+  "Investment Management in Greenville, SC | Rae &amp; Co Capital",
+  "Investment management for Greenville, South Carolina, connected to planning, liquidity, retirement income and protection. Assets custodied at Charles Schwab.",
+  "Investment management", "Investment management that <em class=\"g\">answers to the plan</em>.",
+  "Anyone can buy index funds. The work is sequencing withdrawals, keeping taxes from eating the gains, and not selling at the bottom because a headline scared you.",
+  ["Current allocation and account structure","Risk exposure and concentration",
+   "Liquidity needs and time horizon","Tax-sensitive investment decisions",
+   "Rebalancing and ongoing review cadence"],
+  ["A clearer investment policy","An implementation plan",
+   "A review rhythm tied to life changes, not market noise"],
+  "wealth.html","See how management works",
+  "investment-management-greenville-sc","Investments","Portfolio or retirement review"),
+
+ ("retirement-planning-greenville-sc.html",
+  "Retirement Planning in Greenville, SC | Rae &amp; Co Capital",
+  "Retirement income planning for Greenville, South Carolina. Withdrawal sequencing, Social Security timing, reserves and survivor income, decided before the paycheck stops.",
+  "Retirement planning", "Retirement income before <em class=\"g\">retirement pressure</em>.",
+  "The switch from saving to spending is where small mistakes get expensive, and most of them are locked in before anyone notices.",
+  ["Income sources and expected spending","Withdrawal sequencing and reserve strategy",
+   "Portfolio risk during the retirement transition","Survivor needs and legacy considerations",
+   "Flexibility for health, family, and market changes"],
+  ["A retirement income map","A liquidity and reserve framework",
+   "A decision list before the paycheck changes"],
+  "wealth.html","See retirement income work",
+  "retirement-planning-greenville-sc","Investments","Portfolio or retirement review"),
+
+ ("life-insurance-greenville-sc.html",
+  "Life Insurance in Greenville, SC | Rae &amp; Co Capital",
+  "Life insurance in Greenville, South Carolina, shopped across 40+ carriers on one application. Price it and apply online, or have the coverage checked against the plan first.",
+  "Protection planning", "Life insurance placed with <em class=\"g\">real carriers</em>, tied to the plan.",
+  "Coverage is the part that cannot wait for a good year. Price it yourself in a few minutes, or have what you already own checked before you buy anything else.",
+  ["Existing policies and employer coverage","New term and permanent coverage needs",
+   "Income replacement and debt exposure","Dependents, education, and family obligations",
+   "Business-owner, buy-sell, or key-person risk",
+   "Carrier fit, underwriting path, ownership, beneficiaries and estate coordination"],
+  ["A coverage strategy tied to the financial plan","A gap and overlap summary",
+   "Carrier, underwriting and application next steps when new coverage makes sense",
+   "Replacement considerations before changing anything you already own"],
+  "protection.html","See every product explained",
+  "life-insurance-family-protection","Insurance","Life insurance planning"),
+]
+
+CROSS = [("financial-advisor-greenville-sc.html","Financial planning"),
+         ("investment-management-greenville-sc.html","Investment management"),
+         ("retirement-planning-greenville-sc.html","Retirement planning"),
+         ("life-insurance-greenville-sc.html","Life insurance")]
+
+def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, interest, step):
+    cross = "".join(f'<a class="xlink" href="{h}">{t} <span class="arr">&rarr;</span></a>'
+                    for h, t in CROSS if h != slug)
+    return f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>{kicker} &middot; Greenville, South Carolina</p>
+    <h1 data-rv>{h1}</h1>
+    <p class="lede" data-rv>{lede}</p>
+    <div class="acts" data-rv>
+      <a class="btn btn-ink" data-magnetic href="{deep}">{deep_cta} <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="calculator.html">Run the coverage numbers</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="sub" data-rv style="margin-bottom:26px">What gets looked at, and what you leave with.</h2>
+    <div class="grid g2 stagger" data-rv>
+      <div class="card"><p class="tag">What gets reviewed</p><h3>The inputs</h3>
+        <ul class="ticks">{"".join(f"<li>{x}</li>" for x in helps)}</ul></div>
+      <div class="card"><p class="tag">What you walk away with</p><h3>The output</h3>
+        <ul class="ticks">{"".join(f"<li>{x}</li>" for x in leave)}</ul></div>
+    </div>
+    <p class="lede" data-rv style="margin-top:34px;max-width:74ch">Portfolio, retirement income, insurance, cash flow, taxes and family obligations get reviewed together rather than handled as disconnected projects. That coordination is the whole reason one person does all of it.</p>
+    <div class="xrow" data-rv>{cross}</div>
+  </div>
+</section>
+{form_section("Request follow-up", "Bring this into the conversation.",
+  "Tell me what is on your mind and I will tell you whether I can help. Please leave out account numbers, policy numbers and Social Security numbers.",
+  lead_form(campaign, slug, "consultation-request", "Request follow-up",
+            "Replies come from me, usually the same day.", interest, step,
+            cta="Request follow-up", insurance=(interest == "Insurance")), cream=True)}"""
+
 PAGES = [
  ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% a year with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
@@ -749,6 +928,10 @@ PAGES = [
  ("client-login.html","Client Access | Rae &amp; Co Capital","Go to your custodian or carrier portal directly.",CLIENTLOGIN),
  ("calculator.html","Life Insurance Calculator | Rae &amp; Co Capital","Drag the sliders and see your coverage gap. No name, no email, nothing stored.",CALCULATOR),
 ]
+
+for g in GEO:
+    slug,title,desc = g[0],g[1],g[2]
+    PAGES.append((slug,title,desc,geo_page(slug,*g[3:])))
 
 for slug,title,desc,body in PAGES:
     (OUT/slug).write_text(shell(slug,title,desc,body),encoding="utf-8")
