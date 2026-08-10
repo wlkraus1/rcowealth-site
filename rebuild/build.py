@@ -1253,7 +1253,8 @@ GEO = [
    "Estate, beneficiary, tax, and liquidity coordination points"],
   ["A clean decision map","A practical action sequence, ranked","Ongoing review as life changes"],
   "planning.html","See flat-fee planning",
-  "financial-advisor-greenville-sc","Not sure","Focused intro call"),
+  "financial-advisor-greenville-sc","Not sure","Focused intro call",
+  "wealth.html#tool","Check your retirement number"),
 
  ("investment-management-greenville-sc.html",
   "Investment Management in Greenville, SC | Rae &amp; Co Capital",
@@ -1266,7 +1267,8 @@ GEO = [
   ["A clearer investment policy","An implementation plan",
    "A review rhythm tied to life changes, not market noise"],
   "wealth.html","See how management works",
-  "investment-management-greenville-sc","Investments","Portfolio or retirement review"),
+  "investment-management-greenville-sc","Investments","Portfolio or retirement review",
+  "wealth.html#tool","Check your retirement number"),
 
  ("retirement-planning-greenville-sc.html",
   "Retirement Planning in Greenville, SC | Rae &amp; Co Capital",
@@ -1279,7 +1281,8 @@ GEO = [
   ["A retirement income map","A liquidity and reserve framework",
    "A decision list before the paycheck changes"],
   "wealth.html","See retirement income work",
-  "retirement-planning-greenville-sc","Investments","Portfolio or retirement review"),
+  "retirement-planning-greenville-sc","Investments","Portfolio or retirement review",
+  "wealth.html#tool","Check your retirement number"),
 
  ("life-insurance-greenville-sc.html",
   "Life Insurance in Greenville, SC | Rae &amp; Co Capital",
@@ -1302,7 +1305,8 @@ CROSS = [("financial-advisor-greenville-sc.html","Financial planning"),
          ("retirement-planning-greenville-sc.html","Retirement planning"),
          ("life-insurance-greenville-sc.html","Life insurance")]
 
-def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, interest, step):
+def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, interest, step,
+             alt="life-insurance-calculator.html", alt_cta="Run the coverage numbers"):
     cross = "".join(f'<a class="xlink" href="{h}">{t} <span class="arr">&rarr;</span></a>'
                     for h, t in CROSS if h != slug)
     return f"""
@@ -1313,7 +1317,7 @@ def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, int
     <p class="lede" data-rv>{lede}</p>
     <div class="acts" data-rv>
       <a class="btn btn-ink" data-magnetic href="{deep}">{deep_cta} <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="life-insurance-calculator.html">Run the coverage numbers</a>
+      <a class="btn-line" href="{alt}">{alt_cta}</a>
     </div>
   </div>
 </section>
@@ -1378,7 +1382,7 @@ BRIDGE = """
         <p id="bBlurb">For a full picture, usually a couple with a few moving parts.</p>
       </div>
       <div class="card" data-rv>
-        <p class="tag">What happens next</p><h2 class="sub" style="position:absolute;left:-9999px">What happens next</h2>
+        <h2 class="tag" style="font:800 10.5px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 12px">What happens next</h2>
         <ul class="ticks" style="margin-top:6px">
           <li>Pay on Square&rsquo;s secure checkout. You get a receipt immediately.</li>
           <li>Sign the written planning agreement, which I email you the same day.</li>

@@ -1,0 +1,9 @@
+# rcowealth.com launch redirects - RENAME to .htaccess in the same commit that
+# moves rebuild/ to the site root. Staged under a different name so it cannot
+# affect the live site if this branch is merged before the swap.
+
+# mobile.html retired: the rebuild is responsive, one URL per page.
+Redirect 301 /mobile.html https://rcowealth.com/
+
+# Old percent-encoded or trailing variants occasionally seen in logs
+Redirect 301 /index.htm https://rcowealth.com/
