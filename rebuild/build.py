@@ -199,7 +199,7 @@ B9 = ("https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_mediu
 # Flip it to False in the same commit that moves these files to the site root,
 # and every page swaps noindex for a real canonical in one build. Shipping the
 # rebuild with the blanket noindex still on would take the site off Google.
-STAGING = True
+STAGING = False
 
 # Ported from the live site's head, which the rebuild had dropped entirely.
 LD = """{
@@ -364,6 +364,26 @@ HOME = """
 </section>
 
 <section class="section">
+  <div class="wrap">
+    <p class="kicker" data-rv>The other half of the firm</p>
+    <h2 data-rv style="max-width:19ch">Insurance protects it. <em class="g">Managing it</em> is the rest of the job.</h2>
+    <p class="lede" data-rv style="max-width:64ch">Rae &amp; Co is a registered investment adviser that also places insurance, not an insurance agency with a planning page. Portfolios sit at Charles Schwab in your name, priced at 1% a year with a $750 annual minimum, and the retirement income work is where most of the value actually shows up.</p>
+    <div class="grid g3 stagger" data-rv style="margin-top:38px">
+      <div class="card"><p class="tag">Investments</p><h3>Held at Schwab, in your name</h3>
+        <p>I never hold your money. Allocation is matched to the goal and the horizon, and rebalancing happens for a reason rather than on a calendar.</p></div>
+      <div class="card"><p class="tag">Retirement income</p><h3>Turning it into a paycheck</h3>
+        <p>Withdrawal order, Social Security timing, cash reserves sized so a bad year is not a forced sale, and survivor income if one of you goes first.</p></div>
+      <div class="card"><p class="tag">The honest limit</p><h3>When not to hire me</h3>
+        <p>On a small balance the $750 minimum is a poor deal. If that is you, buy a flat-fee plan and invest it yourself. I will say so before you ask.</p></div>
+    </div>
+    <div class="acts" data-rv style="margin-top:34px">
+      <a class="btn btn-ink" data-magnetic href="wealth.html">See how management works <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="wealth.html#tool">Or check your retirement number</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
   <div class="wrap split b">
     <figure style="margin:0" data-rv>
       <img src="../assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
@@ -396,7 +416,7 @@ WEALTH = """
   </div>
 </section>
 
-<section class="section cream">
+<section class="section cream" id="tool">
   <div class="wrap split a">
     <div>
       <p class="kicker" data-rv>60-second answer</p>
@@ -1090,7 +1110,7 @@ SERVICES = f"""
   <div class="wrap">
     <p class="kicker" data-rv>Virtual services &middot; Greenville, South Carolina</p>
     <h1 data-rv>One relationship. <em class="g">Four connected</em> disciplines.</h1>
-    <p class="lede" data-rv>Investments, retirement income, financial planning and protection, coordinated by one person without office logistics. The coordination is the product. Handled separately, these four contradict each other more often than people realise.</p>
+    <p class="lede" data-rv>Investments, retirement income, financial planning and protection, coordinated by one person without office logistics. The coordination is the product. Handled separately, these four contradict each other more often than people realize.</p>
     <div class="acts" data-rv>
       <a class="btn btn-ink" data-magnetic href="contact.html">Start a conversation <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="planning.html">Or buy a plan outright</a>
@@ -1304,3 +1324,27 @@ for slug,title,desc,body in PAGES:
     (OUT/slug).write_text(shell(slug,title,desc,body),encoding="utf-8")
     print("wrote",slug)
 print("done:",len(PAGES),"pages")
+
+# Sitemap is generated from PAGES so it can never drift from what was built.
+# Only emitted once STAGING is off, because a sitemap that advertises noindex
+# pages just wastes crawl budget.
+if not STAGING:
+    PRIORITY = {"index.html":"1.0","life-insurance-greenville-sc.html":"0.9",
+                "financial-advisor-greenville-sc.html":"0.9",
+                "investment-management-greenville-sc.html":"0.9",
+                "retirement-planning-greenville-sc.html":"0.9",
+                "life-insurance-calculator.html":"0.8","life-insurance-quote.html":"0.8",
+                "types-of-life-insurance.html":"0.8","wealth.html":"0.8",
+                "protection.html":"0.8","planning.html":"0.8"}
+    SKIP = {"thank-you.html"}
+    urls = "\n".join(
+      f"  <url><loc>{ORIGIN}/{'' if s=='index.html' else s}</loc>"
+      f"<priority>{PRIORITY.get(s,'0.6')}</priority></url>"
+      for s,_,_,_ in PAGES if s not in SKIP)
+    (OUT.parent/"sitemap.xml").write_text(
+      '<?xml version="1.0" encoding="UTF-8"?>\n'
+      '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+      + urls + "\n</urlset>\n")
+    print("wrote sitemap.xml (%d urls)" % (len(PAGES)-len(SKIP)))
+else:
+    print("STAGING=True: noindex on, sitemap NOT regenerated")
