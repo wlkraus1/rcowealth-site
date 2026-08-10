@@ -70,7 +70,7 @@ def carrier_cells():
     out = []
     for name, slug, cls in FEATURED:
         art = next((p for e in (".svg", ".png")
-                    if (p := OUT.parent/"assets"/"carriers"/(slug+e)).exists()), None)
+                    if (p := OUT/"assets"/"carriers"/(slug+e)).exists()), None)
         if art:
             w, h = art_size(art)
             px = min(48, round(62 / (w/h) ** .5))
@@ -316,6 +316,8 @@ def shell(slug, title, desc, body, canvas=False):
   </div>
 </footer>
 <script src="rco.js?v={asset_v('rco.js')}"></script>
+<script src="/campaign-tracking.js?v={asset_v('campaign-tracking.js')}" defer></script>
+<script src="/tracking-tags.js?v={asset_v('tracking-tags.js')}" defer></script>
 </body>
 </html>
 """
@@ -1502,7 +1504,7 @@ if not STAGING:
       f"  <url><loc>{ORIGIN}/{'' if s=='index.html' else s}</loc>"
       f"<priority>{PRIORITY.get(s,'0.6')}</priority></url>"
       for s,_,_,_ in PAGES if s not in SKIP)
-    (OUT.parent/"sitemap.xml").write_text(
+    (OUT/"sitemap.xml").write_text(
       '<?xml version="1.0" encoding="UTF-8"?>\n'
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
       + urls + "\n</urlset>\n")
