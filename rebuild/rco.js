@@ -266,6 +266,11 @@
       var supports=fv*0.04/12;                       /* 4% rule, monthly */
       var pct=want>0 ? Math.max(0,Math.min(1,supports/want)) : 1;
 
+      /* The big number and the label above it must describe the SAME thing.
+         They did not: the label announced the gap while the headline number
+         showed the supported income, so the eye landed on one figure and read
+         a caption about a different one. Label describes the headline; the
+         target and the gap sit underneath as their own labelled lines. */
       if(wNum.textContent!==money(supports)){
         wNum.textContent=money(supports);
         wNum.classList.remove('roll');void wNum.offsetWidth;wNum.classList.add('roll');
@@ -273,14 +278,23 @@
       wFill.style.width=(pct*100).toFixed(1)+'%';
       wFill.style.background=pct>=1?'var(--gold)':(pct>=.7?'#c8a15a':'#b4763f');
 
-      if(yrs===0){
-        wLabel.textContent='Retiring now, this supports';
-      } else if(supports>=want){
-        wLabel.textContent='Covers your target, with room';
-      } else {
-        wLabel.textContent='Short of your target by '+money(want-supports)+' a month';
+      wLabel.textContent = yrs===0
+        ? 'Retiring now, this is what it supports each month'
+        : 'Monthly income this plan supports at ' + retAge;
+
+      document.getElementById('wWantEcho').textContent = money(want)+'/mo';
+      var gapEl=document.getElementById('wGap'), gapLab=document.getElementById('wGapLabel');
+      if(supports>=want){
+        gapLab.textContent='Surplus each month';
+        gapEl.textContent='+'+money(supports-want);
+        gapEl.classList.add('good');
+        wCta.innerHTML='Keep it that way <span class="arr">&rarr;</span>';
+      }else{
+        gapLab.textContent='Short each month';
+        gapEl.textContent=money(want-supports);
+        gapEl.classList.remove('good');
+        wCta.innerHTML='Close the gap <span class="arr">&rarr;</span>';
       }
-      wCta.textContent = supports>=want ? 'Keep it that way →' : 'Close the gap →';
     }
 
     chips.forEach(function(c){

@@ -446,11 +446,16 @@ WEALTH = """
         <input type="range" id="wRet" min="2" max="9" step="0.5" value="6" aria-label="Assumed annual growth rate"></div>
       <div class="frow"><label for="wWant">Income you want <output id="wWantOut">$6,000/mo</output></label>
         <input type="range" id="wWant" min="1000" max="20000" step="250" value="6000" aria-label="Monthly income you want in retirement"></div>
-      <div class="readout">
-        <div><small id="wLabel">Monthly income it supports</small><span class="num" id="wNum">$0</span></div>
-        <a id="wCta" href="contact.html">Talk it through &rarr;</a>
+      <div class="wresult" aria-live="polite">
+        <p class="rlabel" id="wLabel">Monthly income this plan supports</p>
+        <p class="rbig" id="wNum">$0</p>
+        <p class="wbar" aria-hidden="true"><span id="wFill"></span></p>
+        <div class="rline"><span>Income you want</span><b id="wWantEcho">$0</b></div>
+        <div class="rline"><span id="wGapLabel">Short each month</span><b id="wGap">$0</b></div>
+        <div class="ractions" style="margin-top:18px">
+          <a class="btn btn-gold" id="wCta" href="contact.html">Close the gap <span class="arr">&rarr;</span></a>
+        </div>
       </div>
-      <p class="wbar" aria-hidden="true"><span id="wFill"></span></p>
       <p class="fine" id="wFine">An illustration built only from the numbers above, using your growth assumption and a 4% withdrawal rate. It is not a projection of any actual portfolio, not a promise of returns, and not individualized advice. It ignores taxes, fees, Social Security and inflation.</p>
     </div>
   </div>

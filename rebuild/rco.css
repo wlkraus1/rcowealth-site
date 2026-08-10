@@ -434,3 +434,12 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .cnote{display:none;max-width:70ch;margin:18px auto 0;
   font:400 12.5px/1.65 var(--sans);color:rgba(244,239,228,.55)}
 .cnote.open{display:block}
+
+/* Wealth tool readout. Reuses the coverage calculator's result hierarchy on
+   purpose: label describes the headline number, then the target and the gap
+   as their own labelled lines. The first version put the gap in the caption
+   above a headline showing the supported income, so the two never matched. */
+.wresult{margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.wresult .rbig{margin-bottom:12px}
+.wresult .wbar{margin:0 0 6px}
+.wresult .rline b.good{color:var(--gold-ink)}

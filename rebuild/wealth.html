@@ -17,7 +17,7 @@
 <meta name="twitter:description" content="Portfolio management and retirement income at 1% a year with a $750 annual minimum. Assets custodied at Charles Schwab.">
 <meta name="theme-color" content="#06111f">
 <link rel="icon" href="../favicon.ico?v=goldleaf-20260521-1647">
-<link rel="stylesheet" href="rco.css?v=38bfa04271">
+<link rel="stylesheet" href="rco.css?v=3f8493da94">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -83,11 +83,16 @@
         <input type="range" id="wRet" min="2" max="9" step="0.5" value="6" aria-label="Assumed annual growth rate"></div>
       <div class="frow"><label for="wWant">Income you want <output id="wWantOut">$6,000/mo</output></label>
         <input type="range" id="wWant" min="1000" max="20000" step="250" value="6000" aria-label="Monthly income you want in retirement"></div>
-      <div class="readout">
-        <div><small id="wLabel">Monthly income it supports</small><span class="num" id="wNum">$0</span></div>
-        <a id="wCta" href="contact.html">Talk it through &rarr;</a>
+      <div class="wresult" aria-live="polite">
+        <p class="rlabel" id="wLabel">Monthly income this plan supports</p>
+        <p class="rbig" id="wNum">$0</p>
+        <p class="wbar" aria-hidden="true"><span id="wFill"></span></p>
+        <div class="rline"><span>Income you want</span><b id="wWantEcho">$0</b></div>
+        <div class="rline"><span id="wGapLabel">Short each month</span><b id="wGap">$0</b></div>
+        <div class="ractions" style="margin-top:18px">
+          <a class="btn btn-gold" id="wCta" href="contact.html">Close the gap <span class="arr">&rarr;</span></a>
+        </div>
       </div>
-      <p class="wbar" aria-hidden="true"><span id="wFill"></span></p>
       <p class="fine" id="wFine">An illustration built only from the numbers above, using your growth assumption and a 4% withdrawal rate. It is not a projection of any actual portfolio, not a promise of returns, and not individualized advice. It ignores taxes, fees, Social Security and inflation.</p>
     </div>
   </div>
@@ -163,6 +168,6 @@
     <p class="legal">Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is a South Carolina registered investment adviser. Registration does not imply a certain level of skill or training. Investing involves risk, including possible loss of principal. Insurance products are subject to underwriting and carrier approval; commissions may create a conflict of interest and are disclosed. This website is for informational purposes only and should not be treated as individualized investment, tax, legal, or insurance advice.</p>
   </div>
 </footer>
-<script src="rco.js?v=569bc5af91"></script>
+<script src="rco.js?v=7a4e574457"></script>
 </body>
 </html>
