@@ -850,7 +850,7 @@ PRIVACY = legal_page("Privacy Policy","Legal",[
 CLIENTLOGIN = legal_page("Client access","Portals",[
  ("Use the provider portal directly","Rae &amp; Co Capital does not ask for portal credentials. The firm can help point you in the right direction, but credential entry should happen only through the provider&rsquo;s own site."),
  ("Investment accounts","Schwab Alliance is where Schwab-custodied investment and retirement accounts live. Go to schwaballiance.com directly rather than through a link in an email."),
- ("Insurance accounts","Policy, billing and customer access is handled through your carrier&rsquo;s own portal. Which one depends on who issued the policy; ask and we will tell you."),
+ ("Insurance accounts","Policy, billing and customer access is handled through your carrier&rsquo;s own portal. Mutual of Omaha policies use <a href='https://www.mutualofomaha.com/welcome/customer-access' target='_blank' rel='noopener'>Customer Access</a>. For any other carrier, the portal depends on who issued the policy; ask and we will tell you."),
  ("A warning worth repeating","Do not send account numbers, policy numbers, passwords, Social Security numbers, or sensitive financial data through any website form, including ours. If a message asks you to, it is not from us."),
 ])
 
