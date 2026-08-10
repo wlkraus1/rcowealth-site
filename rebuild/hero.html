@@ -236,15 +236,23 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
    require advertising approval before a producer uses them. Type also loads
    instantly and is indexable, which forty image files are not. */
 .carriers{margin-top:44px;border-top:1px solid rgba(244,239,228,.16);padding-top:30px}
-.carriers .chead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px}
-.carriers .cnum{font-family:var(--serif);font-size:clamp(38px,4.4vw,56px);line-height:1;letter-spacing:-.04em;color:var(--gold-pale)}
-.carriers .ctxt{font:400 16px/1.5 var(--sans);color:rgba(244,239,228,.74);max-width:44ch}
+/* Centered and given room, per Tyler: the number and its line were a cramped
+   left-aligned pair in a 44ch column, which read as a caption rather than the
+   claim it is. Now the 40+ is the biggest thing in the section after the
+   headline, stacked and centered, with the line beneath it. */
+.carriers .chead{display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:8px;margin-bottom:30px}
+.carriers .cnum{font-family:var(--serif);font-size:clamp(64px,8vw,104px);line-height:.95;
+  letter-spacing:-.045em;color:var(--gold-pale)}
+.carriers .ctxt{font:400 clamp(16px,1.4vw,18.5px)/1.55 var(--sans);color:rgba(244,239,228,.76);max-width:50ch}
 .cnames{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border-top:1px solid rgba(244,239,228,.1)}
 .cnames span{font:600 13px/1.3 var(--sans);color:rgba(244,239,228,.62);padding:11px 12px 11px 0;
   border-bottom:1px solid rgba(244,239,228,.08)}
 @media(max-width:900px){.cnames{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:560px){.cnames{grid-template-columns:repeat(2,1fr)}}
-.pacts{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px;align-items:center}
+/* centered to match the 40+ above them: with the carrier block centered, a
+   left-aligned button pair read as orphaned from it */
+.pacts{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;align-items:center;justify-content:center}
 .cta-gold{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#e7cf9c,var(--gold));
   color:#14202e;font:800 15px/1 var(--sans);border-radius:999px;padding:18px 28px;text-decoration:none;
   transition:transform .2s cubic-bezier(.16,1,.3,1)}
@@ -253,7 +261,7 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
    the gold underline stays the visual, the tap area just stops being 21px */
 .cta-line{display:inline-flex;align-items:center;min-height:44px;font:700 14.5px/1 var(--sans);
   color:#fff;text-decoration:none;box-shadow:inset 0 -2px 0 var(--gold)}
-.pfine{margin:22px 0 0;font:400 12px/1.6 var(--sans);color:rgba(244,239,228,.5);max-width:76ch}
+.pfine{margin:24px auto 0;font:400 12px/1.6 var(--sans);color:rgba(244,239,228,.5);max-width:78ch;text-align:center}
 
 /* ---- floating proof chips ---- */
 .float-chip{position:absolute;z-index:3;background:#fff;border:1px solid rgba(200,161,90,.45);border-radius:13px;
