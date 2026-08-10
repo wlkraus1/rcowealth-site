@@ -180,6 +180,10 @@ SOCIAL = """<div class="social">
         </div>"""
 
 ORIGIN = "https://rcowealth.com"
+# BackNine quote-and-apply, the only place on the site where someone can buy
+# without talking to anyone. Append &utm_content=<where> at each call site.
+B9 = ("https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal"
+      "&amp;utm_campaign=rebuild")
 
 # STAGING keeps the whole rebuild out of the index while it lives at /rebuild/.
 # Flip it to False in the same commit that moves these files to the site root,
@@ -264,7 +268,7 @@ def shell(slug, title, desc, body, canvas=False):
       </div>
       <nav aria-label="Start"><p class="ftlabel">Start</p>
         <a href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=footer" target="_blank" rel="noopener">Quote &amp; apply</a>
-        <a href="calculator.html">Coverage calculator</a>
+        <a href="life-insurance-calculator.html">Coverage calculator</a>
         <a href="planning.html">Buy a plan</a>
       </nav>
       <nav aria-label="Firm"><p class="ftlabel">Firm</p>
@@ -317,7 +321,7 @@ HOME = """
       </div>
       <div class="readout">
         <div><small>Rough coverage need</small><span class="num" id="need">$1,080,000</span></div>
-        <a id="full" href="calculator.html">Run the full number &rarr;</a>
+        <a id="full" href="life-insurance-calculator.html">Run the full number &rarr;</a>
       </div>
       <p class="fine">Ten years of income, plus what you selected. A starting point, not advice.</p>
     </div>
@@ -427,7 +431,7 @@ PROTECTION = """
     <p class="lede" data-rv>Pick what is on your mind. Every answer names what it solves, what it costs you, and when it is the wrong tool, because knowing when not to buy something is the part most people never get told.</p>
     <div class="acts" data-rv>
       <a class="btn btn-gold" data-magnetic href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=protection_hero" target="_blank" rel="noopener">Quote and apply now <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="calculator.html">Run the coverage numbers</a>
+      <a class="btn-line" href="life-insurance-calculator.html">Run the coverage numbers</a>
     </div>
   </div>
 </section>
@@ -814,6 +818,313 @@ CALCULATOR = """
 </section>
 """
 
+# ------------------------------------------------- TYPES OF LIFE INSURANCE
+# The single strongest content asset on the property at 1,342 words, and the
+# rebuild had deleted it. Ported whole. VUL stays out - Tyler's explicit call
+# on licensing, "no leave the VUL out then", closed, do not re-raise.
+TYPES = [
+ ("Start here","Term life",
+  "Coverage for a set number of years, usually 10, 20 or 30. If you die during the term, it pays. If you outlive it, it ends and pays nothing. That is the entire product, and it is why it costs the least per dollar of coverage by a wide margin.",
+  [("What it solves","A mortgage, the years until children are grown, a business loan, an income that other people depend on."),
+   ("What it costs you","Nothing builds up. When the term ends you have paid for protection you did not use, which is how insurance is supposed to work."),
+   ("When it is wrong","When the need genuinely never ends, or when the policy has a job to do inside an estate or a business succession.")],
+  "Where most people land","For most households under 50 with a mortgage and dependents, term does the job, and the money not spent on premium is usually better invested elsewhere. We will say that even though it pays us the least."),
+
+ ("Permanent","Whole life",
+  "Coverage for your whole life with a premium that does not change and a cash value that grows at a rate the insurer sets. Predictable, and expensive relative to term for the same death benefit.",
+  [("What it solves","A need that does not expire: estate liquidity, a special-needs dependent, business continuity, final costs."),
+   ("What it costs you","Premium is several times term for the same benefit, and early years are heavily front-loaded with costs."),
+   ("When it is wrong","When it is bought as an investment. It is insurance with a savings component, not a portfolio.")],
+  None,None),
+
+ ("Permanent","Universal life",
+  "Permanent coverage with a flexible premium. You can pay more or less within limits, and the policy draws its internal costs from the cash value. That flexibility is the feature and it is also the risk.",
+  [("What it solves","A permanent need with income that varies year to year."),
+   ("What it costs you","Attention. Underfund it for long enough and the policy can lapse, which is the worst outcome in insurance."),
+   ("When it is wrong","When nobody is going to review it. A flexible policy left alone for twenty years is a problem waiting.")],
+  None,None),
+
+ ("Permanent &middot; the complicated one","Indexed universal life (IUL)",
+  "Universal life where the cash value is credited based on the movement of a market index, subject to a cap on the upside and a floor that protects against index losses. It is the most oversold product in this industry, so here is the plain version.",
+  [("What it solves","A permanent need for someone who wants index-linked crediting with a floor, and who will actually review the policy."),
+   ("What it costs you","Caps, participation rates and spreads limit the credited amount, insurance charges rise with age, and the carrier can change some of those terms."),
+   ("When it is wrong","When you have term needs, unused 401(k) or IRA space, or no emergency reserve. Those come first.")],
+  "How to read an IUL illustration","The projected columns are not a forecast and are not guaranteed. Ask for the guaranteed column, ask what happens if the credited rate is lower than illustrated, and ask what the policy costs in years one through ten. If those answers are not offered without being asked for, that is information about the seller."),
+
+ ("Income protection","Disability income",
+  "Life insurance protects your family from losing you. Disability income protects them from losing your paycheck while you are still here, which is statistically the likelier event during working years. It replaces a percentage of income when illness or injury stops you working.",
+  [("What it solves","The mortgage and the groceries during a long recovery, when the income stops but the bills do not."),
+   ("What it costs you","Premium rises with how quickly benefits start, how long they last, and how strictly the policy defines disability."),
+   ("When it is wrong","Rarely, during working years. The usual mistake is assuming a small group policy at work is enough.")],
+  "The gap most people have","Employer coverage typically replaces around 60% of base pay, is taxable when the employer pays the premium, often excludes bonus and commission, and ends the day you leave the job."),
+
+ ("Long-term care","Long-term care, and hybrid policies",
+  "Standalone long-term care insurance pays for care at home or in a facility. A hybrid, sometimes called a linked-benefit policy, combines that with life insurance: if care is never needed, the policy pays a death benefit instead.",
+  [("What it solves","Care costs that Medicare largely does not pay for, and the burden that otherwise lands on adult children."),
+   ("What it costs you","Standalone premiums can be raised by the carrier. Hybrids fix that by charging more up front."),
+   ("When it is wrong","When protection and retirement income are not handled first, or when assets are small enough that Medicaid is the realistic path.")],
+  None,None),
+
+ ("Variants worth knowing","Term variants, and accidental death",
+  "Three products get sold as if they were ordinary term. They are not, and the differences matter more than the names suggest.",
+  [("No-medical term","No exam, faster approval, and you generally pay more for the convenience. Useful when time or health makes a full exam impractical."),
+   ("Return-of-premium term","Refunds premiums if you outlive the term. The premium is substantially higher, and the refund is not interest-bearing, so compare it against buying plain term and investing the difference."),
+   ("Accidental death","Pays only if death is accidental, which is a small share of deaths. Cheap because it covers little. It is a supplement, never a substitute for real coverage.")],
+  None,None),
+
+ ("Small and specific","Final expense",
+  "A small whole life policy, commonly $10,000 to $25,000, meant to cover a funeral, burial and the immediate bills that land on a family in the first few weeks. Underwriting is limited, which is the point.",
+  [("What it solves","End-of-life costs for someone who cannot get, or does not need, a larger fully underwritten policy."),
+   ("What it costs you","A high price per dollar of coverage, and many policies have a graded benefit for the first two years."),
+   ("When it is wrong","When you are healthy enough to qualify for a normal policy, or when savings already cover it.")],
+  None,None),
+]
+
+def types_page():
+    blocks = []
+    for i,(tag,h2,intro,cells,ct,cx) in enumerate(TYPES):
+        callout = (f'<div class="callout" data-rv><b>{ct}</b> {cx}</div>' if ct else "")
+        blocks.append(f"""
+<section class="section{' cream' if i%2 else ''}" style="padding-top:clamp(44px,5vw,68px);padding-bottom:clamp(44px,5vw,68px)">
+  <div class="wrap">
+    <p class="kicker" data-rv>{tag}</p>
+    <h2 data-rv>{h2}</h2>
+    <p class="lede" data-rv style="max-width:74ch">{intro}</p>
+    <div class="prow stagger" data-rv>{"".join(f'<div><b>{a}</b><p>{b}</p></div>' for a,b in cells)}</div>
+    {callout}
+  </div>
+</section>""")
+    return f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>Plain language &middot; Protection planning</p>
+    <h1 data-rv>The whole menu, and what each one is <em class="g">actually for</em>.</h1>
+    <p class="lede" data-rv>Most people are sold a product before anyone tells them what the products are. Here is the range we place, in order of how simple it is, with the costs stated as plainly as the benefits.</p>
+    <div class="acts" data-rv>
+      <a class="btn btn-ink" data-magnetic href="life-insurance-calculator.html">Estimate what you need <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="{B9}&amp;utm_content=types_hero" target="_blank" rel="noopener">Compare real quotes</a>
+    </div>
+  </div>
+</section>
+{"".join(blocks)}
+<section class="section dark">
+  <div class="wrap">
+    <p class="kicker" data-rv>No small print</p>
+    <h2 data-rv style="max-width:20ch">How we are paid, so you can <em class="g" style="color:var(--gold-2)">weigh the advice</em>.</h2>
+    <p class="lede" data-rv style="max-width:76ch">Rae &amp; Co Capital is compensated by commission on insurance placed. Different products pay different amounts, and permanent products generally pay more than term. That is a conflict of interest, it is disclosed in our Form CRS and disclosures, and it is the reason the term section above says what it says.</p>
+    <p class="lede" data-rv style="max-width:76ch">Coverage is shopped across more than forty carriers rather than sold from one shelf. Availability, pricing and features vary by product, state, health and underwriting. Nothing on this page is individualized insurance, tax, legal or investment advice, and no coverage exists until a carrier issues a policy.</p>
+    <p class="lede" data-rv style="max-width:76ch">Fixed and indexed annuities, including multi-year guaranteed annuities and income riders, are placed as part of retirement income planning rather than protection planning. Those are covered on the retirement planning page.</p>
+    <div class="acts" data-rv style="margin-top:8px">
+      <a class="btn btn-gold" href="life-insurance-calculator.html">Estimate your coverage need <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="contact.html">Talk it through</a>
+    </div>
+  </div>
+</section>
+{form_section("Get it checked", "Have what you own reviewed before you buy anything else.",
+  "Send what you already have and I will tell you whether it still fits. If the answer is that you do not need anything, that is the answer you will get.",
+  lead_form("types-of-life-insurance","types-of-life-insurance.html","life-insurance-planning",
+            "Request a policy review","Replies come from me, usually the same day.",
+            "Insurance","Life insurance planning", cta="Request a review", insurance=True), cream=True)}"""
+
+# ------------------------------------------------------- REMAINING PORTS
+# thank-you.html is NOT optional: every form on the site carries
+# retURL=https://rcowealth.com/thank-you.html, so the moment the rebuild
+# becomes the root this file has to exist or every submission 404s.
+THANKYOU = """
+<section class="section" style="padding-bottom:0">
+  <div class="wrap" style="max-width:760px">
+    <p class="kicker" data-rv>Message received</p>
+    <h1 data-rv>Thank you. It <em class="g">landed</em>.</h1>
+    <p class="lede" data-rv>Your note is with me, not a queue. I read them myself and reply personally, usually the same day. If it is urgent, text 864-558-8440 and you will get me faster.</p>
+    <div class="reachrow" data-rv style="max-width:420px">
+      <a class="reach" href="tel:+18645588440"><span><b>Call</b>864-558-8440</span></a>
+      <a class="reach" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20just%20sent%20a%20note%20about%20"><span><b>Text</b>Usually the fastest</span></a>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <h2 class="sub" data-rv style="margin-bottom:24px">While you wait, these need nobody's permission.</h2>
+    <div class="grid g3 stagger" data-rv>
+      <a class="card" style="text-decoration:none" href="life-insurance-calculator.html"><p class="tag">Free, no signup</p><h3>Run your coverage number</h3><p>Drag the sliders and see the gap. Nothing is stored and no contact details are asked for.</p></a>
+      <a class="card" style="text-decoration:none" href="types-of-life-insurance.html"><p class="tag">Plain language</p><h3>Read what the products do</h3><p>All eight, with what each costs you and when it is the wrong tool.</p></a>
+      <a class="card" style="text-decoration:none" href="planning.html"><p class="tag">Published prices</p><h3>See the planning fees</h3><p>Flat fees from $750, listed, no discovery call needed to find out.</p></a>
+    </div>
+    <div class="acts" data-rv style="margin-top:34px">
+      <a class="btn btn-ink" href="index.html">Back to home <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="client-login.html">Client access</a>
+    </div>
+  </div>
+</section>
+"""
+
+QUOTE = f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>Instant quotes &middot; No agent call</p>
+    <h1 data-rv>Compare real quotes from <em class="g">major carriers</em>.</h1>
+    <p class="lede" data-rv>Answer a few health and coverage questions and see actual pricing across more than forty carriers. You can apply online in the same session. Nobody phones you to unlock a number.</p>
+    <div class="acts" data-rv>
+      <a class="btn btn-gold" data-magnetic href="{B9}&amp;utm_content=quote_hero" target="_blank" rel="noopener">Open quote &amp; apply <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="life-insurance-calculator.html">Work out the amount first</a>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <h2 class="sub" data-rv style="margin-bottom:24px">What happens, in order.</h2>
+    <div class="grid g3 stagger" data-rv>
+      <div class="card"><p class="tag">Step one</p><h3>Health and coverage questions</h3><p>A couple of minutes. No exam at this stage and no commitment to anything.</p></div>
+      <div class="card"><p class="tag">Step two</p><h3>Real pricing, side by side</h3><p>You see the same carrier pricing I see. There is no version of this where I get a better number than you do.</p></div>
+      <div class="card"><p class="tag">Step three</p><h3>Apply and e-sign</h3><p>In the same sitting if you want. Underwriting and carrier approval come after, and nothing is in force until a carrier issues.</p></div>
+    </div>
+    <div class="callout" data-rv style="margin-top:30px"><b>If the quoter will not load</b>
+      Some corporate networks block it. <a href="{B9}&amp;utm_content=quote_fallback" target="_blank" rel="noopener">Open it in a new window</a>, or text 864-558-8440 and I will send pricing manually.</div>
+    <p class="lede" data-rv style="margin-top:26px;max-width:78ch;font-size:13px">Quoting and applications are processed through BackNine Insurance. Pricing shown is an estimate and is not a binding offer. All coverage is subject to underwriting and carrier approval, and final rates may differ from quoted rates. Rae &amp; Co Capital may receive a commission on insurance products, a conflict of interest that is disclosed. Rae &amp; Co Capital is licensed for life insurance in South Carolina; availability elsewhere depends on licensing and carrier approval.</p>
+  </div>
+</section>
+{form_section("Rather not self-serve", "Want the number checked before you buy?",
+  "Send what you already have and what you are trying to protect. I will tell you whether the coverage fits, including when the answer is that you do not need more.",
+  lead_form("life-insurance-quote","life-insurance-quote.html","life-insurance-planning",
+            "Have it checked first","Replies come from me, usually the same day.",
+            "Insurance","Life insurance planning", cta="Send it over", insurance=True), cream=True)}"""
+
+CHECK_ITEMS = [
+ ("Income replacement","What income would need to continue, for whom, and for how long?"),
+ ("Debt and liquidity","What debt, taxes, estate costs or cash needs could appear at the wrong time?"),
+ ("Family obligations","Dependents, education, caregiving and long-term family priorities."),
+ ("Business exposure","Key-person, buy-sell, continuity and ownership transition questions."),
+ ("Beneficiaries","Ownership and beneficiary designations should match the planning intent."),
+ ("Policy fit","Term, permanent, employer and legacy coverage all have different jobs."),
+]
+
+CHECKLIST = f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>Checklist &middot; Protection planning</p>
+    <h1 data-rv>Before changing a policy, know what the coverage is <em class="g">supposed to solve</em>.</h1>
+    <p class="lede" data-rv>A useful review starts with obligations, people, ownership, beneficiaries and liquidity. Not just premium and death benefit. Replacing a policy on price alone is how people lose coverage they cannot get back.</p>
+    <div class="acts" data-rv>
+      <a class="btn btn-ink" data-magnetic href="#ask">Request the checklist <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="types-of-life-insurance.html">Read what each product does</a>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <h2 class="sub" data-rv style="margin-bottom:24px">The six things worth checking.</h2>
+    <div class="grid g3 stagger" data-rv>
+      {"".join(f'<div class="card"><h3 style="font-size:21px">{t}</h3><p>{b}</p></div>' for t,b in CHECK_ITEMS)}
+    </div>
+    <div class="callout" data-rv style="margin-top:30px"><b>One warning worth the whole page</b>
+      Do not cancel existing coverage until replacement coverage is issued and in force. Health changes, and a policy you already own may be one you could no longer qualify for.</div>
+  </div>
+</section>
+<div id="ask"></div>
+{form_section("Request the checklist", "Ask for the checklist, or a full protection review.",
+  "I will send the checklist and, if you want, walk your existing policies through it with you. Please leave policy numbers and Social Security numbers out of the form.",
+  lead_form("life-insurance-checklist","life-insurance-review-checklist.html","lead-magnet-download",
+            "Send me the checklist","Replies come from me, usually the same day.",
+            "Insurance","Life insurance planning", cta="Send the checklist", insurance=True,
+            placeholder="Example: I have a 20 year term from 2015 and group cover at work, and I am not sure if it is still enough."), cream=True)}"""
+
+SERVICE_CARDS = [
+ ("Portfolio","Investment management","Portfolio structure, liquidity, allocation and risk tied to the purpose of the money.","investment-management-greenville-sc.html"),
+ ("Income","Retirement planning","Withdrawal strategy, reserves, income timing, and the transition from saving to spending.","retirement-planning-greenville-sc.html"),
+ ("Planning","Financial planning","Cash flow, accounts, insurance, tax exposure, family needs and business decisions organized.","financial-advisor-greenville-sc.html"),
+ ("Protection","Life insurance planning","Coverage reviewed against income, debt, dependents, business exposure and legacy.","life-insurance-greenville-sc.html"),
+]
+
+SERVICES = f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>Virtual services &middot; Greenville, South Carolina</p>
+    <h1 data-rv>One relationship. <em class="g">Four connected</em> disciplines.</h1>
+    <p class="lede" data-rv>Investments, retirement income, financial planning and protection, coordinated by one person without office logistics. The coordination is the product. Handled separately, these four contradict each other more often than people realise.</p>
+    <div class="acts" data-rv>
+      <a class="btn btn-ink" data-magnetic href="contact.html">Start a conversation <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="planning.html">Or buy a plan outright</a>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <h2 class="sub" data-rv style="margin-bottom:24px">Where each one goes deeper.</h2>
+    <div class="grid g2 stagger" data-rv>
+      {"".join(f'<a class="card" style="text-decoration:none" href="{h}"><p class="tag">{t}</p><h3>{n}</h3><p style="margin-bottom:16px">{d}</p><span class="btn-line">Open page &rarr;</span></a>' for t,n,d,h in SERVICE_CARDS)}
+    </div>
+  </div>
+</section>
+<section class="section cream">
+  <div class="wrap split c">
+    <div>
+      <p class="kicker" data-rv>Protection planning</p>
+      <h2 data-rv style="max-width:18ch">Not sure how much cover your family would need?</h2>
+      <p class="lede" data-rv>Start with the estimate, then compare real pricing. The calculator asks for no contact information and stores nothing.</p>
+      <div class="acts" data-rv>
+        <a class="btn btn-ink" href="life-insurance-calculator.html">Estimate your coverage need <span class="arr">&rarr;</span></a>
+        <a class="btn-line" href="{B9}&amp;utm_content=services_quote" target="_blank" rel="noopener">Compare real quotes</a>
+      </div>
+    </div>
+    <div class="card" data-rv>
+      <p class="tag">Client access</p><h3>Need a portal?</h3>
+      <p style="margin-bottom:16px">Investment and insurance account access is handled through the provider portals, not through this site.</p>
+      <a class="btn-line" href="client-login.html">Go to client access &rarr;</a>
+    </div>
+  </div>
+</section>
+"""
+
+# The paid-search landing page. Kept separate from the geo page on purpose:
+# this one takes ad traffic with buying intent, so it opens on the quoter
+# rather than on education.
+REVIEW = f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>Protection review</p>
+    <h1 data-rv>Make sure the people depending on you are <em class="g">actually protected</em>.</h1>
+    <p class="lede" data-rv>Families, homeowners and business owners get existing policies and coverage gaps reviewed against what the money is actually for. Price it yourself in a few minutes, or have what you already own checked first.</p>
+    <div class="acts" data-rv>
+      <a class="btn btn-gold" data-magnetic href="{B9}&amp;utm_content=review_hero" target="_blank" rel="noopener">Get pricing now <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="life-insurance-calculator.html">Work out the amount first</a>
+    </div>
+    <p style="margin:26px 0 0;font:600 13px/1.6 var(--sans);color:var(--muted)" data-rv>Mortgage protection &middot; Income replacement &middot; Family obligations &middot; Business-owner risk</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <p class="kicker" data-rv>When to review coverage</p>
+    <h2 data-rv style="max-width:22ch">Coverage should match the job it needs to do.</h2>
+    <p class="lede" data-rv style="max-width:74ch">People usually review after a mortgage, a marriage, a new child, a business change, a debt increase, a job change or a health change. Existing policies deserve a second look before they are replaced, reduced, borrowed against or allowed to lapse.</p>
+    <div class="grid g3 stagger" data-rv style="margin-top:32px">
+      <div class="card"><p class="tag">Home</p><h3>Mortgage protection</h3><p>Whether a spouse or family could keep the home, refinance, or pay the debt down if the income stopped.</p></div>
+      <div class="card"><p class="tag">Family</p><h3>Income replacement</h3><p>Survivor income, children, caregiving, education, final costs and emergency liquidity.</p></div>
+      <div class="card"><p class="tag">Business</p><h3>Owner continuity</h3><p>Key-person, buy-sell, debt, succession and business-continuity exposure.</p></div>
+    </div>
+  </div>
+</section>
+<section class="section cream">
+  <div class="wrap">
+    <p class="kicker" data-rv>How the review works</p>
+    <h2 data-rv style="max-width:22ch">A focused conversation before any application.</h2>
+    <div class="grid g2 stagger" data-rv style="margin-top:30px">
+      <div class="card"><p class="tag">What we establish</p><h3>The inputs</h3>
+        <ul class="ticks"><li>What the policy actually needs to protect</li><li>Current employer, term, permanent or legacy coverage</li><li>Rough budget and how long the need lasts</li><li>Health and the likely underwriting path</li></ul></div>
+      <div class="card"><p class="tag">What you get</p><h3>The output</h3>
+        <ul class="ticks"><li>A gap and overlap summary in plain language</li><li>Carrier and product fit, with the reasoning shown</li><li>Replacement cautions before you change anything</li><li>Or a clear "you do not need more", when that is the answer</li></ul></div>
+    </div>
+    <div class="callout" data-rv style="margin-top:28px"><b>Before you replace anything</b>
+      Do not cancel existing coverage until replacement coverage is issued and in force. Health changes, and a policy you already own may be one you could no longer qualify for.</div>
+  </div>
+</section>
+{form_section("Request a review", "Have your coverage checked.",
+  "Tell me what you already have and who depends on you. Please leave policy numbers and Social Security numbers out of the form.",
+  lead_form("life-insurance-protection-review","life-insurance-protection-review.html",
+            "paid-search-protection-review","Request a protection review",
+            "Replies come from me, usually the same day.","Insurance","Life insurance planning",
+            cta="Request a review", insurance=True,
+            placeholder="Example: mortgage of $280k, two kids under 10, group cover at work and a term policy I cannot find the paperwork for."))}"""
+
 # --------------------------------------------------------- GEO LANDING PAGES
 # Ported from the live site, filenames unchanged so existing links and whatever
 # ranking equity exists survive the swap. These four are the ONLY pages on the
@@ -891,7 +1202,7 @@ def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, int
     <p class="lede" data-rv>{lede}</p>
     <div class="acts" data-rv>
       <a class="btn btn-ink" data-magnetic href="{deep}">{deep_cta} <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="calculator.html">Run the coverage numbers</a>
+      <a class="btn-line" href="life-insurance-calculator.html">Run the coverage numbers</a>
     </div>
   </div>
 </section>
@@ -926,7 +1237,13 @@ PAGES = [
  ("form-crs.html","Form CRS Summary | Rae &amp; Co Capital","Relationship summary, services, fees and conflicts.",FORMCRS),
  ("privacy.html","Privacy Policy | Rae &amp; Co Capital","What we collect, how it is used, and what we never do with it.",PRIVACY),
  ("client-login.html","Client Access | Rae &amp; Co Capital","Go to your custodian or carrier portal directly.",CLIENTLOGIN),
- ("calculator.html","Life Insurance Calculator | Rae &amp; Co Capital","Drag the sliders and see your coverage gap. No name, no email, nothing stored.",CALCULATOR),
+ ("life-insurance-calculator.html","Life Insurance Calculator | Rae &amp; Co Capital","Drag the sliders and see your coverage gap. No name, no email, nothing stored.",CALCULATOR),
+ ("types-of-life-insurance.html","Types of Life Insurance, Explained Plainly | Rae &amp; Co Capital","Term, whole, universal, IUL, disability income, long-term care, term variants and final expense. What each solves, what it costs you, and when it is the wrong tool.",types_page()),
+ ("life-insurance-quote.html","Get a Life Insurance Quote Online | Rae &amp; Co Capital","Compare real life insurance quotes across 40+ carriers and apply online in the same session. No agent call required to see your rates.",QUOTE),
+ ("life-insurance-review-checklist.html","Life Insurance Review Checklist | Rae &amp; Co Capital","Six things to check before you change or replace a life insurance policy. Obligations, ownership, beneficiaries and liquidity, not just premium.",CHECKLIST),
+ ("services.html","Services | Rae &amp; Co Capital","Investment management, retirement planning, financial planning and life insurance, coordinated in one virtual advisory relationship.",SERVICES),
+ ("thank-you.html","Thank You | Rae &amp; Co Capital","Your message reached Rae &amp; Co Capital.",THANKYOU),
+ ("life-insurance-protection-review.html","Life Insurance Protection Review | Rae &amp; Co Capital","Have existing life insurance and coverage gaps reviewed against income, debt, dependents and business exposure. Greenville, South Carolina.",REVIEW),
 ]
 
 for g in GEO:
