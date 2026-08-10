@@ -147,9 +147,11 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
   display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:clamp(30px,5vw,72px);align-items:start}
 @media(max-width:900px){.about .wrap{grid-template-columns:1fr}}
 .portrait{position:sticky;top:60px}
-.portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;display:block;
+/* 7/10 rather than 4/5 per Tyler: a longer portrait, and the caption centered
+   under it. object-position keeps his face in frame as the crop gets taller. */
+.portrait img{width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;display:block;
   box-shadow:0 40px 90px -46px rgba(15,26,38,.55)}
-.portrait figcaption{margin-top:13px;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
+.portrait figcaption{margin-top:13px;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);text-align:center}
 @media(max-width:900px){.portrait{position:static;max-width:340px}}
 .about .kicker{margin-bottom:18px}
 .about h2{font-family:var(--serif);font-weight:400;font-size:clamp(44px,5.4vw,76px);line-height:.95;
