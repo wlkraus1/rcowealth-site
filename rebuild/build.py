@@ -331,7 +331,7 @@ HOME = """
         <a class="btn btn-ink" data-magnetic href="#paths">Start it yourself <span class="arr">&rarr;</span></a>
         <a class="btn-line" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Or book a call</a>
       </div>
-      <p style="margin:28px 0 0;font:600 13px/1.6 var(--sans);color:var(--muted)"><b style="color:var(--ink)">Series 65 fiduciary</b> &middot; Assets custodied at Charles Schwab &middot; 46 insurance carriers</p>
+      <p style="margin:28px 0 0;font:600 13px/1.6 var(--sans);color:var(--muted)"><b style="color:var(--ink)">Series 65 fiduciary</b> &middot; Assets custodied at Charles Schwab &middot; 40+ insurance carriers</p>
     </div>
     <div class="tool" data-rv>
       <p class="tag" style="font:800 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px">60-second answer</p>
@@ -362,7 +362,7 @@ HOME = """
     <div class="grid g3 stagger" data-rv style="margin-top:38px;text-align:left">
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="protection.html">
         <p class="tag">Protection</p><h3>Quote it and apply</h3>
-        <p>Real pricing from 46 carriers, application and e-sign in one sitting.</p>
+        <p>Real pricing from 40+ carriers, application and e-sign in one sitting.</p>
         <span class="btn-line" style="margin-top:18px">See protection &rarr;</span>
       </a>
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="wealth.html">
@@ -549,7 +549,7 @@ PROTECTION = """
 CARRIERWALL = """
 <section class="section dark">
   <div class="wrap center">
-    <p class="cnum" data-rv>{TOTAL}</p>
+    <p class="cnum" data-rv>40+</p>
     <h2 class="cclaim" data-rv>life insurance carriers, available through one application</h2>
     <p class="lede" data-rv style="margin:14px auto 0;max-width:52ch">Compare coverage and pricing across leading life insurance carriers without filling out the same information over and over.</p>
     <p class="cstrip" data-rv><b>Independent access</b><i>&middot;</i><b>No single-carrier bias</b><i>&middot;</i><b>You see the pricing we see</b></p>
@@ -574,7 +574,6 @@ CARRIERWALL = """
 """
 
 CARRIERWALL = (CARRIERWALL
-  .replace("{TOTAL}", str(len(FEATURED)+len(ROSTER)))
   .replace("{MORE}", f"+ {len(ROSTER)} more, all named below")
   .replace("{CELLS}", carrier_cells())
   .replace("{ROSTERCELLS}", "".join(f"<span>{n}</span>" for n in ROSTER)))
@@ -1006,7 +1005,7 @@ def types_page():
     <p class="kicker" data-rv>No small print</p>
     <h2 data-rv style="max-width:20ch">How we are paid, so you can <em class="g" style="color:var(--gold-2)">weigh the advice</em>.</h2>
     <p class="lede" data-rv style="max-width:76ch">Rae &amp; Co Capital is compensated by commission on insurance placed. Different products pay different amounts, and permanent products generally pay more than term. That is a conflict of interest, it is disclosed in our Form CRS and disclosures, and it is the reason the term section above says what it says.</p>
-    <p class="lede" data-rv style="max-width:76ch">Coverage is shopped across 46 carriers rather than sold from one shelf. Availability, pricing and features vary by product, state, health and underwriting. Nothing on this page is individualized insurance, tax, legal or investment advice, and no coverage exists until a carrier issues a policy.</p>
+    <p class="lede" data-rv style="max-width:76ch">Coverage is shopped across 40+ carriers rather than sold from one shelf. Availability, pricing and features vary by product, state, health and underwriting. Nothing on this page is individualized insurance, tax, legal or investment advice, and no coverage exists until a carrier issues a policy.</p>
     <p class="lede" data-rv style="max-width:76ch">Fixed and indexed annuities, including multi-year guaranteed annuities and income riders, are placed as part of retirement income planning rather than protection planning. Those are covered on the retirement planning page.</p>
     <div class="acts" data-rv style="margin-top:8px">
       <a class="btn btn-gold" href="life-insurance-calculator.html">Estimate your coverage need <span class="arr">&rarr;</span></a>
@@ -1057,7 +1056,7 @@ QUOTE = f"""
   <div class="wrap">
     <p class="kicker" data-rv>Instant quotes &middot; No agent call</p>
     <h1 data-rv>Compare real quotes from <em class="g">major carriers</em>.</h1>
-    <p class="lede" data-rv>Answer a few health and coverage questions and see actual pricing across 46 carriers. You can apply online in the same session. Nobody phones you to unlock a number.</p>
+    <p class="lede" data-rv>Answer a few health and coverage questions and see actual pricing across 40+ carriers. You can apply online in the same session. Nobody phones you to unlock a number.</p>
     <div class="acts" data-rv>
       <a class="btn btn-gold" data-magnetic href="{B9}&amp;utm_content=quote_hero" target="_blank" rel="noopener">Open quote &amp; apply <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="life-insurance-calculator.html">Work out the amount first</a>
@@ -1266,7 +1265,7 @@ GEO = [
 
  ("life-insurance-greenville-sc.html",
   "Life Insurance in Greenville, SC | Rae &amp; Co Capital",
-  "Life insurance in Greenville, South Carolina, shopped across 46 carriers on one application. Price it and apply online, or have the coverage checked against the plan first.",
+  "Life insurance in Greenville, South Carolina, shopped across 40+ carriers on one application. Price it and apply online, or have the coverage checked against the plan first.",
   "Protection planning", "Life insurance placed with <em class=\"g\">real carriers</em>, tied to the plan.",
   "Coverage is the part that cannot wait for a good year. Price it yourself in a few minutes, or have what you already own checked before you buy anything else.",
   ["Existing policies and employer coverage","New term and permanent coverage needs",
@@ -1323,7 +1322,7 @@ def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, int
 PAGES = [
  ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% a year with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
- ("protection.html","Protection Planning | Rae &amp; Co Capital","Term, disability, permanent, long-term care and final expense explained plainly. Quote and apply across 46 carriers.",PROTECTION),
+ ("protection.html","Protection Planning | Rae &amp; Co Capital","Term, disability, permanent, long-term care and final expense explained plainly. Quote and apply across 40+ carriers.",PROTECTION),
  ("planning.html","Financial Planning Fees | Rae &amp; Co Capital","Flat-fee financial planning from $750. Published prices, real deliverables, buy it online.",PLANNING),
  ("advisor.html","Tyler Krause, Your Advisor | Rae &amp; Co Capital","Marine Corps veteran, Series 65 fiduciary, CCFPA. One person who answers the phone.",ADVISOR),
  ("contact.html","Contact | Rae &amp; Co Capital","One call, no pitch. Reach Tyler Krause at Rae &amp; Co Capital.",CONTACT),
@@ -1333,7 +1332,7 @@ PAGES = [
  ("client-login.html","Client Access | Rae &amp; Co Capital","Go to your custodian or carrier portal directly.",CLIENTLOGIN),
  ("life-insurance-calculator.html","Life Insurance Calculator | Rae &amp; Co Capital","Drag the sliders and see your coverage gap. No name, no email, nothing stored.",CALCULATOR),
  ("types-of-life-insurance.html","Types of Life Insurance, Explained Plainly | Rae &amp; Co Capital","Term, whole, universal, IUL, disability income, long-term care, term variants and final expense. What each solves, what it costs you, and when it is the wrong tool.",types_page()),
- ("life-insurance-quote.html","Get a Life Insurance Quote Online | Rae &amp; Co Capital","Compare real life insurance quotes across 46 carriers and apply online in the same session. No agent call required to see your rates.",QUOTE),
+ ("life-insurance-quote.html","Get a Life Insurance Quote Online | Rae &amp; Co Capital","Compare real life insurance quotes across 40+ carriers and apply online in the same session. No agent call required to see your rates.",QUOTE),
  ("life-insurance-review-checklist.html","Life Insurance Review Checklist | Rae &amp; Co Capital","Six things to check before you change or replace a life insurance policy. Obligations, ownership, beneficiaries and liquidity, not just premium.",CHECKLIST),
  ("services.html","Services | Rae &amp; Co Capital","Investment management, retirement planning, financial planning and life insurance, coordinated in one virtual advisory relationship.",SERVICES),
  ("thank-you.html","Thank You | Rae &amp; Co Capital","Your message reached Rae &amp; Co Capital.",THANKYOU),
