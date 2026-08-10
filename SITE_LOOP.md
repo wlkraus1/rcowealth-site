@@ -73,6 +73,22 @@ constraint — **rcowealth.com is not in the top ten for either money keyword**.
 "answer a question, get a number" is differentiated, on-brand for a fiduciary, and the thing he
 actually responds to.
 
+### ✅ SECTION 1 APPROVED — Tyler, 2026-08-07: "yes". THE DESIGN SYSTEM IS NOW FIXED.
+
+First explicit design approval in five redesign attempts, and it came from showing one finished
+section instead of ninety percent of a site. **The system, binding for every section that follows:**
+- **Ground:** cream `#faf7f0`, ink `#0f1a26`, gold `#c8a15a` / deep `#8c6b32`. Light, always.
+- **Display:** Georgia at 400, oversized (up to ~104px), tight leading, the operative word in gold
+  italic. UI text in the system sans stack.
+- **The centerpiece device:** vanilla-canvas 3D particle constellation in gold, cursor-reactive,
+  `prefers-reduced-motion` renders a static frame. Zero animation libraries, ever.
+- **Tools lead.** The interactive thing sits in the hero, not below it. Chips + slider + rolling
+  number is the house interaction pattern.
+- **Floating proof chips** carry structure (Series 65, 40+ carriers), never performance or AUM.
+  Hidden under 960px; decoration never outranks the control it decorates.
+- **Dark ink pills** for CTAs, magnetic on fine pointers only.
+- **Process rule stays:** one section to finish → shown → yes/no → next. Never 90% again.
+
 ### NEXT ACTION, PENDING TYLER
 
 Pick the first section to build to finish. Recommend the **hero + one interactive block**, because it
