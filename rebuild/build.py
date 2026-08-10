@@ -343,11 +343,11 @@ HOME = """
         <button class="chip" type="button" aria-pressed="true" data-add="15000">Final expenses</button>
       </div>
       <div class="frow">
-        <label for="inc">Your income <output id="incOut">$75,000</output></label>
-        <input type="range" id="inc" min="20000" max="400000" step="5000" value="75000" aria-label="Your annual income">
+        <label for="inc">Your income <output id="incOut">$70,000</output></label>
+        <input type="range" id="inc" min="20000" max="400000" step="5000" value="70000" aria-label="Your annual income">
       </div>
       <div class="readout">
-        <div><small>Rough coverage need</small><span class="num" id="need">$390,000</span></div>
+        <div><small>Rough coverage need</small><span class="num" id="need">$365,000</span></div>
         <a id="full" href="life-insurance-calculator.html">Run the full number &rarr;</a>
       </div>
       <p class="fine">Five years of income, plus what you selected. A starting point, not advice.</p>
@@ -860,7 +860,7 @@ CLIENTLOGIN = legal_page("Client access","Portals",[
 # route back. Field ids, the digit-stripping parse fix and the Salesforce
 # wiring are preserved exactly; only the chrome changes.
 CALCFIELDS = [
- ("income","Your annual income",True,0,400000,5000,75000,"$"),
+ ("income","Your annual income",True,0,400000,5000,70000,"$"),
  ("years","Years to replace it",False,0,40,1,5,""),
  ("mortgage","Mortgage balance",True,0,750000,5000,250000,"$"),
  ("debts","Other debt (cars, cards, loans)",True,0,150000,2500,25000,"$"),
