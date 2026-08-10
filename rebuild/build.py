@@ -19,12 +19,12 @@ NAV = [("index.html","Home"),("wealth.html","Wealth"),("protection.html","Protec
 # Layout approved by Tyler 2026-08-10 from a mockup: gold numeral, serif claim,
 # rule-flanked proof strip, 5x2 logo grid, expandable full roster.
 #
-# LOGOS: the featured ten render as styled wordmarks until real carrier art
-# exists. Drop a file at assets/carriers/<slug>.svg (or .png) and rerun this
-# script - the cell switches to the image automatically, no code change. Use
-# single-colour art; the CSS inverts it to cream. Pull the marks from the
-# BackNine producer resources or the carrier's own brand kit, since appointed
-# producers are the ones licensed to display them.
+# LOGOS: drop a file at assets/carriers/<slug>.svg (or .png) and rerun this
+# script - the cell switches to the image automatically, no code change, and it
+# is sized by optical area from the file's own dimensions. Art must already be
+# cream (#f6ecd0); there is no invert filter, because inverting flattens the
+# warm tone the rest of the band uses. A slug with no file falls back to a
+# styled wordmark, so a missing logo degrades instead of leaving a hole.
 FEATURED = [
  ("Prudential","prudential",""),   ("Lincoln Financial","lincoln-financial",""),
  ("Pacific Life","pacific-life",""), ("John Hancock","john-hancock",""),
@@ -37,8 +37,12 @@ ROSTER = ["Symetra","Corebridge","Securian","Allianz","Thrivent","SBLI",
           "MassMutual Ascend","North American","American General","Ameritas",
           "Foresters","Legal &amp; General"]
 
-def png_size(p):
-    """Width/height straight out of the PNG IHDR, so the build stays stdlib-only."""
+def art_size(p):
+    """Intrinsic width/height, stdlib only: PNG straight out of the IHDR header,
+    SVG out of the viewBox."""
+    if p.suffix == ".svg":
+        m = re.search(r'viewBox="[\d.\-]+\s+[\d.\-]+\s+([\d.]+)\s+([\d.]+)"', p.read_text())
+        return (float(m.group(1)), float(m.group(2))) if m else (1.0, 1.0)
     b = p.read_bytes()[16:24]
     return int.from_bytes(b[:4], "big"), int.from_bytes(b[4:], "big")
 
@@ -51,13 +55,11 @@ def carrier_cells():
     for name, slug, cls in FEATURED:
         art = next((p for e in (".svg", ".png")
                     if (p := OUT.parent/"assets"/"carriers"/(slug+e)).exists()), None)
-        if art and art.suffix == ".png":
-            w, h = png_size(art)
+        if art:
+            w, h = art_size(art)
             px = min(48, round(62 / (w/h) ** .5))
             inner = (f'<img src="../assets/carriers/{art.name}" alt="{name}" '
-                     f'width="{w}" height="{h}" style="height:{px}px" decoding="async">')
-        elif art:
-            inner = f'<img src="../assets/carriers/{art.name}" alt="{name}" loading="lazy">'
+                     f'width="{round(w)}" height="{round(h)}" style="height:{px}px" decoding="async">')
         else:
             inner = f'<span class="wm {cls}">{name}</span>'
         out.append(f'      <div class="cell">{inner}</div>')
