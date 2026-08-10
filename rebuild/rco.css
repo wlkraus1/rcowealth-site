@@ -132,6 +132,15 @@ em.g{font-style:italic;color:var(--gold-ink)}
 .ft .legal{margin-top:34px;padding-top:22px;border-top:1px solid var(--line-dark);
   font:400 11.5px/1.65 var(--sans);color:rgba(246,239,224,.5)}
 
+/* Social row. Icons only, footer only. Sized to the 44px tap target the rest of
+   the footer links already use, so thumbs do not miss on mobile. */
+.social{display:flex;gap:10px;margin-top:18px}
+.social a{width:44px;height:44px;min-height:44px;justify-content:center;
+  border:1px solid var(--line-dark);border-radius:50%;
+  transition:border-color .25s var(--ease),background .25s var(--ease)}
+.social a:hover{border-color:var(--gold);background:rgba(200,161,90,.14)}
+.social svg{width:18px;height:18px;fill:currentColor;display:block}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
