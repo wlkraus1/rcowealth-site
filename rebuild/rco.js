@@ -210,6 +210,17 @@
     calc();
   }
 
+  /* "See all carriers" reveals the full roster in place. No new page, and the
+     label stays honest because the names really are all there. */
+  var ctog=document.querySelector('[data-carriers]'),clist=document.getElementById('carrierlist');
+  if(ctog&&clist){
+    ctog.addEventListener('click',function(){
+      var open=clist.classList.toggle('open');
+      ctog.setAttribute('aria-expanded',open?'true':'false');
+      ctog.textContent=open?'Hide carrier list':'See all carriers';
+    });
+  }
+
   /* Magnetic primary CTA, fine pointers only. */
   if(!reduce && matchMedia('(pointer:fine)').matches){
     var mag=document.querySelector('[data-magnetic]');

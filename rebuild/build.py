@@ -15,6 +15,38 @@ OUT = pathlib.Path(__file__).parent
 NAV = [("index.html","Home"),("wealth.html","Wealth"),("protection.html","Protection"),
        ("planning.html","Planning"),("advisor.html","Your advisor"),("contact.html","Contact")]
 
+# ------------------------------------------------------------ CARRIER WALL
+# Layout approved by Tyler 2026-08-10 from a mockup: gold numeral, serif claim,
+# rule-flanked proof strip, 5x2 logo grid, expandable full roster.
+#
+# LOGOS: the featured ten render as styled wordmarks until real carrier art
+# exists. Drop a file at assets/carriers/<slug>.svg (or .png) and rerun this
+# script - the cell switches to the image automatically, no code change. Use
+# single-colour art; the CSS inverts it to cream. Pull the marks from the
+# BackNine producer resources or the carrier's own brand kit, since appointed
+# producers are the ones licensed to display them.
+FEATURED = [
+ ("Prudential","prudential",""),   ("Lincoln Financial","lincoln-financial",""),
+ ("Pacific Life","pacific-life",""), ("John Hancock","john-hancock",""),
+ ("Mutual of Omaha","mutual-of-omaha",""),
+ ("Nationwide","nationwide","s"),  ("Principal","principal","s"),
+ ("Protective","protective","s"),  ("Banner Life","banner-life","s"),
+ ("Transamerica","transamerica",""),
+]
+ROSTER = ["Symetra","Corebridge","Securian","Allianz","Thrivent","SBLI",
+          "MassMutual Ascend","North American","American General","Ameritas",
+          "Foresters","Legal &amp; General"]
+
+def carrier_cells():
+    out = []
+    for name, slug, cls in FEATURED:
+        art = next((p for e in (".svg",".png")
+                    if (p := OUT.parent/"assets"/"carriers"/(slug+e)).exists()), None)
+        inner = (f'<img src="../assets/carriers/{art.name}" alt="{name}" loading="lazy">'
+                 if art else f'<span class="wm {cls}">{name}</span>')
+        out.append(f'      <div class="cell">{inner}</div>')
+    return "\n".join(out)
+
 def legal_page(h1, kicker, blocks):
     """Legal/utility pages must live INSIDE the shell. Before this they linked out
     to the old site, which had the old header and no route back - a one-way door
@@ -278,23 +310,39 @@ PROTECTION = """
   </div>
 </section>
 
+{CARRIERWALL}
+"""
+
+CARRIERWALL = """
 <section class="section dark">
   <div class="wrap center">
     <p class="cnum" data-rv>40+</p>
-    <p class="lede" data-rv style="margin:8px auto 0;max-width:50ch">carriers shopped on one application, rather than one company's shelf. You see the pricing we see.</p>
-    <div class="cnames" data-rv>
-      <span>Prudential</span><span>Lincoln Financial</span><span>Pacific Life</span><span>John Hancock</span><span>Transamerica</span><span>Protective</span>
-      <span>Nationwide</span><span>Principal</span><span>Symetra</span><span>Mutual of Omaha</span><span>Corebridge</span><span>Securian</span>
-      <span>Banner Life</span><span>Allianz</span><span>Thrivent</span><span>SBLI</span><span>MassMutual Ascend</span><span>North American</span>
+    <p class="cclaim" data-rv>leading carriers available through one application</p>
+    <p class="lede" data-rv style="margin:14px auto 0;max-width:52ch">Compare coverage and pricing across leading life insurance carriers without filling out the same information over and over.</p>
+    <p class="cstrip" data-rv><b>Independent access</b><i>&middot;</i><b>No single-carrier bias</b><i>&middot;</i><b>You see the pricing we see</b></p>
+    <div class="cgrid" data-rv>
+{CELLS}
     </div>
-    <div class="acts" data-rv style="justify-content:center;margin-top:34px">
+    <p class="cmore" data-rv>+ 30 more carriers available</p>
+    <div class="acts" data-rv style="justify-content:center;margin-top:30px">
       <a class="btn btn-gold" href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=protection_carriers" target="_blank" rel="noopener">Start my quote <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="protection.html">Read the full product guide</a>
     </div>
-    <p style="margin:26px auto 0;max-width:78ch;font:400 12px/1.65 var(--sans);color:rgba(244,239,228,.5)" data-rv>Rae &amp; Co Capital is compensated by commission on insurance placed, and permanent products generally pay more than term. That is a conflict of interest and it is disclosed in our Form CRS. Insurance is optional and never required to work with the firm. Availability, pricing and features vary by product, state, health and underwriting.</p>
+    <div style="margin-top:14px">
+      <button class="btn-line" type="button" data-carriers aria-expanded="false" aria-controls="carrierlist"
+        style="background:none;border:0;cursor:pointer">See all carriers</button>
+    </div>
+    <div class="cnames" id="carrierlist">
+{ROSTERCELLS}
+    </div>
+    <p style="margin:30px auto 0;max-width:78ch;font:400 12px/1.65 var(--sans);color:rgba(244,239,228,.5);border-top:1px solid rgba(244,239,228,.11);padding-top:24px" data-rv>Rae &amp; Co Capital is compensated by commission on insurance placed, and permanent products generally pay more than term. That is a conflict of interest and it is disclosed in our Form CRS. Insurance is optional and never required to work with the firm. Availability, pricing and features vary by product, state, health and underwriting.</p>
   </div>
 </section>
 """
+
+CARRIERWALL = (CARRIERWALL
+  .replace("{CELLS}", carrier_cells())
+  .replace("{ROSTERCELLS}", "".join(f"<span>{n}</span>" for n in ROSTER)))
+PROTECTION = PROTECTION.replace("{CARRIERWALL}", CARRIERWALL)
 
 # ---------------------------------------------------------------- PLANNING
 TIERS = [
