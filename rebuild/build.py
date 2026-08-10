@@ -535,7 +535,7 @@ CARRIERWALL = """
     <div class="cgrid" data-rv>
 {CELLS}
     </div>
-    <p class="cmore" data-rv>+ 30 more carriers available</p>
+    <p class="cmore" data-rv>{MORE}</p>
     <div class="acts" data-rv style="justify-content:center;margin-top:30px">
       <a class="btn btn-gold" href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=protection_carriers" target="_blank" rel="noopener">Start my quote <span class="arr">&rarr;</span></a>
     </div>
@@ -546,12 +546,14 @@ CARRIERWALL = """
     <div class="cnames" id="carrierlist">
 {ROSTERCELLS}
     </div>
+    <p class="cnote" id="carriernote">Named here are the carriers placed most often. Availability varies by product, state, health and underwriting, and the quoter shows every carrier that can actually write your case.</p>
     <p style="margin:30px auto 0;max-width:78ch;font:400 12px/1.65 var(--sans);color:rgba(244,239,228,.5);border-top:1px solid rgba(244,239,228,.11);padding-top:24px" data-rv>Rae &amp; Co Capital is compensated by commission on insurance placed, and permanent products generally pay more than term. That is a conflict of interest and it is disclosed in our Form CRS. Insurance is optional and never required to work with the firm. Availability, pricing and features vary by product, state, health and underwriting.</p>
   </div>
 </section>
 """
 
 CARRIERWALL = (CARRIERWALL
+  .replace("{MORE}", f"+ {len(ROSTER)} more named below")
   .replace("{CELLS}", carrier_cells())
   .replace("{ROSTERCELLS}", "".join(f"<span>{n}</span>" for n in ROSTER)))
 PROTECTION = PROTECTION.replace("{CARRIERWALL}", CARRIERWALL)

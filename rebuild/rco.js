@@ -6,6 +6,26 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---- range track fill, once, for every slider on the site ----
+     The gold portion of a range track is painted from a --p custom property.
+     It used to be set by two feature-specific painters (the hero instrument
+     and the calculator), so any slider outside those two features fell back to
+     the CSS default and sat at a fixed fill no matter where the thumb was.
+     One global painter means a new slider is correct the moment it exists.
+     Also exported as window.__paintRange so code that moves a slider
+     programmatically can repaint it - setting .value fires no input event. */
+  function paintRange(r){
+    var min=+r.min||0, max=+r.max, v=+r.value;
+    if(!isFinite(max)||max<=min){r.style.setProperty('--p',0);return;}
+    r.style.setProperty('--p', Math.max(0,Math.min(1,(v-min)/(max-min))));
+  }
+  window.__paintRange=paintRange;
+  [].slice.call(document.querySelectorAll('input[type=range]')).forEach(function(r){
+    paintRange(r);
+    r.addEventListener('input',function(){paintRange(r);});
+    r.addEventListener('change',function(){paintRange(r);});
+  });
+
   /* header state + mobile menu */
   var hd=document.querySelector('.hd');
   if(hd){
@@ -232,6 +252,7 @@
       var age=+wAge.value, pot=+wPot.value, add=+wAdd.value,
           r=(+wRet.value)/100, want=+wWant.value,
           yrs=Math.max(0,retAge-age);
+      [wAge,wPot,wAdd,wRet,wWant].forEach(paintRange);  /* the chips move wAge in code */
       document.getElementById('wAgeOut').textContent=age;
       document.getElementById('wPotOut').textContent=money(pot);
       document.getElementById('wAddOut').textContent=money(add);
@@ -283,6 +304,8 @@
   if(ctog&&clist){
     ctog.addEventListener('click',function(){
       var open=clist.classList.toggle('open');
+      var note=document.getElementById('carriernote');
+      if(note) note.classList.toggle('open',open);
       ctog.setAttribute('aria-expanded',open?'true':'false');
       ctog.textContent=open?'Hide carrier list':'See all carriers';
     });
