@@ -264,6 +264,59 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .pfine{margin:24px auto 0;font:400 12px/1.6 var(--sans);color:rgba(244,239,228,.5);max-width:78ch;text-align:center}
 
 /* ================================================================
+   SECTION 5 · DO IT YOURSELF. Tyler, 2026-08-07: "younger crowd new
+   age way of shopping is all online... we say 100% virtual but demand
+   contact be made. no let them run with it. that is how we collect
+   their data and reach out later."
+   He is right, and the infrastructure already existed - it was just
+   never on the site. BackNine quote-and-apply lived on two deep
+   pages, the three Square links lived nowhere, and the fees were
+   published nowhere while 28 CTAs said "call".
+   Every path here finishes without a phone call, and each one is a
+   data-capture event on its own: BackNine takes the applicant, Square
+   takes the buyer, the calculator takes the inputs.
+   ================================================================ */
+.diy{position:relative;z-index:2;background:var(--paper-2);border-top:1px solid rgba(15,26,38,.08);
+  padding:clamp(72px,9vw,116px) 0}
+.diy .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}
+.diy .dhead{text-align:center;margin-bottom:40px}
+.diy h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5vw,72px);line-height:.96;
+  letter-spacing:-.045em;margin:0 auto 14px;max-width:18ch}
+.diy h2 em{font-style:italic;color:var(--gold-deep)}
+.diy .dsub{font:400 clamp(16px,1.35vw,18.5px)/1.6 var(--sans);color:var(--ink-soft);max-width:56ch;margin:0 auto}
+.lanes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+@media(max-width:940px){.lanes{grid-template-columns:1fr}}
+.lane{display:flex;flex-direction:column;background:#fffdf9;border:1px solid rgba(15,26,38,.12);
+  border-radius:20px;padding:26px 24px 24px;
+  opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s}
+.inview .lane{opacity:1;transform:none}
+.inview .lane:nth-child(2){transition-delay:.09s}
+.inview .lane:nth-child(3){transition-delay:.18s}
+.lane:hover{box-shadow:0 26px 60px -34px rgba(15,26,38,.4);border-color:rgba(200,161,90,.5)}
+.lane .tag{font:800 10.5px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 12px}
+.lane h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.3vw,30px);letter-spacing:-.03em;margin:0 0 8px}
+.lane p{font:400 14.5px/1.6 var(--sans);color:var(--ink-soft);margin:0 0 16px}
+.lane ul{list-style:none;margin:0 0 20px;padding:0;display:grid;gap:8px}
+.lane li{position:relative;padding-left:20px;font:400 13.5px/1.5 var(--sans);color:var(--ink-soft)}
+.lane li::before{content:"";position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:50%;
+  border:2px solid var(--gold)}
+.lane .price{font-family:var(--serif);font-size:30px;letter-spacing:-.035em;color:var(--ink);margin:0 0 2px}
+.lane .price small{font:600 12.5px/1 var(--sans);color:var(--ink-soft);letter-spacing:0}
+.lane .go{margin-top:auto}
+.lane .go a{display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px;
+  background:var(--ink);color:var(--paper);border-radius:999px;font:800 14px/1 var(--sans);text-decoration:none;
+  transition:transform .18s cubic-bezier(.16,1,.3,1)}
+.lane .go a:hover{transform:translateY(-2px)}
+.lane.feature{background:linear-gradient(180deg,#fffdf8,#f8f1e2);border-color:rgba(200,161,90,.5)}
+.lane.feature .go a{background:linear-gradient(135deg,#e7cf9c,var(--gold));color:#14202e}
+.plans{display:grid;gap:9px;margin:0 0 18px}
+.plan{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  border-bottom:1px solid rgba(15,26,38,.1);padding-bottom:8px;font:400 14px/1.4 var(--sans);color:var(--ink-soft)}
+.plan b{font:700 14px/1.4 var(--sans);color:var(--ink)}
+.plan i{font-family:var(--serif);font-style:normal;font-size:19px;letter-spacing:-.02em;color:var(--ink)}
+.dfine{margin:26px auto 0;max-width:82ch;text-align:center;font:400 12px/1.65 var(--sans);color:#6d7787}
+
+/* ================================================================
    SECTION 4 · CONTACT. The lead form is PORTED, not rewritten: the
    endpoint, every field name, both consent ids and the honeypot are
    byte-identical to index.html. Only the wrapper is new. Getting a
@@ -354,9 +407,13 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
         <span class="ln"><span>not math.</span></span>
       </h1>
       <p class="lede">Investments, retirement income, planning, and protection, coordinated by one Marine Corps veteran who answers the phone. Start with the number most people only guess at.</p>
+      <!-- CTA INVERTED 2026-08-07, Tyler: "we say 100% virtual but demand contact
+           be made". He is right and it was the central contradiction. The primary
+           action is now something a visitor can finish alone at 11pm; the call is
+           demoted to the quiet option for people who want it. -->
       <div class="acts">
-        <a class="cta" id="mag" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a free intro call <span class="arr">→</span></a>
-        <a class="ghost" href="#">How the virtual model works</a>
+        <a class="cta" id="mag" href="#doitnow">Start it yourself <span class="arr">→</span></a>
+        <a class="ghost" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Or book a call</a>
       </div>
       <p class="proof"><b>Series 65 fiduciary</b> · Assets custodied at Charles Schwab · Coverage shopped across 40+ carriers</p>
     </div>
@@ -465,6 +522,60 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
       <a class="cta-line" href="../life-insurance-quote.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=protection_quote">Compare real quotes</a>
     </div>
     <p class="pfine rv">Rae &amp; Co Capital is compensated by commission on insurance placed, and permanent products generally pay more than term. That is a conflict of interest, it is disclosed in our Form CRS, and it is why the term panel says what it says. Availability, pricing and features vary by product, state, health and underwriting.</p>
+  </div>
+</section>
+
+<section class="diy" id="doitnow">
+  <div class="wrap">
+    <div class="dhead rv">
+      <p class="kicker" style="justify-content:center">No appointment needed</p>
+      <h2>Shop it, price it, <em>start it</em>. Tonight if you want.</h2>
+      <p class="dsub">Everything below finishes without talking to anyone. Real carrier quotes, real prices, and a real application you can submit yourself. Call me if you want a second opinion, not because a form made you.</p>
+    </div>
+
+    <div class="lanes">
+      <div class="lane feature">
+        <p class="tag">Life insurance</p>
+        <h3>Quote it and apply</h3>
+        <p>Answer the health questions, see real pricing from 40+ carriers side by side, and submit the application. Most people finish in one sitting.</p>
+        <ul>
+          <li>Actual carrier quotes, not an estimate</li>
+          <li>Apply and e-sign in the same session</li>
+          <li>No call required at any step</li>
+        </ul>
+        <div class="go"><a href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=diy_quote_apply" target="_blank" rel="noopener">Start my quote <span class="arr">→</span></a></div>
+      </div>
+
+      <div class="lane">
+        <p class="tag">Financial planning</p>
+        <h3>Pick a plan and pay for it</h3>
+        <p>Flat fees, published, one time. No hourly, no retainer, no discovery call before you can see a price.</p>
+        <div class="plans">
+          <div class="plan"><b>Foundations</b><i>$750</i></div>
+          <div class="plan"><b>Household</b><i>$2,000</i></div>
+          <div class="plan"><b>Household + Implementation</b><i>$3,000</i></div>
+        </div>
+        <ul>
+          <li>Pay by card, start immediately</li>
+          <li>Advisory agreement comes to you to sign right after</li>
+        </ul>
+        <div class="go"><a href="https://square.link/u/VJZxUhJ9" target="_blank" rel="noopener">Choose a plan <span class="arr">→</span></a></div>
+      </div>
+
+      <div class="lane">
+        <p class="tag">Free, no email</p>
+        <h3>Just get your number</h3>
+        <p>Not ready to buy anything. Run the coverage math, keep the number, do nothing else. Nobody chases you.</p>
+        <ul>
+          <li>No name, no email, no signup</li>
+          <li>Carries into a real quote when you want one</li>
+          <li>Investment management is 1% a year, $750 annual minimum</li>
+        </ul>
+        <div class="go"><a href="../life-insurance-calculator.html?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=diy_calculator">Run the numbers <span class="arr">→</span></a></div>
+      </div>
+    </div>
+
+    <p class="dfine rv">Insurance is optional and never required to work with Rae &amp; Co. Coverage is placed through carriers who pay a commission, which is a conflict of interest and is disclosed in our Form CRS. Planning fees are flat and one time, the engagement completes within six months, and any unearned prepaid portion is refundable. Investment advisory is billed at 1% per year with a $750 annual minimum under a signed advisory agreement. No advice is provided until that agreement is in place.</p>
   </div>
 </section>
 
@@ -611,7 +722,7 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
      verified in - a fresh observer on a fully-visible target stayed silent.
      The rect check costs nothing and works in every environment; IO is the
      fast path where it exists. Same lesson reveal.js already carries. */
-  ['advisor','protection','contact'].forEach(function(id){
+  ['advisor','protection','doitnow','contact'].forEach(function(id){
     var sec=document.getElementById(id); if(!sec) return;
     var shown=false;
     function show(){if(!shown){shown=true;sec.classList.add('inview');
