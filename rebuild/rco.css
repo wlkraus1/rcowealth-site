@@ -453,3 +453,8 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 /* Top-align a split row whose right column is much taller than its left, so
    the left text does not float in the middle with dead space above and below. */
 .split.a.top{align-items:start}
+
+/* Advisor credentials: two-column full-width grid. The single-column list
+   hung off the left edge under a full-width icon row and read lopsided. */
+.clines.two{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;max-width:none}
+@media(max-width:760px){.clines.two{grid-template-columns:1fr}}

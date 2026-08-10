@@ -369,7 +369,7 @@ HOME = """
       </a>
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="wealth.html">
         <p class="tag">Wealth</p><h3>Grow and draw it down</h3>
-        <p>Portfolios at Schwab, retirement income, 1% a year with a $750 annual minimum.</p>
+        <p>Portfolios at Schwab, retirement income, 1% per year of assets under management with a $750 annual minimum.</p>
         <span class="btn-line" style="margin-top:18px">See wealth management &rarr;</span>
       </a>
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="planning.html">
@@ -385,7 +385,7 @@ HOME = """
   <div class="wrap">
     <p class="kicker" data-rv>The other half of the firm</p>
     <h2 data-rv style="max-width:19ch">Insurance protects it. <em class="g">Managing it</em> is the rest of the job.</h2>
-    <p class="lede" data-rv style="max-width:64ch">Rae &amp; Co is a registered investment adviser that also places insurance, not an insurance agency with a planning page. Portfolios sit at Charles Schwab in your name, priced at 1% a year with a $750 annual minimum, and the retirement income work is where most of the value actually shows up.</p>
+    <p class="lede" data-rv style="max-width:64ch">Rae &amp; Co is a registered investment adviser that also places insurance, not an insurance agency with a planning page. Portfolios sit at Charles Schwab in your name, priced at 1% per year of assets under management with a $750 annual minimum, and the retirement income work is where most of the value actually shows up.</p>
     <div class="grid g3 stagger" data-rv style="margin-top:38px">
       <div class="card"><p class="tag">Investments</p><h3>Held at Schwab, in your name</h3>
         <p>I never hold your money. Allocation is matched to the goal and the horizon, and rebalancing happens for a reason rather than on a calendar.</p></div>
@@ -499,9 +499,9 @@ WEALTH = """
 
 <section class="section dark">
   <div class="wrap center">
-    <p class="kicker center" data-rv>What it costs</p>
-    <h2 data-rv>1% a year. <em class="g" style="color:var(--gold-2)">$750 annual minimum.</em></h2>
-    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">Billed quarterly in arrears under a signed advisory agreement. No commission on investments, no product quotas, no sales desk above me.</p>
+    <p class="kicker center" data-rv>The management fee</p>
+    <h2 data-rv>1% per year, only on what <em class="g" style="color:var(--gold-2)">we manage</em>.</h2>
+    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">$750 annual minimum, billed quarterly in arrears under a signed advisory agreement. It applies only to accounts we manage, and nothing else. Flat-fee planning and insurance are priced separately on their own pages. No commission on investments, no product quotas, no sales desk above me.</p>
     <div class="grid g3 stagger" data-rv style="margin-top:36px;text-align:left">
       <div class="card"><p class="tag">Custody</p><h3 style="font-size:22px">Charles Schwab</h3><p>Your money sits with Schwab in your name. I never hold it, and you can see it any time.</p></div>
       <div class="card"><p class="tag">Standard</p><h3 style="font-size:22px">Series 65 fiduciary</h3><p>Held to a fiduciary standard on advisory work. Insurance commissions are a separate, disclosed conflict.</p></div>
@@ -656,7 +656,7 @@ PLANNING = """
     <h2 data-rv>Not sure which one?</h2>
     <p class="lede" data-rv style="margin-left:auto;margin-right:auto">Most households land on Household. If you only have one or two questions, Foundations is enough. If in doubt, ask me and I will tell you the cheaper answer when it is the right one.</p>
     <div class="acts" data-rv style="justify-content:center">
-      <a class="btn btn-ink" href="contact.html">Ask which one fits <span class="arr">&rarr;</span></a>
+      <a class="btn btn-ink" data-magnetic href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20not%20sure%20which%20planning%20tier%20fits.%20My%20situation%3A%20">Text me which one fits <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="wealth.html">Or see ongoing management</a>
     </div>
   </div>
@@ -721,7 +721,7 @@ ADVISOR = """
     <div class="grid g2 stagger" data-rv style="margin-top:32px">
       <div class="card"><h3 style="font-size:22px">No hourly, no retainer</h3><p>Flat fees only, one time, completed within six months. If we stop early, the unearned portion comes back to you.</p></div>
       <div class="card"><h3 style="font-size:22px">No required insurance</h3><p>Insurance is never a condition of working with me. When you do buy it here, I am paid a commission, and that conflict is disclosed rather than buried.</p></div>
-      <div class="card"><h3 style="font-size:22px">No pushing AUM that does not fit</h3><p>Management is 1% a year with a $750 annual minimum. On a small balance that is a poor deal, and I will tell you to buy a flat-fee plan and invest it yourself.</p></div>
+      <div class="card"><h3 style="font-size:22px">No pushing AUM that does not fit</h3><p>Management is 1% per year of assets under management with a $750 annual minimum. On a small balance that is a poor deal, and I will tell you to buy a flat-fee plan and invest it yourself.</p></div>
       <div class="card"><h3 style="font-size:22px">No performance promises</h3><p>Planning is analysis and education. Investing involves risk including loss of principal, and anyone promising otherwise is selling something.</p></div>
     </div>
   </div>
@@ -742,7 +742,7 @@ ADVISOR = """
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><circle cx="12" cy="12" r="3.4"/><path d="M12 10.2v1.8l1.2 1.2"/></svg>
         <b>Custody</b><span>Client assets held at Charles Schwab</span></div>
     </div>
-    <div class="clines" data-rv style="margin-top:30px;max-width:70ch">
+    <div class="clines two" data-rv style="margin-top:30px">
       <span><b>Licensed</b>South Carolina Life, Accident &amp; Health</span>
       <span><b>Credential</b>Certified Corporate Financial Planning Analyst (CCFPA)</span>
       <span><b>Studied</b>Multiple degrees, including an M.S. in Psychology from Arizona State</span>
@@ -1349,7 +1349,7 @@ WEALTH = WEALTH + form_section(
 
 PAGES = [
  ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
- ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% a year with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
+ ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% per year of assets under management with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
  ("protection.html","Protection Planning | Rae &amp; Co Capital","Term, disability, permanent, long-term care and final expense explained plainly. Quote and apply across 40+ carriers.",PROTECTION),
  ("planning.html","Financial Planning Fees | Rae &amp; Co Capital","Flat-fee financial planning from $750. Published prices, real deliverables, buy it online.",PLANNING),
  ("advisor.html","Tyler Krause, Your Advisor | Rae &amp; Co Capital","Marine Corps veteran, Series 65 fiduciary, CCFPA. One person who answers the phone.",ADVISOR),
