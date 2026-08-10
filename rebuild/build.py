@@ -15,6 +15,25 @@ OUT = pathlib.Path(__file__).parent
 NAV = [("index.html","Home"),("wealth.html","Wealth"),("protection.html","Protection"),
        ("planning.html","Planning"),("advisor.html","Your advisor"),("contact.html","Contact")]
 
+def legal_page(h1, kicker, blocks):
+    """Legal/utility pages must live INSIDE the shell. Before this they linked out
+    to the old site, which had the old header and no route back - a one-way door
+    Tyler hit while reviewing."""
+    body = "\n".join(f'<h3 style="margin-top:26px">{t}</h3><p style="font:400 15px/1.7 var(--sans);color:var(--muted);max-width:74ch">{b}</p>' for t,b in blocks)
+    return f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>{kicker}</p>
+    <h1 data-rv style="font-size:clamp(40px,5vw,68px)">{h1}</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap" data-rv>{body}
+    <div class="acts" style="margin-top:34px"><a class="btn btn-ink" href="index.html">Back to Rae &amp; Co <span class="arr">&rarr;</span></a></div>
+  </div>
+</section>
+"""
+
 LEGAL = ("Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is a South Carolina registered investment adviser. "
  "Registration does not imply a certain level of skill or training. Investing involves risk, including "
  "possible loss of principal. Insurance products are subject to underwriting and carrier approval; "
@@ -72,10 +91,10 @@ def shell(slug, title, desc, body, canvas=False):
         <a href="contact.html">Contact</a>
       </div>
       <div><h4>Legal</h4>
-        <a href="../disclosures.html">Disclosures</a>
-        <a href="../form-crs.html">Form CRS</a>
-        <a href="../privacy.html">Privacy</a>
-        <a href="../client-login.html">Client login</a>
+        <a href="disclosures.html">Disclosures</a>
+        <a href="form-crs.html">Form CRS</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="client-login.html">Client login</a>
       </div>
     </div>
     <p class="legal">{LEGAL}</p>
@@ -326,9 +345,9 @@ PLANNING = """
 
 # ---------------------------------------------------------------- ADVISOR
 ADVISOR = """
-<section class="section">
+<section class="section" style="padding-bottom:0">
   <div class="wrap" style="display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,64px);align-items:start">
-    <figure style="margin:0;position:sticky;top:96px" data-rv>
+    <figure style="margin:0" data-rv>
       <img src="../assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
       <figcaption style="margin-top:12px;text-align:center;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)">Greenville, South Carolina</figcaption>
     </figure>
@@ -336,21 +355,79 @@ ADVISOR = """
       <p class="kicker" data-rv>Your advisor</p>
       <h1 data-rv style="font-size:clamp(44px,5.6vw,78px)">Tyler Krause</h1>
       <p style="font:700 12.5px/1.5 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 26px" data-rv>Founder &amp; Private Wealth Advisor &middot; U.S. Marine Corps veteran</p>
-      <p class="lede" data-rv>I built Rae &amp; Co around a simple idea: protect the household first, then organize the money around the life it needs to support.</p>
-      <p class="lede" data-rv>You work directly with me. One person who answers the phone and coordinates coverage, planning, and wealth decisions together.</p>
-      <div class="badges" data-rv>
-        <div class="badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-          <b>15+ years</b><span>Insurance &amp; financial services</span></div>
-        <div class="badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21h16M6 21V10M10 21V10M14 21V10M18 21V10M3 10h18L12 4 3 10z"/></svg>
-          <b>Series 65</b><span>Investment Adviser Representative, fiduciary standard</span></div>
-        <div class="badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><circle cx="12" cy="12" r="3.4"/><path d="M12 10.2v1.8l1.2 1.2"/></svg>
-          <b>Custody</b><span>Client assets held at Charles Schwab</span></div>
-      </div>
-      <p style="margin:20px 0 0;font:600 12.5px/1.6 var(--sans);color:var(--muted)" data-rv>Also: South Carolina Life, Accident &amp; Health licensed &middot; Certified Corporate Financial Planning Analyst (CCFPA) &middot; Multiple degrees, including an M.S. in Psychology from Arizona State.</p>
-      <div class="acts" data-rv style="margin-top:30px"><a class="btn btn-ink" data-magnetic href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book your call now <span class="arr">&rarr;</span></a></div>
+      <p class="lede" data-rv>Fifteen years in this industry taught me that the plan is rarely the problem. People usually know roughly what they should do. What stops them is that no one has organised it, priced it, or told them which part matters first.</p>
+      <p class="lede" data-rv>So that is the job I built the firm around: protect the household, put the rest in an order that makes sense, and be one person who can be reached.</p>
+      <div class="acts" data-rv><a class="btn btn-ink" data-magnetic href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book your call now <span class="arr">&rarr;</span></a>
+        <a class="btn-line" href="planning.html">Or just buy a plan</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <p class="kicker" data-rv>The mission</p>
+    <h2 data-rv style="max-width:20ch">Most money decisions are <em class="g">behavior</em>, not math.</h2>
+    <div class="grid g3 stagger" data-rv style="margin-top:34px">
+      <div class="card"><p class="tag">Why psychology</p><h3>The gap is not knowledge</h3>
+        <p>I went and got a master&rsquo;s in psychology because I kept watching capable people know the right answer and not act on it. Understanding why is more useful than repeating the answer louder.</p></div>
+      <div class="card"><p class="tag">Why protection first</p><h3>Coverage before growth</h3>
+        <p>A portfolio does not survive an uninsured disaster. Protection is the cheapest, least glamorous part of a plan and it is the part that decides whether the rest survives contact with a bad year.</p></div>
+      <div class="card"><p class="tag">Why one person</p><h3>No handoffs</h3>
+        <p>You are not passed to a service team after the sale. The person who builds the plan is the person who answers the phone, which is only possible because the firm is deliberately small.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section cream">
+  <div class="wrap">
+    <p class="kicker" data-rv>How it actually goes</p>
+    <h2 data-rv style="max-width:16ch">Three steps, no mystery.</h2>
+    <div class="grid g3 stagger" data-rv style="margin-top:34px">
+      <div class="card"><p class="tag">Step one</p><h3>We agree the scope</h3>
+        <p>You tell me what you are trying to solve. We agree the engagement and the flat fee in writing before any work begins. If you do not need me yet, I will say so.</p></div>
+      <div class="card"><p class="tag">Step two</p><h3>I build it on your real numbers</h3>
+        <p>Not a template. We walk through the reasoning behind every recommendation so you can explain it to your spouse without me in the room.</p></div>
+      <div class="card"><p class="tag">Step three</p><h3>You leave able to act</h3>
+        <p>A written plan you keep, in an order you can follow. Implement it yourself or have me help. Both are fine and only one of them costs more.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark">
+  <div class="wrap">
+    <p class="kicker" data-rv>Where I draw lines</p>
+    <h2 data-rv style="max-width:18ch">The things I will <em class="g" style="color:var(--gold-2)">not</em> do.</h2>
+    <p class="lede" data-rv>Confidence in an adviser comes from knowing what they refuse, not from a list of services. These are in my Form ADV, not just on a website.</p>
+    <div class="grid g2 stagger" data-rv style="margin-top:32px">
+      <div class="card"><h3 style="font-size:22px">No hourly, no retainer</h3><p>Flat fees only, one time, completed within six months. If we stop early, the unearned portion comes back to you.</p></div>
+      <div class="card"><h3 style="font-size:22px">No required insurance</h3><p>Insurance is never a condition of working with me. When you do buy it here, I am paid a commission, and that conflict is disclosed rather than buried.</p></div>
+      <div class="card"><h3 style="font-size:22px">No pushing AUM that does not fit</h3><p>Management is 1% a year with a $750 annual minimum. On a small balance that is a poor deal, and I will tell you to buy a flat-fee plan and invest it yourself.</p></div>
+      <div class="card"><h3 style="font-size:22px">No performance promises</h3><p>Planning is analysis and education. Investing involves risk including loss of principal, and anyone promising otherwise is selling something.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <p class="kicker" data-rv>Credentials</p>
+    <h2 data-rv style="max-width:15ch">The paperwork behind it.</h2>
+    <div class="badges" data-rv style="border-top:0;padding-top:8px">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        <b>15+ years</b><span>Insurance &amp; financial services</span></div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21h16M6 21V10M10 21V10M14 21V10M18 21V10M3 10h18L12 4 3 10z"/></svg>
+        <b>Series 65</b><span>Investment Adviser Representative, fiduciary standard</span></div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><circle cx="12" cy="12" r="3.4"/><path d="M12 10.2v1.8l1.2 1.2"/></svg>
+        <b>Custody</b><span>Client assets held at Charles Schwab</span></div>
+    </div>
+    <div class="clines" data-rv style="margin-top:30px;max-width:70ch">
+      <span><b>Licensed</b>South Carolina Life, Accident &amp; Health</span>
+      <span><b>Certified</b>Certified Corporate Financial Planning Analyst (CCFPA)</span>
+      <span><b>Studied</b>Multiple degrees, including an M.S. in Psychology from Arizona State</span>
+      <span><b>Built</b>Businesses started and sold before this one</span>
+      <a href="form-crs.html"><b>Filed</b>Form CRS and disclosures, in full</a>
     </div>
   </div>
 </section>
@@ -404,6 +481,39 @@ CONTACT = """
 </section>
 """
 
+
+DISCLOSURES = legal_page("Disclosures","Legal",[
+ ("Registration","Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is registered as an investment adviser with the State of South Carolina. Registration does not imply a certain level of skill or training."),
+ ("Investment risk","Investing involves risk, including possible loss of principal. Past performance is not indicative of future results. No strategy assures a profit or protects against loss."),
+ ("Insurance","Insurance products are subject to underwriting and carrier approval. Rae &amp; Co Capital may receive commissions on insurance placed, which is a conflict of interest and is disclosed. Insurance is optional and is never required to work with the firm."),
+ ("Advisory fees","Investment advisory services are billed at 1% per year of assets under management with a $750 annual minimum, charged quarterly under a signed advisory agreement. Financial planning is a flat, one-time fee agreed in writing before work begins and completed within six months; any unearned prepaid portion is refundable."),
+ ("Not advice","This website is for informational purposes only and should not be treated as individualized investment, tax, legal, or insurance advice. No advice is provided until an advisory agreement is in place."),
+ ("Third parties","Links to third parties, including carrier quoting and payment tools, are provided for convenience. Rae &amp; Co Capital does not control and is not responsible for the content or privacy practices of those sites."),
+])
+
+FORMCRS = legal_page("Form CRS Summary","Legal",[
+ ("Relationship summary","Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is registered as an investment adviser with the State of South Carolina. Investment advisory services and fees differ from brokerage services, and it is important that you understand the differences. Free and simple tools are available at Investor.gov/CRS."),
+ ("Relationships and services","We provide discretionary and non-discretionary investment advisory services, financial planning, and insurance consulting. Services are ongoing and tailored to goals, time horizon, and risk tolerance."),
+ ("Fees, costs, conflicts and standard of conduct","Our standard annual advisory fee is 1.00% of assets under management with a $750 annual minimum, billed quarterly. Financial planning is a flat one-time fee. We may also receive commissions on insurance placed, which is a conflict of interest because it creates an incentive to recommend insurance. You should understand and ask us about this conflict."),
+ ("Questions worth asking","Given my financial situation, should I choose an investment advisory service? Why or why not? How will you choose investments to recommend? What is your relevant experience, and what do your licences mean? How might your conflicts of interest affect me, and how will you address them?"),
+ ("Full document","This is a summary. The complete Form CRS and Form ADV Part 2A are available on request and through the Investment Adviser Public Disclosure website."),
+])
+
+PRIVACY = legal_page("Privacy Policy","Legal",[
+ ("What we collect","We collect only the information you give us: your name, contact details, and whatever you choose to share about your financial situation so we can do the work. The coverage calculator on this site requires no name or email and stores nothing about you."),
+ ("How we use it","To respond to you, to provide the services you engage us for, and to meet our record-keeping obligations as a registered investment adviser. We do not sell your information, ever."),
+ ("Who else sees it","Only the parties needed to deliver the service, such as the custodian holding your accounts or an insurance carrier processing an application you chose to submit. Each has its own privacy practices."),
+ ("Security","Do not send account numbers, policy numbers, passwords, Social Security numbers, or other sensitive financial data through any website form. Use the secure channels we set up with you instead."),
+ ("Your choices","You can ask what we hold, ask us to correct it, or opt out of marketing messages at any time by replying to any message or calling 864-558-8440."),
+])
+
+CLIENTLOGIN = legal_page("Client access","Portals",[
+ ("Use the provider portal directly","Rae &amp; Co Capital does not ask for portal credentials. The firm can help point you in the right direction, but credential entry should happen only through the provider&rsquo;s own site."),
+ ("Investment accounts","Schwab Alliance is where Schwab-custodied investment and retirement accounts live. Go to schwaballiance.com directly rather than through a link in an email."),
+ ("Insurance accounts","Policy, billing and customer access is handled through your carrier&rsquo;s own portal. Which one depends on who issued the policy; ask and we will tell you."),
+ ("A warning worth repeating","Do not send account numbers, policy numbers, passwords, Social Security numbers, or sensitive financial data through any website form, including ours. If a message asks you to, it is not from us."),
+])
+
 PAGES = [
  ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% a year with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
@@ -411,6 +521,10 @@ PAGES = [
  ("planning.html","Financial Planning Fees | Rae &amp; Co Capital","Flat-fee financial planning from $750. Published prices, real deliverables, buy it online.",PLANNING),
  ("advisor.html","Tyler Krause, Your Advisor | Rae &amp; Co Capital","Marine Corps veteran, Series 65 fiduciary, CCFPA. One person who answers the phone.",ADVISOR),
  ("contact.html","Contact | Rae &amp; Co Capital","One call, no pitch. Reach Tyler Krause at Rae &amp; Co Capital.",CONTACT),
+ ("disclosures.html","Disclosures | Rae &amp; Co Capital","Registration, risk, fees and conflicts, stated plainly.",DISCLOSURES),
+ ("form-crs.html","Form CRS Summary | Rae &amp; Co Capital","Relationship summary, services, fees and conflicts.",FORMCRS),
+ ("privacy.html","Privacy Policy | Rae &amp; Co Capital","What we collect, how it is used, and what we never do with it.",PRIVACY),
+ ("client-login.html","Client Access | Rae &amp; Co Capital","Go to your custodian or carrier portal directly.",CLIENTLOGIN),
 ]
 
 for slug,title,desc,body in PAGES:
