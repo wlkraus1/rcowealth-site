@@ -74,7 +74,7 @@ def carrier_cells():
         if art:
             w, h = art_size(art)
             px = min(48, round(62 / (w/h) ** .5))
-            inner = (f'<img src="../assets/carriers/{art.name}" alt="{name}" '
+            inner = (f'<img src="/assets/carriers/{art.name}" alt="{name}" '
                      f'width="{round(w)}" height="{round(h)}" style="height:{px}px" decoding="async">')
         else:
             inner = f'<span class="wm {cls}">{name}</span>'
@@ -262,14 +262,14 @@ def shell(slug, title, desc, body, canvas=False):
 <meta name="description" content="{desc}">
 {index_meta}
 <meta name="theme-color" content="#06111f">
-<link rel="icon" href="../favicon.ico?v=goldleaf-20260521-1647">
+<link rel="icon" href="/favicon.ico?v=goldleaf-20260521-1647">
 <link rel="stylesheet" href="rco.css?v={asset_v('rco.css')}">{ld}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="hd">
   <div class="wrap bar">
-    <a class="brand" href="index.html" aria-label="Rae &amp; Co Capital home"><img src="../assets/rae-co-logo-header.png" alt="Rae &amp; Co Capital Wealth Management"></a>
+    <a class="brand" href="index.html" aria-label="Rae &amp; Co Capital home"><img src="/assets/rae-co-logo-header.png" alt="Rae &amp; Co Capital Wealth Management"></a>
     <button class="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav id="nav" aria-label="Main">
 {nav}
@@ -287,7 +287,7 @@ def shell(slug, title, desc, body, canvas=False):
   <div class="wrap">
     <div class="cols">
       <div>
-        <img src="../assets/rae-co-logo-light.png" alt="Rae &amp; Co Capital">
+        <img src="/assets/rae-co-logo-light.png" alt="Rae &amp; Co Capital">
         <p style="font:400 14px/1.6 var(--sans);margin:0;max-width:34ch;color:rgba(246,239,224,.72)">
           Veteran-owned, 100% virtual wealth management and protection planning, based in Greenville, South Carolina.</p>
         {SOCIAL}
@@ -403,7 +403,7 @@ HOME = """
 <section class="section">
   <div class="wrap split b">
     <figure style="margin:0" data-rv>
-      <img src="../assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
+      <img src="/assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
       <figcaption style="margin-top:12px;text-align:center;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)">Greenville, South Carolina</figcaption>
     </figure>
     <div>
@@ -666,7 +666,7 @@ ADVISOR = """
 <section class="section" style="padding-bottom:0">
   <div class="wrap split b top">
     <figure style="margin:0" data-rv>
-      <img src="../assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
+      <img src="/assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
       <figcaption style="margin-top:12px;text-align:center;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)">Greenville, South Carolina</figcaption>
     </figure>
     <div>
