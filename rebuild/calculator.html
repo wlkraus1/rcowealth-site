@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Insurance Calculator | Rae &amp; Co Capital</title>
+<meta name="description" content="Drag the sliders and see your coverage gap. No name, no email, nothing stored.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#06111f">
+<link rel="icon" href="../favicon.ico?v=goldleaf-20260521-1647">
+<link rel="stylesheet" href="rco.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hd">
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="Rae &amp; Co Capital home"><img src="../assets/rae-co-logo-header.png" alt="Rae &amp; Co Capital Wealth Management"></a>
+    <button class="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="wealth.html">Wealth</a>
+      <a href="protection.html">Protection</a>
+      <a href="planning.html">Planning</a>
+      <a href="advisor.html">Your advisor</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <span class="hdreach">
+      <a class="callbtn" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20have%20a%20question%20about%20" aria-label="Text Rae &amp; Co Capital">Text</a>
+      <a class="callbtn" href="tel:+18645588440">864-558-8440</a>
+    </span>
+  </div>
+</header>
+<main id="main">
+
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>Free tool &middot; no email required</p>
+    <h1 data-rv style="font-size:clamp(40px,5vw,72px)">How much cover do you <em class="g">actually</em> need?</h1>
+    <p class="lede" data-rv>Most people guess, or assume what they have through work is enough. Drag the sliders and watch the number move. Nothing is stored and nobody is emailed.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap calcgrid">
+    <div class="calcpanel" data-rv>
+      <div class="calcgroup">
+        <h3>Replacing your income</h3>
+        <p class="ghint">The paycheck your family would lose, for the years until the kids are grown or the house is paid off.</p>
+        <div class="calcrow"><div class="slide-field">
+        <label for="income">Your annual income</label>
+        <div class="sf-val"><span class="sf-cur">$</span><input id="income" type="text" inputmode="numeric" value="75,000"></div>
+        <input class="sf-range" type="range" min="0" max="400000" step="5000" value="75000" data-for="income" aria-label="Your annual income, slider">
+      </div><div class="slide-field">
+        <label for="years">Years to replace it</label>
+        <div class="sf-val"><input id="years" type="text" inputmode="numeric" value="10"></div>
+        <input class="sf-range" type="range" min="0" max="40" step="1" value="10" data-for="years" aria-label="Years to replace it, slider">
+      </div></div>
+      </div>
+      <div class="calcgroup">
+        <h3>Debts you would leave behind</h3>
+        <p class="ghint">What would have to be paid off so nobody inherits a payment they cannot make.</p>
+        <div class="calcrow"><div class="slide-field">
+        <label for="mortgage">Mortgage balance</label>
+        <div class="sf-val"><span class="sf-cur">$</span><input id="mortgage" type="text" inputmode="numeric" value="250,000"></div>
+        <input class="sf-range" type="range" min="0" max="750000" step="5000" value="250000" data-for="mortgage" aria-label="Mortgage balance, slider">
+      </div><div class="slide-field">
+        <label for="debts">Other debt (cars, cards, loans)</label>
+        <div class="sf-val"><span class="sf-cur">$</span><input id="debts" type="text" inputmode="numeric" value="25,000"></div>
+        <input class="sf-range" type="range" min="0" max="150000" step="2500" value="25000" data-for="debts" aria-label="Other debt (cars, cards, loans), slider">
+      </div></div>
+      </div>
+      <div class="calcgroup">
+        <h3>Children</h3>
+        <p class="ghint">If you want to help with school, put in what you would set aside per child.</p>
+        <div class="calcrow"><div class="slide-field">
+        <label for="kids">Number of children</label>
+        <div class="sf-val"><input id="kids" type="text" inputmode="numeric" value="2"></div>
+        <input class="sf-range" type="range" min="0" max="8" step="1" value="2" data-for="kids" aria-label="Number of children, slider">
+      </div><div class="slide-field">
+        <label for="percollege">Education support per child</label>
+        <div class="sf-val"><span class="sf-cur">$</span><input id="percollege" type="text" inputmode="numeric" value="40,000"></div>
+        <input class="sf-range" type="range" min="0" max="150000" step="5000" value="40000" data-for="percollege" aria-label="Education support per child, slider">
+      </div></div>
+      </div>
+      <div class="calcgroup">
+        <h3>Final expenses and what you already have</h3>
+        <p class="ghint">Include coverage through work, and check the real number. Employer cover is usually smaller than people assume and it ends when the job does.</p>
+        <div class="calcrow"><div class="slide-field">
+        <label for="final">Final expenses</label>
+        <div class="sf-val"><span class="sf-cur">$</span><input id="final" type="text" inputmode="numeric" value="15,000"></div>
+        <input class="sf-range" type="range" min="0" max="40000" step="1000" value="15000" data-for="final" aria-label="Final expenses, slider">
+      </div><div class="slide-field">
+        <label for="existing">Existing life insurance</label>
+        <div class="sf-val"><span class="sf-cur">$</span><input id="existing" type="text" inputmode="numeric" value="50,000"></div>
+        <input class="sf-range" type="range" min="0" max="1000000" step="10000" value="50000" data-for="existing" aria-label="Existing life insurance, slider">
+      </div></div>
+      </div>
+      <p class="ghint" style="margin-top:18px">This is an estimate built from the numbers you entered. It is a starting point for a conversation, not individualized advice, and it does not account for savings, taxes, Social Security survivor benefits, or a spouse's income. Life insurance is subject to underwriting and carrier approval.</p>
+    </div>
+
+    <aside class="resultcard" id="resultCard" data-rv>
+      <p class="rlabel">Estimated coverage gap</p>
+      <p class="rbig" id="gapOut">$0</p>
+      <p class="rsub" id="gapNote">Drag any slider to begin.</p>
+      <div class="rline"><span>Total need</span><b id="needOut">$0</b></div>
+      <div class="rline"><span>Existing coverage</span><b id="haveOut">$0</b></div>
+      <div class="ractions">
+        <a class="btn btn-gold" href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=calculator_result" target="_blank" rel="noopener">Quote this amount <span class="arr">&rarr;</span></a>
+        <a class="btn-line" href="protection.html">What kind should it be?</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+</main>
+<footer class="ft">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <img src="../assets/rae-co-logo-light.png" alt="Rae &amp; Co Capital">
+        <p style="font:400 14px/1.6 var(--sans);margin:0;max-width:34ch;color:rgba(246,239,224,.72)">
+          Veteran-owned, 100% virtual wealth management and protection planning, based in Greenville, South Carolina.</p>
+      </div>
+      <div><h4>Start</h4>
+        <a href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=footer" target="_blank" rel="noopener">Quote &amp; apply</a>
+        <a href="calculator.html">Coverage calculator</a>
+        <a href="planning.html">Buy a plan</a>
+      </div>
+      <div><h4>Firm</h4>
+        <a href="advisor.html">Your advisor</a>
+        <a href="wealth.html">Wealth management</a>
+        <a href="protection.html">Protection</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div><h4>Legal</h4>
+        <a href="disclosures.html">Disclosures</a>
+        <a href="form-crs.html">Form CRS</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="client-login.html">Client login</a>
+      </div>
+    </div>
+    <p class="legal">Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is a South Carolina registered investment adviser. Registration does not imply a certain level of skill or training. Investing involves risk, including possible loss of principal. Insurance products are subject to underwriting and carrier approval; commissions may create a conflict of interest and are disclosed. This website is for informational purposes only and should not be treated as individualized investment, tax, legal, or insurance advice.</p>
+  </div>
+</footer>
+<script src="rco.js"></script>
+</body>
+</html>

@@ -65,7 +65,10 @@ def shell(slug, title, desc, body, canvas=False):
     <nav id="nav" aria-label="Main">
 {nav}
     </nav>
-    <a class="callbtn" href="tel:+18645588440">864-558-8440</a>
+    <span class="hdreach">
+      <a class="callbtn" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20have%20a%20question%20about%20" aria-label="Text Rae &amp; Co Capital">Text</a>
+      <a class="callbtn" href="tel:+18645588440">864-558-8440</a>
+    </span>
   </div>
 </header>
 <main id="main">
@@ -81,7 +84,7 @@ def shell(slug, title, desc, body, canvas=False):
       </div>
       <div><h4>Start</h4>
         <a href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=footer" target="_blank" rel="noopener">Quote &amp; apply</a>
-        <a href="../life-insurance-calculator.html">Coverage calculator</a>
+        <a href="calculator.html">Coverage calculator</a>
         <a href="planning.html">Buy a plan</a>
       </div>
       <div><h4>Firm</h4>
@@ -109,7 +112,7 @@ def shell(slug, title, desc, body, canvas=False):
 HOME = """
 <section class="section" style="position:relative;overflow:hidden;padding-top:clamp(48px,6vw,86px)">
   <canvas data-field aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-  <div class="wrap" style="position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:clamp(26px,4vw,56px);align-items:center">
+  <div class="wrap split a" style="position:relative;z-index:2">
     <div>
       <p class="kicker">Veteran-owned &middot; 100% virtual &middot; South Carolina RIA</p>
       <h1>Money is <em class="g">behavior,</em> not math.</h1>
@@ -134,7 +137,7 @@ HOME = """
       </div>
       <div class="readout">
         <div><small>Rough coverage need</small><span class="num" id="need">$1,080,000</span></div>
-        <a id="full" href="../life-insurance-calculator.html">Run the full number &rarr;</a>
+        <a id="full" href="calculator.html">Run the full number &rarr;</a>
       </div>
       <p class="fine">Ten years of income, plus what you selected. A starting point, not advice.</p>
     </div>
@@ -167,7 +170,7 @@ HOME = """
 </section>
 
 <section class="section">
-  <div class="wrap" style="display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,64px);align-items:center">
+  <div class="wrap split b">
     <figure style="margin:0" data-rv>
       <img src="../assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
       <figcaption style="margin-top:12px;text-align:center;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)">Greenville, South Carolina</figcaption>
@@ -242,7 +245,7 @@ PROTECTION = """
     <p class="lede" data-rv>Pick what is on your mind. Every answer names what it solves, what it costs you, and when it is the wrong tool, because knowing when not to buy something is the part most people never get told.</p>
     <div class="acts" data-rv>
       <a class="btn btn-gold" data-magnetic href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=protection_hero" target="_blank" rel="noopener">Quote and apply now <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="../life-insurance-calculator.html">Run the coverage numbers</a>
+      <a class="btn-line" href="calculator.html">Run the coverage numbers</a>
     </div>
   </div>
 </section>
@@ -274,7 +277,7 @@ PROTECTION = """
     </div>
     <div class="acts" data-rv style="justify-content:center;margin-top:34px">
       <a class="btn btn-gold" href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=protection_carriers" target="_blank" rel="noopener">Start my quote <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="../types-of-life-insurance.html">Read the full product guide</a>
+      <a class="btn-line" href="protection.html">Read the full product guide</a>
     </div>
     <p style="margin:26px auto 0;max-width:78ch;font:400 12px/1.65 var(--sans);color:rgba(244,239,228,.5)" data-rv>Rae &amp; Co Capital is compensated by commission on insurance placed, and permanent products generally pay more than term. That is a conflict of interest and it is disclosed in our Form CRS. Insurance is optional and never required to work with the firm. Availability, pricing and features vary by product, state, health and underwriting.</p>
   </div>
@@ -346,7 +349,7 @@ PLANNING = """
 # ---------------------------------------------------------------- ADVISOR
 ADVISOR = """
 <section class="section" style="padding-bottom:0">
-  <div class="wrap" style="display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,64px);align-items:start">
+  <div class="wrap split b top">
     <figure style="margin:0" data-rv>
       <img src="../assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
       <figcaption style="margin-top:12px;text-align:center;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)">Greenville, South Carolina</figcaption>
@@ -436,15 +439,32 @@ ADVISOR = """
 # ---------------------------------------------------------------- CONTACT
 CONTACT = """
 <section class="section">
-  <div class="wrap" style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,60px);align-items:start">
+  <div class="wrap split c">
     <div>
       <p class="kicker" data-rv>Start here</p>
       <h1 data-rv style="font-size:clamp(42px,5.2vw,72px)">One call. <em class="g">No pitch.</em></h1>
       <p class="lede" data-rv>Tell me what is on your mind and I will tell you whether I can help. If the answer is that you do not need me yet, that is the answer you will get.</p>
+      <div data-rv>
+      <!-- Click to call AND click to text. Tyler: "alot of ppl txt first."
+           sms: with a prefilled body is supported on iOS and Android; the ?&body=
+           form is the one that works on both. 864-558-8440 is a Zoom Phone line
+           that receives SMS, which is why it must never move to an auto
+           receptionist. -->
+      <div class="reachrow">
+        <a class="reach" href="tel:+18645588440">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          <span><b>Call</b>864-558-8440</span>
+        </a>
+        <a class="reach" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20have%20a%20question%20about%20">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-2.8-.4L3 21l1.6-4.1A8.2 8.2 0 0 1 3.6 11 8.4 8.4 0 0 1 12 3h.5a8.4 8.4 0 0 1 8.5 8z"/></svg>
+          <span><b>Text</b>Most people start here</span>
+        </a>
+      </div>
+      </div>
       <div class="clines" data-rv>
-        <a href="tel:+18645588440"><b>Call</b>864-558-8440</a>
         <a href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener"><b>Book</b>Pick a time that suits you</a>
         <span><b>Where</b>100% virtual, serving South Carolina</span>
+        <span><b>Hours</b>Texts answered fastest, usually same day</span>
       </div>
     </div>
     <form class="lform campaign-form contact-lead-form" data-rv id="leadForm"
@@ -514,6 +534,81 @@ CLIENTLOGIN = legal_page("Client access","Portals",[
  ("A warning worth repeating","Do not send account numbers, policy numbers, passwords, Social Security numbers, or sensitive financial data through any website form, including ours. If a message asks you to, it is not from us."),
 ])
 
+
+# ---------------------------------------------------------------- CALCULATOR
+# Ported into the shell because it was the LAST and worst one-way door: linked
+# from every page footer, and it dropped a visitor onto the old layout with no
+# route back. Field ids, the digit-stripping parse fix and the Salesforce
+# wiring are preserved exactly; only the chrome changes.
+CALCFIELDS = [
+ ("income","Your annual income",True,0,400000,5000,75000,"$"),
+ ("years","Years to replace it",False,0,40,1,10,""),
+ ("mortgage","Mortgage balance",True,0,750000,5000,250000,"$"),
+ ("debts","Other debt (cars, cards, loans)",True,0,150000,2500,25000,"$"),
+ ("kids","Number of children",False,0,8,1,2,""),
+ ("percollege","Education support per child",True,0,150000,5000,40000,"$"),
+ ("final","Final expenses",True,0,40000,1000,15000,"$"),
+ ("existing","Existing life insurance",True,0,1000000,10000,50000,"$"),
+]
+def calcfield(f):
+    fid,label,money,lo,hi,step,val,cur=f
+    curspan=f'<span class="sf-cur">{cur}</span>' if cur else ''
+    return f"""<div class="slide-field">
+        <label for="{fid}">{label}</label>
+        <div class="sf-val">{curspan}<input id="{fid}" type="text" inputmode="numeric" value="{val:,}"></div>
+        <input class="sf-range" type="range" min="{lo}" max="{hi}" step="{step}" value="{val}" data-for="{fid}" aria-label="{label}, slider">
+      </div>"""
+
+CALCULATOR = """
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>Free tool &middot; no email required</p>
+    <h1 data-rv style="font-size:clamp(40px,5vw,72px)">How much cover do you <em class="g">actually</em> need?</h1>
+    <p class="lede" data-rv>Most people guess, or assume what they have through work is enough. Drag the sliders and watch the number move. Nothing is stored and nobody is emailed.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap calcgrid">
+    <div class="calcpanel" data-rv>
+      <div class="calcgroup">
+        <h3>Replacing your income</h3>
+        <p class="ghint">The paycheck your family would lose, for the years until the kids are grown or the house is paid off.</p>
+        <div class="calcrow">""" + calcfield(CALCFIELDS[0]) + calcfield(CALCFIELDS[1]) + """</div>
+      </div>
+      <div class="calcgroup">
+        <h3>Debts you would leave behind</h3>
+        <p class="ghint">What would have to be paid off so nobody inherits a payment they cannot make.</p>
+        <div class="calcrow">""" + calcfield(CALCFIELDS[2]) + calcfield(CALCFIELDS[3]) + """</div>
+      </div>
+      <div class="calcgroup">
+        <h3>Children</h3>
+        <p class="ghint">If you want to help with school, put in what you would set aside per child.</p>
+        <div class="calcrow">""" + calcfield(CALCFIELDS[4]) + calcfield(CALCFIELDS[5]) + """</div>
+      </div>
+      <div class="calcgroup">
+        <h3>Final expenses and what you already have</h3>
+        <p class="ghint">Include coverage through work, and check the real number. Employer cover is usually smaller than people assume and it ends when the job does.</p>
+        <div class="calcrow">""" + calcfield(CALCFIELDS[6]) + calcfield(CALCFIELDS[7]) + """</div>
+      </div>
+      <p class="ghint" style="margin-top:18px">This is an estimate built from the numbers you entered. It is a starting point for a conversation, not individualized advice, and it does not account for savings, taxes, Social Security survivor benefits, or a spouse's income. Life insurance is subject to underwriting and carrier approval.</p>
+    </div>
+
+    <aside class="resultcard" id="resultCard" data-rv>
+      <p class="rlabel">Estimated coverage gap</p>
+      <p class="rbig" id="gapOut">$0</p>
+      <p class="rsub" id="gapNote">Drag any slider to begin.</p>
+      <div class="rline"><span>Total need</span><b id="needOut">$0</b></div>
+      <div class="rline"><span>Existing coverage</span><b id="haveOut">$0</b></div>
+      <div class="ractions">
+        <a class="btn btn-gold" href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=calculator_result" target="_blank" rel="noopener">Quote this amount <span class="arr">&rarr;</span></a>
+        <a class="btn-line" href="protection.html">What kind should it be?</a>
+      </div>
+    </aside>
+  </div>
+</section>
+"""
+
 PAGES = [
  ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% a year with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
@@ -525,6 +620,7 @@ PAGES = [
  ("form-crs.html","Form CRS Summary | Rae &amp; Co Capital","Relationship summary, services, fees and conflicts.",FORMCRS),
  ("privacy.html","Privacy Policy | Rae &amp; Co Capital","What we collect, how it is used, and what we never do with it.",PRIVACY),
  ("client-login.html","Client Access | Rae &amp; Co Capital","Go to your custodian or carrier portal directly.",CLIENTLOGIN),
+ ("calculator.html","Life Insurance Calculator | Rae &amp; Co Capital","Drag the sliders and see your coverage gap. No name, no email, nothing stored.",CALCULATOR),
 ]
 
 for slug,title,desc,body in PAGES:

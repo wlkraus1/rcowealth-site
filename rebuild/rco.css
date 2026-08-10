@@ -264,3 +264,67 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .lfine{margin:16px 0 0;font:400 11.5px/1.6 var(--sans);color:#6d7787}
 .hp2{position:absolute;left:-9999px}
 @media(max-width:560px){.fgrid{grid-template-columns:1fr}}
+
+/* ---- calculator page ---- */
+.calcgrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:30px;align-items:start}
+@media(max-width:940px){.calcgrid{grid-template-columns:1fr}}
+.calcpanel{background:var(--white);border:1px solid var(--line);border-radius:22px;padding:clamp(22px,2.6vw,32px)}
+.calcgroup{border-top:1px solid var(--line);padding:22px 0}
+.calcgroup:first-of-type{border-top:0;padding-top:0}
+.calcgroup h3{font-size:20px;margin:0 0 4px}
+.ghint{margin:0 0 16px;color:var(--muted);font:400 13.5px/1.6 var(--sans)}
+.calcrow{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:600px){.calcrow{grid-template-columns:1fr}}
+.slide-field{display:grid;gap:8px}
+.slide-field label{font:800 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sf-val{display:flex;align-items:baseline;gap:2px;font-family:var(--serif);font-size:28px;line-height:1.05;
+  letter-spacing:-.035em;color:var(--ink)}
+.sf-val .sf-cur{font-size:19px;color:var(--gold-ink)}
+.sf-val input{font:inherit;color:inherit;width:100%;border:0;background:transparent;padding:2px 0;
+  border-bottom:1px dashed rgba(17,25,39,.22);outline:none}
+.sf-val input:focus{border-bottom-color:var(--gold);background:rgba(200,161,90,.07)}
+.sf-range{width:100%}
+.resultcard{position:sticky;top:96px;border:1px solid rgba(200,161,90,.45);border-radius:22px;
+  background:linear-gradient(180deg,#fffdf8,#fbf5e9);padding:26px;height:max-content}
+.resultcard.covered{border-color:rgba(47,191,130,.5);background:linear-gradient(180deg,#f8fdfa,#eef8f2)}
+@media(max-width:940px){.resultcard{position:static}}
+.rlabel{font:800 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 8px}
+.rbig{font-family:var(--serif);font-size:46px;line-height:1;letter-spacing:-.04em;color:var(--ink);margin:0 0 6px;
+  font-variant-numeric:tabular-nums}
+.rsub{color:var(--muted);font:400 14px/1.5 var(--sans);margin:0 0 20px}
+.rline{display:flex;justify-content:space-between;gap:14px;border-top:1px solid var(--line);padding:11px 0;
+  font:400 14px/1.4 var(--sans);color:var(--muted)}
+.rline b{color:var(--ink);font-variant-numeric:tabular-nums}
+.ractions{display:grid;gap:10px;margin-top:20px}
+.ractions .btn{width:100%}
+.ractions .btn-line{justify-content:center}
+
+/* ---- click to call / text ---- */
+.reachrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 22px}
+@media(max-width:560px){.reachrow{grid-template-columns:1fr}}
+.reach{display:flex;align-items:center;gap:13px;min-height:64px;padding:0 18px;border-radius:14px;
+  border:1px solid var(--line);background:var(--white);text-decoration:none;
+  transition:border-color .2s,box-shadow .2s,transform .18s var(--ease)}
+.reach:hover{border-color:rgba(200,161,90,.6);box-shadow:0 18px 40px -26px rgba(6,17,31,.45);transform:translateY(-2px)}
+.reach svg{width:22px;height:22px;color:var(--gold-ink);flex-shrink:0}
+.reach b{display:block;font:800 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:3px}
+.reach span{display:block;font:700 15px/1.2 var(--sans);color:var(--ink)}
+.section.dark .reach{background:rgba(244,239,228,.05);border-color:var(--line-dark)}
+.section.dark .reach span{color:#fff}
+.hdreach{display:flex;align-items:center;gap:8px}
+.hdreach .callbtn:first-child{border-color:var(--gold);color:var(--gold-ink)}
+@media(max-width:900px){.hdreach{display:none}}
+
+/* Two-column splits. These were inline grid-template-columns, which CANNOT
+   carry a media query, so every one of them stayed two-up at 390px and squeezed
+   the form and the portrait into unusable columns. Caught on the contact page
+   at phone width. Class-based so the collapse actually happens. */
+.split{display:grid;gap:clamp(26px,4vw,56px);align-items:center}
+.split.a{grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr)}
+.split.b{grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr)}
+.split.c{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:start}
+.split.top{align-items:start}
+@media(max-width:900px){
+  .split.a,.split.b,.split.c{grid-template-columns:1fr}
+  .split .portrait,.split figure{max-width:340px;position:static}
+}

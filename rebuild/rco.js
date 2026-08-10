@@ -162,6 +162,54 @@
   pbtns.forEach(function(b){b.addEventListener('click',function(){paintP(b.dataset.p,true);});});
   if(panel) paintP('term',false);
 
+
+  /* ---- full calculator (calculator.html) ----
+     Ported wholesale, including the parse fix that was a LIVE defect: the money
+     fields are type=text so they can carry thousands separators, and a bare
+     parseFloat on "$75,000" returns NaN, which silently counted that entire
+     field as ZERO. Strip to digits before parsing, always. */
+  var calcIds=["income","years","mortgage","debts","kids","percollege","final","existing"];
+  if(document.getElementById("gapOut")){
+    var f=function(n){return "$"+Math.round(n).toLocaleString("en-US");};
+    var num=function(v){var x=parseFloat(String(v).replace(/[^0-9.]/g,""));return isNaN(x)||x<0?0:x;};
+    var get=function(id){var el=document.getElementById(id);return el?num(el.value):0;};
+    var moneyFields=["income","mortgage","debts","percollege","final","existing"];
+    var fmt=function(el){var v=num(el.value);
+      if(moneyFields.indexOf(el.id)>=0) el.value=Math.round(v).toLocaleString("en-US");};
+    var card=document.getElementById("resultCard");
+    function calc(){
+      var need=get("income")*get("years")+get("mortgage")+get("debts")+get("kids")*get("percollege")+get("final");
+      var have=get("existing"), gap=need-have;
+      document.getElementById("needOut").textContent=f(need);
+      document.getElementById("haveOut").textContent=f(have);
+      if(gap>0){card.classList.remove("covered");
+        document.getElementById("gapOut").textContent=f(gap);
+        document.getElementById("gapNote").textContent="This is roughly what you are short by today.";
+      }else{card.classList.add("covered");
+        document.getElementById("gapOut").textContent="Covered";
+        document.getElementById("gapNote").textContent="Your current coverage meets the estimate. Worth confirming it is not tied to your job.";}
+    }
+    var paintR=function(r){r.style.setProperty("--p",(+r.value-+r.min)/(+r.max-+r.min));};
+    [].slice.call(document.querySelectorAll(".sf-range")).forEach(function(r){
+      var t=document.getElementById(r.getAttribute("data-for")); if(!t) return;
+      r.addEventListener("input",function(){t.value=r.value;fmt(t);calc();paintR(r);});
+      t.addEventListener("input",function(){var v=num(t.value);
+        if(!isNaN(v)) r.value=v;   /* thumb parks at the end if the typed value is out of range */
+        calc();paintR(r);});
+      t.addEventListener("blur",function(){fmt(t);});
+      paintR(r);
+    });
+    /* values handed over from a homepage instrument */
+    (function(){var q=new URLSearchParams(location.search);
+      ["income","mortgage"].forEach(function(id){
+        var v=parseFloat(q.get(id)); if(isNaN(v)||v<0) return;
+        var el=document.getElementById(id); if(!el) return;
+        el.value=v; fmt(el);
+        var r=document.querySelector('.sf-range[data-for="'+id+'"]');
+        if(r){r.value=v;paintR(r);}});})();
+    calc();
+  }
+
   /* Magnetic primary CTA, fine pointers only. */
   if(!reduce && matchMedia('(pointer:fine)').matches){
     var mag=document.querySelector('[data-magnetic]');
