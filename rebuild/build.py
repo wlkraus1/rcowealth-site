@@ -69,7 +69,7 @@ def legal_page(h1, kicker, blocks):
     """Legal/utility pages must live INSIDE the shell. Before this they linked out
     to the old site, which had the old header and no route back - a one-way door
     Tyler hit while reviewing."""
-    body = "\n".join(f'<h3 style="margin-top:26px">{t}</h3><p style="font:400 15px/1.7 var(--sans);color:var(--muted);max-width:74ch">{b}</p>' for t,b in blocks)
+    body = "\n".join(f'<h2 class="sub" style="margin-top:26px">{t}</h2><p style="font:400 15px/1.7 var(--sans);color:var(--muted);max-width:74ch">{b}</p>' for t,b in blocks)
     return f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
@@ -101,10 +101,50 @@ SOCIAL = """<div class="social">
           <a href="https://www.youtube.com/@rcowealth" target="_blank" rel="noopener" aria-label="Rae &amp; Co Capital on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.58 7.19a2.5 2.5 0 0 0-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42a2.5 2.5 0 0 0-1.77 1.77A26 26 0 0 0 2 12a26 26 0 0 0 .42 4.81 2.5 2.5 0 0 0 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42a2.5 2.5 0 0 0 1.77-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.42-4.81zM10 15.02V8.98L15.2 12 10 15.02z"/></svg></a>
         </div>"""
 
+ORIGIN = "https://rcowealth.com"
+
+# STAGING keeps the whole rebuild out of the index while it lives at /rebuild/.
+# Flip it to False in the same commit that moves these files to the site root,
+# and every page swaps noindex for a real canonical in one build. Shipping the
+# rebuild with the blanket noindex still on would take the site off Google.
+STAGING = True
+
+# Ported from the live site's head, which the rebuild had dropped entirely.
+LD = """{
+  "@context":"https://schema.org",
+  "@type":"FinancialService",
+  "name":"Rae & Co Capital, LLC",
+  "alternateName":"RcoWealth",
+  "description":"Veteran-owned, 100% virtual wealth management: investment management, retirement income, financial planning, and protection planning.",
+  "url":"https://rcowealth.com",
+  "telephone":"+1-864-558-8440",
+  "email":"info@rcowealth.com",
+  "areaServed":"US",
+  "address":{"@type":"PostalAddress","addressRegion":"SC","addressCountry":"US"},
+  "sameAs":["https://www.instagram.com/rcowealth/","https://www.facebook.com/RcoWealth","https://www.youtube.com/@rcowealth"],
+  "founder":{"@type":"Person","name":"Tyler Krause","jobTitle":"Founder & Private Wealth Advisor","alumniOf":"Arizona State University","knowsAbout":["Behavioral finance","Psychology of money","Financial planning","Life insurance"]}
+}"""
+
 def shell(slug, title, desc, body, canvas=False):
     nav = "\n".join(
         f'      <a href="{h}"{" aria-current=\"page\"" if h==slug else ""}>{t}</a>'
         for h,t in NAV)
+    url = ORIGIN + "/" + ("" if slug == "index.html" else slug)
+    plain = re.sub(r"&amp;", "&", title)
+    if STAGING:
+        index_meta = '<meta name="robots" content="noindex, nofollow">'
+    else:
+        index_meta = (f'<link rel="canonical" href="{url}">\n'
+                      f'<meta property="og:type" content="website">\n'
+                      f'<meta property="og:site_name" content="Rae &amp; Co Capital">\n'
+                      f'<meta property="og:title" content="{title}">\n'
+                      f'<meta property="og:description" content="{desc}">\n'
+                      f'<meta property="og:url" content="{url}">\n'
+                      f'<meta property="og:image" content="{ORIGIN}/assets/rae-co-logo-header.png">\n'
+                      f'<meta name="twitter:card" content="summary_large_image">\n'
+                      f'<meta name="twitter:title" content="{title}">\n'
+                      f'<meta name="twitter:description" content="{desc}">')
+    ld = f'\n<script type="application/ld+json">{LD}</script>' if slug == "index.html" else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -112,10 +152,10 @@ def shell(slug, title, desc, body, canvas=False):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="robots" content="noindex, nofollow">
+{index_meta}
 <meta name="theme-color" content="#06111f">
 <link rel="icon" href="../favicon.ico?v=goldleaf-20260521-1647">
-<link rel="stylesheet" href="rco.css">
+<link rel="stylesheet" href="rco.css">{ld}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -144,23 +184,23 @@ def shell(slug, title, desc, body, canvas=False):
           Veteran-owned, 100% virtual wealth management and protection planning, based in Greenville, South Carolina.</p>
         {SOCIAL}
       </div>
-      <div><h4>Start</h4>
+      <nav aria-label="Start"><p class="ftlabel">Start</p>
         <a href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=footer" target="_blank" rel="noopener">Quote &amp; apply</a>
         <a href="calculator.html">Coverage calculator</a>
         <a href="planning.html">Buy a plan</a>
-      </div>
-      <div><h4>Firm</h4>
+      </nav>
+      <nav aria-label="Firm"><p class="ftlabel">Firm</p>
         <a href="advisor.html">Your advisor</a>
         <a href="wealth.html">Wealth management</a>
         <a href="protection.html">Protection</a>
         <a href="contact.html">Contact</a>
-      </div>
-      <div><h4>Legal</h4>
+      </nav>
+      <nav aria-label="Legal"><p class="ftlabel">Legal</p>
         <a href="disclosures.html">Disclosures</a>
         <a href="form-crs.html">Form CRS</a>
         <a href="privacy.html">Privacy</a>
         <a href="client-login.html">Client login</a>
-      </div>
+      </nav>
     </div>
     <p class="legal">{LEGAL}</p>
   </div>
@@ -187,7 +227,7 @@ HOME = """
     </div>
     <div class="tool" data-rv>
       <p class="tag" style="font:800 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px">60-second answer</p>
-      <h3 style="margin-bottom:20px">What would your family need if your income stopped?</h3>
+      <h2 class="sub" style="margin-bottom:20px">What would your family need if your income stopped?</h2>
       <div class="chips" role="group" aria-label="What are you protecting?">
         <button class="chip" type="button" aria-pressed="true" data-add="250000">A home</button>
         <button class="chip" type="button" aria-pressed="true" data-add="80000">Kids' education</button>
@@ -266,6 +306,7 @@ WEALTH = """
 
 <section class="section">
   <div class="wrap">
+    <h2 class="sub" data-rv style="margin-bottom:26px">What managing the money actually covers.</h2>
     <div class="grid g3 stagger" data-rv>
       <div class="card"><p class="tag">Investments</p><h3>Portfolio management</h3>
         <p style="margin-bottom:14px">Built around what the money is for, not around a model number.</p>
@@ -336,7 +377,7 @@ CARRIERWALL = """
 <section class="section dark">
   <div class="wrap center">
     <p class="cnum" data-rv>40+</p>
-    <p class="cclaim" data-rv>leading carriers available through one application</p>
+    <h2 class="cclaim" data-rv>leading carriers available through one application</h2>
     <p class="lede" data-rv style="margin:14px auto 0;max-width:52ch">Compare coverage and pricing across leading life insurance carriers without filling out the same information over and over.</p>
     <p class="cstrip" data-rv><b>Independent access</b><i>&middot;</i><b>No single-carrier bias</b><i>&middot;</i><b>You see the pricing we see</b></p>
     <div class="cgrid" data-rv>
@@ -441,7 +482,7 @@ ADVISOR = """
       <p class="kicker" data-rv>Your advisor</p>
       <h1 data-rv style="font-size:clamp(44px,5.6vw,78px)">Tyler Krause</h1>
       <p style="font:700 12.5px/1.5 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 26px" data-rv>Founder &amp; Private Wealth Advisor &middot; U.S. Marine Corps veteran</p>
-      <p class="lede" data-rv>Fifteen years in this industry taught me that the plan is rarely the problem. People usually know roughly what they should do. What stops them is that no one has organised it, priced it, or told them which part matters first.</p>
+      <p class="lede" data-rv>Fifteen years in this industry taught me that the plan is rarely the problem. People usually know roughly what they should do. What stops them is that no one has organized it, priced it, or told them which part matters first.</p>
       <p class="lede" data-rv>So that is the job I built the firm around: protect the household, put the rest in an order that makes sense, and be one person who can be reached.</p>
       <div class="acts" data-rv><a class="btn btn-ink" data-magnetic href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book your call now <span class="arr">&rarr;</span></a>
         <a class="btn-line" href="planning.html">Or just buy a plan</a></div>
@@ -510,7 +551,7 @@ ADVISOR = """
     </div>
     <div class="clines" data-rv style="margin-top:30px;max-width:70ch">
       <span><b>Licensed</b>South Carolina Life, Accident &amp; Health</span>
-      <span><b>Certified</b>Certified Corporate Financial Planning Analyst (CCFPA)</span>
+      <span><b>Credential</b>Certified Corporate Financial Planning Analyst (CCFPA)</span>
       <span><b>Studied</b>Multiple degrees, including an M.S. in Psychology from Arizona State</span>
       <span><b>Built</b>Businesses started and sold before this one</span>
       <a href="form-crs.html"><b>Filed</b>Form CRS and disclosures, in full</a>
@@ -559,7 +600,7 @@ CONTACT = """
       <input type="hidden" name="company" value="Individual / Household">
       <input type="hidden" name="00Nfn0000089jHR" value="Website">
       <label class="hp2" aria-hidden="true">Website<input name="website_url" autocomplete="off" tabindex="-1" data-honeypot="true"></label>
-      <h3>Send a note</h3>
+      <h2 class="sub">Send a note</h2>
       <p class="lsub">Replies come from me, usually the same day.</p>
       <div class="fgrid">
         <div class="fld2"><label for="first_name">First name</label><input id="first_name" name="first_name" autocomplete="given-name" required></div>
@@ -598,8 +639,11 @@ FORMCRS = legal_page("Form CRS Summary","Legal",[
  ("Relationship summary","Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is registered as an investment adviser with the State of South Carolina. Investment advisory services and fees differ from brokerage services, and it is important that you understand the differences. Free and simple tools are available at Investor.gov/CRS."),
  ("Relationships and services","We provide discretionary and non-discretionary investment advisory services, financial planning, and insurance consulting. Services are ongoing and tailored to goals, time horizon, and risk tolerance."),
  ("Fees, costs, conflicts and standard of conduct","Our standard annual advisory fee is 1.00% of assets under management with a $750 annual minimum, billed quarterly. Financial planning is a flat one-time fee. We may also receive commissions on insurance placed, which is a conflict of interest because it creates an incentive to recommend insurance. You should understand and ask us about this conflict."),
- ("Questions worth asking","Given my financial situation, should I choose an investment advisory service? Why or why not? How will you choose investments to recommend? What is your relevant experience, and what do your licences mean? How might your conflicts of interest affect me, and how will you address them?"),
- ("Full document","This is a summary. The complete Form CRS and Form ADV Part 2A are available on request and through the Investment Adviser Public Disclosure website."),
+ ("Questions worth asking","Given my financial situation, should I choose an investment advisory service? Why or why not? How will you choose investments to recommend? What is your relevant experience, and what do your licenses mean? How might your conflicts of interest affect me, and how will you address them?"),
+ ("Full document","This is a summary. The complete Form CRS and Form ADV Part 2A are available on request and through the "
+  "<a href='https://adviserinfo.sec.gov/' target='_blank' rel='noopener'>Investment Adviser Public Disclosure website</a>. "
+  "Free and simple tools to research firms and advisers are at "
+  "<a href='https://www.investor.gov/CRS' target='_blank' rel='noopener'>Investor.gov/CRS</a>."),
 ])
 
 PRIVACY = legal_page("Privacy Policy","Legal",[
@@ -655,22 +699,22 @@ CALCULATOR = """
   <div class="wrap calcgrid">
     <div class="calcpanel" data-rv>
       <div class="calcgroup">
-        <h3>Replacing your income</h3>
+        <h2 class="sub">Replacing your income</h2>
         <p class="ghint">The paycheck your family would lose, for the years until the kids are grown or the house is paid off.</p>
         <div class="calcrow">""" + calcfield(CALCFIELDS[0]) + calcfield(CALCFIELDS[1]) + """</div>
       </div>
       <div class="calcgroup">
-        <h3>Debts you would leave behind</h3>
+        <h2 class="sub">Debts you would leave behind</h2>
         <p class="ghint">What would have to be paid off so nobody inherits a payment they cannot make.</p>
         <div class="calcrow">""" + calcfield(CALCFIELDS[2]) + calcfield(CALCFIELDS[3]) + """</div>
       </div>
       <div class="calcgroup">
-        <h3>Children</h3>
+        <h2 class="sub">Children</h2>
         <p class="ghint">If you want to help with school, put in what you would set aside per child.</p>
         <div class="calcrow">""" + calcfield(CALCFIELDS[4]) + calcfield(CALCFIELDS[5]) + """</div>
       </div>
       <div class="calcgroup">
-        <h3>Final expenses and what you already have</h3>
+        <h2 class="sub">Final expenses and what you already have</h2>
         <p class="ghint">Include coverage through work, and check the real number. Employer cover is usually smaller than people assume and it ends when the job does.</p>
         <div class="calcrow">""" + calcfield(CALCFIELDS[6]) + calcfield(CALCFIELDS[7]) + """</div>
       </div>
