@@ -338,16 +338,16 @@ HOME = """
       <p class="tag" style="font:800 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px">60-second answer</p>
       <h2 class="sub" style="margin-bottom:20px">What would your family need if your income stopped?</h2>
       <div class="chips" role="group" aria-label="What are you protecting?">
-        <button class="chip" type="button" aria-pressed="true" data-add="250000">A home</button>
-        <button class="chip" type="button" aria-pressed="true" data-add="80000">Kids' education</button>
-        <button class="chip" type="button" aria-pressed="false" data-add="15000">Final expenses</button>
+        <button class="chip" type="button" aria-pressed="false" data-add="250000">A home</button>
+        <button class="chip" type="button" aria-pressed="false" data-add="80000">Kids' education</button>
+        <button class="chip" type="button" aria-pressed="true" data-add="15000">Final expenses</button>
       </div>
       <div class="frow">
         <label for="inc">Your income <output id="incOut">$75,000</output></label>
         <input type="range" id="inc" min="20000" max="400000" step="5000" value="75000" aria-label="Your annual income">
       </div>
       <div class="readout">
-        <div><small>Rough coverage need</small><span class="num" id="need">$705,000</span></div>
+        <div><small>Rough coverage need</small><span class="num" id="need">$390,000</span></div>
         <a id="full" href="life-insurance-calculator.html">Run the full number &rarr;</a>
       </div>
       <p class="fine">Five years of income, plus what you selected. A starting point, not advice.</p>
