@@ -229,6 +229,7 @@ HOME = """
     </div>
   </div>
 </section>
+{CARRIERWALL}
 """
 
 # ---------------------------------------------------------------- WEALTH
@@ -343,6 +344,10 @@ CARRIERWALL = (CARRIERWALL
   .replace("{CELLS}", carrier_cells())
   .replace("{ROSTERCELLS}", "".join(f"<span>{n}</span>" for n in ROSTER)))
 PROTECTION = PROTECTION.replace("{CARRIERWALL}", CARRIERWALL)
+# Same wall closes the home page, with its own utm_content so the two entry
+# points stay separable in reporting.
+HOME = HOME.replace("{CARRIERWALL}",
+  CARRIERWALL.replace("utm_content=protection_carriers","utm_content=home_carriers"))
 
 # ---------------------------------------------------------------- PLANNING
 TIERS = [
