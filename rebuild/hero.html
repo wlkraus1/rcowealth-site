@@ -147,7 +147,7 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
   display:grid;grid-template-columns:minmax(280px,.8fr) minmax(0,1.2fr);gap:clamp(30px,5vw,72px);align-items:start}
 @media(max-width:900px){.about .wrap{grid-template-columns:1fr}}
 .portrait{position:sticky;top:60px}
-.portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;display:block;
+.portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;display:block;
   box-shadow:0 40px 90px -46px rgba(15,26,38,.55)}
 .portrait figcaption{margin-top:13px;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep)}
 @media(max-width:900px){.portrait{position:static;max-width:340px}}
@@ -156,23 +156,24 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
   letter-spacing:-.045em;margin:0 0 10px}
 .role{font:700 12.5px/1.5 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep);margin:0 0 26px}
 .about p.body{font:400 clamp(16.5px,1.35vw,19px)/1.62 var(--sans);color:var(--ink-soft);max-width:56ch;margin:0 0 16px}
-.pull{position:relative;margin:30px 0;padding-left:22px;
-  font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.2vw,29px);line-height:1.3;letter-spacing:-.02em}
-.pull::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2.5px;background:var(--gold);
-  transform:scaleY(0);transform-origin:top;transition:transform .9s cubic-bezier(.16,1,.3,1) .15s}
-.inview .pull::before{transform:scaleY(1)}
-.rail{margin:34px 0 0;padding:0;border-top:1px solid rgba(15,26,38,.14)}
-.rail .row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:22px;padding:15px 0;
-  border-bottom:1px solid rgba(15,26,38,.09);
+/* Badge trio per Tyler's mock: gold outline icons, hairline dividers between
+   items, top rule. Replaced the five-row credential rail and the pull quote -
+   the quote duplicated the hero headline (his own catch), and the rail's long
+   detail moves to a future advisor page rather than crowding the homepage. */
+.badges{display:grid;grid-template-columns:repeat(3,1fr);margin:32px 0 0;
+  border-top:1px solid rgba(15,26,38,.14);padding-top:26px}
+.badge{padding:0 22px;border-left:1px solid rgba(15,26,38,.12);
   opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
-.inview .rail .row{opacity:1;transform:none}
-.inview .rail .row:nth-child(2){transition-delay:.08s}
-.inview .rail .row:nth-child(3){transition-delay:.16s}
-.inview .rail .row:nth-child(4){transition-delay:.24s}
-.inview .rail .row:nth-child(5){transition-delay:.32s}
-.rail dt{font:800 11px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);padding-top:3px}
-.rail dd{margin:0;font:400 15px/1.55 var(--sans);color:var(--ink-soft)}
-@media(max-width:640px){.rail .row{grid-template-columns:1fr;gap:5px}}
+.badge:first-child{border-left:0;padding-left:0}
+.inview .badge{opacity:1;transform:none}
+.inview .badge:nth-child(2){transition-delay:.1s}
+.inview .badge:nth-child(3){transition-delay:.2s}
+.badge svg{width:34px;height:34px;color:var(--gold-deep);margin-bottom:10px}
+.badge b{display:block;font:800 13px/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:5px}
+.badge span{display:block;font:400 13.5px/1.5 var(--sans);color:var(--ink-soft)}
+@media(max-width:640px){.badges{grid-template-columns:1fr;gap:18px}
+  .badge{border-left:0;padding:0}}
+.also{margin:20px 0 0;font:600 12.5px/1.6 var(--sans);color:var(--ink-soft)}
 .about .acts{opacity:1;animation:none;margin-top:30px}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .inview .rv{opacity:1;transform:none}
@@ -274,17 +275,34 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
       <p class="kicker rv">Your advisor</p>
       <h2 class="rv">Tyler Krause</h2>
       <p class="role rv">Founder &amp; Private Wealth Advisor · U.S. Marine Corps veteran</p>
-      <p class="body rv">I studied finance, so I know what the numbers say. Then psychology, because I kept watching capable people know the right answer and not do it.</p>
-      <p class="body rv">That gap is the whole job. Coverage, investments, retirement income, and planning as one decision instead of five. One person, who answers the phone.</p>
-      <blockquote class="pull rv">Most money decisions are behavior, not math.</blockquote>
-      <dl class="rail">
-        <div class="row"><dt>Licensed</dt><dd>Series 65, Investment Adviser Representative, held to a fiduciary standard. South Carolina Life, Accident &amp; Health.</dd></div>
-        <div class="row"><dt>Certified</dt><dd>Certified Corporate Financial Planning Analyst (CCFPA)</dd></div>
-        <div class="row"><dt>Studied</dt><dd>Multiple degrees, including an M.S. in Psychology from Arizona State.</dd></div>
-        <div class="row"><dt>Experience</dt><dd>Fifteen years in insurance and financial services. Businesses built and sold.</dd></div>
-        <div class="row"><dt>Custody</dt><dd>Client assets held at Charles Schwab. Insurance placed through multiple national carriers.</dd></div>
-      </dl>
-      <div class="acts rv"><a class="cta" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a call with Tyler <span class="arr">→</span></a></div>
+      <!-- Copy and structure from Tyler's own mock, 2026-08-07. Two changes from
+           the mock, both rule-driven: his em-dash became a period (no em-dashes
+           in public copy), and the "behavior, not math" pull quote is GONE from
+           this section because the hero headline already says it - he flagged
+           the duplication himself, and repeating a line two screens apart is the
+           exact disease the old homepage died of. The hero owns the thesis; the
+           About proves the person. -->
+      <p class="body rv">I built Rae &amp; Co around a simple idea: protect the household first, then organize the money around the life it needs to support.</p>
+      <p class="body rv">You work directly with me. One person who answers the phone and coordinates coverage, planning, and wealth decisions together.</p>
+      <div class="badges rv" role="list">
+        <div class="badge" role="listitem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          <b>15+ years</b><span>Insurance &amp; financial services</span>
+        </div>
+        <div class="badge" role="listitem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21h16M6 21V10M10 21V10M14 21V10M18 21V10M3 10h18L12 4 3 10z"/></svg>
+          <b>Series 65</b><span>Investment Adviser Representative, fiduciary standard</span>
+        </div>
+        <div class="badge" role="listitem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><circle cx="12" cy="12" r="3.4"/><path d="M12 10.2v1.8l1.2 1.2"/></svg>
+          <b>Custody</b><span>Client assets held at Charles Schwab</span>
+        </div>
+      </div>
+      <!-- Tyler left this one to me: SC Life/A&H and CCFPA matter (insurance is
+           the revenue engine), but a fourth and fifth badge would dilute the
+           trio that makes his mock read. One quiet line carries them instead. -->
+      <p class="also rv">Also: South Carolina Life, Accident &amp; Health licensed · Certified Corporate Financial Planning Analyst (CCFPA)</p>
+      <div class="acts rv"><a class="cta" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book your call now <span class="arr">→</span></a></div>
     </div>
   </div>
 </section>
