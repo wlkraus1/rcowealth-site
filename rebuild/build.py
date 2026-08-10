@@ -37,13 +37,29 @@ ROSTER = ["Symetra","Corebridge","Securian","Allianz","Thrivent","SBLI",
           "MassMutual Ascend","North American","American General","Ameritas",
           "Foresters","Legal &amp; General"]
 
+def png_size(p):
+    """Width/height straight out of the PNG IHDR, so the build stays stdlib-only."""
+    b = p.read_bytes()[16:24]
+    return int.from_bytes(b[:4], "big"), int.from_bytes(b[4:], "big")
+
 def carrier_cells():
+    """Logos are sized by optical area, not by a flat max-height. A flat height
+    makes a 3.7:1 wordmark like Prudential render twice as wide as a stacked
+    2:1 lockup like Pacific Life, and the wall reads lopsided. Scaling by
+    1/sqrt(aspect) holds the perceived mass even across the grid."""
     out = []
     for name, slug, cls in FEATURED:
-        art = next((p for e in (".svg",".png")
+        art = next((p for e in (".svg", ".png")
                     if (p := OUT.parent/"assets"/"carriers"/(slug+e)).exists()), None)
-        inner = (f'<img src="../assets/carriers/{art.name}" alt="{name}" loading="lazy">'
-                 if art else f'<span class="wm {cls}">{name}</span>')
+        if art and art.suffix == ".png":
+            w, h = png_size(art)
+            px = min(48, round(62 / (w/h) ** .5))
+            inner = (f'<img src="../assets/carriers/{art.name}" alt="{name}" '
+                     f'width="{w}" height="{h}" style="height:{px}px" decoding="async">')
+        elif art:
+            inner = f'<img src="../assets/carriers/{art.name}" alt="{name}" loading="lazy">'
+        else:
+            inner = f'<span class="wm {cls}">{name}</span>'
         out.append(f'      <div class="cell">{inner}</div>')
     return "\n".join(out)
 
