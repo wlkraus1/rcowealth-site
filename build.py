@@ -615,15 +615,17 @@ TIERS = [
    "Written one-page action plan you keep","30 days of email follow-up"],
   "start-plan.html?tier=foundations","Start Foundations",False),
  ("Household","$2,000","For a full picture, usually a couple with a few moving parts.",
-  ["Everything in Foundations, plus","Full household cash flow and net worth build-out",
+  ["Four meetings in all: discovery, two working sessions, plan delivery",
+   "Full household cash flow and net worth build-out",
    "Goal planning: retirement, major purchases, education","Insurance needs review, life and disability gaps",
    "Tax-aware account strategy, Roth vs traditional and contribution order",
-   "Two working sessions plus a delivery meeting","60 days of email follow-up"],
+   "Written household plan you keep, plus everything in Foundations",
+   "60 days of email follow-up"],
   "start-plan.html?tier=household","Start Household",True),
  ("Household + Implementation","$3,000","For help executing, not just a document.",
   ["Everything in Household, plus","Guided implementation support","Account setup walkthroughs",
    "Beneficiary and titling review","Up to three additional working sessions",
-   "Completed within the six-month window"],
+   "You execute every account change; I guide, never take control"],
   "start-plan.html?tier=implementation","Start Implementation",False),
 ]
 def tier_html(t):
@@ -653,7 +655,7 @@ PLANNING = """
       """ + "\n      ".join(tier_html(t) for t in TIERS) + """
     </div>
     <p class="tnote" data-rv>Paying starts the engagement. The written planning agreement follows by email the same day for signature, and the discovery meeting is part of the work rather than a sales call you have to pass first.</p>
-    <p style="margin:22px auto 0;max-width:80ch;text-align:center;font:400 12px/1.65 var(--sans);color:var(--muted)" data-rv>Flat fee agreed in writing before any work begins. One-time engagement completed within six months; it is not a subscription. If we stop early, any unearned prepaid portion is returned. Insurance is optional and never required through the firm. Planning is analysis and education; there are no performance promises, and investing involves risk including loss of principal.</p>
+    <p style="margin:22px auto 0;max-width:80ch;text-align:center;font:400 12px/1.65 var(--sans);color:var(--muted)" data-rv>Every tier is a one-time engagement completed within six months; it is not a subscription. The flat fee is agreed in writing before any work begins. If we stop early, any unearned prepaid portion is returned. Insurance is optional and never required through the firm. Planning is analysis and education; there are no performance promises, and investing involves risk including loss of principal. <b>What is not included, in any tier:</b> tax preparation, legal documents, trade execution, and ongoing investment management. Management is a separate engagement at 1% per year of assets under management, and I will tell you plainly if you do not need it.</p>
   </div>
 </section>
 
