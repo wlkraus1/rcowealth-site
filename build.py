@@ -263,6 +263,7 @@ def shell(slug, title, desc, body, canvas=False):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 {index_meta}
+<meta name="google-site-verification" content="VYQlcefljOic4ThdXdbPbbdZ1O5wRNZ5QuVxPpeNEB4">
 <meta name="theme-color" content="#06111f">
 <link rel="icon" href="/favicon.ico?v=goldleaf-20260521-1647">
 <link rel="stylesheet" href="rco.css?v={asset_v('rco.css')}">
@@ -1502,10 +1503,12 @@ if not STAGING:
                 "types-of-life-insurance.html":"0.8","wealth.html":"0.8",
                 "protection.html":"0.8","planning.html":"0.8"}
     SKIP = {"thank-you.html", "start-plan.html"}
+    EXTRA = ["life-insurance-worksheet.html", "family-protection-checklist.html"]
+    allslugs = [s for s,_,_,_ in PAGES if s not in SKIP] + EXTRA
     urls = "\n".join(
       f"  <url><loc>{ORIGIN}/{'' if s=='index.html' else s}</loc>"
       f"<priority>{PRIORITY.get(s,'0.6')}</priority></url>"
-      for s,_,_,_ in PAGES if s not in SKIP)
+      for s in allslugs)
     (OUT/"sitemap.xml").write_text(
       '<?xml version="1.0" encoding="UTF-8"?>\n'
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
