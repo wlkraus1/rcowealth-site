@@ -194,6 +194,7 @@ LEGAL = ("Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is a South Carolina regist
 SOCIAL = """<div class="social">
           <a href="https://www.instagram.com/rcowealth/" target="_blank" rel="noopener" aria-label="Rae &amp; Co Capital on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.07-1.1.05-1.7.24-2.1.4-.5.2-.9.44-1.2.78-.35.34-.57.7-.77 1.2-.16.4-.35 1-.4 2.1C2.76 9.75 2.76 10.1 2.76 12s0 2.25.06 3.45c.05 1.1.24 1.7.4 2.1.2.5.42.86.77 1.2.33.34.7.57 1.2.77.4.16 1 .35 2.1.4 1.2.06 1.6.06 4.7.06s3.5 0 4.7-.06c1.1-.05 1.7-.24 2.1-.4.5-.2.87-.43 1.2-.77.35-.34.57-.7.77-1.2.16-.4.35-1 .4-2.1.06-1.2.06-1.55.06-3.45s0-2.25-.06-3.45c-.05-1.1-.24-1.7-.4-2.1-.2-.5-.42-.86-.77-1.2-.33-.34-.7-.58-1.2-.78-.4-.16-1-.35-2.1-.4C15.5 4 15.1 4 12 4zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.08a3.18 3.18 0 1 0 0-6.36 3.18 3.18 0 0 0 0 6.36zm6.24-8.28a1.14 1.14 0 1 1-2.29 0 1.14 1.14 0 0 1 2.29 0z"/></svg></a>
           <a href="https://www.facebook.com/RcoWealth" target="_blank" rel="noopener" aria-label="Rae &amp; Co Capital on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="https://www.tiktok.com/@rcowealth" target="_blank" rel="noopener" aria-label="Rae &amp; Co Capital on TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.6 7.3a5 5 0 0 1-3.4-1.3 5 5 0 0 1-1.6-3.1h-3.1v12.4a2.9 2.9 0 1 1-2.1-2.8V9.3a6 6 0 1 0 5.2 6V9.6a8 8 0 0 0 4.9 1.6z"/></svg></a>
           <a href="https://www.youtube.com/@rcowealth" target="_blank" rel="noopener" aria-label="Rae &amp; Co Capital on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.58 7.19a2.5 2.5 0 0 0-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42a2.5 2.5 0 0 0-1.77 1.77A26 26 0 0 0 2 12a26 26 0 0 0 .42 4.81 2.5 2.5 0 0 0 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42a2.5 2.5 0 0 0 1.77-1.77A26 26 0 0 0 22 12a26 26 0 0 0-.42-4.81zM10 15.02V8.98L15.2 12 10 15.02z"/></svg></a>
         </div>"""
 
@@ -231,7 +232,7 @@ LD = """{
   "email":"info@rcowealth.com",
   "areaServed":"US",
   "address":{"@type":"PostalAddress","addressRegion":"SC","addressCountry":"US"},
-  "sameAs":["https://www.instagram.com/rcowealth/","https://www.facebook.com/RcoWealth","https://www.youtube.com/@rcowealth"],
+  "sameAs":["https://www.instagram.com/rcowealth/","https://www.facebook.com/RcoWealth","https://www.youtube.com/@rcowealth","https://www.tiktok.com/@rcowealth"],
   "founder":{"@type":"Person","name":"Tyler Krause","jobTitle":"Founder & Private Wealth Advisor","alumniOf":"Arizona State University","knowsAbout":["Behavioral finance","Psychology of money","Financial planning","Life insurance"]}
 }"""
 
@@ -838,7 +839,7 @@ FORMCRS = legal_page("Form CRS Summary","Legal",[
  ("Relationships and services","We provide discretionary and non-discretionary investment advisory services, financial planning, and insurance consulting. Services are ongoing and tailored to goals, time horizon, and risk tolerance."),
  ("Fees, costs, conflicts and standard of conduct","Our standard annual advisory fee is 1.00% of assets under management with a $750 annual minimum, billed quarterly. Financial planning is a flat one-time fee. We may also receive commissions on insurance placed, which is a conflict of interest because it creates an incentive to recommend insurance. You should understand and ask us about this conflict."),
  ("Questions worth asking","Given my financial situation, should I choose an investment advisory service? Why or why not? How will you choose investments to recommend? What is your relevant experience, and what do your licenses mean? How might your conflicts of interest affect me, and how will you address them?"),
- ("Full document","<a href='/form-crs.pdf' target='_blank' rel='noopener'><b>Download the complete Form CRS (PDF)</b></a>, version dated May 9, 2026. Form ADV Part 2A is available on request and through the "
+ ("Full document","<a href='/form-crs.pdf' target='_blank' rel='noopener'><b>Download the complete Form CRS (PDF)</b></a>, version dated May 9, 2026. Also available: <a href='/form-adv-2a.pdf' target='_blank' rel='noopener'>Form ADV Part 2A Firm Brochure (PDF)</a> and <a href='/form-adv-2b.pdf' target='_blank' rel='noopener'>Form ADV Part 2B Brochure Supplement (PDF)</a>. All are also available through the "
   "<a href='https://adviserinfo.sec.gov/' target='_blank' rel='noopener'>Investment Adviser Public Disclosure website</a>. "
   "Free and simple tools to research firms and advisers are at "
   "<a href='https://www.investor.gov/CRS' target='_blank' rel='noopener'>Investor.gov/CRS</a>."),
@@ -1448,8 +1449,134 @@ BRIDGE = (BRIDGE.replace("{FORM_HIDDEN}", FORM_HIDDEN)
                 .replace("{FORM_CHECKS}", FORM_CHECKS)
                 .replace("{FORM_FINE}", FORM_FINE))
 
+
+# --------------------------------------------------------------- LEAD MAGNETS
+# The worksheet and checklist funnels, ported into the shell 2026-08-10 so the
+# last four old-shell pages could retire along with styles.css/site.js. Same
+# URLs, same campaigns, same gated-download flow: email-first form (no phone -
+# magnet forms convert on the shortest field set), retURL to the magnet's own
+# thank-you page where the PDF link lives.
+def magnet_form(retpage, asset, purpose, cta):
+    return f"""<form class="lform" data-rv id="magnetForm" action="https://pi-nas.tail34488a.ts.net/" method="POST"
+          data-campaign="{purpose}" data-asset="{asset}" data-form-purpose="{purpose}">
+      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
+      <input type="hidden" name="retURL" value="{ORIGIN}/{retpage}">
+      <input type="hidden" name="lead_source" value="Web">
+      <input type="hidden" name="company" value="Individual / Household">
+      <input type="hidden" name="00Nfn0000089jHR" value="Website">
+      <input type="hidden" name="00Nfn0000089jXZ" value="Insurance">
+      <input type="hidden" name="00NbV000002pcrh" value="Yes">
+      <input type="hidden" name="preferred_next_step_display" value="Lead magnet download">
+      <label class="hp2" aria-hidden="true">Website<input name="website_url" autocomplete="off" tabindex="-1" data-honeypot="true"></label>
+      <h2 class="sub">{cta}</h2>
+      <p class="lsub">Enter your name and email and the download opens on the next page. No spam, no pressure.</p>
+      <div class="fgrid">
+        <div class="fld2"><label for="mg_first">First name</label><input id="mg_first" name="first_name" autocomplete="given-name" required></div>
+        <div class="fld2"><label for="mg_last">Last name</label><input id="mg_last" name="last_name" autocomplete="family-name" required></div>
+        <div class="fld2 full"><label for="mg_email">Email</label><input id="mg_email" type="email" name="email" autocomplete="email" required></div>
+        <div class="checks2">
+          <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
+        </div>
+      </div>
+      <button class="btn btn-gold" type="submit" style="width:100%;margin-top:18px">{cta} <span class="arr">&rarr;</span></button>
+      <p class="lfine">In a hurry? Skip ahead: <a href="{B9}&amp;utm_content={asset.split(".")[0]}_skip" target="_blank" rel="noopener">See my rates &rarr;</a></p>
+      <p class="lfine">Submitting this form does not create an advisory relationship. The download is educational only and its results are estimates, not individualized advice.</p>
+    </form>"""
+
+def magnet_landing(kicker, h1, lede, chips, steps_kicker, steps_h2, steps, retpage, asset, purpose, cta):
+    chiprow = "".join(f'<span class="xlink" style="cursor:default">{c}</span>' for c in chips)
+    stepcards = "".join(f'<div class="card"><p class="tag">{t}</p><h3>{h}</h3><p>{b}</p></div>'
+                        for t, h, b in steps)
+    return f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap split c">
+    <div>
+      <p class="kicker" data-rv>{kicker}</p>
+      <h1 data-rv style="font-size:clamp(40px,5vw,66px)">{h1}</h1>
+      <p class="lede" data-rv>{lede}</p>
+      <div class="xrow" data-rv style="border-top:0;padding-top:0;margin-top:6px">{chiprow}</div>
+    </div>
+    {magnet_form(retpage, asset, purpose, cta)}
+  </div>
+</section>
+<section class="section cream">
+  <div class="wrap">
+    <p class="kicker" data-rv>{steps_kicker}</p>
+    <h2 data-rv style="max-width:24ch">{steps_h2}</h2>
+    <div class="grid g3 stagger" data-rv style="margin-top:32px">{stepcards}</div>
+    <div class="acts" data-rv style="margin-top:32px">
+      <a class="btn btn-ink" href="life-insurance-calculator.html">Run the numbers online instead <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="{B9}&amp;utm_content={asset.split(".")[0]}_bottom" target="_blank" rel="noopener">See my rates</a>
+    </div>
+  </div>
+</section>
+"""
+
+def magnet_thanks(h1, lede, pdf, label, camp):
+    return f"""
+<section class="section" style="padding-bottom:0">
+  <div class="wrap" style="max-width:820px">
+    <p class="kicker" data-rv>You&rsquo;re all set</p>
+    <h1 data-rv style="font-size:clamp(40px,5vw,64px)">{h1}</h1>
+    <p class="lede" data-rv>{lede}</p>
+    <div class="acts" data-rv>
+      <a class="btn btn-gold" href="/{pdf}" target="_blank" rel="noopener">{label} <span class="arr">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap" style="max-width:820px">
+    <h2 class="sub" data-rv style="margin-bottom:10px">When you have your number, see what coverage actually costs.</h2>
+    <p class="lede" data-rv>Real quotes from major carriers, yourself, right now. No phone call required. If you would rather have a second set of eyes first, that is here too.</p>
+    <div class="acts" data-rv>
+      <a class="btn btn-ink" href="{B9}&amp;utm_content={camp}_thankyou" target="_blank" rel="noopener">See my rates <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="life-insurance-calculator.html?utm_source=site&amp;utm_medium=magnet&amp;utm_campaign={camp}&amp;utm_content=thankyou_calculator">Run my numbers</a>
+      <a class="btn-line" href="https://scheduler.zoom.us/raecocapital/life-insurance-review?utm_source=site&amp;utm_medium=magnet&amp;utm_campaign={camp}&amp;utm_content=thankyou_schedule" target="_blank" rel="noopener">Schedule a free review</a>
+    </div>
+  </div>
+</section>
+"""
+
+WORKSHEET = magnet_landing(
+  "Free worksheet",
+  "Find your household&rsquo;s <em class=\"g\">real</em> life insurance number.",
+  "Most families guess at coverage, or take whatever work offers. This one-page worksheet walks the same four questions an adviser would ask, so the number you land on is yours. It takes about ten minutes.",
+  ["Debts and mortgage","Income replacement","The kids","What you already have"],
+  "Why a worksheet",
+  "Because &ldquo;2x salary from work&rdquo; was never your number.",
+  [("Step 1","Add up the need","Debts, income replacement years, and goals for the kids, in plain numbers you already know."),
+   ("Step 2","Subtract what you have","Savings, existing policies, and the coverage through work, counted honestly."),
+   ("Step 3","See your gap","One number. If you want a second set of eyes on it, a free 20-minute review is available. No pitch.")],
+  "thank-you-worksheet.html","life-insurance-worksheet.html","lead-magnet-life-worksheet","Send me the worksheet")
+
+CHECKLIST_MAGNET = magnet_landing(
+  "Free checklist",
+  "New house, new baby, new job. Is the family <em class=\"g\">actually protected</em>?",
+  "Every big life event quietly adds financial risk before it adds wealth. This one-page checklist covers the ten things young families should have handled before worrying about picking investments. Protection comes before portfolios.",
+  ["Coverage on both parents","Beneficiaries done right","The emergency cushion","A veteran-family section"],
+  "What&rsquo;s inside",
+  "Ten checkboxes. Five minutes to read. A real picture of where you stand.",
+  [("Protect","The people first","Both parents covered, employer coverage understood, disability income considered."),
+   ("Paperwork","Then the details","Beneficiaries, wills, guardianship, powers of attorney. The unglamorous things that matter most."),
+   ("Build","Then keep building","Emergency cushion, debt plan, retirement contributions still running, nothing forgotten at old jobs.")],
+  "thank-you-checklist.html","family-protection-checklist.html","lead-magnet-family-checklist","Send me the checklist")
+
+TY_WORKSHEET = magnet_thanks(
+  "Here&rsquo;s your <em class=\"g\">worksheet</em>.",
+  "Ten minutes, four questions, one honest number. Grab last month&rsquo;s budget and your latest statements before you start.",
+  "assets/Rae-Co-Life-Insurance-Needs-Worksheet.pdf","Download the worksheet (PDF)","life-worksheet")
+
+TY_CHECKLIST = magnet_thanks(
+  "Here&rsquo;s your <em class=\"g\">checklist</em>.",
+  "Ten boxes, five minutes. Check what is done, circle what is not, and you know exactly what to fix next.",
+  "assets/Rae-Co-Young-Family-Protection-Checklist.pdf","Download the checklist (PDF)","family-checklist")
+
 PAGES = [
  ("start-plan.html","Start Your Plan | Rae &amp; Co Capital","Confirm your details and continue to secure checkout for your flat-fee financial plan.",BRIDGE),
+ ("life-insurance-worksheet.html","Free Life Insurance Needs Worksheet | Rae &amp; Co Capital","A one-page worksheet that walks the four questions an adviser would ask, so the coverage number you land on is yours.",WORKSHEET),
+ ("family-protection-checklist.html","Free Young Family Protection Checklist | Rae &amp; Co Capital","Ten things young families should have handled before picking investments. Protection comes before portfolios.",CHECKLIST_MAGNET),
+ ("thank-you-worksheet.html","Your Worksheet Is Ready | Rae &amp; Co Capital","Download the life insurance needs worksheet.",TY_WORKSHEET),
+ ("thank-you-checklist.html","Your Checklist Is Ready | Rae &amp; Co Capital","Download the young family protection checklist.",TY_CHECKLIST),
  ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% per year of assets under management with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
  ("protection.html","Protection Planning | Rae &amp; Co Capital","Term, disability, permanent, long-term care and final expense explained plainly. Quote and apply across 40+ carriers.",PROTECTION),
@@ -1502,9 +1629,8 @@ if not STAGING:
                 "life-insurance-calculator.html":"0.8","life-insurance-quote.html":"0.8",
                 "types-of-life-insurance.html":"0.8","wealth.html":"0.8",
                 "protection.html":"0.8","planning.html":"0.8"}
-    SKIP = {"thank-you.html", "start-plan.html"}
-    EXTRA = ["life-insurance-worksheet.html", "family-protection-checklist.html"]
-    allslugs = [s for s,_,_,_ in PAGES if s not in SKIP] + EXTRA
+    SKIP = {"thank-you.html", "start-plan.html", "thank-you-worksheet.html", "thank-you-checklist.html"}
+    allslugs = [s for s,_,_,_ in PAGES if s not in SKIP]
     urls = "\n".join(
       f"  <url><loc>{ORIGIN}/{'' if s=='index.html' else s}</loc>"
       f"<priority>{PRIORITY.get(s,'0.6')}</priority></url>"
