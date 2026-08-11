@@ -90,7 +90,9 @@ def carrier_cells():
 # Wiring is byte-identical to the live forms and must stay that way: oid
 # 00Dfn00000AW6kiEAD, POST to the Pi Funnel intake (queue-first -> FSC ->
 # Telegram), retURL to the live thank-you page, honeypot named website_url.
-# NEVER submit one of these while testing - it posts to the real org.
+# NEVER submit one of these while testing - it creates a real lead in FSC
+# and pings Tyler's Telegram. The lead path is Pi funnel -> FSC -> Telegram;
+# Salesforce is NOT in it (out since 2026-08-06, the field names are legacy schema).
 FORM_HIDDEN = """      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
       <input type="hidden" name="retURL" value="https://rcowealth.com/thank-you.html">
       <input type="hidden" name="lead_source" value="Web">
@@ -113,7 +115,7 @@ def lead_form(campaign, asset, purpose, heading, blurb, interest, next_step,
     """One form, many pages. `uid` suffixes every id so two forms can share a
     page without colliding label[for] targets. `insurance` sets the same
     00NbV000002pcrh="Yes" flag the four live life-insurance forms carry, which
-    is what routes the lead correctly in Salesforce - it is easy to miss because
+    is what routes the lead correctly in FSC - it is easy to miss because
     only the insurance pages set it."""
     i = lambda n: n + uid
     flag = ('\n      <input type="hidden" name="00NbV000002pcrh" value="Yes">'
@@ -860,7 +862,7 @@ CLIENTLOGIN = legal_page("Client access","Portals",[
 # ---------------------------------------------------------------- CALCULATOR
 # Ported into the shell because it was the LAST and worst one-way door: linked
 # from every page footer, and it dropped a visitor onto the old layout with no
-# route back. Field ids, the digit-stripping parse fix and the Salesforce
+# route back. Field ids, the digit-stripping parse fix and the funnel
 # wiring are preserved exactly; only the chrome changes.
 CALCFIELDS = [
  ("income","Your annual income",True,0,400000,5000,70000,"$"),
