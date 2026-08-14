@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="../life-insurance-quote.html">
+<title>See My Rates | Rae &amp; Co Capital</title>
+<script>
+(function () {
+  // Short link: rcowealth.com/rates -> life-insurance-quote.html with tracking.
+  // ?c=<campaign> sets utm_campaign, ?s=<source> sets utm_source (default facebook).
+  // Full utm_* params pass through untouched.
+  var inParams = new URLSearchParams(window.location.search);
+  var out;
+  var hasUtm = false;
+  inParams.forEach(function (v, k) { if (k.indexOf('utm_') === 0) hasUtm = true; });
+  if (hasUtm) {
+    out = inParams;
+  } else {
+    out = new URLSearchParams();
+    out.set('utm_source', inParams.get('s') || 'facebook');
+    out.set('utm_medium', 'social');
+    out.set('utm_campaign', inParams.get('c') || 'rates_short_link');
+  }
+  window.location.replace('../life-insurance-quote.html?' + out.toString());
+})();
+</script>
+<noscript>
+<meta http-equiv="refresh" content="0; url=../life-insurance-quote.html?utm_source=facebook&amp;utm_medium=social&amp;utm_campaign=rates_short_link">
+</noscript>
+</head>
+<body>
+<p><a href="../life-insurance-quote.html">Continue to your life insurance quote.</a></p>
+</body>
+</html>
