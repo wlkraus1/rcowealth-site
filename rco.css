@@ -458,3 +458,23 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
    hung off the left edge under a full-width icon row and read lopsided. */
 .clines.two{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;max-width:none}
 @media(max-width:760px){.clines.two{grid-template-columns:1fr}}
+
+/* ---- home hero: advisor clip card (Tyler approved 2026-08-18) ----
+   The one moving element on the page: the avatar clip on a muted loop under
+   the hero CTAs, name + credential folded into its caption so the old trust
+   line loses only the duplicated "Series 65 fiduciary". Video is 528KB,
+   preload=metadata + 31KB poster, so first paint cost is the poster only. */
+.advisor-clip{position:relative;margin:22px 0 0;max-width:470px;border-radius:18px;overflow:hidden;
+  box-shadow:0 30px 70px -35px rgba(6,17,31,.55);border:1px solid var(--line)}
+.advisor-clip video{display:block;width:100%;height:auto}
+.advisor-clip .cap{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;
+  padding:12px 16px;background:linear-gradient(transparent,rgba(6,17,31,.82) 55%);color:#fff}
+.advisor-clip .cap b{font:700 14px/1.2 var(--sans)}
+.advisor-clip .cap small{display:block;font:600 11px/1.3 var(--sans);color:var(--gold-2);
+  letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+.advisor-clip .live{width:9px;height:9px;border-radius:50%;background:var(--gold);flex:none;
+  box-shadow:0 0 0 0 rgba(200,161,90,.7);animation:clip-pulse 2.4s infinite}
+@keyframes clip-pulse{0%{box-shadow:0 0 0 0 rgba(200,161,90,.55)}70%{box-shadow:0 0 0 9px rgba(200,161,90,0)}100%{box-shadow:0 0 0 0 rgba(200,161,90,0)}}
+@media(prefers-reduced-motion:reduce){
+  .advisor-clip .live{animation:none}
+}

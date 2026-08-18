@@ -339,7 +339,16 @@ HOME = """
         <a class="btn btn-ink" data-magnetic href="#paths">Start it yourself <span class="arr">&rarr;</span></a>
         <a class="btn-line" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Or book a call</a>
       </div>
-      <p style="margin:28px 0 0;font:600 13px/1.6 var(--sans);color:var(--muted)"><b style="color:var(--ink)">Series 65 fiduciary</b> &middot; Assets custodied at Charles Schwab &middot; 40+ insurance carriers</p>
+      <div class="advisor-clip">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/media/tyler-hero.jpg" aria-label="Tyler Krause working at his desk">
+          <source src="assets/media/tyler-hero.mp4" type="video/mp4">
+        </video>
+        <div class="cap">
+          <span class="live" aria-hidden="true"></span>
+          <div><b>Tyler Krause</b><small>Series 65 fiduciary &middot; USMC veteran &middot; answers the phone</small></div>
+        </div>
+      </div>
+      <p style="margin:18px 0 0;font:600 13px/1.6 var(--sans);color:var(--muted)">Assets custodied at Charles Schwab &middot; 40+ insurance carriers</p>
     </div>
     <div class="tool" data-rv>
       <p class="tag" style="font:800 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px">60-second answer</p>
