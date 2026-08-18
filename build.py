@@ -384,7 +384,7 @@ HOME = """
       </a>
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="wealth.html">
         <p class="tag">Wealth</p><h3>Grow and draw it down</h3>
-        <p>Portfolios at Schwab, retirement income, 1% per year of assets under management with a $750 annual minimum.</p>
+        <p>Portfolios at Schwab, retirement income, 1% per year of assets under management with a $750 annual minimum. Planning is included.</p>
         <span class="btn-line" style="margin-top:18px">See wealth management &rarr;</span>
       </a>
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="planning.html">
@@ -516,7 +516,7 @@ WEALTH = """
   <div class="wrap center">
     <p class="kicker center" data-rv>The management fee</p>
     <h2 data-rv>1% per year, only on what <em class="g" style="color:var(--gold-2)">we manage</em>.</h2>
-    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">$750 annual minimum, billed quarterly in arrears under a signed advisory agreement. It applies only to accounts we manage, and nothing else. Flat-fee planning and insurance are priced separately on their own pages. No commission on investments, no product quotas, no sales desk above me.</p>
+    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">$750 annual minimum, billed quarterly in arrears under a signed advisory agreement. It applies only to accounts we manage, and nothing else. Planning is part of the job, not a second bill: management clients never pay the flat planning fees. Insurance is priced separately on its own page. No commission on investments, no product quotas, no sales desk above me.</p>
     <div class="grid g3 stagger" data-rv style="margin-top:36px;text-align:left">
       <div class="card"><p class="tag">Custody</p><h3 style="font-size:22px">Charles Schwab</h3><p>Your money sits with Schwab in your name. I never hold it, and you can see it any time.</p></div>
       <div class="card"><p class="tag">Standard</p><h3 style="font-size:22px">Series 65 fiduciary</h3><p>Held to a fiduciary standard on advisory work. Insurance commissions are a separate, disclosed conflict.</p></div>
@@ -655,6 +655,7 @@ PLANNING = """
     <p class="kicker center" data-rv>Financial planning</p>
     <h1 data-rv>Flat fee. Published. <em class="g">Buy it now.</em></h1>
     <p class="lede" data-rv style="margin-left:auto;margin-right:auto">No hourly, no retainer, and no discovery call before you are allowed to see a price. Here is exactly what lands in your hands for each one.</p>
+    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">One thing before you buy. If I manage your investments, planning is already included in the 1%. These flat fees are for people who want the plan and will run it themselves.</p>
   </div>
 </section>
 
@@ -664,7 +665,7 @@ PLANNING = """
       """ + "\n      ".join(tier_html(t) for t in TIERS) + """
     </div>
     <p class="tnote" data-rv>Paying starts the engagement. The written planning agreement follows by email the same day for signature, and the discovery meeting is part of the work rather than a sales call you have to pass first.</p>
-    <p style="margin:22px auto 0;max-width:80ch;text-align:center;font:400 12px/1.65 var(--sans);color:var(--muted)" data-rv>Every tier is a one-time engagement completed within six months; it is not a subscription. The flat fee is agreed in writing before any work begins. If we stop early, any unearned prepaid portion is returned. Insurance is optional and never required through the firm. Planning is analysis and education; there are no performance promises, and investing involves risk including loss of principal. <b>What is not included, in any tier:</b> tax preparation, legal documents, trade execution, and ongoing investment management. Management is a separate engagement at 1% per year of assets under management, and I will tell you plainly if you do not need it.</p>
+    <p style="margin:22px auto 0;max-width:80ch;text-align:center;font:400 12px/1.65 var(--sans);color:var(--muted)" data-rv>Every tier is a one-time engagement completed within six months; it is not a subscription. The flat fee is agreed in writing before any work begins. If we stop early, any unearned prepaid portion is returned. Insurance is optional and never required through the firm. Planning is analysis and education; there are no performance promises, and investing involves risk including loss of principal. <b>What is not included, in any tier:</b> tax preparation, legal documents, trade execution, and ongoing investment management. Management is a separate engagement at 1% per year of assets under management, and it includes planning, so these flat fees apply only when planning is bought on its own. I will tell you plainly if you do not need management.</p>
   </div>
 </section>
 
