@@ -251,11 +251,14 @@ def shell(slug, title, desc, body, canvas=False):
                       f'<meta property="og:title" content="{title}">\n'
                       f'<meta property="og:description" content="{desc}">\n'
                       f'<meta property="og:url" content="{url}">\n'
-                      f'<meta property="og:image" content="{ORIGIN}/assets/rae-co-logo-header.png">\n'
+                      f'<meta property="og:image" content="{ORIGIN}/assets/og-card.png">\n'
+                      f'<meta property="og:image:width" content="1200">\n'
+                      f'<meta property="og:image:height" content="630">\n'
+                      f'<meta name="twitter:image" content="{ORIGIN}/assets/og-card.png">\n'
                       f'<meta name="twitter:card" content="summary_large_image">\n'
                       f'<meta name="twitter:title" content="{title}">\n'
                       f'<meta name="twitter:description" content="{desc}">')
-    ld = f'\n<script type="application/ld+json">{LD}</script>' if slug == "index.html" else ""
+    ld = f'\n<script type="application/ld+json">{LD}</script>'  # org schema on every page for entity SEO
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -265,6 +268,7 @@ def shell(slug, title, desc, body, canvas=False):
 <meta name="description" content="{desc}">
 {index_meta}
 <meta name="google-site-verification" content="VYQlcefljOic4ThdXdbPbbdZ1O5wRNZ5QuVxPpeNEB4">
+{'<meta name="robots" content="noindex">' if slug == "start-plan.html" else ''}
 <meta name="theme-color" content="#06111f">
 <link rel="icon" href="/favicon.ico?v=goldleaf-20260521-1647">
 <link rel="stylesheet" href="rco.css?v={asset_v('rco.css')}">
