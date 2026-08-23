@@ -132,7 +132,7 @@ em.g{font-style:italic;color:var(--gold-ink)}
 
 /* ---- footer ---- */
 .ft{background:var(--navy);color:rgba(246,239,224,.72);padding:56px 0 30px}
-.ft .cols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:30px}
+.ft .cols{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:26px}
 @media(max-width:900px){.ft .cols{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.ft .cols{grid-template-columns:1fr}}
 .ft img{width:170px;margin-bottom:14px}
@@ -478,3 +478,28 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 @media(prefers-reduced-motion:reduce){
   .advisor-clip .live{animation:none}
 }
+
+/* ---- long-form + FAQ (SEO depth pass, 2026-08) ---- */
+.prose{max-width:74ch}
+.prose p{font:400 16.5px/1.7 var(--sans);color:var(--ink);margin:0 0 18px}
+.prose p:last-child{margin-bottom:0}
+.prose h3{margin-top:26px}
+.prose a,.faq .faq-a a{color:var(--gold-ink);font-weight:600;text-decoration:none;box-shadow:inset 0 -1.5px 0 var(--gold)}
+.prose a:hover,.faq .faq-a a:hover{color:var(--ink)}
+.local{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+@media(max-width:940px){.local{grid-template-columns:1fr}}
+.faq{max-width:78ch;margin-top:22px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:18px;align-items:center;
+  padding:18px 0;font:600 17px/1.4 var(--sans);color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:28px;height:28px;border:1.5px solid var(--gold);border-radius:50%;
+  display:grid;place-items:center;font:400 18px/1 var(--sans);color:var(--gold-ink);transition:transform .2s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .faq-a{padding:0 0 20px;max-width:70ch}
+.faq .faq-a p{font:400 15.5px/1.65 var(--sans);color:var(--muted);margin:0 0 10px}
+.faq .faq-a p:last-child{margin-bottom:0}
+.section.dark .faq{border-top-color:var(--line-dark)}
+.section.dark .faq details{border-bottom-color:var(--line-dark)}
+.section.dark .faq summary{color:#fff}
+.section.dark .faq .faq-a p{color:rgba(244,239,228,.76)}

@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "rcowealth", "runtimeExecutable": "python3", "runtimeArgs": ["-m", "http.server", "4335"], "port": 4335 }
+  ]
+}

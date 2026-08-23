@@ -230,13 +230,25 @@ LD = """{
   "url":"https://rcowealth.com",
   "telephone":"+1-864-558-8440",
   "email":"info@rcowealth.com",
-  "areaServed":"US",
-  "address":{"@type":"PostalAddress","addressRegion":"SC","addressCountry":"US"},
+  "areaServed":[
+    {"@type":"City","name":"Greenville","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Spartanburg","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Anderson","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Simpsonville","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Mauldin","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Greer","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Taylors","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Easley","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Travelers Rest","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"City","name":"Fountain Inn","containedInPlace":{"@type":"State","name":"South Carolina"}},
+    {"@type":"State","name":"South Carolina"},
+    "US"],
+  "address":{"@type":"PostalAddress","addressLocality":"Greenville","addressRegion":"SC","addressCountry":"US"},
   "sameAs":["https://www.instagram.com/rcowealth/","https://www.facebook.com/RcoWealth","https://www.youtube.com/@rcowealth","https://www.tiktok.com/@rcowealth"],
   "founder":{"@type":"Person","name":"Tyler Krause","jobTitle":"Founder & Private Wealth Advisor","alumniOf":"Arizona State University","knowsAbout":["Behavioral finance","Psychology of money","Financial planning","Life insurance"]}
 }"""
 
-def shell(slug, title, desc, body, canvas=False):
+def shell(slug, title, desc, body, canvas=False, extra_ld=""):
     nav = "\n".join(
         f'      <a href="{h}"{" aria-current=\"page\"" if h==slug else ""}>{t}</a>'
         for h,t in NAV)
@@ -259,6 +271,7 @@ def shell(slug, title, desc, body, canvas=False):
                       f'<meta name="twitter:title" content="{title}">\n'
                       f'<meta name="twitter:description" content="{desc}">')
     ld = f'\n<script type="application/ld+json">{LD}</script>'  # org schema on every page for entity SEO
+    ld += extra_ld  # page-level FAQPage / Service / Breadcrumb blocks, see page_ld()
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -312,6 +325,13 @@ def shell(slug, title, desc, body, canvas=False):
         <a href="protection.html">Protection</a>
         <a href="contact.html">Contact</a>
       </nav>
+      <nav aria-label="Greenville"><p class="ftlabel">Greenville, SC</p>
+        <a href="financial-advisor-greenville-sc.html">Financial advisor</a>
+        <a href="life-insurance-greenville-sc.html">Life insurance</a>
+        <a href="retirement-planning-greenville-sc.html">Retirement planning</a>
+        <a href="investment-management-greenville-sc.html">Investment management</a>
+        <a href="services.html">All services</a>
+      </nav>
       <nav aria-label="Legal"><p class="ftlabel">Legal</p>
         <a href="disclosures.html">Disclosures</a>
         <a href="form-crs.html">Form CRS</a>
@@ -329,6 +349,228 @@ def shell(slug, title, desc, body, canvas=False):
 </body>
 </html>
 """
+
+# ------------------------------------------------------------ FAQ + LOCAL DEPTH
+# SEO depth pass, 2026-08-23. Two facts drove it: (1) the four Greenville pages
+# were one template with the nouns swapped (488/488/490/524 words), which is the
+# doorway-page fingerprint Google demotes; (2) the FAQPage schema that shipped
+# 2026-08-10 did not survive the rebuild. FAQ copy lives once, in FAQS, and is
+# rendered twice: visible <details> on the page (Google requires the answers to
+# be on-page) and a FAQPage JSON-LD block in <head>. Every answer here is
+# educational and carries no performance, guarantee, or fee-only language.
+import json as _json, html as _html
+
+def _plain(s):
+    """HTML answer -> plain text for JSON-LD."""
+    return _html.unescape(re.sub(r"<[^>]+>", "", s)).strip()
+
+FAQS = {
+ "life-insurance-greenville-sc.html": [
+  ("How much does term life insurance cost in Greenville, SC?",
+   "It depends on age, health, tobacco use, the amount, the term length and which carrier writes it. "
+   "In August 2026 a healthy 35-year-old non-smoker running a $500,000, 20-year term quote through our tool saw starting rates around $25 a month. "
+   "Your number will differ, and a quote is an estimate rather than an offer. <a href=\"life-insurance-quote.html\">Run your own quote</a> and you will see the actual range for your situation in about two minutes."),
+  ("Is the life insurance I get through work enough?",
+   "Usually not on its own. Group plans at most Upstate employers pay one or two times salary, sometimes with a cap, and the coverage ends when you leave the job. "
+   "Add up the mortgage, the years of income your family would need, and anything you want set aside for the kids, then compare that to the group number. The <a href=\"life-insurance-calculator.html\">coverage calculator</a> does the arithmetic without asking for your name."),
+  ("Can I get a life insurance quote without a phone call?",
+   "Yes. The quote tool shows real carrier pricing and lets you apply online in the same sitting. Nobody calls you to unlock a number. If you want a second set of eyes before you buy, I do that too, and I will tell you if you already have enough."),
+  ("Do I need a medical exam?",
+   "Often not. Many carriers now use accelerated underwriting for healthy applicants under a certain age and amount, which means health questions and a records check instead of a paramedical exam. "
+   "Larger amounts, older ages or certain health histories still get an exam. The quoter shows which path each carrier offers before you apply."),
+  ("What is the difference between term and whole life?",
+   "Term covers you for a set number of years at a fixed price and then ends. It is the cheapest way to buy a large death benefit while the mortgage and the kids are still there. "
+   "Whole life is permanent, builds cash value, and costs many times more for the same death benefit. For most Greenville families with a mortgage and children, term comes first. The <a href=\"types-of-life-insurance.html\">types page</a> walks the whole menu, including when permanent coverage makes sense."),
+  ("Do you only sell one company's policies?",
+   "No. Coverage is shopped across 40+ carriers through one application, and you see the same pricing I see. Rae &amp; Co Capital is paid a commission by the carrier when a policy is placed. That is a conflict of interest, it is disclosed, and it is the reason the advice here starts with whether you need coverage at all."),
+  ("What happens to my SGLI when I leave the military?",
+   "SGLI coverage continues for 120 days after separation, then ends. You can convert to VGLI, or you can buy a private term policy, and for healthy people in their 20s and 30s private term is often the cheaper route for the same amount. "
+   "Compare both before the 120 days are up. I am a Marine Corps veteran and this is a conversation I have often."),
+ ],
+ "financial-advisor-greenville-sc.html": [
+  ("Do I need a financial advisor if I just have a 401(k) and a mortgage?",
+   "Maybe not an ongoing one. A lot of households in that spot need one clear plan, not a relationship. That is what the $750 Foundations plan is for: cash flow, the debt-versus-invest question, a retirement savings roadmap, and a one-page action list. "
+   "If you do not need me yet, I will say so on the first call."),
+  ("What does a financial advisor cost in Greenville?",
+   "It depends on how they are paid, and many will not tell you until after a meeting. Here the prices are published. Flat-fee planning is $750, $2,000 or $3,000 one time. Investment management is 1% per year of the assets I manage, with planning included. "
+   "When insurance is placed through the firm, a carrier commission is paid and disclosed."),
+  ("Are you a fiduciary?",
+   "For advice, yes. I hold the Series 65 and act as an investment adviser representative, which carries a fiduciary duty to you. I am also licensed for life, accident and health insurance in South Carolina, and when a policy is placed I am paid by commission. "
+   "I tell you which role I am in and how I am paid every time, and it is all in the Form CRS and disclosures."),
+  ("Is everything virtual?",
+   "Yes, by design. Meetings are by Zoom or phone, documents are shared securely, and you keep everything in writing. I am based in Greenville, and that lets me work with households across the Upstate and the rest of South Carolina without anyone driving anywhere."),
+  ("What is the difference between a financial planner and a financial advisor?",
+   "Legally, not much. Both titles are used loosely. What matters is how the person is registered and paid. An investment adviser representative owes you a fiduciary duty. A broker is held to a best-interest standard on recommendations. An insurance agent is paid by the carrier. "
+   "Ask anyone you are considering which of those they are, and what the fee is, before the second meeting."),
+  ("What should I bring to a first call?",
+   "Your rough numbers are enough: income, what you owe, what you have saved, what insurance you carry through work, and the one or two decisions you are stuck on. No statements are needed for the first conversation. "
+   "Please leave account numbers and Social Security numbers out of any form you send."),
+  ("Do you work with people outside Greenville?",
+   "Yes. Most clients are in the Upstate, including Spartanburg, Anderson, Easley, Greer, Simpsonville and Mauldin, and the firm works with households across South Carolina. If you live in another state, ask, and I will tell you whether I can help there."),
+ ],
+ "retirement-planning-greenville-sc.html": [
+  ("Does South Carolina tax retirement income?",
+   "South Carolina does not tax Social Security benefits and fully exempts military retirement pay from state income tax. Pension, 401(k) and IRA withdrawals are taxable, with a retirement income deduction and a further deduction once you reach 65. "
+   "This is general information, not tax advice. Your tax preparer can tell you what applies to your return."),
+  ("When should I take Social Security?",
+   "There is no single right answer. Claiming at 62 gives a smaller check for longer. Waiting past full retirement age grows the check each year until 70. Health, whether you are still working, a spouse's record and what else you can draw on all change the answer. "
+   "The retirement income plan works this out with your numbers rather than a rule of thumb."),
+  ("How much do I need to retire in Greenville?",
+   "Start with what you actually spend in a year, not a national average. A common starting point is yearly spending times 25, then stress-test it against your pension, Social Security and how the first few years of withdrawals would go in a bad market. "
+   "The <a href=\"wealth.html#tool\">retirement income check</a> on the wealth page gives you a first read in about a minute."),
+  ("Should I roll my 401(k) into an IRA when I leave my employer?",
+   "Not automatically. You generally have four options: leave it, move it to a new employer's plan, roll it to an IRA, or cash out. Each has different costs, investment choices, creditor protection and tax consequences. "
+   "Rolling it to an account I manage pays me 1% a year, so that is a conflict of interest. I will show you the leave-it-where-it-is math before anything moves."),
+  ("What does retirement planning cost?",
+   "On its own, it is a flat fee: $750, $2,000 or $3,000 one time, depending on scope, agreed in writing before work begins. If I manage your investments, planning is already included in the 1% and there is no second fee."),
+  ("Do you sell annuities?",
+   "Fixed and indexed annuities are placed when they fit a retirement income plan, and never as a requirement. When one is placed, the carrier pays a commission, which is disclosed. If a simpler answer works, that is the one you will get."),
+ ],
+ "investment-management-greenville-sc.html": [
+  ("What does investment management cost?",
+   "1% per year of the assets I manage, billed quarterly, with a $750 annual minimum, and financial planning is included. Fund expense ratios and any custodian charges are separate and shown to you. "
+   "There are no commissions on managed accounts and no trading fee from me."),
+  ("Where is my money held?",
+   "At Charles Schwab, in an account in your name. I never take custody. You can log in to Schwab Alliance and see every holding and transaction at any time, and Schwab sends its own statements."),
+  ("Is there a minimum?",
+   "There is no hard minimum, but the $750 annual minimum fee means that below roughly $75,000 the fee is more than 1%. On a smaller balance I will tell you to buy a flat-fee plan and invest it yourself. "
+   "That is a worse deal for me and the right one for you."),
+  ("Do you pick stocks or try to beat the market?",
+   "No. Portfolios are built from low-cost, diversified funds, set by the plan rather than by headlines, and rebalanced on a schedule. Investing involves risk, including loss of principal, and nobody can promise a return. "
+   "The work I am paid for is the allocation, the tax placement, the withdrawal order, and keeping you from selling at the bottom."),
+  ("Can you manage my 401(k) where it is?",
+   "Generally no. Workplace plans stay with the plan's record keeper. I can review the fund lineup and recommend an allocation as part of planning. Old 401(k)s, IRAs, Roth IRAs and taxable accounts can be managed directly at Schwab."),
+  ("How often will we talk?",
+   "A scheduled review at least once a year, and more often when something changes: a job, a house, a child, an inheritance, a retirement date. Between reviews you call or text and I answer. The firm is deliberately small so that stays true."),
+ ],
+ "life-insurance-quote.html": [
+  ("How much does life insurance cost in South Carolina?",
+   "Cost depends on your age, health, coverage amount, term length, and the carrier's underwriting. Healthy applicants in their 30s often find term coverage costs less than a monthly streaming bundle. "
+   "You can compare real quotes from major carriers yourself in about two minutes using the quoting tool on this page, with no phone call required."),
+  ("Can I get a life insurance quote without talking to an agent?",
+   "Yes. The quote tool on this page lets you run your own quotes across major carriers and start an application on your own. Rae &amp; Co Capital is available if you want a second set of eyes, but no call is required to see rates."),
+  ("How much life insurance do I need?",
+   "A common approach adds up debts including the mortgage, the income your family would need replaced for a set number of years, and goals for the children, then subtracts existing savings and coverage. "
+   "The free <a href=\"life-insurance-calculator.html\">needs calculator</a> walks through this with no contact information required."),
+  ("Is employer life insurance enough?",
+   "Most group plans through work provide one to two times salary and typically end when the job ends. Many families find that amount falls short of replacing income, clearing a mortgage, and covering children's needs, which is why individual coverage is often reviewed alongside it."),
+  ("What happens after I apply online?",
+   "The carrier underwrites the application. For many healthy applicants that is a records check and no exam; others are asked for a short paramedical exam. Approval can take anywhere from a day to a few weeks depending on the carrier and your history. "
+   "Nothing is in force until the carrier issues the policy and the first premium is paid."),
+  ("Can I cancel if I change my mind?",
+   "Yes. South Carolina law gives you at least 10 days from the date a life insurance policy is delivered to return it for a full refund of premium, and 30 days for a policy sold by mail. After that, term coverage can be cancelled at any time by stopping premium payments; there is no surrender charge on term."),
+ ],
+ "life-insurance-calculator.html": [
+  ("How accurate is this life insurance calculator?",
+   "It is an estimate built only from the numbers you enter. It does not know about a spouse's income, Social Security survivor benefits, savings, or taxes, so treat the result as a starting point for a conversation rather than a final number."),
+  ("What number should I use for income replacement years?",
+   "A common approach is the years until your youngest child is independent, or until the mortgage is paid off, whichever is longer. Some families plan to a spouse's retirement date instead. Pick the one that matches what you would want to happen."),
+  ("Should I include my coverage through work?",
+   "Yes, in the existing coverage field, but use the real number from your benefits summary. It is usually one or two times salary, and it ends when the job does, so many people choose not to count all of it."),
+ ],
+ "types-of-life-insurance.html": [
+  ("Which type of life insurance is best for a young family?",
+   "For most young families with a mortgage and children, level term is the right first policy. It buys the largest death benefit for the least money during the years the family is most exposed. Permanent coverage can make sense later, for specific reasons, after term is in place."),
+  ("Is whole life a good investment?",
+   "It is insurance first. Cash value grows slowly, early-year costs are high, and surrendering in the first several years usually returns less than was paid. It can fit estate, special-needs or business situations, or someone who wants a guaranteed death benefit for life. "
+   "For investing, most people are better served by low-cost funds in a retirement account, and I will say that plainly when it is true."),
+  ("How long a term should I buy?",
+   "Match it to the obligation. If the youngest child is 3 and the mortgage has 27 years left, a 20- or 30-year term covers the window that matters. Shorter terms cost less per month but leave you re-qualifying later at an older age."),
+  ("What is indexed universal life and should I buy it?",
+   "IUL is permanent coverage whose cash value is credited based on an index, with caps and floors set by the carrier, and it carries internal costs that rise with age. It is sold hard, and I do not lead with it. "
+   "Read the IUL section above, and if someone is pitching it to you as a retirement plan, get a second read first."),
+  ("Can I have more than one life insurance policy?",
+   "Yes. It is common to stack a term policy on top of group coverage, or to ladder two term policies with different lengths so coverage steps down as obligations shrink. Carriers will ask about existing coverage during underwriting and total coverage has to be justifiable by income and obligations."),
+ ],
+ "wealth.html": [
+  ("What is included in the 1% management fee?",
+   "Portfolio management, rebalancing, tax-aware account placement, withdrawal sequencing in retirement, and full financial planning. One fee per household, billed quarterly on the assets I manage, with a $750 annual minimum. Fund expenses and custodian charges are separate and disclosed."),
+  ("Where are client assets held?",
+   "At Charles Schwab, in accounts titled in your name. The firm never takes custody of client money. You can log in to Schwab at any time and see everything."),
+  ("What does the retirement income check actually tell me?",
+   "Whether the savings, the monthly contribution and the growth rate you assume add up to the income you want at the age you pick. The growth rate is yours to set because nobody can promise one, and moving it shows how much the answer depends on that one assumption."),
+  ("When would you tell someone not to hire you for management?",
+   "When the balance is small enough that the $750 minimum makes the fee a poor deal, when someone already runs a disciplined low-cost portfolio and just needs a plan, or when what they really want is a trader. In each case a flat-fee plan is the better buy and I will say so."),
+ ],
+ "planning.html": [
+  ("Which plan should I pick?",
+   "Most households land on Household at $2,000. If you have one or two specific questions, Foundations at $750 is enough. If you want help actually opening accounts and making the changes, Household + Implementation at $3,000 adds guided execution. "
+   "If you are unsure, text me which one and I will tell you the cheaper answer when it is the right one."),
+  ("Is planning included if you manage my investments?",
+   "Yes. If I manage your assets, planning is already part of the 1% and you do not buy a flat-fee plan on top. These prices are for people who want the plan and will run it themselves."),
+  ("What is not included in a flat-fee plan?",
+   "Tax preparation, legal documents, trade execution, and ongoing investment management. Insurance is never required, and when it is placed through the firm a carrier commission is paid and disclosed."),
+  ("What if we stop early?",
+   "Every plan is a one-time engagement completed within six months. The fee is agreed in writing before any work begins, and if we stop early the unearned prepaid portion is returned."),
+ ],
+}
+
+def faq_block(slug, kicker="Questions people ask", h2="Straight answers, before the call.", lede="", dark=False):
+    items = FAQS[slug]
+    rows = "".join(
+        f'\n      <details><summary>{q}</summary><div class="faq-a"><p>{a}</p></div></details>'
+        for q, a in items)
+    lede_html = f'\n    <p class="lede" data-rv style="max-width:74ch">{lede}</p>' if lede else ""
+    return f"""
+<section class="section{' dark' if dark else ' cream'}" id="faq">
+  <div class="wrap">
+    <p class="kicker" data-rv>{kicker}</p>
+    <h2 class="sub" data-rv>{h2}</h2>{lede_html}
+    <div class="faq" data-rv>{rows}
+    </div>
+  </div>
+</section>"""
+
+def faq_ld(slug):
+    return _json.dumps({
+        "@context": "https://schema.org", "@type": "FAQPage",
+        "mainEntity": [{"@type": "Question", "name": _plain(q),
+                        "acceptedAnswer": {"@type": "Answer", "text": _plain(a)}}
+                       for q, a in FAQS[slug]]}, ensure_ascii=False, separators=(",", ":"))
+
+CALC_LD = _json.dumps({
+  "@context":"https://schema.org","@type":"WebApplication",
+  "name":"Life Insurance Needs Calculator","applicationCategory":"FinanceApplication",
+  "operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "url":"https://rcowealth.com/life-insurance-calculator.html",
+  "description":"Free calculator that estimates how much life insurance coverage a household needs, with no contact information required.",
+  "provider":{"@type":"FinancialService","name":"Rae & Co Capital, LLC","telephone":"+1-864-558-8440",
+              "areaServed":{"@type":"State","name":"South Carolina"},"url":"https://rcowealth.com"}},
+  separators=(",", ":"))
+
+# Per-page Service + BreadcrumbList for the four Greenville pages. serviceType
+# is the query the page targets; areaServed is the real service footprint.
+GEO_SERVICE = {
+ "financial-advisor-greenville-sc.html": ("Financial planning", "Financial planning"),
+ "investment-management-greenville-sc.html": ("Investment management", "Investment management"),
+ "retirement-planning-greenville-sc.html": ("Retirement income planning", "Retirement planning"),
+ "life-insurance-greenville-sc.html": ("Life insurance planning", "Life insurance"),
+}
+def geo_ld(slug):
+    stype, crumb = GEO_SERVICE[slug]
+    svc = {"@context":"https://schema.org","@type":"Service","serviceType":stype,
+           "name":f"{stype} in Greenville, SC",
+           "url":f"{ORIGIN}/{slug}",
+           "provider":{"@type":"FinancialService","name":"Rae & Co Capital, LLC","url":ORIGIN,
+                       "telephone":"+1-864-558-8440"},
+           "areaServed":[{"@type":"City","name":"Greenville"},{"@type":"City","name":"Spartanburg"},
+                         {"@type":"City","name":"Anderson"},{"@type":"State","name":"South Carolina"}],
+           "availableChannel":{"@type":"ServiceChannel","serviceUrl":f"{ORIGIN}/{slug}",
+                               "servicePhone":"+1-864-558-8440","availableLanguage":"en"}}
+    bc = {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+           {"@type":"ListItem","position":1,"name":"Home","item":ORIGIN+"/"},
+           {"@type":"ListItem","position":2,"name":"Services","item":ORIGIN+"/services.html"},
+           {"@type":"ListItem","position":3,"name":f"{crumb} in Greenville, SC","item":f"{ORIGIN}/{slug}"}]}
+    return (_json.dumps(svc, separators=(",", ":")), _json.dumps(bc, separators=(",", ":")))
+
+def page_ld(slug):
+    """Everything that goes in <head> after the org block, as script tags."""
+    blocks = []
+    if slug in FAQS: blocks.append(faq_ld(slug))
+    if slug in GEO_SERVICE: blocks.extend(geo_ld(slug))
+    if slug == "life-insurance-calculator.html": blocks.append(CALC_LD)
+    return "".join(f'\n<script type="application/ld+json">{b}</script>' for b in blocks)
+
 
 # ---------------------------------------------------------------- HOME
 HOME = """
@@ -683,7 +925,7 @@ PLANNING = """
     </div>
   </div>
 </section>
-"""
+""" + faq_block("planning.html", "Before you buy", "Four questions, answered before checkout.")
 
 # ---------------------------------------------------------------- ADVISOR
 ADVISOR = """
@@ -949,7 +1191,7 @@ CALCULATOR = """
     </aside>
   </div>
 </section>
-"""
+""" + faq_block("life-insurance-calculator.html", "Using the calculator", "Three things people ask about the number.")
 
 # ------------------------------------------------- TYPES OF LIFE INSURANCE
 # The single strongest content asset on the property at 1,342 words, and the
@@ -1040,6 +1282,7 @@ def types_page():
   </div>
 </section>
 {"".join(blocks)}
+{faq_block("types-of-life-insurance.html", "Choosing between them", "The questions that come up most.")}
 <section class="section dark">
   <div class="wrap">
     <p class="kicker" data-rv>No small print</p>
@@ -1116,6 +1359,7 @@ QUOTE = f"""
     <p class="lede" data-rv style="margin-top:26px;max-width:78ch;font-size:13px">Quoting and applications are processed through BackNine Insurance. Pricing shown is an estimate and is not a binding offer. All coverage is subject to underwriting and carrier approval, and final rates may differ from quoted rates. Rae &amp; Co Capital may receive a commission on insurance products, a conflict of interest that is disclosed. Rae &amp; Co Capital is licensed for life insurance in South Carolina; availability elsewhere depends on licensing and carrier approval.</p>
   </div>
 </section>
+{faq_block("life-insurance-quote.html", "Before you open it", "What people ask before they quote.")}
 {form_section("Rather not self-serve", "Want the number checked before you buy?",
   "Send what you already have and what you are trying to protect. I will tell you whether the coverage fits, including when the answer is that you do not need more.",
   lead_form("life-insurance-quote","life-insurance-quote.html","life-insurance-planning",
@@ -1264,82 +1508,242 @@ REVIEW = f"""
 # property built to rank for "greenville sc", and the rebuild had deleted all
 # four. Titles now actually carry the geo term, which the live versions did not
 # ("Financial Planning | Rae & Co Capital" cannot rank for a Greenville query).
-GEO = [
- ("financial-advisor-greenville-sc.html",
-  "Financial Advisor in Greenville, SC | Rae &amp; Co Capital",
-  "Virtual financial planning from a Greenville, South Carolina fiduciary. Cash flow, investments, protection, retirement and tax decisions organized into one sequence.",
-  "Financial planning", "Financial planning is the <em class=\"g\">decision system</em>.",
-  "Most people do not have an information problem. They have a sequencing problem. Planning is where the pieces get put in an order that actually works.",
-  ["Cash flow, savings, and debt decisions","Investment and retirement account structure",
-   "Insurance and protection gaps","Business-owner or family obligations",
-   "Estate, beneficiary, tax, and liquidity coordination points"],
-  ["A clean decision map","A practical action sequence, ranked","Ongoing review as life changes"],
-  "planning.html","See flat-fee planning",
-  "financial-advisor-greenville-sc","Not sure","Focused intro call",
-  "wealth.html#tool","Check your retirement number"),
-
- ("investment-management-greenville-sc.html",
-  "Investment Management in Greenville, SC | Rae &amp; Co Capital",
-  "Investment management for Greenville, South Carolina, connected to planning, liquidity, retirement income and protection. Assets custodied at Charles Schwab.",
-  "Investment management", "Investment management that <em class=\"g\">answers to the plan</em>.",
-  "Anyone can buy index funds. The work is sequencing withdrawals, keeping taxes from eating the gains, and not selling at the bottom because a headline scared you.",
-  ["Current allocation and account structure","Risk exposure and concentration",
-   "Liquidity needs and time horizon","Tax-sensitive investment decisions",
-   "Rebalancing and ongoing review cadence"],
-  ["A clearer investment policy","An implementation plan",
-   "A review rhythm tied to life changes, not market noise"],
-  "wealth.html","See how management works",
-  "investment-management-greenville-sc","Investments","Portfolio or retirement review",
-  "wealth.html#tool","Check your retirement number"),
-
- ("retirement-planning-greenville-sc.html",
-  "Retirement Planning in Greenville, SC | Rae &amp; Co Capital",
-  "Retirement income planning for Greenville, South Carolina. Withdrawal sequencing, Social Security timing, reserves and survivor income, decided before the paycheck stops.",
-  "Retirement planning", "Retirement income before <em class=\"g\">retirement pressure</em>.",
-  "The switch from saving to spending is where small mistakes get expensive, and most of them are locked in before anyone notices.",
-  ["Income sources and expected spending","Withdrawal sequencing and reserve strategy",
-   "Portfolio risk during the retirement transition","Survivor needs and legacy considerations",
-   "Flexibility for health, family, and market changes"],
-  ["A retirement income map","A liquidity and reserve framework",
-   "A decision list before the paycheck changes"],
-  "wealth.html","See retirement income work",
-  "retirement-planning-greenville-sc","Investments","Portfolio or retirement review",
-  "wealth.html#tool","Check your retirement number"),
-
- ("life-insurance-greenville-sc.html",
-  "Life Insurance in Greenville, SC | Rae &amp; Co Capital",
-  "Life insurance in Greenville, South Carolina, shopped across 40+ carriers on one application. Price it and apply online, or have the coverage checked against the plan first.",
-  "Protection planning", "Life insurance placed with <em class=\"g\">real carriers</em>, tied to the plan.",
-  "Coverage is the part that cannot wait for a good year. Price it yourself in a few minutes, or have what you already own checked before you buy anything else.",
-  ["Existing policies and employer coverage","New term and permanent coverage needs",
-   "Income replacement and debt exposure","Dependents, education, and family obligations",
-   "Business-owner, buy-sell, or key-person risk",
-   "Carrier fit, underwriting path, ownership, beneficiaries and estate coordination"],
-  ["A coverage strategy tied to the financial plan","A gap and overlap summary",
-   "Carrier, underwriting and application next steps when new coverage makes sense",
-   "Replacement considerations before changing anything you already own"],
-  "protection.html","See every product explained",
-  "life-insurance-family-protection","Insurance","Life insurance planning"),
-]
-
+# ------------------------------------------------------- GREENVILLE PAGES
+# Four local-intent pages, each written as its own page rather than one
+# template with the nouns swapped (that is what shipped 2026-08-10 and it is
+# the doorway-page pattern Google's helpful-content system demotes). Every
+# local fact below was checked 2026-08-23: SC does not tax Social Security,
+# fully exempts military retired pay (TY2022+), gives a 10-day free look on
+# delivered life policies (30 by mail), and the named employers are the
+# region's largest per the Upstate SC Alliance. No guaranty-association
+# mention anywhere: SC law bars using it in solicitation. No fee-only, no
+# performance language, no individualized tax advice.
 CROSS = [("financial-advisor-greenville-sc.html","Financial planning"),
          ("investment-management-greenville-sc.html","Investment management"),
          ("retirement-planning-greenville-sc.html","Retirement planning"),
          ("life-insurance-greenville-sc.html","Life insurance")]
 
-def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, interest, step,
-             alt="life-insurance-calculator.html", alt_cta="Run the coverage numbers"):
+GEO = [
+ dict(slug="life-insurance-greenville-sc.html",
+  title="Life Insurance in Greenville, SC | Quote 40+ Carriers Online",
+  desc="Life insurance for Greenville and Upstate South Carolina families. See real term rates across 40+ carriers in minutes, or have what you already own checked first. Veteran-owned, SC-licensed.",
+  kicker="Protection planning",
+  h1='Life insurance placed with <em class="g">real carriers</em>, tied to the plan.',
+  lede="Coverage is the part that cannot wait for a good year. Price it yourself in a few minutes, or have what you already own checked before you buy anything else.",
+  deep="life-insurance-quote.html", deep_cta="See my rates",
+  alt="life-insurance-calculator.html", alt_cta="Run the coverage numbers",
+  helps=["Existing policies and employer coverage","New term and permanent coverage needs",
+         "Income replacement and debt exposure","Dependents, education, and family obligations",
+         "Business-owner, buy-sell, or key-person risk",
+         "Carrier fit, underwriting path, ownership, beneficiaries and estate coordination"],
+  leave=["A coverage strategy tied to the financial plan","A gap and overlap summary",
+         "Carrier, underwriting and application next steps when new coverage makes sense",
+         "Replacement considerations before changing anything you already own"],
+  sections=[
+   dict(kicker="Greenville, specifically", h2="Why Upstate families usually have less coverage than they think.",
+    paras=[
+     "Most people I talk to in Greenville have life insurance through work and assume that box is checked. Prisma Health, Michelin's North American headquarters, GE's turbine plant, Bon Secours St. Francis, the school district, BMW up the interstate in Spartanburg: the big employers here all offer group life. It is usually one or two times salary, sometimes with a cap, and it is the least portable thing you own. It ends when you leave, and people change jobs.",
+     "The second pattern is the mortgage. Greenville County has grown fast and home prices have followed. A household that bought in Simpsonville, Greer, Taylors or Travelers Rest in the last few years often carries a loan that is bigger than all of its group coverage combined. Paying that off is usually the first line in the math, before anyone talks about replacing income.",
+     "The third is the small business. A lot of Upstate income comes from a shop, a practice or a trade with one or two owners. If one of them dies, the bank loan does not, and the surviving partner suddenly owns half of a business with the family of someone who is gone. That is where coverage comes in, before anyone talks about a portfolio.",
+    ],
+    cards=[("Through work","One to two times salary","Ends when the job does. Cannot be taken with you at the group price. Check the real number on your benefits summary, not the number you remember."),
+           ("The house","Mortgage first","For most families the loan balance is the largest single obligation. Clear it in the math before you size the income piece."),
+           ("The business","Partners and loans","Buy-sell funding and key-person cover are cheap compared with what happens without them. Most owners have neither.")]),
+   dict(kicker="How the number works", h2="Three lines of arithmetic, then a quote.", cream=True,
+    paras=[
+     "Add up what would have to be paid off: the mortgage, car loans, anything with your name on it. Add the years of income your household would need, until the kids are grown or the house is paid, whichever is longer. Add what you want set aside for school. Subtract savings and the coverage you already have. The <a href=\"life-insurance-calculator.html\">coverage calculator</a> does this in about a minute and does not ask for your name.",
+     "Then price it. In August 2026 a healthy 35-year-old non-smoker running a $500,000, 20-year term quote through our tool saw starting rates around $25 a month. Your number will differ with age, health, tobacco use, the amount, the term and the carrier, and a quote is an estimate rather than an offer. The point is that for most Greenville families the cost of closing the gap is a fraction of what they assume, and you can see your own range in two minutes without a phone call.",
+     "If what comes back is higher than you expected, that is information too. Health, age and tobacco move the price a lot, and there are carriers that specialize in cases others rate up. That is the reason the quote runs across 40+ of them instead of one shelf.",
+    ]),
+   dict(kicker="South Carolina rules worth knowing", h2="What the state gives you, and what it does not.",
+    paras=[
+     "South Carolina law gives you at least 10 days from the day a life insurance policy is delivered to return it for a full refund of premium, and 30 days for a policy sold by mail. Nobody is stuck because they signed. Read the policy in that window and send it back if it is not what you were told.",
+     "Beneficiary designations generally control who receives a life insurance payout, regardless of what a will says. After a marriage, divorce, birth or death in the family, the designation is the first document to check. That is general information, not legal advice; an attorney can confirm how it applies to you.",
+     "Rae &amp; Co Capital is licensed in South Carolina for life, accident and health insurance. Coverage is placed through BackNine Insurance across 40+ carriers, the carrier pays a commission when a policy issues, and that conflict of interest is disclosed. It is also why the advice here starts with whether you need coverage at all.",
+    ]),
+   dict(kicker="Who this is for", h2="Buy it if this is you. Skip it if it is not.", cream=True,
+    cards=[("Buy it","A mortgage, kids, or a spouse who depends on your income","Term, sized by the calculator, bought while you are young and healthy. This is most of the Upstate families I meet."),
+           ("Buy it","A business partner, a business loan, or a key employee","Buy-sell or key-person coverage, owned and structured so the money lands where the agreement says."),
+           ("Buy it","Leaving the military","SGLI ends 120 days after separation. Compare VGLI against private term before the window closes. For healthy people in their 20s and 30s, private term is often cheaper for the same amount."),
+           ("Skip it","No debt, no dependents, and nobody relying on your paycheck","You may need nothing yet, and I will tell you that on the first call rather than quote you anyway."),
+           ("Skip it","You already own a term policy for the amount the calculator shows","Keep it. Review the beneficiary and move on. Replacing a policy you own is rarely the right move and never the first one."),
+           ("Wait","You want permanent coverage as an investment","Read the <a href=\"types-of-life-insurance.html\">types page</a> first. Term almost always comes first, and permanent coverage is for specific reasons, not for growth.")]),
+  ],
+  faq_kicker="Questions people ask", faq_h2="Life insurance in Greenville, answered plainly.",
+  campaign="life-insurance-family-protection", interest="Insurance", step="Life insurance planning",
+  insurance=True,
+  placeholder="Example: I have 2x salary through Prisma, a $340,000 mortgage and two kids under 10. Is that enough?"),
+
+ dict(slug="financial-advisor-greenville-sc.html",
+  title="Financial Advisor in Greenville, SC | Veteran-Owned Fiduciary",
+  desc="A Series 65 fiduciary financial advisor in Greenville, South Carolina. Flat-fee planning from $750, published prices, virtual meetings. Investments, insurance, retirement and taxes decided in one order.",
+  kicker="Financial planning",
+  h1='Financial planning is the <em class="g">decision system</em>.',
+  lede="Most people do not have an information problem. They have a sequencing problem. Planning is where the pieces get put in an order that actually works.",
+  deep="planning.html", deep_cta="See flat-fee planning",
+  alt="wealth.html#tool", alt_cta="Check your retirement number",
+  helps=["Cash flow, savings, and debt decisions","Investment and retirement account structure",
+         "Insurance and protection gaps","Business-owner or family obligations",
+         "Estate, beneficiary, tax, and liquidity coordination points"],
+  leave=["A clean decision map","A practical action sequence, ranked","Ongoing review as life changes"],
+  sections=[
+   dict(kicker="What the title means here", h2="Three different jobs share the words \"financial advisor.\"",
+    paras=[
+     "Search the phrase in Greenville and you get the branch offices on Main Street, the national directories, and a long list of people with the same title. Many of them are good at what they do. But the title covers three different jobs, and the difference shows up in how you pay. A broker is paid on what you buy. An insurance agent is paid by the carrier on what you are sold. An investment adviser representative is paid by you and owes you a fiduciary duty.",
+     "I hold the Series 65 and act as an investment adviser representative, so for advice I am the third kind. I am also licensed for life, accident and health insurance in South Carolina, and when a policy is placed through the firm a carrier commission is paid. I tell you which role I am in and how I am being paid every time, and it is written in the <a href=\"form-crs.html\">Form CRS</a> and <a href=\"disclosures.html\">disclosures</a>, not just here.",
+     "The practical test for anyone you are considering is simple. Ask what it costs before the second meeting. If you cannot get a number, you have learned something.",
+    ]),
+   dict(kicker="How I am paid", h2="Published, in one paragraph.", cream=True,
+    paras=[
+     "Flat-fee planning is $750, $2,000 or $3,000, one time, agreed in writing before any work begins and completed within six months. Investment management is 1% per year of the assets I manage, with planning included, so nobody pays both. Insurance is never required, and when it is placed through the firm the carrier pays a commission, which is disclosed. There is no hourly rate, no retainer, and no discovery call you have to pass before you are allowed to see a price. The prices are on the <a href=\"planning.html\">planning page</a> and you can buy one tonight.",
+    ]),
+   dict(kicker="Who I work with in the Upstate", h2="Life stages, not net worth.",
+    paras=[
+     "The households that get the most out of planning are usually at a turn. A first house in Simpsonville or Greer and the question of how much insurance the mortgage needs. A new baby and a 529 nobody has opened. A job change out of Prisma, Michelin, GE or BMW with a 401(k) decision attached. A Marine or soldier coming off active duty with SGLI ending and a TSP nobody explained. A small business in Mauldin or Easley that is finally profitable and has no plan for the owner's own retirement.",
+     "The firm is virtual by design, which is why it works across Greenville, Spartanburg, Anderson, Pickens and the rest of South Carolina without anyone driving to an office. Meetings are by Zoom or phone, documents move securely, and everything you decide is written down so you can explain it to your spouse without me in the room.",
+    ],
+    cards=[("First house","Mortgage, insurance, cash reserve","The order matters more than the products. Protection first, then the reserve, then the rest."),
+           ("New parents","529, term life, beneficiaries","Three decisions that take an afternoon and get put off for years."),
+           ("Job change","401(k), benefits, group life","Four options for the old plan and a group life policy that just ended. Decide before the default decides for you."),
+           ("Leaving service","TSP, SGLI to VGLI, SC tax treatment","South Carolina exempts military retired pay from state income tax. That changes the math on where to retire and what to draw first."),
+           ("Business owner","Entity, retirement plan, buy-sell","Profitable is not the same as planned. The owner is usually the last person on the payroll with a retirement account."),
+           ("Pre-retirement","Income, Social Security, withdrawals","The five years on either side of the date are where small mistakes get expensive. See the <a href=\"retirement-planning-greenville-sc.html\">retirement page</a>.")]),
+   dict(kicker="The order of operations", h2="What gets decided first, and why.", cream=True,
+    paras=[
+     "Protection comes first because a portfolio does not survive an uninsured disaster. Then the cash reserve, sized to your actual job risk rather than a rule of thumb. Then high-cost debt, ranked by real rates against what the same dollars could earn. Then the tax-advantaged accounts in the order that fits your bracket: employer match, Roth or traditional, HSA if you have one. Then taxable investing. Then the estate basics, which for most households means beneficiaries, titling, a will and powers of attorney, not a trust.",
+     "That sequence is the whole product. It is why a $750 plan can change more than a year of reading. The information was never secret. Someone finally put it in an order and attached your numbers to it.",
+    ]),
+   dict(kicker="The first call", h2="Thirty minutes, no pitch, and you leave with a decision.",
+    paras=[
+     "Bring your rough numbers: income, what you owe, what you have saved, what insurance you carry through work, and the one or two decisions you are stuck on. No statements. I will tell you which plan fits, or that you do not need one yet, and I give that second answer often. If you would rather skip the call, <a href=\"planning.html\">buy the plan</a> and the discovery meeting is part of the work.",
+    ]),
+  ],
+  faq_kicker="Questions people ask", faq_h2="Hiring a financial advisor in Greenville, answered plainly.",
+  campaign="financial-advisor-greenville-sc", interest="Not sure", step="Focused intro call",
+  insurance=False,
+  placeholder="Example: we just bought in Greer, have a baby on the way, and have never talked to anyone about any of this."),
+
+ dict(slug="retirement-planning-greenville-sc.html",
+  title="Retirement Planning in Greenville, SC | Rae &amp; Co Capital",
+  desc="Retirement income planning for Greenville and Upstate South Carolina. Withdrawal order, Social Security timing, SC tax treatment of retirement income and survivor income, decided before the paycheck stops.",
+  kicker="Retirement planning",
+  h1='Retirement income before <em class="g">retirement pressure</em>.',
+  lede="The switch from saving to spending is where small mistakes get expensive, and most of them are locked in before anyone notices.",
+  deep="wealth.html#tool", deep_cta="Check your retirement number",
+  alt="planning.html", alt_cta="See flat-fee planning",
+  helps=["Income sources and expected spending","Withdrawal sequencing and reserve strategy",
+         "Portfolio risk during the retirement transition","Survivor needs and legacy considerations",
+         "Flexibility for health, family, and market changes"],
+  leave=["A retirement income map","A liquidity and reserve framework",
+         "A decision list before the paycheck changes"],
+  sections=[
+   dict(kicker="Retiring in South Carolina", h2="Why people retire to the Upstate, and what it changes in the plan.",
+    paras=[
+     "South Carolina does not tax Social Security benefits. It fully exempts military retirement pay from state income tax. Pension, 401(k) and IRA withdrawals are taxable, but there is a retirement income deduction and a further deduction once you turn 65, and owner-occupied property tax here is low by national standards. Those are the reasons the Upstate keeps showing up on retirement lists, and they are also the reason the withdrawal order here is different from the one a national calculator assumes.",
+     "None of that is individualized tax advice. Your tax preparer can tell you exactly what applies to your return. What the plan does is put the pieces in an order that uses them: which account to draw first, when to convert, when to claim, and how much of each year's income should come from where.",
+    ]),
+   dict(kicker="Five decisions that get locked in early", h2="Most of the damage is done before the first withdrawal.", cream=True,
+    cards=[("Social Security","62, full retirement age, or 70","Claiming early gives a smaller check for longer. Waiting grows it each year until 70. Health, work, a spouse's record and what else you can draw on all move the answer."),
+           ("Withdrawal order","Taxable, traditional, Roth","Which account pays for each year is a tax decision that compounds for decades. Getting it right is worth more than most fund choices."),
+           ("The reserve","How many years in cash","Enough that a bad first few years in the market never forces a sale at the bottom. Too much and it quietly costs you. The number is personal."),
+           ("Survivor income","What happens to the second person","Pension survivor options, Social Security survivor rules and life insurance all interact. Decide it once, on purpose, before the election is irrevocable."),
+           ("Risk in the first five years","Sequence risk is the one that matters","The same average return in a different order produces a different retirement. The plan sizes risk to the date, not to a questionnaire."),
+           ("Health and long-term care","The cost nobody budgets","Medicare timing, supplement choices and whether to insure long-term care or self-fund it belong in the plan, not in a panic at 72.")]),
+   dict(kicker="Leaving a big Upstate employer", h2="The 401(k) decision, and the conflict in it.",
+    paras=[
+     "A lot of Greenville retirements start with a separation from Prisma Health, Michelin, GE, Bon Secours, BMW, Fluor or the school district, and a 401(k) or 403(b) that suddenly needs a decision. You generally have four options: leave it where it is, move it into a new employer's plan, roll it to an IRA, or cash it out. Each has different costs, investment menus, creditor protection and tax consequences, and for some people the old plan is the best deal available.",
+     "Here is the conflict, stated plainly. If you roll it into an account I manage, I am paid 1% a year. That is why the leave-it-where-it-is math comes first, in writing, before anything moves. If your plan offers a pension or a lump sum, that election is usually irrevocable and deserves the same treatment.",
+    ]),
+   dict(kicker="Military retirement", h2="Retired pay, TSP, SBP, and the SGLI clock.", cream=True,
+    paras=[
+     "I am a Marine Corps veteran and the firm started with military families. South Carolina's full exemption of military retired pay changes the picture for anyone weighing where to live after service. The TSP is one of the lowest-cost retirement accounts in the country and there is often no reason to move it. The Survivor Benefit Plan election and what replaces SGLI after the 120-day window are the two decisions that most often get made by default, and both are hard to undo. They belong in the plan before the retirement ceremony, not after.",
+    ]),
+   dict(kicker="Start with the number", h2="A minute with the tool, then a real plan.",
+    paras=[
+     "The <a href=\"wealth.html#tool\">retirement income check</a> on the wealth page asks for your age, what you have saved, what you add each month and the growth rate you are willing to assume, and shows whether that adds up to the income you want at the age you pick. The growth rate is yours to set because nobody can promise one. When the answer is close, or when the real question is the order of withdrawals rather than the total, that is when a written plan earns its fee. Planning is a flat fee of $750, $2,000 or $3,000 on its own, and it is included if I manage the money.",
+    ]),
+  ],
+  faq_kicker="Questions people ask", faq_h2="Retirement planning in Greenville, answered plainly.",
+  campaign="retirement-planning-greenville-sc", interest="Investments", step="Portfolio or retirement review",
+  insurance=False,
+  placeholder="Example: I am 58, leaving Michelin in two years with a 401(k) and a pension option, and I do not know which to take."),
+
+ dict(slug="investment-management-greenville-sc.html",
+  title="Investment Management in Greenville, SC | Rae &amp; Co Capital",
+  desc="Fiduciary investment management in Greenville, South Carolina. 1% per year, planning included, assets held at Charles Schwab in your name. Allocation, taxes and withdrawals run as one decision.",
+  kicker="Investment management",
+  h1='Investment management that <em class="g">answers to the plan</em>.',
+  lede="Anyone can buy index funds. The work is sequencing withdrawals, keeping taxes from eating the gains, and not selling at the bottom because a headline scared you.",
+  deep="wealth.html", deep_cta="See how management works",
+  alt="wealth.html#tool", alt_cta="Check your retirement number",
+  helps=["Current allocation and account structure","Risk exposure and concentration",
+         "Liquidity needs and time horizon","Tax-sensitive investment decisions",
+         "Rebalancing and ongoing review cadence"],
+  leave=["A clearer investment policy","An implementation plan",
+         "A review rhythm tied to life changes, not market noise"],
+  sections=[
+   dict(kicker="What 1% actually buys", h2="One fee, the whole job.",
+    paras=[
+     "Management is 1% per year of the assets I manage, billed quarterly, with a $750 annual minimum, and financial planning is included. On $300,000 that is $3,000 a year. For that you get the allocation, rebalancing on a schedule, tax-aware placement across taxable and retirement accounts, the withdrawal order once you are drawing, and one person who built the plan answering the phone. Fund expense ratios and any custodian charges are separate and shown to you. There are no commissions on managed accounts.",
+     "If the balance is small enough that the $750 minimum makes the fee a poor deal, I will tell you to buy a <a href=\"planning.html\">flat-fee plan</a> and invest it yourself. That is a worse outcome for me and the right one for you, and it is in the Form ADV.",
+    ]),
+   dict(kicker="Where the money sits", h2="Charles Schwab, in your name, visible any time.", cream=True,
+    paras=[
+     "Client assets are held at Charles Schwab in accounts titled to you. I never take custody. You log in to Schwab Alliance and see every holding and every transaction, Schwab sends its own statements, and if you ever decide to leave, the account goes with you because it was always yours. That arrangement is the minimum you should accept from anyone managing your money.",
+    ]),
+   dict(kicker="How a portfolio gets built", h2="By the plan, not by the news.",
+    paras=[
+     "The allocation comes from the plan: when you need the money, how much of it, and how much of a bad year you can sit through without changing course. It is built from low-cost, diversified funds, written into an investment policy you keep, and rebalanced on a schedule rather than on a feeling. There is no stock picking and no promise of beating anything. Investing involves risk, including loss of principal, and anyone promising otherwise is selling something.",
+     "The part that usually matters more than the funds is the behavior around them. I went and got a master's in psychology because I kept watching capable people know the right answer and not act on it, and most of the lost money I have seen in fifteen years was lost by selling after a drop or buying after a run. A large part of the fee is paying for someone whose job is to keep that from happening to you.",
+    ]),
+   dict(kicker="Upstate balance sheets", h2="The situations that come up most around Greenville.", cream=True,
+    cards=[("Concentration","Too much in one company","If a meaningful share of your net worth is your employer's stock, or any single company, that is the first conversation, and unwinding it is a tax question as much as a risk one."),
+           ("Old plans","The 401(k) you left at a previous employer","Four options, each with different costs and protections. Rolling it to me pays me 1%, so you see the leave-it math first."),
+           ("Real estate heavy","A rental or two and not much else liquid","Common in the Upstate. The plan works out what the portfolio needs to do that the property cannot, and how much cash that requires."),
+           ("Inherited accounts","An IRA with a ten-year clock","Inherited IRAs have withdrawal rules that can push income into high brackets if ignored. Sequencing them is planning, and it is included."),
+           ("Taxable and retirement side by side","Which fund goes where","Bonds, stocks and funds that throw off income belong in different account types. Placement is free money that most portfolios leave on the table."),
+           ("Drawing down","Turning a balance into a paycheck","The withdrawal order, the reserve and the Social Security date are one decision. See the <a href=\"retirement-planning-greenville-sc.html\">retirement page</a>.")]),
+   dict(kicker="When not to hire me", h2="Three honest reasons to keep doing it yourself.",
+    paras=[
+     "If you already run a disciplined, low-cost portfolio and do not touch it when the market drops, you probably need a plan, not a manager. If the balance is small, the minimum fee makes me a poor deal. If what you want is someone to trade, I am the wrong person. In all three cases the <a href=\"planning.html\">flat-fee plan</a> is the better buy, and I would rather say so now than charge you for a year and have you work it out.",
+    ]),
+  ],
+  faq_kicker="Questions people ask", faq_h2="Investment management in Greenville, answered plainly.",
+  campaign="investment-management-greenville-sc", interest="Investments", step="Portfolio or retirement review",
+  insurance=False,
+  placeholder="Example: about $400k across a 401k and a rollover IRA, a lot of it in one stock, retiring in roughly eight years."),
+]
+
+def _cards(cards):
+    return ('\n    <div class="grid g3 stagger" data-rv style="margin-top:28px">' +
+            "".join(f'\n      <div class="card"><p class="tag">{t}</p><h3>{h}</h3><p>{p}</p></div>' for t,h,p in cards) +
+            '\n    </div>')
+
+def geo_section(s):
+    paras = "".join(f'\n      <p>{p}</p>' for p in s.get("paras", []))
+    prose = f'\n    <div class="prose" data-rv>{paras}\n    </div>' if paras else ""
+    cards = _cards(s["cards"]) if s.get("cards") else ""
+    return f"""
+<section class="section{' cream' if s.get('cream') else ''}" style="padding-top:clamp(48px,5.5vw,76px);padding-bottom:clamp(48px,5.5vw,76px)">
+  <div class="wrap">
+    <p class="kicker" data-rv>{s['kicker']}</p>
+    <h2 class="sub" data-rv style="max-width:30ch">{s['h2']}</h2>{prose}{cards}
+  </div>
+</section>"""
+
+def geo_page(g):
+    slug = g["slug"]
     cross = "".join(f'<a class="xlink" href="{h}">{t} <span class="arr">&rarr;</span></a>'
                     for h, t in CROSS if h != slug)
     return f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>{kicker} &middot; Greenville, South Carolina</p>
-    <h1 data-rv>{h1}</h1>
-    <p class="lede" data-rv>{lede}</p>
+    <p class="kicker" data-rv>{g['kicker']} &middot; Greenville, South Carolina</p>
+    <h1 data-rv>{g['h1']}</h1>
+    <p class="lede" data-rv>{g['lede']}</p>
     <div class="acts" data-rv>
-      <a class="btn btn-ink" data-magnetic href="{deep}">{deep_cta} <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="{alt}">{alt_cta}</a>
+      <a class="btn btn-ink" data-magnetic href="{g['deep']}">{g['deep_cta']} <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="{g['alt']}">{g['alt_cta']}</a>
     </div>
   </div>
 </section>
@@ -1349,21 +1753,26 @@ def geo_page(slug, kicker, h1, lede, helps, leave, deep, deep_cta, campaign, int
     <h2 class="sub" data-rv style="margin-bottom:26px">What gets looked at, and what you leave with.</h2>
     <div class="grid g2 stagger" data-rv>
       <div class="card"><p class="tag">What gets reviewed</p><h3>The inputs</h3>
-        <ul class="ticks">{"".join(f"<li>{x}</li>" for x in helps)}</ul></div>
+        <ul class="ticks">{"".join(f"<li>{x}</li>" for x in g['helps'])}</ul></div>
       <div class="card"><p class="tag">What you walk away with</p><h3>The output</h3>
-        <ul class="ticks">{"".join(f"<li>{x}</li>" for x in leave)}</ul></div>
+        <ul class="ticks">{"".join(f"<li>{x}</li>" for x in g['leave'])}</ul></div>
     </div>
     <p class="lede" data-rv style="margin-top:34px;max-width:74ch">Portfolio, retirement income, insurance, cash flow, taxes and family obligations get reviewed together rather than handled as disconnected projects. That coordination is the whole reason one person does all of it.</p>
-    <div class="xrow" data-rv>{cross}</div>
   </div>
 </section>
+{"".join(geo_section(s) for s in g['sections'])}
+<section class="section" style="padding-top:0;padding-bottom:0">
+  <div class="wrap"><div class="xrow" data-rv style="margin-top:0">{cross}</div></div>
+</section>
+{faq_block(slug, g['faq_kicker'], g['faq_h2'])}
 {form_section("Request follow-up", "Bring this into the conversation.",
   "Tell me what is on your mind and I will tell you whether I can help. Please leave out account numbers, policy numbers and Social Security numbers.",
-  lead_form(campaign, slug, "consultation-request", "Request follow-up",
-            "Replies come from me, usually the same day.", interest, step,
-            cta="Request follow-up", insurance=(interest == "Insurance")), cream=True)}"""
+  lead_form(g['campaign'], slug, "consultation-request", "Request follow-up",
+            "Replies come from me, usually the same day.", g['interest'], g['step'],
+            cta="Request follow-up", insurance=g['insurance'], placeholder=g['placeholder']), cream=False)}"""
 
-WEALTH = WEALTH + form_section(
+
+WEALTH = WEALTH + faq_block("wealth.html", "Fees, custody, the tool", "Plain answers on the money part.") + form_section(
   "Start a conversation", "Want a second read on the portfolio?",
   "Tell me what you hold and what it is for. If a flat-fee plan serves you better than "
   "management, I will say so before you ask.",
@@ -1613,8 +2022,7 @@ PAGES = [
 ]
 
 for g in GEO:
-    slug,title,desc = g[0],g[1],g[2]
-    PAGES.append((slug,title,desc,geo_page(slug,*g[3:])))
+    PAGES.append((g["slug"],g["title"],g["desc"],geo_page(g)))
 
 for i,(slug,title,desc,body) in enumerate(PAGES):
     if slug == "life-insurance-calculator.html":
@@ -1630,7 +2038,7 @@ for i,(slug,title,desc,body) in enumerate(PAGES):
                                 "non-smoker, in good health."), cream=True))
 
 for slug,title,desc,body in PAGES:
-    (OUT/slug).write_text(shell(slug,title,desc,body),encoding="utf-8")
+    (OUT/slug).write_text(shell(slug,title,desc,body,extra_ld=page_ld(slug)),encoding="utf-8")
     print("wrote",slug)
 print("done:",len(PAGES),"pages")
 
