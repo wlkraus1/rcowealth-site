@@ -78,19 +78,55 @@
   <div class="wrap">
     <p class="kicker" data-rv>Instant quotes &middot; No agent call</p>
     <h1 data-rv>Compare real quotes from <em class="g">major carriers</em>.</h1>
-    <p class="lede" data-rv>Answer a few health and coverage questions and see actual pricing across 40+ carriers. You can apply online in the same session. Nobody phones you to unlock a number.</p>
+    <p class="lede" data-rv>Tell me who you are, answer a few health and coverage questions, and see actual pricing across 40+ carriers. You can apply online in the same session. Nobody phones you to unlock a number.</p>
     <div class="acts" data-rv>
-      <a class="btn btn-gold" data-magnetic href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=quote_hero" target="_blank" rel="noopener">Open quote &amp; apply <span class="arr">&rarr;</span></a>
+      <a class="btn btn-gold" data-magnetic href="#see-rates">See my rates <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="life-insurance-calculator.html">Work out the amount first</a>
     </div>
+  </div>
+</section>
+<section class="section" id="see-rates">
+  <div class="wrap split c">
+    <div>
+      <p class="kicker" data-rv>Step one of three</p>
+      <h2 data-rv>Start with your name, get <em class="g">live pricing</em> on the next screen.</h2>
+      <p class="lede" data-rv>Four fields, then the quoter opens with your details already filled in. The rates come straight from the carriers. If you stop halfway, I can pick it up where you left off instead of you starting over.</p>
+    </div>
+    <form class="lform campaign-form" data-rv id="ratesForm"
+          action="https://pi-nas.tail34488a.ts.net/" method="POST"
+          data-campaign="life-insurance-quote" data-asset="life-insurance-quote.html" data-form-purpose="life-insurance-quote-rates">
+      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
+      <input type="hidden" name="retURL" value="https://rcowealth.com/your-rates.html">
+      <input type="hidden" name="lead_source" value="Web">
+      <input type="hidden" name="company" value="Individual / Household">
+      <input type="hidden" name="00Nfn0000089jHR" value="Website">
+      <label class="hp2" aria-hidden="true">Website<input name="website_url" autocomplete="off" tabindex="-1" data-honeypot="true"></label>
+      <input type="hidden" name="00Nfn0000089jXZ" value="Insurance">
+      <input type="hidden" name="00NbV000002pcrh" value="Yes">
+      <input type="hidden" name="preferred_next_step_display" value="Life insurance quote">
+      <h2 class="sub">See my rates</h2>
+      <p class="lsub">No call required. Your rates load on the next screen.</p>
+      <div class="fgrid">
+        <div class="fld2"><label for="qr_first_name">First name</label><input id="qr_first_name" name="first_name" autocomplete="given-name" required></div>
+        <div class="fld2"><label for="qr_last_name">Last name</label><input id="qr_last_name" name="last_name" autocomplete="family-name" required></div>
+        <div class="fld2"><label for="qr_email">Email</label><input id="qr_email" type="email" name="email" autocomplete="email" required></div>
+        <div class="fld2"><label for="qr_phone">Phone</label><input id="qr_phone" type="tel" name="phone" autocomplete="tel"></div>
+        <div class="checks2">
+          <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
+          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message and data rates may apply. Consent is not required to work with Rae &amp; Co Capital.</label>
+        </div>
+      </div>
+      <button class="btn btn-gold" type="submit" style="width:100%;margin-top:18px">Show my rates <span class="arr">&rarr;</span></button>
+      <p class="lfine">Submitting this form does not create an advisory relationship and does not obligate you to buy anything. Pricing on the next screen is an estimate, not a binding offer, and all coverage is subject to underwriting and carrier approval.</p>
+    </form>
   </div>
 </section>
 <section class="section">
   <div class="wrap">
     <h2 class="sub" data-rv style="margin-bottom:24px">What happens, in order.</h2>
     <div class="grid g3 stagger" data-rv>
-      <div class="card"><p class="tag">Step one</p><h3>Health and coverage questions</h3><p>A couple of minutes. No exam at this stage and no commitment to anything.</p></div>
-      <div class="card"><p class="tag">Step two</p><h3>Real pricing, side by side</h3><p>You see the same carrier pricing I see. There is no version of this where I get a better number than you do.</p></div>
+      <div class="card"><p class="tag">Step one</p><h3>Your name and contact</h3><p>Four fields so your quote is saved to you. The quoter opens right after with those details already filled in.</p></div>
+      <div class="card"><p class="tag">Step two</p><h3>Health questions, then real pricing</h3><p>A couple of minutes, no exam at this stage. You see the same carrier pricing I see, side by side. There is no version of this where I get a better number than you do.</p></div>
       <div class="card"><p class="tag">Step three</p><h3>Apply and e-sign</h3><p>In the same sitting if you want. Underwriting and carrier approval come after, and nothing is in force until a carrier issues.</p></div>
     </div>
     <div class="callout" data-rv style="margin-top:30px"><b>If the quoter will not load</b>
@@ -204,5 +240,25 @@
 <script src="rco.js?v=def750c852"></script>
 <script src="/campaign-tracking.js?v=54e997dafa" defer></script>
 <script src="/tracking-tags.js?v=8adf7f0a5e" defer></script>
+<script>
+// Stash the rates-form details so your-rates.html can prefill the embedded quoter.
+(function () {
+  var form = document.getElementById('ratesForm');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    try {
+      var attribution = {};
+      try { attribution = JSON.parse(sessionStorage.getItem('raeCoCampaignAttribution') || '{}') || {}; } catch (e) {}
+      sessionStorage.setItem('rcoQuotePrefill', JSON.stringify({
+        first_name: (document.getElementById('qr_first_name').value || '').trim(),
+        last_name: (document.getElementById('qr_last_name').value || '').trim(),
+        email: (document.getElementById('qr_email').value || '').trim(),
+        phone: (document.getElementById('qr_phone').value || '').trim(),
+        campaign: attribution.utm_campaign || 'life-insurance-quote'
+      }));
+    } catch (e) {}
+  });
+})();
+</script>
 </body>
 </html>

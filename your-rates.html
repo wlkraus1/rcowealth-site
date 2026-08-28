@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Rates | Rae &amp; Co Capital</title>
+<meta name="description" content="Live life insurance pricing across 40+ carriers. Compare rates and apply online without leaving the page.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://rcowealth.com/life-insurance-quote.html">
+<meta name="theme-color" content="#06111f">
+<link rel="icon" href="/favicon.ico?v=goldleaf-20260521-1647">
+<link rel="stylesheet" href="rco.css?v=0f4928f5d1">
+<noscript><style>[data-rv],.stagger>*{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="hd">
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="Rae &amp; Co Capital home"><img src="/assets/rae-co-logo-header.png" alt="Rae &amp; Co Capital Wealth Management"></a>
+    <button class="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="wealth.html">Wealth</a>
+      <a href="protection.html">Protection</a>
+      <a href="planning.html">Planning</a>
+      <a href="advisor.html">Your advisor</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <span class="hdreach">
+      <a class="callbtn" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20have%20a%20question%20about%20" aria-label="Text Rae &amp; Co Capital">Text</a>
+      <a class="callbtn" href="tel:+18645588440">864-558-8440</a>
+    </span>
+  </div>
+</header>
+<main id="main">
+
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="kicker" data-rv>Live carrier pricing &middot; No agent call</p>
+    <h1 data-rv>Your rates, straight from <em class="g">the carriers</em>.</h1>
+    <p class="lede" data-rv>Answer the health and coverage questions below and real pricing appears side by side. You can apply and e-sign in the same sitting. Nothing is in force until a carrier issues.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div id="qa-widget" style="min-height:520px"></div>
+    <div class="callout" data-rv style="margin-top:30px"><b>If the quoter will not load</b>
+      Some corporate networks block it. <a href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=rates_fallback" target="_blank" rel="noopener">Open it in a new window</a>, or text 864-558-8440 and I will send pricing manually.</div>
+    <p class="lede" data-rv style="margin-top:26px;max-width:78ch;font-size:13px">Quoting and applications are processed through BackNine Insurance. Pricing shown is an estimate and is not a binding offer. All coverage is subject to underwriting and carrier approval, and final rates may differ from quoted rates. Rae &amp; Co Capital may receive a commission on insurance products, a conflict of interest that is disclosed. Rae &amp; Co Capital is licensed for life insurance in South Carolina; availability elsewhere depends on licensing and carrier approval.</p>
+  </div>
+</section>
+
+<section class="section cream">
+  <div class="wrap split c">
+    <div>
+      <p class="kicker" data-rv>Want a second set of eyes</p>
+      <h2 data-rv>Not sure which number to pick?</h2>
+      <p class="lede" data-rv>Run your quotes first, then send me a text with what you are deciding between. I will tell you whether the coverage fits, including when the answer is that you do not need more.</p>
+      <div class="reachrow" data-rv style="max-width:420px">
+        <a class="reach" href="tel:+18645588440"><span><b>Call</b>864-558-8440</span></a>
+        <a class="reach" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20just%20ran%20my%20quotes%20and%20have%20a%20question%20"><span><b>Text</b>Most people start here</span></a>
+      </div>
+    </div>
+    <div>
+      <p class="kicker" data-rv>While underwriting runs</p>
+      <h2 data-rv>Work out the right amount.</h2>
+      <p class="lede" data-rv>If you have not settled on a coverage amount, the <a href="life-insurance-calculator.html">free needs calculator</a> walks through it in a few minutes with no contact information required.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="ft">
+  <div class="wrap">
+    <p class="legal">Rae &amp; Co Capital, LLC (d/b/a RcoWealth) is a South Carolina registered investment adviser. Registration does not imply a certain level of skill or training. Investing involves risk, including possible loss of principal. Insurance products are subject to underwriting and carrier approval; commissions may create a conflict of interest and are disclosed. This website is for informational purposes only and should not be treated as individualized investment, tax, legal, or insurance advice. <a href="disclosures.html" style="color:inherit">Disclosures</a> &middot; <a href="form-crs.html" style="color:inherit">Form CRS</a> &middot; <a href="privacy.html" style="color:inherit">Privacy</a></p>
+  </div>
+</footer>
+<script src="rco.js?v=def750c852"></script>
+<script src="/campaign-tracking.js?v=54e997dafa" defer></script>
+<script src="/tracking-tags.js?v=8adf7f0a5e" defer></script>
+<script>
+// Load the BackNine Quote & Apply widget, prefilled from the rates form when available.
+// Embed reference: https://docs.back9ins.com/ (Quote & Apply Setup + Prefill sections).
+(function () {
+  var stash = {};
+  try { stash = JSON.parse(sessionStorage.getItem('rcoQuotePrefill') || '{}') || {}; } catch (e) {}
+
+  var src = 'https://cdn.quoteandapply.io/widget.js';
+  var params = [];
+  if (stash.first_name || stash.email || stash.phone) {
+    params.push('prefill');
+    if (stash.first_name) params.push('first_name=' + encodeURIComponent(stash.first_name));
+    if (stash.last_name) params.push('last_name=' + encodeURIComponent(stash.last_name));
+    if (stash.email) params.push('email=' + encodeURIComponent(stash.email));
+    if (stash.phone) params.push('phone=' + encodeURIComponent(stash.phone));
+    params.push('metadata=' + encodeURIComponent(JSON.stringify({
+      Campaign: stash.campaign || 'life-insurance-quote',
+      Source: 'rcowealth.com'
+    })));
+    src += '?' + params.join('&');
+  }
+
+  var script = document.createElement('script');
+  script.id = 'strife';
+  script.src = src;
+  script.setAttribute('data-strife-key', 'q7U0EACVHsPeuiPy');
+  script.setAttribute('data-strife-container-id', 'qa-widget');
+  document.body.appendChild(script);
+})();
+</script>
+</body>
+</html>
