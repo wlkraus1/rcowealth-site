@@ -959,86 +959,82 @@ PLANNING = PLANNING.replace(" data-rv", "").replace(" data-magnetic", "")
 ADVISOR = """
 <section class="section" style="padding-bottom:0">
   <div class="wrap split b top">
-    <figure style="margin:0" data-rv>
-      <img src="/assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
-      <figcaption style="margin-top:12px;text-align:center;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)">Greenville, South Carolina</figcaption>
+    <figure style="margin:0">
+      <img src="/assets/tyler-krause.jpg" alt="Tyler Krause" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:12px">
+      <figcaption style="margin-top:12px;font:400 13.5px/1.6 var(--sans);color:var(--muted)">Greenville, South Carolina.</figcaption>
     </figure>
     <div>
-      <p class="kicker" data-rv>Your advisor</p>
-      <h1 data-rv style="font-size:clamp(44px,5.6vw,78px)">Tyler Krause</h1>
-      <p style="font:700 12.5px/1.5 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 26px" data-rv>Founder &amp; Private Wealth Advisor &middot; U.S. Marine Corps veteran</p>
-      <p class="lede" data-rv>Fifteen years in this industry taught me that the plan is rarely the problem. People usually know roughly what they should do. What stops them is that no one has organized it, priced it, or told them which part matters first.</p>
-      <p class="lede" data-rv>So that is the job I built the firm around: protect the household, put the rest in an order that makes sense, and be one person who can be reached.</p>
-      <div class="acts" data-rv><a class="btn btn-ink" data-magnetic href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book your call now <span class="arr">&rarr;</span></a>
-        <a class="btn-line" href="planning.html">Or just buy a plan</a></div>
+      <h1 style="font-size:clamp(40px,5vw,68px);line-height:1.04">Tyler Krause</h1>
+      <p style="font:400 16px/1.6 var(--sans);color:var(--muted);margin:0 0 24px">Founder, Rae &amp; Co Capital. Series 65 investment adviser. Licensed for life, accident and health insurance in South Carolina. U.S. Marine Corps veteran.</p>
+      <p class="lede">I started Rae &amp; Co in 2025 after nine years at State Farm and a graduate degree in psychology. The firm is one person on purpose. The adviser who builds your plan is the one who answers the phone, and nobody hands you off after the first meeting.</p>
+      <p class="lede">I work with families, veterans and business owners across the Upstate, by phone and video, and in person in Greenville when that helps.</p>
+      <div class="acts"><a class="btn btn-ink" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a call <span class="arr">&rarr;</span></a>
+        <a class="btn-line" href="planning.html">See planning fees</a></div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <p class="kicker" data-rv>The mission</p>
-    <h2 data-rv style="max-width:20ch">Most money decisions are <em class="g">behavior</em>, not math.</h2>
-    <div class="grid g3 stagger" data-rv style="margin-top:34px">
-      <div class="card"><p class="tag">Why psychology</p><h3>The gap is not knowledge</h3>
-        <p>I went and got a master&rsquo;s in psychology because I kept watching capable people know the right answer and not act on it. Understanding why is more useful than repeating the answer louder.</p></div>
-      <div class="card"><p class="tag">Why protection first</p><h3>Coverage before growth</h3>
-        <p>A portfolio does not survive an uninsured disaster. Protection is the cheapest, least glamorous part of a plan and it is the part that decides whether the rest survives contact with a bad year.</p></div>
-      <div class="card"><p class="tag">Why one person</p><h3>No handoffs</h3>
-        <p>You are not passed to a service team after the sale. The person who builds the plan is the person who answers the phone, which is only possible because the firm is deliberately small.</p></div>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:22ch">How I work.</h2>
+    <div class="grid g3" style="margin-top:30px">
+      <div class="card"><h3>The gap is rarely knowledge</h3>
+        <p>I went back for a master&rsquo;s in psychology because I kept watching capable people know the right answer and not act on it. Understanding why is more useful than repeating the answer louder.</p></div>
+      <div class="card"><h3>Coverage before growth</h3>
+        <p>A portfolio does not survive an uninsured disaster. Protection is the cheapest and least glamorous part of a plan, and it decides whether the rest survives a bad year.</p></div>
+      <div class="card"><h3>No handoffs</h3>
+        <p>You are not passed to a service team after the sale. The person who builds the plan is the person who picks up, which is only possible because the firm is small on purpose.</p></div>
     </div>
   </div>
 </section>
 
 <section class="section cream">
   <div class="wrap">
-    <p class="kicker" data-rv>How it actually goes</p>
-    <h2 data-rv style="max-width:16ch">Three steps, no mystery.</h2>
-    <div class="grid g3 stagger" data-rv style="margin-top:34px">
-      <div class="card"><p class="tag">Step one</p><h3>We agree the scope</h3>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:22ch">What working together looks like.</h2>
+    <div class="grid g3" style="margin-top:30px">
+      <div class="card"><h3>1. We agree the scope</h3>
         <p>You tell me what you are trying to solve. We agree the engagement and the flat fee in writing before any work begins. If you do not need me yet, I will say so.</p></div>
-      <div class="card"><p class="tag">Step two</p><h3>I build it on your real numbers</h3>
+      <div class="card"><h3>2. I build it on your real numbers</h3>
         <p>Not a template. We walk through the reasoning behind every recommendation so you can explain it to your spouse without me in the room.</p></div>
-      <div class="card"><p class="tag">Step three</p><h3>You leave able to act</h3>
-        <p>A written plan you keep, in an order you can follow. Implement it yourself or have me help. Both are fine and only one of them costs more.</p></div>
+      <div class="card"><h3>3. You leave able to act</h3>
+        <p>A written plan you keep, in an order you can follow. Implement it yourself or have me help. Both are fine, and only one of them costs more.</p></div>
     </div>
   </div>
 </section>
 
 <section class="section dark">
   <div class="wrap">
-    <p class="kicker" data-rv>Where I draw lines</p>
-    <h2 data-rv style="max-width:18ch">The things I will <em class="g" style="color:var(--gold-2)">not</em> do.</h2>
-    <p class="lede" data-rv>Confidence in an adviser comes from knowing what they refuse, not from a list of services. These are in my Form ADV, not just on a website.</p>
-    <div class="grid g2 stagger" data-rv style="margin-top:32px">
-      <div class="card"><h3 style="font-size:22px">One planning fee</h3><p>A flat planning fee, paid one time, completed within six months. If we stop early, the unearned portion comes back to you.</p></div>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:18ch">What I will not do.</h2>
+    <p class="lede">You learn more about an adviser from what they refuse than from a list of services. The details behind each of these are in Form CRS and on the disclosures page.</p>
+    <div class="grid g2" style="margin-top:30px">
+      <div class="card"><h3 style="font-size:22px">No open-ended fees</h3><p>Planning is a flat fee, agreed in writing, paid once, completed within six months. If we stop early, the unearned portion comes back to you.</p></div>
       <div class="card"><h3 style="font-size:22px">No required insurance</h3><p>Insurance is never a condition of working with me. When you do buy it here, I am paid a commission, and that conflict is disclosed rather than buried.</p></div>
-      <div class="card"><h3 style="font-size:22px">No pushing AUM that does not fit</h3><p>Management is 1% per year of assets under management with a $750 annual minimum. On a small balance that is a poor deal, and I will tell you to buy a flat-fee plan and invest it yourself.</p></div>
-      <div class="card"><h3 style="font-size:22px">No performance promises</h3><p>Planning is analysis and education. Investing involves risk including loss of principal, and anyone promising otherwise is selling something.</p></div>
+      <div class="card"><h3 style="font-size:22px">No pushing management that does not fit</h3><p>Management is 1% per year of assets managed with a $750 annual minimum. On a small balance that is a poor deal, and I will tell you to buy a flat-fee plan and invest it yourself.</p></div>
+      <div class="card"><h3 style="font-size:22px">No performance promises</h3><p>Planning is analysis and education. Investing involves risk, including loss of principal, and anyone promising otherwise is selling something.</p></div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <p class="kicker" data-rv>Credentials</p>
-    <h2 data-rv style="max-width:15ch">The paperwork behind it.</h2>
-    <div class="badges" data-rv style="border-top:0;padding-top:8px">
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:18ch">Credentials and licenses.</h2>
+    <div class="badges" style="border-top:0;padding-top:8px">
       <div class="badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-        <b>15+ years</b><span>Insurance &amp; financial services</span></div>
+        <b>Since 2012</b><span>Insurance and financial services</span></div>
       <div class="badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21h16M6 21V10M10 21V10M14 21V10M18 21V10M3 10h18L12 4 3 10z"/></svg>
-        <b>Series 65</b><span>Investment Adviser Representative, fiduciary standard</span></div>
+        <b>Series 65</b><span>Investment Adviser Representative, fiduciary standard on advisory work</span></div>
       <div class="badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><circle cx="12" cy="12" r="3.4"/><path d="M12 10.2v1.8l1.2 1.2"/></svg>
-        <b>Custody</b><span>Client assets held at Charles Schwab</span></div>
+        <b>Charles Schwab</b><span>Client assets held in your name</span></div>
     </div>
-    <div class="clines two" data-rv style="margin-top:30px">
+    <div class="clines two" style="margin-top:30px">
       <span><b>Licensed</b>South Carolina Life, Accident &amp; Health</span>
       <span><b>Credential</b>Certified Corporate Financial Planning Analyst (CCFPA)</span>
-      <span><b>Studied</b>Multiple degrees, including an M.S. in Psychology from Arizona State</span>
-      <span><b>Built</b>Businesses started and sold before this one</span>
+      <span><b>Education</b>M.S. in Psychology, Arizona State University</span>
+      <span><b>Service</b>U.S. Marine Corps infantry, 2008 to 2012, Iraq and Afghanistan</span>
+      <span><b>Before this</b>State Farm, 2012 to 2021</span>
       <a href="form-crs.html"><b>Filed</b>Form CRS and disclosures, in full</a>
     </div>
   </div>
@@ -2069,7 +2065,7 @@ PAGES = [
  ("wealth.html","Investment Management and Retirement Income, Greenville SC | Rae &amp; Co Capital","Portfolio management and retirement income planning from a Series 65 adviser in Greenville County. 1% per year of assets managed, $750 annual minimum, planning included. Accounts at Charles Schwab.",WEALTH),
  ("protection.html","Life Insurance, Disability and Long-Term Care Explained | Rae &amp; Co Capital","Term, disability income, whole and universal life, indexed universal life, long-term care and final expense, each explained plainly by a Greenville SC adviser. Quote term from 40+ carriers online.",PROTECTION),
  ("planning.html","Flat-Fee Financial Planning, Greenville SC | Rae &amp; Co Capital","A written financial plan for a flat fee of $750, $2,000 or $3,000 from a Series 65 adviser in Greenville County. Prices and deliverables published. Pay by card and start today.",PLANNING),
- ("advisor.html","Tyler Krause, Your Advisor | Rae &amp; Co Capital","Marine Corps veteran, Series 65 fiduciary, CCFPA. One person who answers the phone.",ADVISOR),
+ ("advisor.html","About Tyler Krause | Rae &amp; Co Capital, Greenville SC","Tyler Krause is a Marine Corps veteran, Series 65 investment adviser and licensed life insurance agent in Greenville, South Carolina. One adviser, no handoffs. Fees and conflicts published.",ADVISOR),
  ("contact.html","Contact | Rae &amp; Co Capital","One call, no pitch. Reach Tyler Krause at Rae &amp; Co Capital.",CONTACT),
  ("disclosures.html","Disclosures | Rae &amp; Co Capital","Registration, risk, fees and conflicts, stated plainly.",DISCLOSURES),
  ("form-crs.html","Form CRS Summary | Rae &amp; Co Capital","Relationship summary, services, fees and conflicts.",FORMCRS),
