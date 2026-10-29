@@ -12,3 +12,9 @@ Redirect 301 /mobile.html https://rcowealth.com/
 
 # Old percent-encoded or trailing variants occasionally seen in logs
 Redirect 301 /index.htm https://rcowealth.com/
+
+# One origin. The quote flow and attribution live in sessionStorage, which does
+# not cross www. and the apex, so send www. to the apex before anything runs.
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.rcowealth\.com$ [NC]
+RewriteRule ^(.*)$ https://rcowealth.com/$1 [R=301,L]

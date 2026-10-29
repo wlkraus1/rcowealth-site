@@ -12,4 +12,4 @@ Included:
 - Transparent Rae & Co logo assets
 - Professional typography polish and smaller type scale
 
-Important: form submissions are wired to the Salesforce Web-to-Lead endpoint included in the prior site candidate and may create real leads.
+Important: every form posts to the firm's own lead intake (Tailscale Funnel on the Pi, see SITE_LOOP.md), which writes to the FSC CRM and pings Telegram. Submissions create real leads. Salesforce is gone (2026-10).

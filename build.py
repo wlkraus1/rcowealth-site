@@ -102,7 +102,7 @@ FORM_HIDDEN = """      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD
 
 FORM_CHECKS = """        <div class="checks2">
           <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
-          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message and data rates may apply. Consent is not required to work with Rae &amp; Co Capital.</label>
+          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</label>
           <label class="ckline"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
         </div>"""
 
@@ -734,7 +734,7 @@ WEALTH = """
     <div>
       <p class="kicker" data-rv>60-second answer</p>
       <h2 data-rv style="max-width:19ch">Will it pay you <em class="g">enough</em> to stop working?</h2>
-      <p class="lede" data-rv>Protection has a calculator, planning has a price list, and until now wealth had a phone number. Drag four sliders and see whether the plan holds. Nothing is stored and no contact details are asked for.</p>
+      <p class="lede" data-rv>Drag four sliders and see whether the plan holds. No contact details are asked for.</p>
       <p class="lede" data-rv style="font-size:15px">The growth rate is yours to set, not mine to promise. Move it and watch how much the answer depends on an assumption nobody can guarantee. That sensitivity is the actual lesson.</p>
       <div class="acts" data-rv>
         <a class="btn btn-ink" href="contact.html">Have it checked properly <span class="arr">&rarr;</span></a>
@@ -1078,7 +1078,7 @@ CONTACT = """
     </div>
     <form class="lform campaign-form contact-lead-form" data-rv id="leadForm"
           action="https://pi-nas.tail34488a.ts.net/" method="POST"
-          data-campaign="website-general-consultation" data-asset="rebuild-contact" data-form-purpose="consultation-request">
+          data-campaign="website-general-consultation" data-asset="contact.html" data-form-purpose="consultation-request">
       <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
       <input type="hidden" name="retURL" value="https://rcowealth.com/thank-you.html">
       <input type="hidden" name="lead_source" value="Web">
@@ -1100,7 +1100,7 @@ CONTACT = """
           <textarea id="description" name="description" placeholder="Example: I am five years from retirement and want to know if the plan holds up."></textarea></div>
         <div class="checks2">
           <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
-          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message and data rates may apply. Consent is not required to work with Rae &amp; Co Capital.</label>
+          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</label>
           <label class="ckline"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
         </div>
       </div>
@@ -1333,7 +1333,8 @@ def types_page():
   "Send what you already have and I will tell you whether it still fits. If the answer is that you do not need anything, that is the answer you will get.",
   lead_form("types-of-life-insurance","types-of-life-insurance.html","life-insurance-planning",
             "Request a policy review","Replies come from me, usually the same day.",
-            "Insurance","Life insurance planning", cta="Request a review", insurance=True), cream=True)}"""
+            "Insurance","Life insurance planning", cta="Request a review", insurance=True,
+            placeholder="Example: I have a 20 year term from 2015 and group cover at work, and I want to know if it still fits."), cream=True)}"""
 
 # ------------------------------------------------------- REMAINING PORTS
 # thank-you.html is NOT optional: every form on the site carries
@@ -1467,8 +1468,8 @@ CHECKLIST = f"""
 {form_section("Request the checklist", "Ask for the checklist, or a full protection review.",
   "I will send the checklist and, if you want, walk your existing policies through it with you. Please leave policy numbers and Social Security numbers out of the form.",
   lead_form("life-insurance-checklist","life-insurance-review-checklist.html","lead-magnet-download",
-            "Send me the checklist","Replies come from me, usually the same day.",
-            "Insurance","Life insurance planning", cta="Send the checklist", insurance=True,
+            "Request the checklist","I send it myself, usually the same day.",
+            "Insurance","Life insurance planning", cta="Request the checklist", insurance=True,
             placeholder="Example: I have a 20 year term from 2015 and group cover at work, and I am not sure if it is still enough."), cream=True)}"""
 
 SERVICE_CARDS = [
@@ -1677,7 +1678,7 @@ GEO = [
    dict(kicker="The order of operations", h2="What gets decided first, and why.", cream=True,
     paras=[
      "Protection comes first because a portfolio does not survive an uninsured disaster. Then the cash reserve, sized to your actual job risk rather than a rule of thumb. Then high-cost debt, ranked by real rates against what the same dollars could earn. Then the tax-advantaged accounts in the order that fits your bracket: employer match, Roth or traditional, HSA if you have one. Then taxable investing. Then the estate basics, which for most households means beneficiaries, titling, a will and powers of attorney, not a trust.",
-     "That sequence is the whole product. It is why a $750 plan can change more than a year of reading. The information was never secret. Someone finally put it in an order and attached your numbers to it.",
+     "That sequence is the whole product. It is why a $750 plan gives you answers that are specific to you, which reading cannot. The information was never secret. Someone finally put it in an order and attached your numbers to it.",
     ]),
    dict(kicker="The first call", h2="Thirty minutes, no pitch, and you leave with a decision.",
     paras=[
@@ -1710,7 +1711,7 @@ GEO = [
     ]),
    dict(kicker="Five decisions that get locked in early", h2="Most of the damage is done before the first withdrawal.", cream=True,
     cards=[("Social Security","62, full retirement age, or 70","Claiming early gives a smaller check for longer. Waiting grows it each year until 70. Health, work, a spouse's record and what else you can draw on all move the answer."),
-           ("Withdrawal order","Taxable, traditional, Roth","Which account pays for each year is a tax decision that compounds for decades. Getting it right is worth more than most fund choices."),
+           ("Withdrawal order","Taxable, traditional, Roth","Which account pays for each year is a tax decision that compounds for decades. Getting the order right matters as much as which fund you pick."),
            ("The reserve","How many years in cash","Enough that a bad first few years in the market never forces a sale at the bottom. Too much and it quietly costs you. The number is personal."),
            ("Survivor income","What happens to the second person","Pension survivor options, Social Security survivor rules and life insurance all interact. Decide it once, on purpose, before the election is irrevocable."),
            ("Risk in the first five years","Sequence risk is the one that matters","The same average return in a different order produces a different retirement. The plan sizes risk to the date, not to a questionnaire."),
