@@ -1577,8 +1577,8 @@ GEO = [
   title="Life Insurance in Greenville, SC | Quote 40+ Carriers Online",
   desc="Life insurance for Greenville and Upstate South Carolina families. See real term rates across 40+ carriers in minutes, or have what you already own checked first. Veteran-owned, SC-licensed.",
   kicker="Protection planning",
-  h1='Life insurance placed with <em class="g">real carriers</em>, tied to the plan.',
-  lede="Coverage is the part that cannot wait for a good year. Price it yourself in a few minutes, or have what you already own checked before you buy anything else.",
+  h1="Life insurance for Greenville families, priced from more than 40 carriers.",
+  lede="Most people here are covered through work for one or two years of salary, and most mortgages are bigger than that. Price the right amount yourself in a few minutes, or have what you already own checked first.",
   deep="life-insurance-quote.html", deep_cta="See my rates",
   alt="life-insurance-calculator.html", alt_cta="Run the coverage numbers",
   helps=["Existing policies and employer coverage","New term and permanent coverage needs",
@@ -1627,8 +1627,8 @@ GEO = [
   title="Financial Advisor in Greenville, SC | Veteran-Owned Fiduciary",
   desc="A Series 65 fiduciary financial advisor in Greenville, South Carolina. Flat-fee planning from $750, published prices, virtual meetings. Investments, insurance, retirement and taxes decided in one order.",
   kicker="Financial planning",
-  h1='Financial planning is the <em class="g">decision system</em>.',
-  lede="Most people do not have an information problem. They have a sequencing problem. Planning is where the pieces get put in an order that actually works.",
+  h1="A financial adviser in Greenville who publishes the price.",
+  lede="Flat-fee planning at $750, $2,000 or $3,000. Investment management at 1% a year with planning included. Life insurance placed on commission, disclosed. All of it is printed here before the first call.",
   deep="planning.html", deep_cta="See flat-fee planning",
   alt="wealth.html#tool", alt_cta="Check your retirement number",
   helps=["Cash flow, savings, and debt decisions","Investment and retirement account structure",
@@ -1676,8 +1676,8 @@ GEO = [
   title="Retirement Planning in Greenville, SC | Rae &amp; Co Capital",
   desc="Retirement income planning for Greenville and Upstate South Carolina. Withdrawal order, Social Security timing, SC tax treatment of retirement income and survivor income, decided before the paycheck stops.",
   kicker="Retirement planning",
-  h1='Retirement income before <em class="g">retirement pressure</em>.',
-  lede="The switch from saving to spending is where small mistakes get expensive, and most of them are locked in before anyone notices.",
+  h1="Retirement income planning in Greenville, decided before the paycheck stops.",
+  lede="Which account to draw from first, when to take Social Security, how much cash to hold, and what South Carolina does and does not tax. Most of these get locked in early, so they are worth deciding on purpose.",
   deep="wealth.html#tool", deep_cta="Check your retirement number",
   alt="planning.html", alt_cta="See flat-fee planning",
   helps=["Income sources and expected spending","Withdrawal sequencing and reserve strategy",
@@ -1721,8 +1721,8 @@ GEO = [
   title="Investment Management in Greenville, SC | Rae &amp; Co Capital",
   desc="Fiduciary investment management in Greenville, South Carolina. 1% per year, planning included, assets held at Charles Schwab in your name. Allocation, taxes and withdrawals run as one decision.",
   kicker="Investment management",
-  h1='Investment management that <em class="g">answers to the plan</em>.',
-  lede="Anyone can buy index funds. The work is sequencing withdrawals, keeping taxes from eating the gains, and not selling at the bottom because a headline scared you.",
+  h1="Investment management in Greenville, at Schwab, in your name.",
+  lede="1% a year on the assets I manage, planning included, with a $750 annual minimum. The work is the allocation, the taxes and the withdrawals, run as one decision instead of three.",
   deep="wealth.html", deep_cta="See how management works",
   alt="wealth.html#tool", alt_cta="Check your retirement number",
   helps=["Current allocation and account structure","Risk exposure and concentration",
@@ -1764,8 +1764,11 @@ GEO = [
 ]
 
 def _cards(cards):
-    return ('\n    <div class="grid g3 stagger" data-rv style="margin-top:28px">' +
-            "".join(f'\n      <div class="card"><p class="tag">{t}</p><h3>{h}</h3><p>{p}</p></div>' for t,h,p in cards) +
+    # The label carries meaning on these pages ("Buy it" / "Skip it", "Through
+    # work"), so it stays, as a quiet sentence-case line rather than a tracked
+    # uppercase tag.
+    return ('\n    <div class="grid g3" style="margin-top:28px">' +
+            "".join(f'\n      <div class="card"><h3><span style="display:block;font:600 13px/1.4 var(--sans);color:var(--gold-ink);margin-bottom:6px">{t}</span>{h}</h3><p>{p}</p></div>' for t,h,p in cards) +
             '\n    </div>')
 
 def geo_section(s):
@@ -1775,8 +1778,7 @@ def geo_section(s):
     return f"""
 <section class="section{' cream' if s.get('cream') else ''}" style="padding-top:clamp(48px,5.5vw,76px);padding-bottom:clamp(48px,5.5vw,76px)">
   <div class="wrap">
-    <p class="kicker" data-rv>{s['kicker']}</p>
-    <h2 class="sub" data-rv style="max-width:30ch">{s['h2']}</h2>{prose}{cards}
+    <h2 style="font-size:clamp(26px,3vw,40px);line-height:1.12;max-width:30ch">{s['h2']}</h2>{prose}{cards}
   </div>
 </section>"""
 
@@ -1787,11 +1789,10 @@ def geo_page(g):
     return f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>{g['kicker']} &middot; Greenville, South Carolina</p>
-    <h1 data-rv>{g['h1']}</h1>
-    <p class="lede" data-rv>{g['lede']}</p>
-    <div class="acts" data-rv>
-      <a class="btn btn-ink" data-magnetic href="{g['deep']}">{g['deep_cta']} <span class="arr">&rarr;</span></a>
+    <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06;max-width:24ch">{g['h1']}</h1>
+    <p class="lede">{g['lede']}</p>
+    <div class="acts">
+      <a class="btn btn-ink" href="{g['deep']}">{g['deep_cta']} <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="{g['alt']}">{g['alt_cta']}</a>
     </div>
   </div>
@@ -1799,11 +1800,11 @@ def geo_page(g):
 
 <section class="section">
   <div class="wrap">
-    <h2 class="sub" data-rv style="margin-bottom:26px">What gets looked at, and what you leave with.</h2>
-    <div class="grid g2 stagger" data-rv>
-      <div class="card"><p class="tag">What gets reviewed</p><h3>The inputs</h3>
+    <h2 style="font-size:clamp(26px,3vw,40px);line-height:1.12;margin-bottom:26px">What gets looked at, and what you leave with.</h2>
+    <div class="grid g2">
+      <div class="card"><h3>What gets reviewed</h3>
         <ul class="ticks">{"".join(f"<li>{x}</li>" for x in g['helps'])}</ul></div>
-      <div class="card"><p class="tag">What you walk away with</p><h3>The output</h3>
+      <div class="card"><h3>What you walk away with</h3>
         <ul class="ticks">{"".join(f"<li>{x}</li>" for x in g['leave'])}</ul></div>
     </div>
     <p class="lede" data-rv style="margin-top:34px;max-width:74ch">Portfolio, retirement income, insurance, cash flow, taxes and family obligations get reviewed together rather than handled as disconnected projects. That coordination is the whole reason one person does all of it.</p>
@@ -1813,9 +1814,9 @@ def geo_page(g):
 <section class="section" style="padding-top:0;padding-bottom:0">
   <div class="wrap"><div class="xrow" data-rv style="margin-top:0">{cross}</div></div>
 </section>
-{faq_block(slug, g['faq_kicker'], g['faq_h2'])}
-{form_section("Request follow-up", "Bring this into the conversation.",
-  "Tell me what is on your mind and I will tell you whether I can help. Please leave out account numbers, policy numbers and Social Security numbers.",
+{faq_block(slug, "", g['faq_h2'])}
+{form_section("", "Want to talk it through?",
+  "Tell me what is on your mind and I will tell you whether I can help. Leave out account numbers, policy numbers and Social Security numbers.",
   lead_form(g['campaign'], slug, "consultation-request", "Request follow-up",
             "Replies come from me, usually the same day.", g['interest'], g['step'],
             cta="Request follow-up", insurance=g['insurance'], placeholder=g['placeholder']), cream=False)}"""
@@ -2081,7 +2082,7 @@ PAGES = [
 ]
 
 for g in GEO:
-    PAGES.append((g["slug"],g["title"],g["desc"],geo_page(g)))
+    PAGES.append((g["slug"],g["title"],g["desc"],geo_page(g).replace(" data-rv", "").replace(" data-magnetic", "")))
 
 for i,(slug,title,desc,body) in enumerate(PAGES):
     if slug == "life-insurance-calculator.html":
