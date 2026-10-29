@@ -212,6 +212,8 @@ def asset_v(name):
     return hashlib.sha1((OUT/name).read_bytes()).hexdigest()[:10]
 # BackNine quote-and-apply, the only place on the site where someone can buy
 # without talking to anyone. Append &utm_content=<where> at each call site.
+# Every "quote" CTA lands on the capture-first page (2f4843f, 2026-10-28).
+# B9 stays only for the "quoter will not load" fallback links.
 B9 = ("https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal"
       "&amp;utm_campaign=rebuild")
 
@@ -249,6 +251,36 @@ LD = """{
   "founder":{"@type":"Person","name":"Tyler Krause","jobTitle":"Founder & Private Wealth Advisor","alumniOf":"Arizona State University","knowsAbout":["Behavioral finance","Psychology of money","Financial planning","Life insurance"]}
 }"""
 
+# Pages that must never be indexed: the checkout bridge and the three
+# thank-you pages (gated PDFs and post-submit confirmations).
+NOINDEX = {"start-plan.html", "thank-you.html", "thank-you-worksheet.html", "thank-you-checklist.html"}
+
+# Page-specific inline scripts, appended after the tracking scripts. Keyed by
+# slug so a hand edit to a generated page can never be the only copy again.
+PAGE_SCRIPTS = {
+ "life-insurance-quote.html": """<script>
+// Stash the rates-form details so your-rates.html can prefill the embedded quoter.
+(function () {
+  var form = document.getElementById('ratesForm');
+  if (!form) return;
+  form.addEventListener('submit', function () {
+    try {
+      var attribution = {};
+      try { attribution = JSON.parse(sessionStorage.getItem('raeCoCampaignAttribution') || '{}') || {}; } catch (e) {}
+      sessionStorage.setItem('rcoQuotePrefill', JSON.stringify({
+        first_name: (document.getElementById('qr_first_name').value || '').trim(),
+        last_name: (document.getElementById('qr_last_name').value || '').trim(),
+        email: (document.getElementById('qr_email').value || '').trim(),
+        phone: (document.getElementById('qr_phone').value || '').trim(),
+        campaign: attribution.utm_campaign || 'life-insurance-quote'
+      }));
+    } catch (e) {}
+  });
+})();
+</script>
+""",
+}
+
 def shell(slug, title, desc, body, canvas=False, extra_ld=""):
     nav = "\n".join(
         f'      <a href="{h}"{" aria-current=\"page\"" if h==slug else ""}>{t}</a>'
@@ -282,7 +314,7 @@ def shell(slug, title, desc, body, canvas=False, extra_ld=""):
 <meta name="description" content="{desc}">
 {index_meta}
 <meta name="google-site-verification" content="VYQlcefljOic4ThdXdbPbbdZ1O5wRNZ5QuVxPpeNEB4">
-{'<meta name="robots" content="noindex">' if slug == "start-plan.html" else ''}
+{'<meta name="robots" content="noindex">' if slug in NOINDEX else ''}
 <meta name="theme-color" content="#06111f">
 <link rel="icon" href="/favicon.ico?v=goldleaf-20260521-1647">
 <link rel="stylesheet" href="rco.css?v={asset_v('rco.css')}">
@@ -316,7 +348,7 @@ def shell(slug, title, desc, body, canvas=False, extra_ld=""):
         {SOCIAL}
       </div>
       <nav aria-label="Start"><p class="ftlabel">Start</p>
-        <a href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=footer" target="_blank" rel="noopener">Quote &amp; apply</a>
+        <a href="/life-insurance-quote.html">Quote &amp; apply</a>
         <a href="life-insurance-calculator.html">Coverage calculator</a>
         <a href="planning.html">Buy a plan</a>
       </nav>
@@ -347,7 +379,7 @@ def shell(slug, title, desc, body, canvas=False, extra_ld=""):
 <script src="rco.js?v={asset_v('rco.js')}"></script>
 <script src="/campaign-tracking.js?v={asset_v('campaign-tracking.js')}" defer></script>
 <script src="/tracking-tags.js?v={asset_v('tracking-tags.js')}" defer></script>
-</body>
+{PAGE_SCRIPTS.get(slug, "")}</body>
 </html>
 """
 
@@ -459,7 +491,7 @@ FAQS = {
    "The carrier underwrites the application. For many healthy applicants that is a records check and no exam; others are asked for a short paramedical exam. Approval can take anywhere from a day to a few weeks depending on the carrier and your history. "
    "Nothing is in force until the carrier issues the policy and the first premium is paid."),
   ("Can I cancel if I change my mind?",
-   "Yes. South Carolina law gives you at least 10 days from the date a life insurance policy is delivered to return it for a full refund of premium, and 30 days for a policy sold by mail. After that, term coverage can be cancelled at any time by stopping premium payments; there is no surrender charge on term."),
+   "Yes. Policies delivered in South Carolina come with a free-look period, commonly 10 days from delivery and longer for some policies sold by mail, in which you can return the policy for a refund of premium. The exact window is printed in the policy. After that, term coverage can be cancelled at any time by stopping premium payments; there is no surrender charge on term."),
  ],
  "life-insurance-calculator.html": [
   ("How accurate is this life insurance calculator?",
@@ -786,7 +818,7 @@ PROTECTION = """
     <h1 data-rv>Coverage is the part that <em class="g">cannot wait</em> for a good year.</h1>
     <p class="lede" data-rv>Pick what is on your mind. Every answer names what it solves, what it costs you, and when it is the wrong tool, because knowing when not to buy something is the part most people never get told.</p>
     <div class="acts" data-rv>
-      <a class="btn btn-gold" data-magnetic href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=protection_hero" target="_blank" rel="noopener">Quote and apply now <span class="arr">&rarr;</span></a>
+      <a class="btn btn-gold" data-magnetic href="/life-insurance-quote.html">Quote and apply now <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="life-insurance-calculator.html">Run the coverage numbers</a>
     </div>
   </div>
@@ -823,7 +855,7 @@ CARRIERWALL = """
     </div>
     <p class="cmore" data-rv>{MORE}</p>
     <div class="acts" data-rv style="justify-content:center;margin-top:30px">
-      <a class="btn btn-gold" href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=protection_carriers" target="_blank" rel="noopener">Start my quote <span class="arr">&rarr;</span></a>
+      <a class="btn btn-gold" href="/life-insurance-quote.html">Start my quote <span class="arr">&rarr;</span></a>
     </div>
     <div style="margin-top:14px">
       <button class="btn-line" type="button" data-carriers aria-expanded="false" aria-controls="carrierlist"
@@ -984,7 +1016,7 @@ ADVISOR = """
     <h2 data-rv style="max-width:18ch">The things I will <em class="g" style="color:var(--gold-2)">not</em> do.</h2>
     <p class="lede" data-rv>Confidence in an adviser comes from knowing what they refuse, not from a list of services. These are in my Form ADV, not just on a website.</p>
     <div class="grid g2 stagger" data-rv style="margin-top:32px">
-      <div class="card"><h3 style="font-size:22px">No hourly, no retainer</h3><p>Flat fees only, one time, completed within six months. If we stop early, the unearned portion comes back to you.</p></div>
+      <div class="card"><h3 style="font-size:22px">One planning fee</h3><p>A flat planning fee, paid one time, completed within six months. If we stop early, the unearned portion comes back to you.</p></div>
       <div class="card"><h3 style="font-size:22px">No required insurance</h3><p>Insurance is never a condition of working with me. When you do buy it here, I am paid a commission, and that conflict is disclosed rather than buried.</p></div>
       <div class="card"><h3 style="font-size:22px">No pushing AUM that does not fit</h3><p>Management is 1% per year of assets under management with a $750 annual minimum. On a small balance that is a poor deal, and I will tell you to buy a flat-fee plan and invest it yourself.</p></div>
       <div class="card"><h3 style="font-size:22px">No performance promises</h3><p>Planning is analysis and education. Investing involves risk including loss of principal, and anyone promising otherwise is selling something.</p></div>
@@ -1027,11 +1059,6 @@ CONTACT = """
       <h1 data-rv style="font-size:clamp(42px,5.2vw,72px)">One call. <em class="g">No pitch.</em></h1>
       <p class="lede" data-rv>Tell me what is on your mind and I will tell you whether I can help. If the answer is that you do not need me yet, that is the answer you will get.</p>
       <div data-rv>
-      <!-- Click to call AND click to text. Tyler: "alot of ppl txt first."
-           sms: with a prefilled body is supported on iOS and Android; the ?&body=
-           form is the one that works on both. 864-558-8440 is a Zoom Phone line
-           that receives SMS, which is why it must never move to an auto
-           receptionist. -->
       <div class="reachrow">
         <a class="reach" href="tel:+18645588440">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
@@ -1106,11 +1133,15 @@ FORMCRS = legal_page("Form CRS Summary","Legal",[
 ])
 
 PRIVACY = legal_page("Privacy Policy","Legal",[
- ("What we collect","We collect only the information you give us: your name, contact details, and whatever you choose to share about your financial situation so we can do the work. The coverage calculator on this site requires no name or email and stores nothing about you."),
- ("How we use it","To respond to you, to provide the services you engage us for, and to meet our record-keeping obligations as a registered investment adviser. We do not sell your information, ever."),
- ("Who else sees it","Only the parties needed to deliver the service, such as the custodian holding your accounts or an insurance carrier processing an application you chose to submit. Each has its own privacy practices."),
+ ("What we collect","Two kinds of information. First, what you type into a form: your name, contact details, and whatever you choose to tell us about your situation so we can do the work. Second, ordinary website data: the pages you visit, your device and browser, and how you arrived (a search, an ad, a link), collected by the analytics and advertising tools listed below. The coverage calculator asks for no name or email, and the number you work out is not sent to us unless you choose to submit it."),
+ ("Analytics and advertising tools","This site uses Google Tag Manager, Google Analytics 4, Google Ads conversion tracking and the Meta (Facebook) Pixel. They set cookies and similar identifiers to measure traffic, show which pages and campaigns work, and let Google and Meta attribute a visit or a form submission to an ad you saw. Each of those companies has its own privacy policy. We also keep the campaign tags from the link you arrived on (such as utm codes or an ad click id) in your browser&rsquo;s session storage for the length of your visit, so that a form you submit can record where the inquiry came from."),
+ ("Where form submissions go","Forms on this site post to Rae &amp; Co Capital&rsquo;s own lead intake server, which stores the submission in the firm&rsquo;s client relationship system and notifies the advisor. The analytics tools above only learn that a form was submitted, not what it said. We do not sell your information, ever."),
+ ("How we use it","To respond to you, to provide the services you engage us for, and to meet our record-keeping obligations as a registered investment adviser."),
+ ("Who else sees it","Only the parties needed to deliver the service: the custodian holding your accounts, an insurance carrier or the BackNine quoting platform processing an application you chose to start, and the service providers that host this site, run the analytics above, or deliver our email and text messages. Each has its own privacy practices."),
+ ("Text messages and calls","If you tick the consent box on a form, we may text or call you at the number you gave about your request. Message frequency varies. Message and data rates may apply. Reply STOP to any text to end messages and HELP for help. Consent is not a condition of working with Rae &amp; Co Capital."),
+ ("Your choices","You can ask what we hold about you, ask us to correct or delete it, or opt out of marketing messages at any time by replying to any message, emailing info@rcowealth.com, or calling 864-558-8440. You can block or clear cookies in your browser, and you can manage ad personalization at Google&rsquo;s Ads Settings and in your Meta ad preferences."),
  ("Security","Do not send account numbers, policy numbers, passwords, Social Security numbers, or other sensitive financial data through any website form. Use the secure channels we set up with you instead."),
- ("Your choices","You can ask what we hold, ask us to correct it, or opt out of marketing messages at any time by replying to any message or calling 864-558-8440."),
+ ("Updates","This policy was last updated October 29, 2026. If it changes, the new version is posted here with a new date."),
 ])
 
 CLIENTLOGIN = legal_page("Client access","Portals",[
@@ -1150,7 +1181,7 @@ CALCULATOR = """
   <div class="wrap">
     <p class="kicker" data-rv>Free tool &middot; no email required</p>
     <h1 data-rv style="font-size:clamp(40px,5vw,72px)">How much cover do you <em class="g">actually</em> need?</h1>
-    <p class="lede" data-rv>Most people guess, or assume what they have through work is enough. Drag the sliders and watch the number move. Nothing is stored and nobody is emailed.</p>
+    <p class="lede" data-rv>Most people guess, or assume what they have through work is enough. Drag the sliders and watch the number move. No name, no email, no account, and nobody is emailed.</p>
   </div>
 </section>
 
@@ -1187,7 +1218,7 @@ CALCULATOR = """
       <div class="rline"><span>Total need</span><b id="needOut">$0</b></div>
       <div class="rline"><span>Existing coverage</span><b id="haveOut">$0</b></div>
       <div class="ractions">
-        <a class="btn btn-gold" href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=calculator_result" target="_blank" rel="noopener">Quote this amount <span class="arr">&rarr;</span></a>
+        <a class="btn btn-gold" href="/life-insurance-quote.html">Quote this amount <span class="arr">&rarr;</span></a>
         <a class="btn-line" href="protection.html">What kind should it be?</a>
       </div>
     </aside>
@@ -1279,7 +1310,7 @@ def types_page():
     <p class="lede" data-rv>Most people are sold a product before anyone tells them what the products are. Here is the range we place, in order of how simple it is, with the costs stated as plainly as the benefits.</p>
     <div class="acts" data-rv>
       <a class="btn btn-ink" data-magnetic href="life-insurance-calculator.html">Estimate what you need <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="{B9}&amp;utm_content=types_hero" target="_blank" rel="noopener">Compare real quotes</a>
+      <a class="btn-line" href="/life-insurance-quote.html">Compare real quotes</a>
     </div>
   </div>
 </section>
@@ -1341,19 +1372,52 @@ QUOTE = f"""
   <div class="wrap">
     <p class="kicker" data-rv>Instant quotes &middot; No agent call</p>
     <h1 data-rv>Compare real quotes from <em class="g">major carriers</em>.</h1>
-    <p class="lede" data-rv>Answer a few health and coverage questions and see actual pricing across 40+ carriers. You can apply online in the same session. Nobody phones you to unlock a number.</p>
+    <p class="lede" data-rv>Tell me who you are, answer a few health and coverage questions, and see actual pricing across 40+ carriers. You can apply online in the same session. Nobody phones you to unlock a number.</p>
     <div class="acts" data-rv>
-      <a class="btn btn-gold" data-magnetic href="{B9}&amp;utm_content=quote_hero" target="_blank" rel="noopener">Open quote &amp; apply <span class="arr">&rarr;</span></a>
+      <a class="btn btn-gold" data-magnetic href="#see-rates">See my rates <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="life-insurance-calculator.html">Work out the amount first</a>
     </div>
+  </div>
+</section>
+<section class="section" id="see-rates">
+  <div class="wrap split c">
+    <div>
+      <p class="kicker" data-rv>Step one of three</p>
+      <h2 data-rv>Start with your name, get <em class="g">live pricing</em> on the next screen.</h2>
+      <p class="lede" data-rv>Four fields, then the quoter opens with your details already filled in. The rates come straight from the carriers. If you stop halfway, I can pick it up where you left off instead of you starting over.</p>
+    </div>
+    <form class="lform campaign-form" data-rv id="ratesForm"
+          action="https://pi-nas.tail34488a.ts.net/" method="POST"
+          data-campaign="life-insurance-quote" data-asset="life-insurance-quote.html" data-form-purpose="life-insurance-quote-rates">
+      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
+      <input type="hidden" name="retURL" value="https://rcowealth.com/your-rates.html">
+      <input type="hidden" name="lead_source" value="Web">
+      <input type="hidden" name="company" value="Individual / Household">
+      <input type="hidden" name="00Nfn0000089jHR" value="Website">
+      <label class="hp2" aria-hidden="true">Website<input name="website_url" autocomplete="off" tabindex="-1" data-honeypot="true"></label>
+      <input type="hidden" name="00Nfn0000089jXZ" value="Insurance">
+      <input type="hidden" name="00NbV000002pcrh" value="Yes">
+      <input type="hidden" name="preferred_next_step_display" value="Life insurance quote">
+      <h2 class="sub">See my rates</h2>
+      <p class="lsub">No call required. Your rates load on the next screen.</p>
+      <div class="fgrid">
+        <div class="fld2"><label for="qr_first_name">First name</label><input id="qr_first_name" name="first_name" autocomplete="given-name" required></div>
+        <div class="fld2"><label for="qr_last_name">Last name</label><input id="qr_last_name" name="last_name" autocomplete="family-name" required></div>
+        <div class="fld2"><label for="qr_email">Email</label><input id="qr_email" type="email" name="email" autocomplete="email" required></div>
+        <div class="fld2"><label for="qr_phone">Phone</label><input id="qr_phone" type="tel" name="phone" autocomplete="tel"></div>
+{FORM_CHECKS}
+      </div>
+      <button class="btn btn-gold" type="submit" style="width:100%;margin-top:18px">Show my rates <span class="arr">&rarr;</span></button>
+      <p class="lfine">Submitting this form does not create an advisory relationship and does not obligate you to buy anything. Pricing on the next screen is an estimate, not a binding offer, and all coverage is subject to underwriting and carrier approval.</p>
+    </form>
   </div>
 </section>
 <section class="section">
   <div class="wrap">
     <h2 class="sub" data-rv style="margin-bottom:24px">What happens, in order.</h2>
     <div class="grid g3 stagger" data-rv>
-      <div class="card"><p class="tag">Step one</p><h3>Health and coverage questions</h3><p>A couple of minutes. No exam at this stage and no commitment to anything.</p></div>
-      <div class="card"><p class="tag">Step two</p><h3>Real pricing, side by side</h3><p>You see the same carrier pricing I see. There is no version of this where I get a better number than you do.</p></div>
+      <div class="card"><p class="tag">Step one</p><h3>Your name and contact</h3><p>Four fields so your quote is saved to you. The quoter opens right after with those details already filled in.</p></div>
+      <div class="card"><p class="tag">Step two</p><h3>Health questions, then real pricing</h3><p>A couple of minutes, no exam at this stage. You see the same carrier pricing I see, side by side. There is no version of this where I get a better number than you do.</p></div>
       <div class="card"><p class="tag">Step three</p><h3>Apply and e-sign</h3><p>In the same sitting if you want. Underwriting and carrier approval come after, and nothing is in force until a carrier issues.</p></div>
     </div>
     <div class="callout" data-rv style="margin-top:30px"><b>If the quoter will not load</b>
@@ -1442,7 +1506,7 @@ SERVICES = f"""
       <p class="lede" data-rv>Start with the estimate, then compare real pricing. The calculator asks for no contact information and stores nothing.</p>
       <div class="acts" data-rv>
         <a class="btn btn-ink" href="life-insurance-calculator.html">Estimate your coverage need <span class="arr">&rarr;</span></a>
-        <a class="btn-line" href="{B9}&amp;utm_content=services_quote" target="_blank" rel="noopener">Compare real quotes</a>
+        <a class="btn-line" href="/life-insurance-quote.html">Compare real quotes</a>
       </div>
     </div>
     <div class="card" data-rv>
@@ -1464,7 +1528,7 @@ REVIEW = f"""
     <h1 data-rv>Make sure the people depending on you are <em class="g">actually protected</em>.</h1>
     <p class="lede" data-rv>Families, homeowners and business owners get existing policies and coverage gaps reviewed against what the money is actually for. Price it yourself in a few minutes, or have what you already own checked first.</p>
     <div class="acts" data-rv>
-      <a class="btn btn-gold" data-magnetic href="{B9}&amp;utm_content=review_hero" target="_blank" rel="noopener">Get pricing now <span class="arr">&rarr;</span></a>
+      <a class="btn btn-gold" data-magnetic href="/life-insurance-quote.html">Get pricing now <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="life-insurance-calculator.html">Work out the amount first</a>
     </div>
     <p style="margin:26px 0 0;font:600 13px/1.6 var(--sans);color:var(--muted)" data-rv>Mortgage protection &middot; Income replacement &middot; Family obligations &middot; Business-owner risk</p>
@@ -1559,7 +1623,7 @@ GEO = [
     ]),
    dict(kicker="South Carolina rules worth knowing", h2="What the state gives you, and what it does not.",
     paras=[
-     "South Carolina law gives you at least 10 days from the day a life insurance policy is delivered to return it for a full refund of premium, and 30 days for a policy sold by mail. Nobody is stuck because they signed. Read the policy in that window and send it back if it is not what you were told.",
+     "Policies delivered in South Carolina come with a free-look period, commonly 10 days from delivery and longer for some policies sold by mail, in which you can return the policy for a refund of premium. The exact window is printed in the policy. Read the policy in that window and send it back if it is not what you were told.",
      "Beneficiary designations generally control who receives a life insurance payout, regardless of what a will says. After a marriage, divorce, birth or death in the family, the designation is the first document to check. That is general information, not legal advice; an attorney can confirm how it applies to you.",
      "Rae &amp; Co Capital is licensed in South Carolina for life, accident and health insurance. Coverage is placed through BackNine Insurance across 40+ carriers, the carrier pays a commission when a policy issues, and that conflict of interest is disclosed. It is also why the advice here starts with whether you need coverage at all.",
     ]),
@@ -1703,7 +1767,7 @@ GEO = [
            ("Old plans","The 401(k) you left at a previous employer","Four options, each with different costs and protections. Rolling it to me pays me 1%, so you see the leave-it math first."),
            ("Real estate heavy","A rental or two and not much else liquid","Common in the Upstate. The plan works out what the portfolio needs to do that the property cannot, and how much cash that requires."),
            ("Inherited accounts","An IRA with a ten-year clock","Inherited IRAs have withdrawal rules that can push income into high brackets if ignored. Sequencing them is planning, and it is included."),
-           ("Taxable and retirement side by side","Which fund goes where","Bonds, stocks and funds that throw off income belong in different account types. Placement is free money that most portfolios leave on the table."),
+           ("Taxable and retirement side by side","Which fund goes where","Bonds, stocks and funds that throw off income belong in different account types. Placement is a detail most portfolios skip, and it is one of the few that costs nothing to get right."),
            ("Drawing down","Turning a balance into a paycheck","The withdrawal order, the reserve and the Social Security date are one decision. See the <a href=\"retirement-planning-greenville-sc.html\">retirement page</a>.")]),
    dict(kicker="When not to hire me", h2="Three honest reasons to keep doing it yourself.",
     paras=[
@@ -1865,9 +1929,18 @@ BRIDGE = """
   var f=document.getElementById("bridgeForm");
   f.setAttribute("data-campaign","planning-checkout-"+key);
   document.getElementById("bFallback").href=t.pay;
-  f.addEventListener("submit",function(){
+  // Leave for Square only once the hidden-iframe POST has landed (its load
+  // event), with a 4 s ceiling so a slow intake never strands the visitor.
+  // The old fixed 1.2 s timer could unload the frame mid-request and lose the
+  // "Started checkout" lead.
+  var sink=document.querySelector('iframe[name="paysink"]'),submitted=false,gone=false;
+  function go(){ if(gone) return; gone=true; window.location.href=t.pay; }
+  if(sink) sink.addEventListener("load",function(){ if(submitted) go(); });
+  f.addEventListener("submit",function(e){
+    if(e.defaultPrevented) return;
+    submitted=true;
     document.getElementById("bWait").style.display="block";
-    setTimeout(function(){window.location.href=t.pay;},1200);
+    setTimeout(go,4000);
   });
 })();
 </script>
@@ -1906,7 +1979,7 @@ def magnet_form(retpage, asset, purpose, cta):
         </div>
       </div>
       <button class="btn btn-gold" type="submit" style="width:100%;margin-top:18px">{cta} <span class="arr">&rarr;</span></button>
-      <p class="lfine">In a hurry? Skip ahead: <a href="{B9}&amp;utm_content={asset.split(".")[0]}_skip" target="_blank" rel="noopener">See my rates &rarr;</a></p>
+      <p class="lfine">In a hurry? Skip ahead: <a href="/life-insurance-quote.html">See my rates &rarr;</a></p>
       <p class="lfine">Submitting this form does not create an advisory relationship. The download is educational only and its results are estimates, not individualized advice.</p>
     </form>"""
 
@@ -1933,7 +2006,7 @@ def magnet_landing(kicker, h1, lede, chips, steps_kicker, steps_h2, steps, retpa
     <div class="grid g3 stagger" data-rv style="margin-top:32px">{stepcards}</div>
     <div class="acts" data-rv style="margin-top:32px">
       <a class="btn btn-ink" href="life-insurance-calculator.html">Run the numbers online instead <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="{B9}&amp;utm_content={asset.split(".")[0]}_bottom" target="_blank" rel="noopener">See my rates</a>
+      <a class="btn-line" href="/life-insurance-quote.html">See my rates</a>
     </div>
   </div>
 </section>
@@ -1956,7 +2029,7 @@ def magnet_thanks(h1, lede, pdf, label, camp):
     <h2 class="sub" data-rv style="margin-bottom:10px">When you have your number, see what coverage actually costs.</h2>
     <p class="lede" data-rv>Real quotes from major carriers, yourself, right now. No phone call required. If you would rather have a second set of eyes first, that is here too.</p>
     <div class="acts" data-rv>
-      <a class="btn btn-ink" href="{B9}&amp;utm_content={camp}_thankyou" target="_blank" rel="noopener">See my rates <span class="arr">&rarr;</span></a>
+      <a class="btn btn-ink" href="/life-insurance-quote.html">See my rates <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="life-insurance-calculator.html?utm_source=site&amp;utm_medium=magnet&amp;utm_campaign={camp}&amp;utm_content=thankyou_calculator">Run my numbers</a>
       <a class="btn-line" href="https://scheduler.zoom.us/raecocapital/life-insurance-review?utm_source=site&amp;utm_medium=magnet&amp;utm_campaign={camp}&amp;utm_content=thankyou_schedule" target="_blank" rel="noopener">Schedule a free review</a>
     </div>
@@ -2014,7 +2087,7 @@ PAGES = [
  ("form-crs.html","Form CRS Summary | Rae &amp; Co Capital","Relationship summary, services, fees and conflicts.",FORMCRS),
  ("privacy.html","Privacy Policy | Rae &amp; Co Capital","What we collect, how it is used, and what we never do with it.",PRIVACY),
  ("client-login.html","Client Access | Rae &amp; Co Capital","Go to your custodian or carrier portal directly.",CLIENTLOGIN),
- ("life-insurance-calculator.html","Life Insurance Calculator | Rae &amp; Co Capital","Drag the sliders and see your coverage gap. No name, no email, nothing stored.",CALCULATOR),
+ ("life-insurance-calculator.html","Life Insurance Calculator | Rae &amp; Co Capital","Drag the sliders and see your coverage gap. No name, no email, no signup.",CALCULATOR),
  ("types-of-life-insurance.html","Types of Life Insurance, Explained Plainly | Rae &amp; Co Capital","Term, whole, universal, IUL, disability income, long-term care, term variants and final expense. What each solves, what it costs you, and when it is the wrong tool.",types_page()),
  ("life-insurance-quote.html","Get a Life Insurance Quote Online | Rae &amp; Co Capital","Compare real life insurance quotes across 40+ carriers and apply online in the same session. No agent call required to see your rates.",QUOTE),
  ("life-insurance-review-checklist.html","Life Insurance Review Checklist | Rae &amp; Co Capital","Six things to check before you change or replace a life insurance policy. Obligations, ownership, beneficiaries and liquidity, not just premium.",CHECKLIST),

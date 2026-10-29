@@ -149,9 +149,18 @@
   var f=document.getElementById("bridgeForm");
   f.setAttribute("data-campaign","planning-checkout-"+key);
   document.getElementById("bFallback").href=t.pay;
-  f.addEventListener("submit",function(){
+  // Leave for Square only once the hidden-iframe POST has landed (its load
+  // event), with a 4 s ceiling so a slow intake never strands the visitor.
+  // The old fixed 1.2 s timer could unload the frame mid-request and lose the
+  // "Started checkout" lead.
+  var sink=document.querySelector('iframe[name="paysink"]'),submitted=false,gone=false;
+  function go(){ if(gone) return; gone=true; window.location.href=t.pay; }
+  if(sink) sink.addEventListener("load",function(){ if(submitted) go(); });
+  f.addEventListener("submit",function(e){
+    if(e.defaultPrevented) return;
+    submitted=true;
     document.getElementById("bWait").style.display="block";
-    setTimeout(function(){window.location.href=t.pay;},1200);
+    setTimeout(go,4000);
   });
 })();
 </script>
@@ -172,7 +181,7 @@
         </div>
       </div>
       <nav aria-label="Start"><p class="ftlabel">Start</p>
-        <a href="https://app.back9ins.com/apply/rcowealth?utm_source=website&amp;utm_medium=internal&amp;utm_campaign=rebuild&amp;utm_content=footer" target="_blank" rel="noopener">Quote &amp; apply</a>
+        <a href="/life-insurance-quote.html">Quote &amp; apply</a>
         <a href="life-insurance-calculator.html">Coverage calculator</a>
         <a href="planning.html">Buy a plan</a>
       </nav>
@@ -202,6 +211,6 @@
 </footer>
 <script src="rco.js?v=def750c852"></script>
 <script src="/campaign-tracking.js?v=54e997dafa" defer></script>
-<script src="/tracking-tags.js?v=8adf7f0a5e" defer></script>
+<script src="/tracking-tags.js?v=f880282d64" defer></script>
 </body>
 </html>

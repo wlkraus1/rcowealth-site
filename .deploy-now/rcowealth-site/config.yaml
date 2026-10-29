@@ -1,0 +1,23 @@
+# IONOS Deploy Now: what NOT to upload to the public webroot. The build
+# workflow (.github/workflows/rcowealth-site-build.yaml) names this file. Until
+# 2026-10-29 it did not exist, so the whole repo, generator and notes included,
+# shipped to rcowealth.com. The .htaccess FilesMatch block is the backstop.
+version: 1.0
+deploy:
+  excludes:
+    - .git
+    - .github
+    - .deploy-now
+    - .claude
+    - .lead-spill
+    - .gitignore
+    - __pycache__
+    - .DS_Store
+    - build.py
+    - CLAUDE.md
+    - README.md
+    - SITE_LOOP.md
+    - QA_REPORT.json
+    - campaigns.json
+    - live-qa-2026-05-21-v28
+    - phone/README.md

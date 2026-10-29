@@ -91,7 +91,7 @@
         const href = link.href || '';
         if (/scheduler\.zoom\.us/i.test(href)) {
           pushEvent('schedule_click', { link_url: href, link_text: linkLabel(link) });
-        } else if (/client\.schwab\.com|mutualofomaha\.com/i.test(href)) {
+        } else if (/client\.schwab\.com|schwaballiance\.com|mutualofomaha\.com/i.test(href)) {
           pushEvent('client_portal_click', { link_url: href, link_text: linkLabel(link) });
         } else if (/^tel:/i.test(link.getAttribute('href') || '')) {
           pushEvent('phone_click', { link_url: link.getAttribute('href'), link_text: linkLabel(link) });

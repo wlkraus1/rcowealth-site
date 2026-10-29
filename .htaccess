@@ -1,6 +1,11 @@
-# rcowealth.com launch redirects - RENAME to .htaccess in the same commit that
-# moves rebuild/ to the site root. Staged under a different name so it cannot
-# affect the live site if this branch is merged before the swap.
+# rcowealth.com: redirects and a deny list for internal files.
+
+# Internal files must never be served even if a deploy carries them to the
+# webroot (generator source, notes, QA output). The site fetches no .json,
+# .md, .py or .yaml file at runtime. Twilio's phone/*.xml stays public.
+<FilesMatch "\.(md|py|pyc|yaml|yml|json)$">
+  Require all denied
+</FilesMatch>
 
 # mobile.html retired: the rebuild is responsive, one URL per page.
 Redirect 301 /mobile.html https://rcowealth.com/

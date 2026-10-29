@@ -4,7 +4,7 @@ This is the ONLY live repo for rcowealth.com (git `wlkraus1/rcowealth-site` → 
 
 ## Stack
 
-Static HTML/CSS/JS — no build step, no framework. Pages are standalone `.html` files (index, about, contact, disclosures, form-crs, SEO landing pages like `financial-advisor-greenville-sc.html`). `campaign-tracking.js` + `campaigns.json` handle attribution.
+Static HTML/CSS/JS, no framework, but there IS a generator: `build.py` writes 26 of the pages (everything except the redirect stubs, `your-rates.html` and the Google verification file) plus `sitemap.xml`. **Edit `build.py`, then run `python3 build.py`, then commit both.** Never hand-edit a generated page: on 2026-10-29 a rebuild silently reverted two hand-made commits (the capture-first quote flow and 39 repointed quote CTAs) and the revert went live. Page-specific inline scripts live in `PAGE_SCRIPTS` in `build.py`. `campaign-tracking.js` handles attribution (`campaigns.json` is documentation only). Deploy excludes live in `.deploy-now/rcowealth-site/config.yaml`.
 
 ## Compliance (RIA — non-negotiable)
 

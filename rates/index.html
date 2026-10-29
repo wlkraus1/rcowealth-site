@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<link rel="canonical" href="../life-insurance-quote.html">
+<link rel="canonical" href="https://rcowealth.com/life-insurance-quote.html">
 <title>See My Rates | Rae &amp; Co Capital</title>
 <script>
 (function () {
@@ -19,8 +19,11 @@
     out = inParams;
   } else {
     out = new URLSearchParams();
-    out.set('utm_source', inParams.get('s') || 'facebook');
-    out.set('utm_medium', 'social');
+    // Only label the source when the short link said so; a bare visit is a
+    // typed-in or shared link, not a Facebook click.
+    var s = inParams.get('s');
+    out.set('utm_source', s || 'short_link');
+    out.set('utm_medium', s ? 'social' : 'referral');
     out.set('utm_campaign', inParams.get('c') || 'rates_short_link');
   }
   window.location.replace('../life-insurance-quote.html?' + out.toString());

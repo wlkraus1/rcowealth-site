@@ -42,9 +42,18 @@ const TELEGRAM_CONFIG = __DIR__ . '/.telegram.json';
 /** Same-origin only. An open redirect on a financial firm's site is a phishing gift. */
 function safe_return(string $candidate): string {
     if ($candidate === '') return DEFAULT_RETURN;
+    // Browsers turn a backslash into a slash, so "/\evil.com" and
+    // "https://evil.com\@rcowealth.com/" would both leave the site. Reject it.
+    if (strpos($candidate, '\\') !== false) return DEFAULT_RETURN;
     $parts = parse_url($candidate);
     if ($parts === false) return DEFAULT_RETURN;
-    if (!isset($parts['host'])) return strpos($candidate, '/') === 0 ? $candidate : DEFAULT_RETURN;
+    if (!isset($parts['host'])) {
+        $path = $parts['path'] ?? '';
+        // Site-relative only: a single leading slash, never "//host".
+        return ($path !== '' && $path[0] === '/' && ($path === '/' || $path[1] !== '/')) ? $candidate : DEFAULT_RETURN;
+    }
+    if (!isset($parts['scheme']) || !in_array(strtolower($parts['scheme']), ['http', 'https'], true)) return DEFAULT_RETURN;
+    if (isset($parts['user']) || isset($parts['pass'])) return DEFAULT_RETURN;
     $host = strtolower($parts['host']);
     return ($host === 'rcowealth.com' || $host === 'www.rcowealth.com') ? $candidate : DEFAULT_RETURN;
 }
