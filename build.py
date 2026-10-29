@@ -149,7 +149,7 @@ def form_section(kicker, h2, lede, form, cream=False):
 <section class="section{' cream' if cream else ''}">
   <div class="wrap split c">
     <div>
-      <p class="kicker" data-rv>{kicker}</p>
+      {f'<p class="kicker" data-rv>{kicker}</p>' if kicker else ""}
       <h2 data-rv>{h2}</h2>
       <p class="lede" data-rv>{lede}</p>
       <div class="reachrow" data-rv style="max-width:420px">
@@ -607,33 +607,36 @@ def page_ld(slug):
 
 # ---------------------------------------------------------------- HOME
 HOME = """
-<section class="section" style="position:relative;overflow:hidden;padding-top:clamp(48px,6vw,86px)">
-  <canvas data-field aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:0"></canvas>
-  <div class="wrap split a" style="position:relative;z-index:2">
+<section class="section" style="padding-top:clamp(40px,5vw,72px)">
+  <div class="wrap split a top">
     <div>
-      <p class="kicker">Veteran-owned &middot; 100% virtual &middot; South Carolina RIA</p>
-      <h1>Money is <em class="g">behavior,</em> not math.</h1>
-      <p class="lede">Investments, retirement income, planning, and protection, coordinated by one Marine Corps veteran who answers the phone. Start any of it yourself, tonight, without an appointment.</p>
+      <h1 style="font-size:clamp(38px,4.6vw,64px);line-height:1.04">Financial planning and life insurance for South Carolina households.</h1>
+      <p class="lede">I am Tyler Krause, a Marine Corps veteran and Series 65 investment adviser in Greenville County. I help families, veterans and business owners get life insurance priced right, invest without a sales pitch, and plan for retirement with real numbers.</p>
+      <p class="lede">You can price coverage on this site yourself in about ten minutes. Or call or text me at <a href="tel:+18645588440" style="color:var(--ink);font-weight:700;text-decoration:none;box-shadow:inset 0 -2px 0 var(--gold)">864-558-8440</a>.</p>
       <div class="acts">
-        <a class="btn btn-ink" data-magnetic href="#paths">Start it yourself <span class="arr">&rarr;</span></a>
-        <a class="btn-line" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Or book a call</a>
+        <a class="btn btn-gold" href="/life-insurance-quote.html">See my rates <span class="arr">&rarr;</span></a>
+        <a class="btn-line" href="planning.html">Planning fees</a>
       </div>
-      <div class="advisor-clip">
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/media/tyler-hero.jpg" aria-label="Tyler Krause working at his desk">
-          <source src="assets/media/tyler-hero.mp4" type="video/mp4">
-        </video>
-        <div class="cap">
-          <span class="live" aria-hidden="true"></span>
-          <div><b>Tyler Krause</b><small>Series 65 fiduciary &middot; USMC veteran &middot; answers the phone</small></div>
-        </div>
-      </div>
-      <p style="margin:18px 0 0;font:600 13px/1.6 var(--sans);color:var(--muted)">Assets custodied at Charles Schwab &middot; 40+ insurance carriers</p>
+      <p style="margin:22px 0 0;font:400 14px/1.7 var(--sans);color:var(--muted)">Accounts are held at Charles Schwab in your name. Life insurance is placed through more than 40 carriers. Every fee is published on this site.</p>
     </div>
-    <div class="tool" data-rv>
-      <p class="tag" style="font:800 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px">60-second answer</p>
-      <h2 class="sub" style="margin-bottom:20px">What would your family need if your income stopped?</h2>
+    <figure style="margin:0;max-width:440px;justify-self:end;width:100%">
+      <img src="/assets/tyler-krause.jpg" alt="Tyler Krause" style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 20%;border-radius:12px">
+      <figcaption style="margin-top:12px;font:400 13.5px/1.6 var(--sans);color:var(--muted)"><b style="color:var(--ink)">Tyler Krause</b>, founder. Series 65. Licensed for life, accident and health insurance in South Carolina. U.S. Marine Corps, 2008 to 2012.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section cream">
+  <div class="wrap split a top">
+    <div>
+      <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08">How much life insurance would your family need?</h2>
+      <p class="lede">Pick what you would want covered and set your income. The number is five years of income plus what you picked. It is a starting point for a conversation, not advice, and it asks for no name or email.</p>
+      <p class="lede" style="font-size:15.5px">Most people I meet are covered through work for one or two years of salary. That is usually the gap.</p>
+    </div>
+    <div class="tool">
+      <h3 style="margin-bottom:18px">What would need to be covered?</h3>
       <div class="chips" role="group" aria-label="What are you protecting?">
-        <button class="chip" type="button" aria-pressed="false" data-add="250000">A home</button>
+        <button class="chip" type="button" aria-pressed="false" data-add="250000">The mortgage</button>
         <button class="chip" type="button" aria-pressed="false" data-add="80000">Kids' education</button>
         <button class="chip" type="button" aria-pressed="true" data-add="15000">Final expenses</button>
       </div>
@@ -643,73 +646,66 @@ HOME = """
       </div>
       <div class="readout">
         <div><small>Rough coverage need</small><span class="num" id="need">$365,000</span></div>
-        <a id="full" href="life-insurance-calculator.html">Run the full number &rarr;</a>
+        <a id="full" href="life-insurance-calculator.html">Work out the full number &rarr;</a>
       </div>
       <p class="fine">Five years of income, plus what you selected. A starting point, not advice.</p>
     </div>
   </div>
 </section>
 
-<section class="section cream" id="paths">
-  <div class="wrap center">
-    <p class="kicker center" data-rv>No appointment needed</p>
-    <h2 data-rv>Shop it, price it, <em class="g">start it</em>.</h2>
-    <p class="lede" data-rv>Three ways in. Every one of them finishes without talking to anyone.</p>
-    <div class="grid g3 stagger" data-rv style="margin-top:38px;text-align:left">
+<section class="section" id="paths">
+  <div class="wrap">
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:22ch">Three ways to work with me. Each one has its price on the page.</h2>
+    <div class="grid g3" style="margin-top:34px">
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="protection.html">
-        <p class="tag">Protection</p><h3>Quote it and apply</h3>
-        <p>Real pricing from 40+ carriers, application and e-sign in one sitting.</p>
-        <span class="btn-line" style="margin-top:18px">See protection &rarr;</span>
+        <h3>Life insurance</h3>
+        <p>Compare real quotes from more than 40 carriers, apply online and e-sign. I review the application before it goes to the carrier. I am paid by commission on what is placed, and that is disclosed.</p>
+        <span class="btn-line" style="margin-top:auto;padding-top:18px">Life insurance &rarr;</span>
       </a>
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="wealth.html">
-        <p class="tag">Wealth</p><h3>Grow and draw it down</h3>
-        <p>Portfolios at Schwab, retirement income, 1% per year of assets under management with a $750 annual minimum. Planning is included.</p>
-        <span class="btn-line" style="margin-top:18px">See wealth management &rarr;</span>
+        <h3>Investment management</h3>
+        <p>Accounts at Charles Schwab in your name. 1% per year of the assets I manage, with a $750 annual minimum. Financial planning is included, not billed separately.</p>
+        <span class="btn-line" style="margin-top:auto;padding-top:18px">Investment management &rarr;</span>
       </a>
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="planning.html">
-        <p class="tag">Planning</p><h3>Buy a plan outright</h3>
-        <p>Flat fees from $750, published, one time. Pay by card and start.</p>
-        <span class="btn-line" style="margin-top:18px">See the plans &rarr;</span>
+        <h3>A written financial plan</h3>
+        <p>A flat fee of $750, $2,000 or $3,000 depending on how much ground it covers. Paid once by card. No ongoing commitment and no product to buy.</p>
+        <span class="btn-line" style="margin-top:auto;padding-top:18px">Planning fees &rarr;</span>
       </a>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section cream">
   <div class="wrap">
-    <p class="kicker" data-rv>The other half of the firm</p>
-    <h2 data-rv style="max-width:19ch">Insurance protects it. <em class="g">Managing it</em> is the rest of the job.</h2>
-    <p class="lede" data-rv style="max-width:64ch">Rae &amp; Co is a registered investment adviser that also places insurance, not an insurance agency with a planning page. Portfolios sit at Charles Schwab in your name, priced at 1% per year of assets under management with a $750 annual minimum, and the retirement income work is where most of the value actually shows up.</p>
-    <div class="grid g3 stagger" data-rv style="margin-top:38px">
-      <div class="card"><p class="tag">Investments</p><h3>Held at Schwab, in your name</h3>
-        <p>I never hold your money. Allocation is matched to the goal and the horizon, and rebalancing happens for a reason rather than on a calendar.</p></div>
-      <div class="card"><p class="tag">Retirement income</p><h3>Turning it into a paycheck</h3>
-        <p>Withdrawal order, Social Security timing, cash reserves sized so a bad year is not a forced sale, and survivor income if one of you goes first.</p></div>
-      <div class="card"><p class="tag">The honest limit</p><h3>When not to hire me</h3>
-        <p>On a small balance the $750 minimum is a poor deal. If that is you, buy a flat-fee plan and invest it yourself. I will say so before you ask.</p></div>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:24ch">Investments and retirement income.</h2>
+    <p class="lede" style="max-width:66ch">Rae &amp; Co Capital is a registered investment adviser that also places insurance. On the investment side, the portfolio is built around what the money is for, and most of the work is the retirement income side: which account to draw from first, when to take Social Security, and how much cash to hold so a bad year does not force a sale.</p>
+    <div class="grid g3" style="margin-top:34px">
+      <div class="card"><h3>Held at Schwab, in your name</h3>
+        <p>I never hold your money. You can log in and see it any time. Rebalancing happens when there is a reason, not on a calendar.</p></div>
+      <div class="card"><h3>Turning savings into a paycheck</h3>
+        <p>Withdrawal order, Social Security timing, cash reserves, and survivor income if one of you goes first.</p></div>
+      <div class="card"><h3>When not to hire me</h3>
+        <p>On a small balance the $750 minimum is a poor deal. If that is you, buy a flat-fee plan and invest it yourself. I will tell you so before you ask.</p></div>
     </div>
-    <div class="acts" data-rv style="margin-top:34px">
-      <a class="btn btn-ink" data-magnetic href="wealth.html">See how management works <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="wealth.html#tool">Or check your retirement number</a>
+    <div class="acts" style="margin-top:30px">
+      <a class="btn btn-ink" href="wealth.html">How management works <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="wealth.html#tool">Check your retirement number</a>
     </div>
   </div>
 </section>
 
 {HOMEFORM}
 <section class="section">
-  <div class="wrap split b">
-    <figure style="margin:0" data-rv>
-      <img src="/assets/tyler-krause.jpg" alt="Tyler Krause, Founder and Private Wealth Advisor" style="width:100%;aspect-ratio:7/10;object-fit:cover;object-position:50% 22%;border-radius:14px;box-shadow:0 40px 90px -46px rgba(6,17,31,.55)">
-      <figcaption style="margin-top:12px;text-align:center;font:700 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)">Greenville, South Carolina</figcaption>
-    </figure>
-    <div>
-      <p class="kicker" data-rv>Your advisor</p>
-      <h2 data-rv>Tyler Krause</h2>
-      <p style="font:700 12.5px/1.5 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 24px" data-rv>Founder &amp; Private Wealth Advisor &middot; U.S. Marine Corps veteran</p>
-      <p class="lede" data-rv>I built Rae &amp; Co around a simple idea: protect the household first, then organize the money around the life it needs to support.</p>
-      <p class="lede" data-rv>You work directly with me. One person who answers the phone and coordinates coverage, planning, and wealth decisions together.</p>
-      <div class="acts" data-rv><a class="btn btn-ink" href="advisor.html">More about me <span class="arr">&rarr;</span></a></div>
-    </div>
+  <div class="wrap" style="max-width:860px">
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08">Who you would be working with.</h2>
+    <p class="lede" style="max-width:66ch">There is one adviser here, and it is me. I served in the Marine Corps infantry from 2008 to 2012, with deployments to Iraq and Afghanistan. I spent nine years at State Farm before going back to school and starting Rae &amp; Co in 2025. I hold the Series 65 and South Carolina life, accident and health insurance licenses, and I am based in Greenville County.</p>
+    <ul class="ticks" style="margin:18px 0 26px;max-width:66ch">
+      <li>You call me. I answer or call back the same business day.</li>
+      <li>Fees and commissions are printed on this site and in Form CRS.</li>
+      <li>If you do not need what I sell, I will say so.</li>
+    </ul>
+    <div class="acts"><a class="btn btn-ink" href="advisor.html">More about me <span class="arr">&rarr;</span></a><a class="btn-line" href="form-crs.html">Read Form CRS</a></div>
   </div>
 </section>
 {CARRIERWALL}
@@ -886,14 +882,18 @@ PROTECTION = PROTECTION.replace("{CARRIERWALL}", CARRIERWALL) + form_section(
 # Same wall closes the home page, with its own utm_content so the two entry
 # points stay separable in reporting.
 HOME = HOME.replace("{HOMEFORM}", form_section(
-  "No appointment needed", "Or just tell me what is going on.",
-  "If none of the self-service paths fit, write a sentence about what is on your mind. "
-  "I read these myself and reply personally, usually the same day.",
+  "", "Not sure which one fits? Write to me.",
+  "Tell me what is going on in a sentence or two. I read every one and reply myself, "
+  "usually the same day.",
   lead_form("website-general-consultation","index.html","consultation-request",
             "Send a note","Replies come from me, usually the same day.",
             "Not sure","Focused intro call", cta="Send it"), cream=True))
-HOME = HOME.replace("{CARRIERWALL}",
-  CARRIERWALL.replace("utm_content=protection_carriers","utm_content=home_carriers"))
+HOME = HOME.replace("{CARRIERWALL}", CARRIERWALL)
+# Home page de-AI pass (2026-10-29, Tyler: "screams AI made this"): no scroll
+# fades, no kickers, no gold-italic headline word, no particle canvas, no
+# generated-looking video. Content arrives rendered; the shared bands that
+# still carry data-rv lose it here only.
+HOME = HOME.replace(" data-rv", "")
 
 # ---------------------------------------------------------------- PLANNING
 TIERS = [
