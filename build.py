@@ -12,8 +12,8 @@ equal billing to protection rather than being a footnote under life insurance.
 import pathlib, re
 
 OUT = pathlib.Path(__file__).parent
-NAV = [("index.html","Home"),("wealth.html","Wealth"),("protection.html","Protection"),
-       ("planning.html","Planning"),("advisor.html","Your advisor"),("contact.html","Contact")]
+NAV = [("index.html","Home"),("wealth.html","Investing"),("protection.html","Insurance"),
+       ("planning.html","Planning"),("advisor.html","About Tyler"),("contact.html","Contact")]
 
 # ------------------------------------------------------------ CARRIER WALL
 # Layout approved by Tyler 2026-08-10 from a mockup: gold numeral, serif claim,
@@ -344,7 +344,7 @@ def shell(slug, title, desc, body, canvas=False, extra_ld=""):
       <div>
         <img src="/assets/rae-co-logo-light.png" alt="Rae &amp; Co Capital">
         <p style="font:400 14px/1.6 var(--sans);margin:0;max-width:34ch;color:rgba(246,239,224,.72)">
-          Veteran-owned, 100% virtual wealth management and protection planning, based in Greenville, South Carolina.</p>
+          A South Carolina registered investment adviser that also places life insurance. One adviser, based in Greenville County, working by phone and video across the state.</p>
         {SOCIAL}
       </div>
       <nav aria-label="Start"><p class="ftlabel">Start</p>
@@ -353,9 +353,9 @@ def shell(slug, title, desc, body, canvas=False, extra_ld=""):
         <a href="planning.html">Buy a plan</a>
       </nav>
       <nav aria-label="Firm"><p class="ftlabel">Firm</p>
-        <a href="advisor.html">Your advisor</a>
-        <a href="wealth.html">Wealth management</a>
-        <a href="protection.html">Protection</a>
+        <a href="advisor.html">About Tyler</a>
+        <a href="wealth.html">Investing</a>
+        <a href="protection.html">Insurance</a>
         <a href="contact.html">Contact</a>
       </nav>
       <nav aria-label="Greenville"><p class="ftlabel">Greenville, SC</p>
@@ -610,8 +610,8 @@ HOME = """
 <section class="section" style="padding-top:clamp(40px,5vw,72px)">
   <div class="wrap split a top">
     <div>
-      <h1 style="font-size:clamp(38px,4.6vw,64px);line-height:1.04">Financial planning and life insurance for South Carolina households.</h1>
-      <p class="lede">I am Tyler Krause, a Marine Corps veteran and Series 65 investment adviser in Greenville County. I help families, veterans and business owners get life insurance priced right, invest without a sales pitch, and plan for retirement with real numbers.</p>
+      <h1 style="font-size:clamp(38px,4.6vw,64px);line-height:1.04">Life insurance and financial planning for families in the Upstate.</h1>
+      <p class="lede">I am Tyler Krause, a Marine Corps veteran and Series 65 investment adviser in Greenville County. I help families, veterans and business owners get the right amount of life insurance at a fair price, keep their investments at Schwab in their own name, and plan retirement with their real numbers.</p>
       <p class="lede">You can price coverage on this site yourself in about ten minutes. Or call or text me at <a href="tel:+18645588440" style="color:var(--ink);font-weight:700;text-decoration:none;box-shadow:inset 0 -2px 0 var(--gold)">864-558-8440</a>.</p>
       <div class="acts">
         <a class="btn btn-gold" href="/life-insurance-quote.html">See my rates <span class="arr">&rarr;</span></a>
@@ -655,7 +655,7 @@ HOME = """
 
 <section class="section" id="paths">
   <div class="wrap">
-    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:22ch">Three ways to work with me. Each one has its price on the page.</h2>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:22ch">Three ways to work with me, each with its price listed.</h2>
     <div class="grid g3" style="margin-top:34px">
       <a class="card" style="text-decoration:none;display:flex;flex-direction:column" href="protection.html">
         <h3>Life insurance</h3>
@@ -698,7 +698,7 @@ HOME = """
 {HOMEFORM}
 <section class="section">
   <div class="wrap" style="max-width:860px">
-    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08">Who you would be working with.</h2>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08">About me.</h2>
     <p class="lede" style="max-width:66ch">There is one adviser here, and it is me. I served in the Marine Corps infantry from 2008 to 2012, with deployments to Iraq and Afghanistan. I spent nine years at State Farm before going back to school and starting Rae &amp; Co in 2025. I hold the Series 65 and South Carolina life, accident and health insurance licenses, and I am based in Greenville County.</p>
     <ul class="ticks" style="margin:18px 0 26px;max-width:66ch">
       <li>You call me. I answer or call back the same business day.</li>
@@ -888,7 +888,14 @@ HOME = HOME.replace("{HOMEFORM}", form_section(
   lead_form("website-general-consultation","index.html","consultation-request",
             "Send a note","Replies come from me, usually the same day.",
             "Not sure","Focused intro call", cta="Send it"), cream=True))
-HOME = HOME.replace("{CARRIERWALL}", CARRIERWALL)
+HOME_WALL = (CARRIERWALL
+  .replace('<p class="cnum" data-rv>40+</p>\n    <h2 class="cclaim" data-rv>leading carriers available through one application</h2>',
+           '<h2 class="cclaim" data-rv>More than 40 life insurance carriers, one application.</h2>')
+  .replace('<p class="lede" data-rv style="margin:14px auto 0;max-width:52ch">Compare coverage and pricing across leading life insurance carriers without filling out the same information over and over.</p>',
+           '<p class="lede" data-rv style="margin:14px auto 0;max-width:56ch">You answer the health questions once and see the pricing I see. Which carriers can write your case depends on your age, health and the product.</p>')
+  .replace('<p class="cstrip" data-rv><b>Independent access</b><i>&middot;</i><b>No single-carrier bias</b><i>&middot;</i><b>You see the pricing we see</b></p>\n', ''))
+assert HOME_WALL != CARRIERWALL
+HOME = HOME.replace("{CARRIERWALL}", HOME_WALL)
 # Home page de-AI pass (2026-10-29, Tyler: "screams AI made this"): no scroll
 # fades, no kickers, no gold-italic headline word, no particle canvas, no
 # generated-looking video. Content arrives rendered; the shared bands that
@@ -2078,7 +2085,7 @@ PAGES = [
  ("family-protection-checklist.html","Free Young Family Protection Checklist | Rae &amp; Co Capital","Ten things young families should have handled before picking investments. Protection comes before portfolios.",CHECKLIST_MAGNET),
  ("thank-you-worksheet.html","Your Worksheet Is Ready | Rae &amp; Co Capital","Download the life insurance needs worksheet.",TY_WORKSHEET),
  ("thank-you-checklist.html","Your Checklist Is Ready | Rae &amp; Co Capital","Download the young family protection checklist.",TY_CHECKLIST),
- ("index.html","Rae &amp; Co Capital | Veteran-Owned Virtual Wealth Management","Veteran-owned, 100% virtual wealth management and protection planning in Greenville, South Carolina. Quote, price and start it yourself.",HOME),
+ ("index.html","Rae &amp; Co Capital | Life Insurance and Financial Planning, Greenville SC","Tyler Krause, Marine Corps veteran and Series 65 adviser in Greenville County. Life insurance quotes from 40+ carriers, investment management at Schwab, flat-fee financial plans. Fees published.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% per year of assets under management with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
  ("protection.html","Protection Planning | Rae &amp; Co Capital","Term, disability, permanent, long-term care and final expense explained plainly. Quote and apply across 40+ carriers.",PROTECTION),
  ("planning.html","Financial Planning Fees | Rae &amp; Co Capital","Flat-fee financial planning from $750. Published prices, real deliverables, buy it online.",PLANNING),
