@@ -927,16 +927,14 @@ def tier_html(t):
 PLANNING = """
 <section class="section" style="padding-bottom:0">
   <div class="wrap center">
-    <p class="kicker center" data-rv>Financial planning</p>
-    <h1 data-rv>Flat fee. Published. <em class="g">Buy it now.</em></h1>
-    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">No hourly, no retainer, and no discovery call before you are allowed to see a price. Here is exactly what lands in your hands for each one.</p>
-    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">One thing before you buy. If I manage your investments, planning is already included in the 1%. These flat fees are for people who want the plan and will run it themselves.</p>
+    <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06;max-width:24ch;margin-left:auto;margin-right:auto">A written financial plan for a flat fee: $750, $2,000 or $3,000.</h1>
+    <p class="lede" style="margin-left:auto;margin-right:auto;margin-bottom:0">Prices are on this page and you can pay by card and start today, with no discovery call first. If I manage your investments, planning is already included in the 1% fee. These flat fees are for people who will run the plan themselves.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <div class="tiergrid stagger" data-rv>
+    <div class="tiergrid">
       """ + "\n      ".join(tier_html(t) for t in TIERS) + """
     </div>
     <p class="tnote" data-rv>Paying starts the engagement. The written planning agreement follows by email the same day for signature, and the discovery meeting is part of the work rather than a sales call you have to pass first.</p>
@@ -946,15 +944,16 @@ PLANNING = """
 
 <section class="section cream">
   <div class="wrap center">
-    <h2 data-rv>Not sure which one?</h2>
-    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">Most households land on Household. If you only have one or two questions, Foundations is enough. If in doubt, ask me and I will tell you the cheaper answer when it is the right one.</p>
-    <div class="acts" data-rv style="justify-content:center">
-      <a class="btn btn-ink" data-magnetic href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20not%20sure%20which%20planning%20tier%20fits.%20My%20situation%3A%20">Text me which one fits <span class="arr">&rarr;</span></a>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08">Not sure which one?</h2>
+    <p class="lede" style="margin-left:auto;margin-right:auto">Most households pick Household. If you have one or two questions, Foundations is enough. If in doubt, text me a sentence about your situation and I will tell you the cheaper answer when it is the right one.</p>
+    <div class="acts" style="justify-content:center">
+      <a class="btn btn-ink" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20not%20sure%20which%20planning%20tier%20fits.%20My%20situation%3A%20">Text me which one fits <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="wealth.html">Or see ongoing management</a>
     </div>
   </div>
 </section>
-""" + faq_block("planning.html", "Before you buy", "Four questions, answered before checkout.")
+""" + faq_block("planning.html", "", "Questions people ask before they buy a plan.")
+PLANNING = PLANNING.replace(" data-rv", "").replace(" data-magnetic", "")
 
 # ---------------------------------------------------------------- ADVISOR
 ADVISOR = """
@@ -2069,7 +2068,7 @@ PAGES = [
  ("index.html","Rae &amp; Co Capital | Life Insurance and Financial Planning, Greenville SC","Tyler Krause, Marine Corps veteran and Series 65 adviser in Greenville County. Life insurance quotes from 40+ carriers, investment management at Schwab, flat-fee financial plans. Fees published.",HOME),
  ("wealth.html","Investment Management and Retirement Income, Greenville SC | Rae &amp; Co Capital","Portfolio management and retirement income planning from a Series 65 adviser in Greenville County. 1% per year of assets managed, $750 annual minimum, planning included. Accounts at Charles Schwab.",WEALTH),
  ("protection.html","Life Insurance, Disability and Long-Term Care Explained | Rae &amp; Co Capital","Term, disability income, whole and universal life, indexed universal life, long-term care and final expense, each explained plainly by a Greenville SC adviser. Quote term from 40+ carriers online.",PROTECTION),
- ("planning.html","Financial Planning Fees | Rae &amp; Co Capital","Flat-fee financial planning from $750. Published prices, real deliverables, buy it online.",PLANNING),
+ ("planning.html","Flat-Fee Financial Planning, Greenville SC | Rae &amp; Co Capital","A written financial plan for a flat fee of $750, $2,000 or $3,000 from a Series 65 adviser in Greenville County. Prices and deliverables published. Pay by card and start today.",PLANNING),
  ("advisor.html","Tyler Krause, Your Advisor | Rae &amp; Co Capital","Marine Corps veteran, Series 65 fiduciary, CCFPA. One person who answers the phone.",ADVISOR),
  ("contact.html","Contact | Rae &amp; Co Capital","One call, no pitch. Reach Tyler Krause at Rae &amp; Co Capital.",CONTACT),
  ("disclosures.html","Disclosures | Rae &amp; Co Capital","Registration, risk, fees and conflicts, stated plainly.",DISCLOSURES),
