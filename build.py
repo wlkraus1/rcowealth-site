@@ -102,7 +102,7 @@ FORM_HIDDEN = """      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD
 
 FORM_CHECKS = """        <div class="checks2">
           <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
-          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</label>
+          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1"><span>I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</span></label>
           <label class="ckline"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
         </div>"""
 
@@ -1046,9 +1046,8 @@ CONTACT = """
 <section class="section">
   <div class="wrap split c">
     <div>
-      <p class="kicker" data-rv>Start here</p>
-      <h1 data-rv style="font-size:clamp(42px,5.2vw,72px)">One call. <em class="g">No pitch.</em></h1>
-      <p class="lede" data-rv>Tell me what is on your mind and I will tell you whether I can help. If the answer is that you do not need me yet, that is the answer you will get.</p>
+      <h1 style="font-size:clamp(38px,4.6vw,64px);line-height:1.06">Call, text or write. I answer it myself.</h1>
+      <p class="lede">Tell me what is on your mind and I will tell you whether I can help. If the answer is that you do not need me yet, that is the answer you will get. There is no pitch and no sales team.</p>
       <div data-rv>
       <div class="reachrow">
         <a class="reach" href="tel:+18645588440">
@@ -1063,8 +1062,8 @@ CONTACT = """
       </div>
       <div class="clines" data-rv>
         <a href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener"><b>Book</b>Pick a time that suits you</a>
-        <span><b>Where</b>100% virtual, serving South Carolina</span>
-        <span><b>Hours</b>Texts answered fastest, usually same day</span>
+        <span><b>Where</b>Greenville, South Carolina. By phone and video anywhere in the state.</span>
+        <span><b>When</b>Weekdays. Texts get the fastest reply, usually the same day.</span>
       </div>
     </div>
     <form class="lform campaign-form contact-lead-form" data-rv id="leadForm"
@@ -1091,7 +1090,7 @@ CONTACT = """
           <textarea id="description" name="description" placeholder="Example: I am five years from retirement and want to know if the plan holds up."></textarea></div>
         <div class="checks2">
           <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
-          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</label>
+          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1"><span>I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</span></label>
           <label class="ckline"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
         </div>
       </div>
@@ -1101,6 +1100,7 @@ CONTACT = """
   </div>
 </section>
 """
+CONTACT = CONTACT.replace(" data-rv", "")
 
 
 DISCLOSURES = legal_page("Disclosures","Legal",[
@@ -2066,7 +2066,7 @@ PAGES = [
  ("protection.html","Life Insurance, Disability and Long-Term Care Explained | Rae &amp; Co Capital","Term, disability income, whole and universal life, indexed universal life, long-term care and final expense, each explained plainly by a Greenville SC adviser. Quote term from 40+ carriers online.",PROTECTION),
  ("planning.html","Flat-Fee Financial Planning, Greenville SC | Rae &amp; Co Capital","A written financial plan for a flat fee of $750, $2,000 or $3,000 from a Series 65 adviser in Greenville County. Prices and deliverables published. Pay by card and start today.",PLANNING),
  ("advisor.html","About Tyler Krause | Rae &amp; Co Capital, Greenville SC","Tyler Krause is a Marine Corps veteran, Series 65 investment adviser and licensed life insurance agent in Greenville, South Carolina. One adviser, no handoffs. Fees and conflicts published.",ADVISOR),
- ("contact.html","Contact | Rae &amp; Co Capital","One call, no pitch. Reach Tyler Krause at Rae &amp; Co Capital.",CONTACT),
+ ("contact.html","Contact Tyler Krause | Rae &amp; Co Capital, Greenville SC","Call or text 864-558-8440, book a time, or send a note. Tyler Krause answers himself, usually the same day. Greenville, South Carolina, by phone and video statewide.",CONTACT),
  ("disclosures.html","Disclosures | Rae &amp; Co Capital","Registration, risk, fees and conflicts, stated plainly.",DISCLOSURES),
  ("form-crs.html","Form CRS Summary | Rae &amp; Co Capital","Relationship summary, services, fees and conflicts.",FORMCRS),
  ("privacy.html","Privacy Policy | Rae &amp; Co Capital","What we collect, how it is used, and what we never do with it.",PRIVACY),
