@@ -715,30 +715,27 @@ HOME = """
 WEALTH = """
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>Wealth management</p>
-    <h1 data-rv>The portfolio is the <em class="g">easy</em> part.</h1>
-    <p class="lede" data-rv>Anyone can buy index funds. The work is sequencing withdrawals, keeping taxes from eating the gains, and not selling at the bottom because a headline scared you. That is the part I am paid for.</p>
-    <div class="acts" data-rv>
-      <a class="btn btn-ink" data-magnetic href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Start a portfolio review <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="planning.html">Or buy a plan first</a>
+    <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06;max-width:22ch">Investment management and retirement income, at Schwab, in your name.</h1>
+    <p class="lede">The fee is 1% per year of the assets I manage, with a $750 annual minimum, and financial planning is included. Most of the work is not picking funds. It is deciding which account to draw from first, when to take Social Security, how much cash to hold so a bad year does not force a sale, and not selling at the bottom.</p>
+    <div class="acts">
+      <a class="btn btn-ink" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a portfolio review <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="#tool">Check your retirement number first</a>
     </div>
+    <p style="margin:22px 0 0;font:400 14px/1.7 var(--sans);color:var(--muted)">Accounts are held at Charles Schwab in your name. I never hold your money. No commissions on investments and no products to buy.</p>
   </div>
 </section>
 
 <section class="section cream" id="tool">
   <div class="wrap split a top">
     <div>
-      <p class="kicker" data-rv>60-second answer</p>
-      <h2 data-rv style="max-width:19ch">Will it pay you <em class="g">enough</em> to stop working?</h2>
-      <p class="lede" data-rv>Drag four sliders and see whether the plan holds. No contact details are asked for.</p>
-      <p class="lede" data-rv style="font-size:15px">The growth rate is yours to set, not mine to promise. Move it and watch how much the answer depends on an assumption nobody can guarantee. That sensitivity is the actual lesson.</p>
-      <div class="acts" data-rv>
-        <a class="btn btn-ink" href="contact.html">Have it checked properly <span class="arr">&rarr;</span></a>
+      <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;max-width:20ch">Will your savings pay you enough to stop working?</h2>
+      <p class="lede">Set your age, what you have saved, what you add each month and the income you want. The growth rate is yours to set, not mine to promise. Move it and watch how much the answer depends on it. No contact details are asked for.</p>
+      <div class="acts">
+        <a class="btn btn-ink" href="contact.html">Have the real numbers checked <span class="arr">&rarr;</span></a>
         <a class="btn-line" href="planning.html">Or buy a flat-fee plan</a>
       </div>
     </div>
     <div class="tool" data-rv>
-      <p class="tag" style="font:800 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 6px">Retirement income check</p>
       <h3 style="margin-bottom:18px">What would you retire on?</h3>
       <div class="chips" role="group" aria-label="Retirement age">
         <button class="rchip" type="button" aria-pressed="false" data-age="60">Retire at 60</button>
@@ -772,16 +769,16 @@ WEALTH = """
 
 <section class="section">
   <div class="wrap">
-    <h2 class="sub" data-rv style="margin-bottom:26px">What managing the money actually covers.</h2>
-    <div class="grid g3 stagger" data-rv>
-      <div class="card"><p class="tag">Investments</p><h3>Portfolio management</h3>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;margin-bottom:28px">What the fee covers.</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Portfolio management</h3>
         <p style="margin-bottom:14px">Built around what the money is for, not around a model number.</p>
         <ul class="ticks"><li>Allocation matched to the actual goal and time horizon</li><li>Tax-aware placement across taxable, Roth and traditional</li><li>Rebalancing with a reason, not on a calendar</li><li>Held at Charles Schwab in your name</li></ul></div>
-      <div class="card"><p class="tag">Retirement income</p><h3>Turning it into a paycheck</h3>
+      <div class="card"><h3>Retirement income</h3>
         <p style="margin-bottom:14px">The switch from saving to spending is where small mistakes get expensive.</p>
         <ul class="ticks"><li>Withdrawal order and sequencing</li><li>Social Security timing</li><li>Cash reserve sizing so a bad year is not a forced sale</li><li>Survivor income if one of you goes first</li></ul></div>
-      <div class="card"><p class="tag">Coordination</p><h3>One view, not five</h3>
-        <p style="margin-bottom:14px">Investments, insurance, taxes and planning decided together.</p>
+      <div class="card"><h3>Everything decided together</h3>
+        <p style="margin-bottom:14px">Investments, insurance, taxes and the plan, looked at as one picture.</p>
         <ul class="ticks"><li>Beneficiaries and titling actually checked</li><li>Coverage gaps caught before they matter</li><li>One person accountable for the whole picture</li></ul></div>
     </div>
   </div>
@@ -789,13 +786,12 @@ WEALTH = """
 
 <section class="section dark">
   <div class="wrap center">
-    <p class="kicker center" data-rv>The management fee</p>
-    <h2 data-rv>1% per year, only on what <em class="g" style="color:var(--gold-2)">we manage</em>.</h2>
-    <p class="lede" data-rv style="margin-left:auto;margin-right:auto">$750 annual minimum, billed quarterly in arrears under a signed advisory agreement. It applies only to accounts we manage, and nothing else. Planning is part of the job, not a second bill: management clients never pay the flat planning fees. Insurance is priced separately on its own page. No commission on investments, no product quotas, no sales desk above me.</p>
-    <div class="grid g3 stagger" data-rv style="margin-top:36px;text-align:left">
-      <div class="card"><p class="tag">Custody</p><h3 style="font-size:22px">Charles Schwab</h3><p>Your money sits with Schwab in your name. I never hold it, and you can see it any time.</p></div>
-      <div class="card"><p class="tag">Standard</p><h3 style="font-size:22px">Series 65 fiduciary</h3><p>Held to a fiduciary standard on advisory work. Insurance commissions are a separate, disclosed conflict.</p></div>
-      <div class="card"><p class="tag">Honest limit</p><h3 style="font-size:22px">When not to hire me</h3><p>On a small balance the $750 minimum is a poor deal. If that is you, buy a flat-fee plan instead and invest it yourself.</p></div>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08">The fee: 1% a year on the accounts I manage.</h2>
+    <p class="lede" style="margin-left:auto;margin-right:auto">$750 annual minimum, billed quarterly in arrears under a signed advisory agreement. It applies only to the accounts I manage. Management clients never pay the flat planning fees. Insurance is priced separately on its own page. There is no commission on investments and no sales quota behind me.</p>
+    <div class="grid g3" style="margin-top:36px;text-align:left">
+      <div class="card"><h3 style="font-size:22px">Charles Schwab holds the money</h3><p>In your name. I never hold it, and you can log in and see it any time.</p></div>
+      <div class="card"><h3 style="font-size:22px">Fiduciary on advisory work</h3><p>Series 65. Held to a fiduciary standard on investment advice. Insurance commissions are a separate, disclosed conflict.</p></div>
+      <div class="card"><h3 style="font-size:22px">When not to hire me</h3><p>On a small balance the $750 minimum is a poor deal. If that is you, buy a flat-fee plan and invest it yourself.</p></div>
     </div>
     <div class="acts" data-rv style="justify-content:center;margin-top:36px">
       <a class="btn btn-gold" href="https://scheduler.zoom.us/raecocapital/introductory-consultation" target="_blank" rel="noopener">Book a portfolio review <span class="arr">&rarr;</span></a>
@@ -1830,8 +1826,8 @@ def geo_page(g):
             cta="Request follow-up", insurance=g['insurance'], placeholder=g['placeholder']), cream=False)}"""
 
 
-WEALTH = WEALTH + faq_block("wealth.html", "Fees, custody, the tool", "Plain answers on the money part.") + form_section(
-  "Start a conversation", "Want a second read on the portfolio?",
+WEALTH = WEALTH + faq_block("wealth.html", "", "Questions people ask about the money side.") + form_section(
+  "", "Want a second read on the portfolio?",
   "Tell me what you hold and what it is for. If a flat-fee plan serves you better than "
   "management, I will say so before you ask.",
   lead_form("wealth-page","wealth.html","consultation-request",
@@ -1839,6 +1835,7 @@ WEALTH = WEALTH + faq_block("wealth.html", "Fees, custody, the tool", "Plain ans
             "Investments","Portfolio or retirement review", cta="Request a review",
             placeholder="Example: about $400k across a 401k and a rollover IRA, "
                         "retiring in roughly eight years."), cream=True)
+WEALTH = WEALTH.replace(" data-rv", "").replace(" data-magnetic", "")
 
 
 # ------------------------------------------------------------ START-PLAN BRIDGE
@@ -2070,7 +2067,7 @@ PAGES = [
  ("thank-you-worksheet.html","Your Worksheet Is Ready | Rae &amp; Co Capital","Download the life insurance needs worksheet.",TY_WORKSHEET),
  ("thank-you-checklist.html","Your Checklist Is Ready | Rae &amp; Co Capital","Download the young family protection checklist.",TY_CHECKLIST),
  ("index.html","Rae &amp; Co Capital | Life Insurance and Financial Planning, Greenville SC","Tyler Krause, Marine Corps veteran and Series 65 adviser in Greenville County. Life insurance quotes from 40+ carriers, investment management at Schwab, flat-fee financial plans. Fees published.",HOME),
- ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% per year of assets under management with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
+ ("wealth.html","Investment Management and Retirement Income, Greenville SC | Rae &amp; Co Capital","Portfolio management and retirement income planning from a Series 65 adviser in Greenville County. 1% per year of assets managed, $750 annual minimum, planning included. Accounts at Charles Schwab.",WEALTH),
  ("protection.html","Life Insurance, Disability and Long-Term Care Explained | Rae &amp; Co Capital","Term, disability income, whole and universal life, indexed universal life, long-term care and final expense, each explained plainly by a Greenville SC adviser. Quote term from 40+ carriers online.",PROTECTION),
  ("planning.html","Financial Planning Fees | Rae &amp; Co Capital","Flat-fee financial planning from $750. Published prices, real deliverables, buy it online.",PLANNING),
  ("advisor.html","Tyler Krause, Your Advisor | Rae &amp; Co Capital","Marine Corps veteran, Series 65 fiduciary, CCFPA. One person who answers the phone.",ADVISOR),
