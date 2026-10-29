@@ -180,13 +180,21 @@
   function paintP(key,animate){
     var d=PROD[key]; if(!d||!panel) return;
     panel.innerHTML='<div class="'+(animate&&!reduce?'pfade':'')+'">'+
-      '<h3>'+d.h+'</h3><p class="lead2">'+d.l+'</p><div class="pboxes">'+
+      '<h3 class="ptitle">'+d.h+'</h3><p class="lead2">'+d.l+'</p><div class="pboxes">'+
       '<div class="pbox"><b>What it solves</b><span>'+d.s+'</span></div>'+
       '<div class="pbox"><b>What it costs you</b><span>'+d.c+'</span></div>'+
       '<div class="pbox"><b>Worth knowing</b><span>'+d.w+'</span></div></div></div>';
-    pbtns.forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.p===key));});
+    pbtns.forEach(function(b){var on=b.dataset.p===key;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;});
+    panel.setAttribute('aria-labelledby','ptab-'+key);
   }
-  pbtns.forEach(function(b){b.addEventListener('click',function(){paintP(b.dataset.p,true);});});
+  pbtns.forEach(function(b,i){
+    b.addEventListener('click',function(){paintP(b.dataset.p,true);});
+    /* Arrow keys move between tabs, as the tablist role promises. */
+    b.addEventListener('keydown',function(e){
+      var d=e.key==='ArrowDown'||e.key==='ArrowRight'?1:e.key==='ArrowUp'||e.key==='ArrowLeft'?-1:0;
+      if(!d) return; e.preventDefault();
+      var nb=pbtns[(i+d+pbtns.length)%pbtns.length]; nb.focus(); paintP(nb.dataset.p,true);});
+  });
   if(panel) paintP('term',false);
 
 

@@ -810,28 +810,29 @@ WEALTH = """
 PROTECTION = """
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>Protection</p>
-    <h1 data-rv>Coverage is the part that <em class="g">cannot wait</em> for a good year.</h1>
-    <p class="lede" data-rv>Pick what is on your mind. Every answer names what it solves, what it costs you, and when it is the wrong tool, because knowing when not to buy something is the part most people never get told.</p>
-    <div class="acts" data-rv>
-      <a class="btn btn-gold" data-magnetic href="/life-insurance-quote.html">Quote and apply now <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="life-insurance-calculator.html">Run the coverage numbers</a>
+    <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06;max-width:22ch">Life insurance, disability and long-term care, explained before you buy.</h1>
+    <p class="lede">Pick a product below. Each one says what it solves, what it costs you, and when it is the wrong tool. When you are ready, you can price term coverage from more than 40 carriers on this site without a phone call.</p>
+    <div class="acts">
+      <a class="btn btn-gold" href="/life-insurance-quote.html">See my rates <span class="arr">&rarr;</span></a>
+      <a class="btn-line" href="life-insurance-calculator.html">Work out how much you need</a>
     </div>
+    <p style="margin:22px 0 0;font:400 14px/1.7 var(--sans);color:var(--muted)">I am licensed for life, accident and health insurance in South Carolina and paid by commission on what is placed. Term pays me the least, and it is still what I recommend for most households under 50.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <div class="pgrid" data-rv>
-      <div class="plist" role="tablist" aria-label="Protection options">
-        <button class="pbtn" role="tab" aria-selected="true"  data-p="term"><small>Start here</small>Term life</button>
-        <button class="pbtn" role="tab" aria-selected="false" data-p="di"><small>Income</small>Disability income</button>
-        <button class="pbtn" role="tab" aria-selected="false" data-p="perm"><small>Permanent</small>Whole &amp; universal life</button>
-        <button class="pbtn" role="tab" aria-selected="false" data-p="iul"><small>The complicated one</small>Indexed universal life</button>
-        <button class="pbtn" role="tab" aria-selected="false" data-p="ltc"><small>Later years</small>Long-term care</button>
-        <button class="pbtn" role="tab" aria-selected="false" data-p="fe"><small>Small and specific</small>Final expense</button>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;margin-bottom:26px">What each kind of coverage does.</h2>
+    <div class="pgrid">
+      <div class="plist" role="tablist" aria-label="Insurance products">
+        <button class="pbtn" id="ptab-term" role="tab" aria-selected="true"  aria-controls="ppanel" data-p="term"><small>Start here</small>Term life</button>
+        <button class="pbtn" id="ptab-di" role="tab" aria-selected="false" aria-controls="ppanel" tabindex="-1" data-p="di"><small>Income</small>Disability income</button>
+        <button class="pbtn" id="ptab-perm" role="tab" aria-selected="false" aria-controls="ppanel" tabindex="-1" data-p="perm"><small>Permanent</small>Whole &amp; universal life</button>
+        <button class="pbtn" id="ptab-iul" role="tab" aria-selected="false" aria-controls="ppanel" tabindex="-1" data-p="iul"><small>The complicated one</small>Indexed universal life</button>
+        <button class="pbtn" id="ptab-ltc" role="tab" aria-selected="false" aria-controls="ppanel" tabindex="-1" data-p="ltc"><small>Later years</small>Long-term care</button>
+        <button class="pbtn" id="ptab-fe" role="tab" aria-selected="false" aria-controls="ppanel" tabindex="-1" data-p="fe"><small>Small and specific</small>Final expense</button>
       </div>
-      <div class="ppanel" id="ppanel" role="tabpanel" aria-live="polite"></div>
+      <div class="ppanel" id="ppanel" role="tabpanel" aria-labelledby="ptab-term" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -842,10 +843,8 @@ PROTECTION = """
 CARRIERWALL = """
 <section class="section dark">
   <div class="wrap center">
-    <p class="cnum" data-rv>40+</p>
-    <h2 class="cclaim" data-rv>leading carriers available through one application</h2>
-    <p class="lede" data-rv style="margin:14px auto 0;max-width:52ch">Compare coverage and pricing across leading life insurance carriers without filling out the same information over and over.</p>
-    <p class="cstrip" data-rv><b>Independent access</b><i>&middot;</i><b>No single-carrier bias</b><i>&middot;</i><b>You see the pricing we see</b></p>
+    <h2 class="cclaim" data-rv>More than 40 life insurance carriers, one application.</h2>
+    <p class="lede" data-rv style="margin:14px auto 0;max-width:56ch">You answer the health questions once and see the pricing I see. Which carriers can write your case depends on your age, health and the product.</p>
     <div class="cgrid" data-rv>
 {CELLS}
     </div>
@@ -871,14 +870,15 @@ CARRIERWALL = (CARRIERWALL
   .replace("{CELLS}", carrier_cells())
   .replace("{ROSTERCELLS}", "".join(f"<span>{n}</span>" for n in ROSTER)))
 PROTECTION = PROTECTION.replace("{CARRIERWALL}", CARRIERWALL) + form_section(
-  "Not ready to quote", "Have what you already own checked first.",
-  "Send what you have and who depends on you. If the answer is that you do not need more, "
-  "that is the answer you will get. Please leave policy numbers out of the form.",
+  "", "Already have coverage? Have it checked first.",
+  "Tell me what you own and who depends on you. If the answer is that you do not need more, "
+  "that is the answer you will get. Leave policy numbers out of the form.",
   lead_form("protection-page","protection.html","life-insurance-planning",
             "Request a coverage review","Replies come from me, usually the same day.",
             "Insurance","Life insurance planning", cta="Request a review", insurance=True,
             placeholder="Example: 20 year term from 2015 plus group cover at work, "
                         "two kids under 10, and I am not sure it is still enough."))
+PROTECTION = PROTECTION.replace(" data-rv", "").replace(" data-magnetic", "")
 # Same wall closes the home page, with its own utm_content so the two entry
 # points stay separable in reporting.
 HOME = HOME.replace("{HOMEFORM}", form_section(
@@ -888,14 +888,7 @@ HOME = HOME.replace("{HOMEFORM}", form_section(
   lead_form("website-general-consultation","index.html","consultation-request",
             "Send a note","Replies come from me, usually the same day.",
             "Not sure","Focused intro call", cta="Send it"), cream=True))
-HOME_WALL = (CARRIERWALL
-  .replace('<p class="cnum" data-rv>40+</p>\n    <h2 class="cclaim" data-rv>leading carriers available through one application</h2>',
-           '<h2 class="cclaim" data-rv>More than 40 life insurance carriers, one application.</h2>')
-  .replace('<p class="lede" data-rv style="margin:14px auto 0;max-width:52ch">Compare coverage and pricing across leading life insurance carriers without filling out the same information over and over.</p>',
-           '<p class="lede" data-rv style="margin:14px auto 0;max-width:56ch">You answer the health questions once and see the pricing I see. Which carriers can write your case depends on your age, health and the product.</p>')
-  .replace('<p class="cstrip" data-rv><b>Independent access</b><i>&middot;</i><b>No single-carrier bias</b><i>&middot;</i><b>You see the pricing we see</b></p>\n', ''))
-assert HOME_WALL != CARRIERWALL
-HOME = HOME.replace("{CARRIERWALL}", HOME_WALL)
+HOME = HOME.replace("{CARRIERWALL}", CARRIERWALL)
 # Home page de-AI pass (2026-10-29, Tyler: "screams AI made this"): no scroll
 # fades, no kickers, no gold-italic headline word, no particle canvas, no
 # generated-looking video. Content arrives rendered; the shared bands that
@@ -2078,7 +2071,7 @@ PAGES = [
  ("thank-you-checklist.html","Your Checklist Is Ready | Rae &amp; Co Capital","Download the young family protection checklist.",TY_CHECKLIST),
  ("index.html","Rae &amp; Co Capital | Life Insurance and Financial Planning, Greenville SC","Tyler Krause, Marine Corps veteran and Series 65 adviser in Greenville County. Life insurance quotes from 40+ carriers, investment management at Schwab, flat-fee financial plans. Fees published.",HOME),
  ("wealth.html","Wealth Management | Rae &amp; Co Capital","Portfolio management and retirement income at 1% per year of assets under management with a $750 annual minimum. Assets custodied at Charles Schwab.",WEALTH),
- ("protection.html","Protection Planning | Rae &amp; Co Capital","Term, disability, permanent, long-term care and final expense explained plainly. Quote and apply across 40+ carriers.",PROTECTION),
+ ("protection.html","Life Insurance, Disability and Long-Term Care Explained | Rae &amp; Co Capital","Term, disability income, whole and universal life, indexed universal life, long-term care and final expense, each explained plainly by a Greenville SC adviser. Quote term from 40+ carriers online.",PROTECTION),
  ("planning.html","Financial Planning Fees | Rae &amp; Co Capital","Flat-fee financial planning from $750. Published prices, real deliverables, buy it online.",PLANNING),
  ("advisor.html","Tyler Krause, Your Advisor | Rae &amp; Co Capital","Marine Corps veteran, Series 65 fiduciary, CCFPA. One person who answers the phone.",ADVISOR),
  ("contact.html","Contact | Rae &amp; Co Capital","One call, no pitch. Reach Tyler Krause at Rae &amp; Co Capital.",CONTACT),
