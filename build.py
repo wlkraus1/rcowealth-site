@@ -478,7 +478,7 @@ FAQS = {
  ],
  "life-insurance-quote.html": [
   ("How much does life insurance cost in South Carolina?",
-   "Cost depends on your age, health, coverage amount, term length, and the carrier's underwriting. Healthy applicants in their 30s often find term coverage costs less than a monthly streaming bundle. "
+   "Cost depends on your age, health, coverage amount, term length, and the carrier's underwriting. Healthy applicants in their 30s are usually surprised by how little 20-year term costs. "
    "You can compare real quotes from major carriers yourself in about two minutes using the quoting tool on this page, with no phone call required."),
   ("Can I get a life insurance quote without talking to an agent?",
    "Yes. The quote tool on this page lets you run your own quotes across major carriers and start an application on your own. Rae &amp; Co Capital is available if you want a second set of eyes, but no call is required to see rates."),
@@ -547,7 +547,7 @@ def faq_block(slug, kicker="Questions people ask", h2="Straight answers, before 
     return f"""
 <section class="section{' dark' if dark else ' cream'}" id="faq">
   <div class="wrap">
-    <p class="kicker" data-rv>{kicker}</p>
+    {f'<p class="kicker" data-rv>{kicker}</p>' if kicker else ""}
     <h2 class="sub" data-rv>{h2}</h2>{lede_html}
     <div class="faq" data-rv>{rows}
     </div>
@@ -1376,25 +1376,15 @@ THANKYOU = """
 """
 
 QUOTE = f"""
-<section class="section" style="padding-bottom:0">
-  <div class="wrap">
-    <p class="kicker" data-rv>Instant quotes &middot; No agent call</p>
-    <h1 data-rv>Compare real quotes from <em class="g">major carriers</em>.</h1>
-    <p class="lede" data-rv>Tell me who you are, answer a few health and coverage questions, and see actual pricing across 40+ carriers. You can apply online in the same session. Nobody phones you to unlock a number.</p>
-    <div class="acts" data-rv>
-      <a class="btn btn-gold" data-magnetic href="#see-rates">See my rates <span class="arr">&rarr;</span></a>
-      <a class="btn-line" href="life-insurance-calculator.html">Work out the amount first</a>
-    </div>
-  </div>
-</section>
-<section class="section" id="see-rates">
+<section class="section" id="see-rates" style="padding-top:clamp(40px,5vw,72px)">
   <div class="wrap split c">
     <div>
-      <p class="kicker" data-rv>Step one of three</p>
-      <h2 data-rv>Start with your name, get <em class="g">live pricing</em> on the next screen.</h2>
-      <p class="lede" data-rv>Four fields, then the quoter opens with your details already filled in. The rates come straight from the carriers. If you stop halfway, I can pick it up where you left off instead of you starting over.</p>
+      <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06">Life insurance quotes from more than 40 carriers, priced online.</h1>
+      <p class="lede">Your name and email, then the health questions once. You see the same carrier pricing I see, side by side, and you can apply and e-sign in the same sitting. Nobody has to call you first, and I check every application before it goes to the carrier.</p>
+      <div class="acts" style="margin-bottom:0"><a class="btn-line" href="life-insurance-calculator.html">Not sure how much? Work out the amount first</a></div>
+      <p style="margin:22px 0 0;font:400 14px/1.7 var(--sans);color:var(--muted)">Quoting runs through BackNine, an independent brokerage. If a policy is placed the carrier pays me a commission, which is disclosed in Form CRS and does not change your price.</p>
     </div>
-    <form class="lform campaign-form" data-rv id="ratesForm"
+    <form class="lform campaign-form" id="ratesForm"
           action="https://pi-nas.tail34488a.ts.net/" method="POST"
           data-campaign="life-insurance-quote" data-asset="life-insurance-quote.html" data-form-purpose="life-insurance-quote-rates">
       <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
@@ -1407,12 +1397,12 @@ QUOTE = f"""
       <input type="hidden" name="00NbV000002pcrh" value="Yes">
       <input type="hidden" name="preferred_next_step_display" value="Life insurance quote">
       <h2 class="sub">See my rates</h2>
-      <p class="lsub">No call required. Your rates load on the next screen.</p>
+      <p class="lsub">Four fields. Your rates load on the next screen.</p>
       <div class="fgrid">
         <div class="fld2"><label for="qr_first_name">First name</label><input id="qr_first_name" name="first_name" autocomplete="given-name" required></div>
         <div class="fld2"><label for="qr_last_name">Last name</label><input id="qr_last_name" name="last_name" autocomplete="family-name" required></div>
         <div class="fld2"><label for="qr_email">Email</label><input id="qr_email" type="email" name="email" autocomplete="email" required></div>
-        <div class="fld2"><label for="qr_phone">Phone</label><input id="qr_phone" type="tel" name="phone" autocomplete="tel"></div>
+        <div class="fld2"><label for="qr_phone">Phone <span style="font-weight:400;color:var(--muted)">(optional)</span></label><input id="qr_phone" type="tel" name="phone" autocomplete="tel"></div>
 {FORM_CHECKS}
       </div>
       <button class="btn btn-gold" type="submit" style="width:100%;margin-top:18px">Show my rates <span class="arr">&rarr;</span></button>
@@ -1422,23 +1412,24 @@ QUOTE = f"""
 </section>
 <section class="section">
   <div class="wrap">
-    <h2 class="sub" data-rv style="margin-bottom:24px">What happens, in order.</h2>
-    <div class="grid g3 stagger" data-rv>
-      <div class="card"><p class="tag">Step one</p><h3>Your name and contact</h3><p>Four fields so your quote is saved to you. The quoter opens right after with those details already filled in.</p></div>
-      <div class="card"><p class="tag">Step two</p><h3>Health questions, then real pricing</h3><p>A couple of minutes, no exam at this stage. You see the same carrier pricing I see, side by side. There is no version of this where I get a better number than you do.</p></div>
-      <div class="card"><p class="tag">Step three</p><h3>Apply and e-sign</h3><p>In the same sitting if you want. Underwriting and carrier approval come after, and nothing is in force until a carrier issues.</p></div>
+    <h2 style="font-size:clamp(30px,3.4vw,46px);line-height:1.08;margin-bottom:28px">What happens next.</h2>
+    <div class="grid g3">
+      <div class="card"><h3>1. Your name and contact</h3><p>So the quote is saved to you and the quoter opens with your details already filled in. Phone is optional.</p></div>
+      <div class="card"><h3>2. Health questions, then pricing</h3><p>About two minutes of questions, no exam at this stage. The carriers that can write your case show their prices side by side.</p></div>
+      <div class="card"><h3>3. Apply and e-sign</h3><p>In the same sitting if you want. The carrier underwrites after that, and nothing is in force until the policy is issued and the first premium is paid.</p></div>
     </div>
-    <div class="callout" data-rv style="margin-top:30px"><b>If the quoter will not load</b>
-      Some corporate networks block it. <a href="{B9}&amp;utm_content=quote_fallback" target="_blank" rel="noopener">Open it in a new window</a>, or text 864-558-8440 and I will send pricing manually.</div>
-    <p class="lede" data-rv style="margin-top:26px;max-width:78ch;font-size:13px">Quoting and applications are processed through BackNine Insurance. Pricing shown is an estimate and is not a binding offer. All coverage is subject to underwriting and carrier approval, and final rates may differ from quoted rates. Rae &amp; Co Capital may receive a commission on insurance products, a conflict of interest that is disclosed. Rae &amp; Co Capital is licensed for life insurance in South Carolina; availability elsewhere depends on licensing and carrier approval.</p>
+    <div class="callout" style="margin-top:30px"><b>If the quoter will not load</b>
+      Some office networks block it. <a href="{B9}&amp;utm_content=quote_fallback" target="_blank" rel="noopener">Open it in a new window</a>, or text 864-558-8440 and I will send pricing by hand.</div>
+    <p style="margin:26px 0 0;max-width:78ch;font:400 13px/1.7 var(--sans);color:var(--muted)">Quoting and applications are processed through BackNine Insurance. Pricing shown is an estimate, not a binding offer. All coverage is subject to underwriting and carrier approval, and final rates may differ from quoted rates. Rae &amp; Co Capital receives a commission on insurance placed, a conflict of interest that is disclosed. Rae &amp; Co Capital is licensed for life insurance in South Carolina; availability elsewhere depends on licensing and carrier approval.</p>
   </div>
 </section>
-{faq_block("life-insurance-quote.html", "Before you open it", "What people ask before they quote.")}
-{form_section("Rather not self-serve", "Want the number checked before you buy?",
-  "Send what you already have and what you are trying to protect. I will tell you whether the coverage fits, including when the answer is that you do not need more.",
+{faq_block("life-insurance-quote.html", "", "Questions people ask before they quote.")}
+{form_section("", "Want the number checked before you buy?",
+  "Tell me what coverage you already have and who depends on you. I will tell you whether it fits, including when the answer is that you do not need more.",
   lead_form("life-insurance-quote","life-insurance-quote.html","life-insurance-planning",
             "Have it checked first","Replies come from me, usually the same day.",
             "Insurance","Life insurance planning", cta="Send it over", insurance=True), cream=True)}"""
+QUOTE = QUOTE.replace(" data-rv", "").replace(" data-magnetic", "")
 
 CHECK_ITEMS = [
  ("Income replacement","What income would need to continue, for whom, and for how long?"),
@@ -2097,7 +2088,7 @@ PAGES = [
  ("client-login.html","Client Access | Rae &amp; Co Capital","Go to your custodian or carrier portal directly.",CLIENTLOGIN),
  ("life-insurance-calculator.html","Life Insurance Calculator | Rae &amp; Co Capital","Drag the sliders and see your coverage gap. No name, no email, no signup.",CALCULATOR),
  ("types-of-life-insurance.html","Types of Life Insurance, Explained Plainly | Rae &amp; Co Capital","Term, whole, universal, IUL, disability income, long-term care, term variants and final expense. What each solves, what it costs you, and when it is the wrong tool.",types_page()),
- ("life-insurance-quote.html","Get a Life Insurance Quote Online | Rae &amp; Co Capital","Compare real life insurance quotes across 40+ carriers and apply online in the same session. No agent call required to see your rates.",QUOTE),
+ ("life-insurance-quote.html","Life Insurance Quotes Online, South Carolina | Rae &amp; Co Capital","Compare life insurance quotes from more than 40 carriers and apply online in one sitting. Priced by an independent Greenville adviser. No phone call needed to see rates.",QUOTE),
  ("life-insurance-review-checklist.html","Life Insurance Review Checklist | Rae &amp; Co Capital","Six things to check before you change or replace a life insurance policy. Obligations, ownership, beneficiaries and liquidity, not just premium.",CHECKLIST),
  ("services.html","Services | Rae &amp; Co Capital","Investment management, retirement planning, financial planning and life insurance, coordinated in one virtual advisory relationship.",SERVICES),
  ("thank-you.html","Thank You | Rae &amp; Co Capital","Your message reached Rae &amp; Co Capital.",THANKYOU),
