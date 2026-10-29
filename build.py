@@ -170,8 +170,7 @@ def legal_page(h1, kicker, blocks):
     return f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>{kicker}</p>
-    <h1 data-rv style="font-size:clamp(40px,5vw,68px)">{h1}</h1>
+    <h1 style="font-size:clamp(40px,5vw,68px)">{h1}</h1>
   </div>
 </section>
 <section class="section">
@@ -1170,9 +1169,8 @@ def calcfield(f):
 CALCULATOR = """
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>Free tool &middot; no email required</p>
-    <h1 data-rv style="font-size:clamp(40px,5vw,72px)">How much cover do you <em class="g">actually</em> need?</h1>
-    <p class="lede" data-rv>Most people guess, or assume what they have through work is enough. Drag the sliders and watch the number move. No name, no email, no account, and nobody is emailed.</p>
+    <h1 style="font-size:clamp(38px,4.6vw,64px);line-height:1.06">How much life insurance do you need?</h1>
+    <p class="lede">Most people guess, or assume what they have through work is enough. Put in your real numbers and the gap updates as you go. No name, no email, no account.</p>
   </div>
 </section>
 
@@ -1215,7 +1213,7 @@ CALCULATOR = """
     </aside>
   </div>
 </section>
-""" + faq_block("life-insurance-calculator.html", "Using the calculator", "Three things people ask about the number.")
+""" + faq_block("life-insurance-calculator.html", "", "Questions people ask about the number.")
 
 # ------------------------------------------------- TYPES OF LIFE INSURANCE
 # The single strongest content asset on the property at 1,342 words, and the
@@ -1286,19 +1284,17 @@ def types_page():
         blocks.append(f"""
 <section class="section{' cream' if i%2 else ''}" style="padding-top:clamp(44px,5vw,68px);padding-bottom:clamp(44px,5vw,68px)">
   <div class="wrap">
-    <p class="kicker" data-rv>{tag}</p>
-    <h2 data-rv>{h2}</h2>
-    <p class="lede" data-rv style="max-width:74ch">{intro}</p>
-    <div class="prow stagger" data-rv>{"".join(f'<div><b>{a}</b><p>{b}</p></div>' for a,b in cells)}</div>
+    <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1"><span style="display:block;font:600 13px/1.4 var(--sans);letter-spacing:0;color:var(--gold-ink);margin-bottom:8px">{tag}</span>{h2}</h2>
+    <p class="lede" style="max-width:74ch">{intro}</p>
+    <div class="prow">{"".join(f'<div><b>{a}</b><p>{b}</p></div>' for a,b in cells)}</div>
     {callout}
   </div>
 </section>""")
     return f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>Plain language &middot; Protection planning</p>
-    <h1 data-rv>The whole menu, and what each one is <em class="g">actually for</em>.</h1>
-    <p class="lede" data-rv>Most people are sold a product before anyone tells them what the products are. Here is the range we place, in order of how simple it is, with the costs stated as plainly as the benefits.</p>
+    <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06;max-width:22ch">Every kind of life insurance I place, and what each one is for.</h1>
+    <p class="lede">Most people are sold a product before anyone explains what the products are. Here is the range, simplest first, with the costs stated as plainly as the benefits.</p>
     <div class="acts" data-rv>
       <a class="btn btn-ink" data-magnetic href="life-insurance-calculator.html">Estimate what you need <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="/life-insurance-quote.html">Compare real quotes</a>
@@ -1306,11 +1302,10 @@ def types_page():
   </div>
 </section>
 {"".join(blocks)}
-{faq_block("types-of-life-insurance.html", "Choosing between them", "The questions that come up most.")}
+{faq_block("types-of-life-insurance.html", "", "Questions people ask when choosing between them.")}
 <section class="section dark">
   <div class="wrap">
-    <p class="kicker" data-rv>No small print</p>
-    <h2 data-rv style="max-width:20ch">How we are paid, so you can <em class="g" style="color:var(--gold-2)">weigh the advice</em>.</h2>
+    <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1;max-width:22ch">How I am paid, so you can weigh the advice.</h2>
     <p class="lede" data-rv style="max-width:76ch">Rae &amp; Co Capital is compensated by commission on insurance placed. Different products pay different amounts, and permanent products generally pay more than term. That is a conflict of interest, it is disclosed in our Form CRS and disclosures, and it is the reason the term section above says what it says.</p>
     <p class="lede" data-rv style="max-width:76ch">Coverage is shopped across 40+ carriers rather than sold from one shelf. Availability, pricing and features vary by product, state, health and underwriting. Nothing on this page is individualized insurance, tax, legal or investment advice, and no coverage exists until a carrier issues a policy.</p>
     <p class="lede" data-rv style="max-width:76ch">Fixed and indexed annuities, including multi-year guaranteed annuities and income riders, are placed as part of retirement income planning rather than protection planning. Those are covered on the retirement planning page.</p>
@@ -1320,7 +1315,7 @@ def types_page():
     </div>
   </div>
 </section>
-{form_section("Get it checked", "Have what you own reviewed before you buy anything else.",
+{form_section("", "Have what you own reviewed before you buy anything else.",
   "Send what you already have and I will tell you whether it still fits. If the answer is that you do not need anything, that is the answer you will get.",
   lead_form("types-of-life-insurance","types-of-life-insurance.html","life-insurance-planning",
             "Request a policy review","Replies come from me, usually the same day.",
@@ -1334,9 +1329,8 @@ def types_page():
 THANKYOU = """
 <section class="section" style="padding-bottom:0">
   <div class="wrap" style="max-width:760px">
-    <p class="kicker" data-rv>Message received</p>
-    <h1 data-rv>Thank you. It <em class="g">landed</em>.</h1>
-    <p class="lede" data-rv>Your note is with me, not a queue. I read them myself and reply personally, usually the same day. If it is urgent, text 864-558-8440 and you will get me faster.</p>
+    <h1 style="font-size:clamp(38px,4.6vw,64px);line-height:1.06">Thank you. Your note is with me.</h1>
+    <p class="lede">It did not go to a queue. I read them myself and reply personally, usually the same day. If it is urgent, text 864-558-8440 and you will get me faster.</p>
     <div class="reachrow" data-rv style="max-width:420px">
       <a class="reach" href="tel:+18645588440"><span><b>Call</b>864-558-8440</span></a>
       <a class="reach" href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20just%20sent%20a%20note%20about%20"><span><b>Text</b>Usually the fastest</span></a>
@@ -1345,11 +1339,11 @@ THANKYOU = """
 </section>
 <section class="section">
   <div class="wrap">
-    <h2 class="sub" data-rv style="margin-bottom:24px">While you wait, these need nobody's permission.</h2>
-    <div class="grid g3 stagger" data-rv>
-      <a class="card" style="text-decoration:none" href="life-insurance-calculator.html"><p class="tag">Free, no signup</p><h3>Run your coverage number</h3><p>Drag the sliders and see the gap. Nothing is stored and no contact details are asked for.</p></a>
-      <a class="card" style="text-decoration:none" href="types-of-life-insurance.html"><p class="tag">Plain language</p><h3>Read what the products do</h3><p>All eight, with what each costs you and when it is the wrong tool.</p></a>
-      <a class="card" style="text-decoration:none" href="planning.html"><p class="tag">Published prices</p><h3>See the planning fees</h3><p>Flat fees from $750, listed, no discovery call needed to find out.</p></a>
+    <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1;margin-bottom:24px">While you wait.</h2>
+    <div class="grid g3">
+      <a class="card" style="text-decoration:none" href="life-insurance-calculator.html"><h3>Run your coverage number</h3><p>Drag the sliders and see the gap. Nothing is stored and no contact details are asked for.</p></a>
+      <a class="card" style="text-decoration:none" href="types-of-life-insurance.html"><h3>Read what the products do</h3><p>All eight, with what each costs you and when it is the wrong tool.</p></a>
+      <a class="card" style="text-decoration:none" href="planning.html"><h3>See the planning fees</h3><p>Flat fees from $750, listed, no discovery call needed to find out.</p></a>
     </div>
     <div class="acts" data-rv style="margin-top:34px">
       <a class="btn btn-ink" href="index.html">Back to home <span class="arr">&rarr;</span></a>
@@ -1427,8 +1421,7 @@ CHECK_ITEMS = [
 CHECKLIST = f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>Checklist &middot; Protection planning</p>
-    <h1 data-rv>Before changing a policy, know what the coverage is <em class="g">supposed to solve</em>.</h1>
+    <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06;max-width:24ch">Before you change a policy, know what the coverage is supposed to solve.</h1>
     <p class="lede" data-rv>A useful review starts with obligations, people, ownership, beneficiaries and liquidity. Not just premium and death benefit. Replacing a policy on price alone is how people lose coverage they cannot get back.</p>
     <div class="acts" data-rv>
       <a class="btn btn-ink" data-magnetic href="#ask">Request the checklist <span class="arr">&rarr;</span></a>
@@ -1438,8 +1431,8 @@ CHECKLIST = f"""
 </section>
 <section class="section">
   <div class="wrap">
-    <h2 class="sub" data-rv style="margin-bottom:24px">The six things worth checking.</h2>
-    <div class="grid g3 stagger" data-rv>
+    <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1;margin-bottom:24px">The six things worth checking.</h2>
+    <div class="grid g3">
       {"".join(f'<div class="card"><h3 style="font-size:21px">{t}</h3><p>{b}</p></div>' for t,b in CHECK_ITEMS)}
     </div>
     <div class="callout" data-rv style="margin-top:30px"><b>One warning worth the whole page</b>
@@ -1447,7 +1440,7 @@ CHECKLIST = f"""
   </div>
 </section>
 <div id="ask"></div>
-{form_section("Request the checklist", "Ask for the checklist, or a full protection review.",
+{form_section("", "Ask for the checklist, or a full protection review.",
   "I will send the checklist and, if you want, walk your existing policies through it with you. Please leave policy numbers and Social Security numbers out of the form.",
   lead_form("life-insurance-checklist","life-insurance-review-checklist.html","lead-magnet-download",
             "Request the checklist","I send it myself, usually the same day.",
@@ -1464,9 +1457,8 @@ SERVICE_CARDS = [
 SERVICES = f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>Virtual services &middot; Greenville, South Carolina</p>
-    <h1 data-rv>One relationship. <em class="g">Four connected</em> disciplines.</h1>
-    <p class="lede" data-rv>Investments, retirement income, financial planning and protection, coordinated by one person without office logistics. The coordination is the product. Handled separately, these four contradict each other more often than people realize.</p>
+    <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06;max-width:20ch">Four services, one adviser.</h1>
+    <p class="lede">Investments, retirement income, financial planning and life insurance, handled by one person so the decisions agree with each other. Handled separately, they often do not.</p>
     <div class="acts" data-rv>
       <a class="btn btn-ink" data-magnetic href="contact.html">Start a conversation <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="planning.html">Or buy a plan outright</a>
@@ -1475,17 +1467,16 @@ SERVICES = f"""
 </section>
 <section class="section">
   <div class="wrap">
-    <h2 class="sub" data-rv style="margin-bottom:24px">Where each one goes deeper.</h2>
-    <div class="grid g2 stagger" data-rv>
-      {"".join(f'<a class="card" style="text-decoration:none" href="{h}"><p class="tag">{t}</p><h3>{n}</h3><p style="margin-bottom:16px">{d}</p><span class="btn-line">Open page &rarr;</span></a>' for t,n,d,h in SERVICE_CARDS)}
+    <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1;margin-bottom:24px">Where each one goes deeper.</h2>
+    <div class="grid g2">
+      {"".join(f'<a class="card" style="text-decoration:none" href="{h}"><h3>{n}</h3><p style="margin-bottom:16px">{d}</p><span class="btn-line">Open page &rarr;</span></a>' for t,n,d,h in SERVICE_CARDS)}
     </div>
   </div>
 </section>
 <section class="section cream">
   <div class="wrap split c">
     <div>
-      <p class="kicker" data-rv>Protection planning</p>
-      <h2 data-rv style="max-width:18ch">Not sure how much cover your family would need?</h2>
+      <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1;max-width:18ch">Not sure how much coverage your family would need?</h2>
       <p class="lede" data-rv>Start with the estimate, then compare real pricing. The calculator asks for no contact information and stores nothing.</p>
       <div class="acts" data-rv>
         <a class="btn btn-ink" href="life-insurance-calculator.html">Estimate your coverage need <span class="arr">&rarr;</span></a>
@@ -1493,7 +1484,7 @@ SERVICES = f"""
       </div>
     </div>
     <div class="card" data-rv>
-      <p class="tag">Client access</p><h3>Need a portal?</h3>
+      <h3>Need a portal?</h3>
       <p style="margin-bottom:16px">Investment and insurance account access is handled through the provider portals, not through this site.</p>
       <a class="btn-line" href="client-login.html">Go to client access &rarr;</a>
     </div>
@@ -1507,8 +1498,7 @@ SERVICES = f"""
 REVIEW = f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
-    <p class="kicker" data-rv>Protection review</p>
-    <h1 data-rv>Make sure the people depending on you are <em class="g">actually protected</em>.</h1>
+    <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06;max-width:22ch">Have your life insurance checked against what it needs to do.</h1>
     <p class="lede" data-rv>Families, homeowners and business owners get existing policies and coverage gaps reviewed against what the money is actually for. Price it yourself in a few minutes, or have what you already own checked first.</p>
     <div class="acts" data-rv>
       <a class="btn btn-gold" data-magnetic href="/life-insurance-quote.html">Get pricing now <span class="arr">&rarr;</span></a>
@@ -1519,31 +1509,29 @@ REVIEW = f"""
 </section>
 <section class="section">
   <div class="wrap">
-    <p class="kicker" data-rv>When to review coverage</p>
-    <h2 data-rv style="max-width:22ch">Coverage should match the job it needs to do.</h2>
+    <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1;max-width:22ch">Coverage should match the job it needs to do.</h2>
     <p class="lede" data-rv style="max-width:74ch">People usually review after a mortgage, a marriage, a new child, a business change, a debt increase, a job change or a health change. Existing policies deserve a second look before they are replaced, reduced, borrowed against or allowed to lapse.</p>
     <div class="grid g3 stagger" data-rv style="margin-top:32px">
-      <div class="card"><p class="tag">Home</p><h3>Mortgage protection</h3><p>Whether a spouse or family could keep the home, refinance, or pay the debt down if the income stopped.</p></div>
-      <div class="card"><p class="tag">Family</p><h3>Income replacement</h3><p>Survivor income, children, caregiving, education, final costs and emergency liquidity.</p></div>
-      <div class="card"><p class="tag">Business</p><h3>Owner continuity</h3><p>Key-person, buy-sell, debt, succession and business-continuity exposure.</p></div>
+      <div class="card"><h3>Mortgage protection</h3><p>Whether a spouse or family could keep the home, refinance, or pay the debt down if the income stopped.</p></div>
+      <div class="card"><h3>Income replacement</h3><p>Survivor income, children, caregiving, education, final costs and emergency liquidity.</p></div>
+      <div class="card"><h3>Owner continuity</h3><p>Key-person, buy-sell, debt, succession and business-continuity exposure.</p></div>
     </div>
   </div>
 </section>
 <section class="section cream">
   <div class="wrap">
-    <p class="kicker" data-rv>How the review works</p>
-    <h2 data-rv style="max-width:22ch">A focused conversation before any application.</h2>
+    <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1;max-width:22ch">A focused conversation before any application.</h2>
     <div class="grid g2 stagger" data-rv style="margin-top:30px">
-      <div class="card"><p class="tag">What we establish</p><h3>The inputs</h3>
+      <div class="card"><h3>What we establish</h3>
         <ul class="ticks"><li>What the policy actually needs to protect</li><li>Current employer, term, permanent or legacy coverage</li><li>Rough budget and how long the need lasts</li><li>Health and the likely underwriting path</li></ul></div>
-      <div class="card"><p class="tag">What you get</p><h3>The output</h3>
+      <div class="card"><h3>What you get</h3>
         <ul class="ticks"><li>A gap and overlap summary in plain language</li><li>Carrier and product fit, with the reasoning shown</li><li>Replacement cautions before you change anything</li><li>Or a clear "you do not need more", when that is the answer</li></ul></div>
     </div>
     <div class="callout" data-rv style="margin-top:28px"><b>Before you replace anything</b>
       Do not cancel existing coverage until replacement coverage is issued and in force. Health changes, and a policy you already own may be one you could no longer qualify for.</div>
   </div>
 </section>
-{form_section("Request a review", "Have your coverage checked.",
+{form_section("", "Have your coverage checked.",
   "Tell me what you already have and who depends on you. Please leave policy numbers and Social Security numbers out of the form.",
   lead_form("life-insurance-protection-review","life-insurance-protection-review.html",
             "paid-search-protection-review","Request a protection review",
@@ -1768,7 +1756,7 @@ def _cards(cards):
     # work"), so it stays, as a quiet sentence-case line rather than a tracked
     # uppercase tag.
     return ('\n    <div class="grid g3" style="margin-top:28px">' +
-            "".join(f'\n      <div class="card"><h3><span style="display:block;font:600 13px/1.4 var(--sans);color:var(--gold-ink);margin-bottom:6px">{t}</span>{h}</h3><p>{p}</p></div>' for t,h,p in cards) +
+            "".join(f'\n      <div class="card"><h3><span style="display:block;font:600 13px/1.4 var(--sans);letter-spacing:0;color:var(--gold-ink);margin-bottom:6px">{t}</span>{h}</h3><p>{p}</p></div>' for t,h,p in cards) +
             '\n    </div>')
 
 def geo_section(s):
@@ -1849,8 +1837,7 @@ WEALTH = WEALTH.replace(" data-rv", "").replace(" data-magnetic", "")
 BRIDGE = """
 <section class="section" style="padding-bottom:0">
   <div class="wrap" style="max-width:880px">
-    <p class="kicker" data-rv>Start your plan</p>
-    <h1 data-rv style="font-size:clamp(40px,5vw,64px)">Start <em class="g" id="bTierName">Household</em>.</h1>
+    <h1 style="font-size:clamp(40px,5vw,64px);line-height:1.04">Start <span id="bTierName">Household</span>.</h1>
     <p class="lede" data-rv>Two quick things, then Square&rsquo;s secure checkout. The charge shows as <b>Rae &amp; Co Capital, LLC</b> on your statement.</p>
   </div>
 </section>
@@ -1858,13 +1845,12 @@ BRIDGE = """
   <div class="wrap split c" style="max-width:1020px">
     <div>
       <div class="card" data-rv style="margin-bottom:16px">
-        <p class="tag">Your plan</p>
         <h2 class="sub" id="bSummaryName">Household</h2>
         <p style="margin:2px 0 10px;font-family:var(--serif);font-size:34px;color:var(--ink)" id="bPrice">$2,000</p>
         <p id="bBlurb">For a full picture, usually a couple with a few moving parts.</p>
       </div>
       <div class="card" data-rv>
-        <h2 class="tag" style="font:800 10.5px/1 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--gold-ink);margin:0 0 12px">What happens next</h2>
+        <h2 class="sub" style="margin-bottom:10px">What happens next</h2>
         <ul class="ticks" style="margin-top:6px">
           <li>Pay on Square&rsquo;s secure checkout. You get a receipt immediately.</li>
           <li>Sign the written planning agreement, which I email you the same day.</li>
@@ -1970,14 +1956,13 @@ def magnet_form(retpage, asset, purpose, cta):
 
 def magnet_landing(kicker, h1, lede, chips, steps_kicker, steps_h2, steps, retpage, asset, purpose, cta):
     chiprow = "".join(f'<span class="xlink" style="cursor:default">{c}</span>' for c in chips)
-    stepcards = "".join(f'<div class="card"><p class="tag">{t}</p><h3>{h}</h3><p>{b}</p></div>'
+    stepcards = "".join(f'<div class="card"><h3><span style="display:block;font:600 13px/1.4 var(--sans);letter-spacing:0;color:var(--gold-ink);margin-bottom:6px">{t}</span>{h}</h3><p>{b}</p></div>'
                         for t, h, b in steps)
     return f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap split c">
     <div>
-      <p class="kicker" data-rv>{kicker}</p>
-      <h1 data-rv style="font-size:clamp(40px,5vw,66px)">{h1}</h1>
+      <h1 style="font-size:clamp(36px,4.4vw,58px);line-height:1.06">{h1}</h1>
       <p class="lede" data-rv>{lede}</p>
       <div class="xrow" data-rv style="border-top:0;padding-top:0;margin-top:6px">{chiprow}</div>
     </div>
@@ -1986,9 +1971,8 @@ def magnet_landing(kicker, h1, lede, chips, steps_kicker, steps_h2, steps, retpa
 </section>
 <section class="section cream">
   <div class="wrap">
-    <p class="kicker" data-rv>{steps_kicker}</p>
-    <h2 data-rv style="max-width:24ch">{steps_h2}</h2>
-    <div class="grid g3 stagger" data-rv style="margin-top:32px">{stepcards}</div>
+    <h2 style="font-size:clamp(28px,3.2vw,42px);line-height:1.1;max-width:24ch">{steps_h2}</h2>
+    <div class="grid g3" style="margin-top:32px">{stepcards}</div>
     <div class="acts" data-rv style="margin-top:32px">
       <a class="btn btn-ink" href="life-insurance-calculator.html">Run the numbers online instead <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="/life-insurance-quote.html">See my rates</a>
@@ -2001,8 +1985,7 @@ def magnet_thanks(h1, lede, pdf, label, camp):
     return f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap" style="max-width:820px">
-    <p class="kicker" data-rv>You&rsquo;re all set</p>
-    <h1 data-rv style="font-size:clamp(40px,5vw,64px)">{h1}</h1>
+    <h1 style="font-size:clamp(38px,4.6vw,60px);line-height:1.06">{h1}</h1>
     <p class="lede" data-rv>{lede}</p>
     <div class="acts" data-rv>
       <a class="btn btn-gold" href="/{pdf}" target="_blank" rel="noopener">{label} <span class="arr">&rarr;</span></a>
@@ -2024,11 +2007,11 @@ def magnet_thanks(h1, lede, pdf, label, camp):
 
 WORKSHEET = magnet_landing(
   "Free worksheet",
-  "Find your household&rsquo;s <em class=\"g\">real</em> life insurance number.",
+  "Work out your household&rsquo;s real life insurance number.",
   "Most families guess at coverage, or take whatever work offers. This one-page worksheet walks the same four questions an adviser would ask, so the number you land on is yours. It takes about ten minutes.",
   ["Debts and mortgage","Income replacement","The kids","What you already have"],
   "Why a worksheet",
-  "Because &ldquo;2x salary from work&rdquo; was never your number.",
+  "Why a worksheet, when work already gives you coverage.",
   [("Step 1","Add up the need","Debts, income replacement years, and goals for the kids, in plain numbers you already know."),
    ("Step 2","Subtract what you have","Savings, existing policies, and the coverage through work, counted honestly."),
    ("Step 3","See your gap","One number. If you want a second set of eyes on it, a free 20-minute review is available. No pitch.")],
@@ -2036,7 +2019,7 @@ WORKSHEET = magnet_landing(
 
 CHECKLIST_MAGNET = magnet_landing(
   "Free checklist",
-  "New house, new baby, new job. Is the family <em class=\"g\">actually protected</em>?",
+  "New house, new baby, new job. Is the family covered?",
   "Every big life event quietly adds financial risk before it adds wealth. This one-page checklist covers the ten things young families should have handled before worrying about picking investments. Protection comes before portfolios.",
   ["Coverage on both parents","Beneficiaries done right","The emergency cushion","A veteran-family section"],
   "What&rsquo;s inside",
@@ -2047,12 +2030,12 @@ CHECKLIST_MAGNET = magnet_landing(
   "thank-you-checklist.html","family-protection-checklist.html","lead-magnet-family-checklist","Send me the checklist")
 
 TY_WORKSHEET = magnet_thanks(
-  "Here&rsquo;s your <em class=\"g\">worksheet</em>.",
+  "Here is your worksheet.",
   "Ten minutes, four questions, one honest number. Grab last month&rsquo;s budget and your latest statements before you start.",
   "assets/Rae-Co-Life-Insurance-Needs-Worksheet.pdf","Download the worksheet (PDF)","life-worksheet")
 
 TY_CHECKLIST = magnet_thanks(
-  "Here&rsquo;s your <em class=\"g\">checklist</em>.",
+  "Here is your checklist.",
   "Ten boxes, five minutes. Check what is done, circle what is not, and you know exactly what to fix next.",
   "assets/Rae-Co-Young-Family-Protection-Checklist.pdf","Download the checklist (PDF)","family-checklist")
 
@@ -2087,7 +2070,7 @@ for g in GEO:
 for i,(slug,title,desc,body) in enumerate(PAGES):
     if slug == "life-insurance-calculator.html":
         PAGES[i] = (slug, title, desc, body + form_section(
-          "You have the number", "Want it turned into real pricing?",
+          "", "Want it turned into real pricing?",
           "Send the figure you just worked out and I will come back with what it actually "
           "costs across the carriers that can write your case.",
           lead_form("needs-calculator","life-insurance-calculator.html","needs-calculator",
@@ -2097,7 +2080,12 @@ for i,(slug,title,desc,body) in enumerate(PAGES):
                     placeholder="Example: the calculator said about $600,000 and I am 38, "
                                 "non-smoker, in good health."), cream=True))
 
+# 2026-10-29: the scroll-reveal (data-rv), stagger and magnetic-hover
+# decorations are retired sitewide. Content arrives rendered. A stagger grid
+# without its reveal hid every card on the planning page once, so this strip
+# runs on every page rather than per template.
 for slug,title,desc,body in PAGES:
+    body = body.replace(" data-rv", "").replace(" data-magnetic", "").replace(" stagger", "")
     (OUT/slug).write_text(shell(slug,title,desc,body,extra_ld=page_ld(slug)),encoding="utf-8")
     print("wrote",slug)
 print("done:",len(PAGES),"pages")
