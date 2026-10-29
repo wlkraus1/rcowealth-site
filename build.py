@@ -103,6 +103,7 @@ FORM_HIDDEN = """      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD
 FORM_CHECKS = """        <div class="checks2">
           <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
           <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message and data rates may apply. Consent is not required to work with Rae &amp; Co Capital.</label>
+          <label class="ckline"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
         </div>"""
 
 FORM_FINE = ("Submitting this form does not create an advisory relationship. Do not include sensitive "
@@ -1073,6 +1074,7 @@ CONTACT = """
         <div class="checks2">
           <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
           <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1">I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message and data rates may apply. Consent is not required to work with Rae &amp; Co Capital.</label>
+          <label class="ckline"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
         </div>
       </div>
       <button class="btn btn-ink" type="submit" style="width:100%;margin-top:18px">Send it <span class="arr">&rarr;</span></button>
