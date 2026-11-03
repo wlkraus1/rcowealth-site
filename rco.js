@@ -349,4 +349,21 @@
       mag.addEventListener('pointerleave',function(){mag.style.transform='';});
     }
   }
+
+  /* ---- text / call consent lines only matter once there is a phone number ----
+     Phone is optional on every form. Showing two long TCPA consent paragraphs
+     to someone who typed no number is friction for nothing, so the lines stay
+     hidden until a number is entered and unchecked if it is cleared. */
+  [].slice.call(document.querySelectorAll('form')).forEach(function(f){
+    var phone=f.querySelector('input[name=phone]'), lines=f.querySelectorAll('.needs-phone');
+    if(!phone||!lines.length) return;
+    function sync(){
+      var on=phone.value.replace(/\D/g,'').length>=7;
+      [].forEach.call(lines,function(l){
+        l.hidden=!on;
+        if(!on){var cb=l.querySelector('input');if(cb)cb.checked=false;}
+      });
+    }
+    sync(); phone.addEventListener('input',sync); phone.addEventListener('change',sync);
+  });
 })();

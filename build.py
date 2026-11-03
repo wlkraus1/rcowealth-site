@@ -25,6 +25,12 @@ NAV = [("index.html","Home"),("wealth.html","Investing"),("protection.html","Ins
 # cream (#f6ecd0); there is no invert filter, because inverting flattens the
 # warm tone the rest of the band uses. A slug with no file falls back to a
 # styled wordmark, so a missing logo degrades instead of leaving a hole.
+TOWN_LINKS = [("Greenville","life-insurance-greenville-sc.html"),("Mauldin","life-insurance-mauldin-sc.html"),
+              ("Simpsonville","life-insurance-simpsonville-sc.html"),("Greer","life-insurance-greer-sc.html"),
+              ("Taylors","life-insurance-taylors-sc.html"),("Easley","life-insurance-easley-sc.html"),
+              ("Spartanburg","life-insurance-spartanburg-sc.html")]
+TOWN_FOOTER = " &middot; ".join(f'<a href="{s}">{t}</a>' for t, s in TOWN_LINKS[1:]) + ' &middot; <a href="financial-advisor-mauldin-sc.html">Mauldin planning</a>'
+
 FEATURED = [
  ("Prudential","prudential",""),   ("Lincoln Financial","lincoln-financial",""),
  ("Pacific Life","pacific-life",""), ("John Hancock","john-hancock",""),
@@ -102,8 +108,8 @@ FORM_HIDDEN = """      <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD
 
 FORM_CHECKS = """        <div class="checks2">
           <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
-          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1"><span>I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</span></label>
-          <label class="ckline"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
+          <label class="ckline needs-phone"><input type="checkbox" name="00NbV000003ZxDB" value="1"><span>I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</span></label>
+          <label class="ckline needs-phone"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
         </div>"""
 
 FORM_FINE = ("Submitting this form does not create an advisory relationship. Do not include sensitive "
@@ -199,6 +205,21 @@ SOCIAL = """<div class="social">
         </div>"""
 
 ORIGIN = "https://rcowealth.com"
+
+# Google Business Profile rating, shown as a third-party rating with the
+# disclosures the SEC Marketing Rule asks for (date, who rates, compensation).
+# Update the two numbers by hand when the count moves; they are not fetched.
+GBP = dict(score="5.0", count=3, asof="November 2026",
+           url="https://maps.google.com/?cid=3935233726918519856")
+
+def reviews_strip():
+    n = GBP["count"]
+    return (f'<div class="gstars"><a href="{GBP["url"]}" target="_blank" rel="noopener">'
+            f'<span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span> '
+            f'<b>{GBP["score"]} on Google</b>, {n} review{"s" if n != 1 else ""}</a>'
+            f'<span class="gfine">Google rating as of {GBP["asof"]}. Reviews are written by clients on Google. '
+            f'Clients are asked for a review after the work is done, nobody is paid or given anything for one, '
+            f'and not every client writes one. A rating says nothing about future results.</span></div>')
 
 def asset_v(name):
     """Content hash appended to rco.css / rco.js. Without it a returning
@@ -363,6 +384,7 @@ def shell(slug, title, desc, body, canvas=False, extra_ld=""):
         <a href="retirement-planning-greenville-sc.html">Retirement planning</a>
         <a href="investment-management-greenville-sc.html">Investment management</a>
         <a href="services.html">All services</a>
+        <p class="fttowns">{TOWN_FOOTER}</p>
       </nav>
       <nav aria-label="Legal"><p class="ftlabel">Legal</p>
         <a href="disclosures.html">Disclosures</a>
@@ -375,6 +397,11 @@ def shell(slug, title, desc, body, canvas=False, extra_ld=""):
     <p class="legal">{LEGAL}</p>
   </div>
 </footer>
+<nav class="stick" aria-label="Quick actions">
+  <a href="tel:+18645588440">Call</a>
+  <a href="sms:+18645588440?&amp;body=Hi%20Tyler%2C%20I%20have%20a%20question%20about%20">Text</a>
+  <a class="go" href="{'#see-rates' if slug == 'life-insurance-quote.html' else '/life-insurance-quote.html'}">See my rates</a>
+</nav>
 <script src="rco.js?v={asset_v('rco.js')}"></script>
 <script src="/campaign-tracking.js?v={asset_v('campaign-tracking.js')}" defer></script>
 <script src="/tracking-tags.js?v={asset_v('tracking-tags.js')}" defer></script>
@@ -578,21 +605,25 @@ GEO_SERVICE = {
  "retirement-planning-greenville-sc.html": ("Retirement income planning", "Retirement planning"),
  "life-insurance-greenville-sc.html": ("Life insurance planning", "Life insurance"),
 }
+# Town pages (2026-11-03) reuse the geo template with the town in the schema.
+GEO_CITY = {}
+
 def geo_ld(slug):
     stype, crumb = GEO_SERVICE[slug]
+    city = GEO_CITY.get(slug, "Greenville")
+    area = [{"@type":"City","name":city}] + [{"@type":"City","name":x} for x in ("Greenville","Spartanburg","Anderson") if x != city]
     svc = {"@context":"https://schema.org","@type":"Service","serviceType":stype,
-           "name":f"{stype} in Greenville, SC",
+           "name":f"{stype} in {city}, SC",
            "url":f"{ORIGIN}/{slug}",
            "provider":{"@type":"FinancialService","name":"Rae & Co Capital, LLC","url":ORIGIN,
                        "telephone":"+1-864-558-8440"},
-           "areaServed":[{"@type":"City","name":"Greenville"},{"@type":"City","name":"Spartanburg"},
-                         {"@type":"City","name":"Anderson"},{"@type":"State","name":"South Carolina"}],
+           "areaServed":area + [{"@type":"State","name":"South Carolina"}],
            "availableChannel":{"@type":"ServiceChannel","serviceUrl":f"{ORIGIN}/{slug}",
                                "servicePhone":"+1-864-558-8440","availableLanguage":"en"}}
     bc = {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
            {"@type":"ListItem","position":1,"name":"Home","item":ORIGIN+"/"},
            {"@type":"ListItem","position":2,"name":"Services","item":ORIGIN+"/services.html"},
-           {"@type":"ListItem","position":3,"name":f"{crumb} in Greenville, SC","item":f"{ORIGIN}/{slug}"}]}
+           {"@type":"ListItem","position":3,"name":f"{crumb} in {city}, SC","item":f"{ORIGIN}/{slug}"}]}
     return (_json.dumps(svc, separators=(",", ":")), _json.dumps(bc, separators=(",", ":")))
 
 def page_ld(slug):
@@ -616,6 +647,7 @@ HOME = """
         <a class="btn btn-gold" href="/life-insurance-quote.html">See my rates <span class="arr">&rarr;</span></a>
         <a class="btn-line" href="planning.html">Planning fees</a>
       </div>
+      {REVIEWS}
       <p style="margin:22px 0 0;font:400 14px/1.7 var(--sans);color:var(--muted)">Accounts are held at Charles Schwab in your name. Life insurance is placed through more than 40 carriers. Every fee is published on this site.</p>
     </div>
     <figure style="margin:0;max-width:440px;justify-self:end;width:100%">
@@ -883,7 +915,7 @@ HOME = HOME.replace("{HOMEFORM}", form_section(
   lead_form("website-general-consultation","index.html","consultation-request",
             "Send a note","Replies come from me, usually the same day.",
             "Not sure","Focused intro call", cta="Send it"), cream=True))
-HOME = HOME.replace("{CARRIERWALL}", CARRIERWALL)
+HOME = HOME.replace("{CARRIERWALL}", CARRIERWALL).replace("{REVIEWS}", reviews_strip())
 # Home page de-AI pass (2026-10-29, Tyler: "screams AI made this"): no scroll
 # fades, no kickers, no gold-italic headline word, no particle canvas, no
 # generated-looking video. Content arrives rendered; the shared bands that
@@ -1089,8 +1121,8 @@ CONTACT = """
           <textarea id="description" name="description" placeholder="Example: I am five years from retirement and want to know if the plan holds up."></textarea></div>
         <div class="checks2">
           <label class="ckline"><input type="checkbox" name="00NbV000003Urbb" value="1">Yes, I would like to receive Rae &amp; Co Capital market notes and educational updates.</label>
-          <label class="ckline"><input type="checkbox" name="00NbV000003ZxDB" value="1"><span>I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</span></label>
-          <label class="ckline"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
+          <label class="ckline needs-phone"><input type="checkbox" name="00NbV000003ZxDB" value="1"><span>I consent to receive text messages from Rae &amp; Co Capital at the phone number provided, including follow-up about my inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help. Consent is not required to work with Rae &amp; Co Capital. See our <a href="privacy.html">privacy policy</a>.</span></label>
+          <label class="ckline needs-phone"><input type="checkbox" name="call_consent" value="1">I agree that Rae &amp; Co Capital may call me at the phone number provided about my request, including a quick scheduling call from an automated or AI-assisted voice assistant. Consent is not required to work with Rae &amp; Co Capital, and I can say stop at any time.</label>
         </div>
       </div>
       <button class="btn btn-ink" type="submit" style="width:100%;margin-top:18px">Send it <span class="arr">&rarr;</span></button>
@@ -1360,6 +1392,7 @@ QUOTE = f"""
       <h1 style="font-size:clamp(36px,4.4vw,60px);line-height:1.06">Life insurance quotes from more than 40 carriers, priced online.</h1>
       <p class="lede">Your name and email, then the health questions once. You see the same carrier pricing I see, side by side, and you can apply and e-sign in the same sitting. Nobody has to call you first, and I check every application before it goes to the carrier.</p>
       <div class="acts" style="margin-bottom:0"><a class="btn-line" href="life-insurance-calculator.html">Not sure how much? Work out the amount first</a></div>
+      {reviews_strip()}
       <p style="margin:22px 0 0;font:400 14px/1.7 var(--sans);color:var(--muted)">Quoting runs through BackNine, an independent brokerage. If a policy is placed the carrier pays me a commission, which is disclosed in Form CRS and does not change your price.</p>
     </div>
     <form class="lform campaign-form" id="ratesForm"
@@ -1751,6 +1784,271 @@ GEO = [
   placeholder="Example: about $400k across a 401k and a rollover IRA, a lot of it in one stock, retiring in roughly eight years."),
 ]
 
+# ------------------------------------------------------------ TOWN PAGES
+# 2026-11-03. The competitor scan found that out-of-state agencies hold the
+# Greenville life-insurance results with one page per Upstate town, while the
+# firm, based in Mauldin, had no Mauldin page. Each town page carries its own
+# local copy and FAQ so it is not a nouns-swapped doorway. Shared pieces are
+# the lists and the lead form, which are navigation rather than content.
+TOWN_HELPS = ["Existing policies and employer group coverage","New term and permanent coverage needs",
+              "Income replacement, mortgage and debt exposure","Dependents, education and family obligations",
+              "Business-owner, buy-sell or key-person risk",
+              "Carrier fit, underwriting path, ownership and beneficiaries"]
+TOWN_LEAVE = ["A coverage number tied to your actual obligations","A gap and overlap summary",
+              "Carrier, underwriting and application next steps when new coverage makes sense",
+              "A plain answer when you already have enough"]
+
+def town_life(town, slug, title, desc, h1, lede, sections, faqs, placeholder, campaign):
+    FAQS[slug] = faqs
+    GEO_SERVICE[slug] = ("Life insurance planning", "Life insurance")
+    GEO_CITY[slug] = town
+    return dict(slug=slug, title=title, desc=desc, kicker="Protection planning", h1=h1, lede=lede,
+      deep="life-insurance-quote.html", deep_cta="See my rates",
+      alt="life-insurance-calculator.html", alt_cta="Run the coverage numbers",
+      helps=TOWN_HELPS, leave=TOWN_LEAVE, sections=sections,
+      faq_kicker="Questions people ask", faq_h2=f"Life insurance in {town}, answered plainly.",
+      campaign=campaign, interest="Insurance", step="Life insurance planning", insurance=True,
+      placeholder=placeholder)
+
+GEO += [
+ town_life("Mauldin", "life-insurance-mauldin-sc.html",
+  "Life Insurance in Mauldin, SC | Local Adviser, 40+ Carriers",
+  "Life insurance for Mauldin, SC families from an adviser who lives in Mauldin. Price term coverage across 40+ carriers online in minutes, or have what you already own checked first.",
+  "Life insurance in Mauldin, from someone who lives here.",
+  "I live in Mauldin and run the firm from here. Most families on this side of the county have one or two years of salary through work and a mortgage that is bigger than that. Price the right amount yourself in a few minutes, or have what you already own checked first.",
+  [dict(h2="Mauldin, specifically.",
+    paras=[
+     "Mauldin is a commuter town. Most of the household income here is earned somewhere else: Prisma Health and the downtown offices up Laurens Road, the BMW plant and its suppliers out I-385 and I-85, Michelin, GE, the school district. That matters for insurance because almost all of it comes with group life, and group life is sized by the employer, not by your mortgage. One or two times salary is the normal number. It ends the day you leave, and people on this side of the county change jobs often.",
+     "The second thing is the houses. Mauldin was an affordable in-between for a long time, and the subdivisions off Butler Road, Bethel Road and Fork Shoals filled with families who bought in the last ten years. Prices followed Greenville County up. A household that bought here in 2021 or later often carries a loan that is larger than every group policy in the house combined. Clearing that loan is the first line of the arithmetic, before anyone talks about replacing income.",
+     "I am ten minutes from most of Mauldin. Meetings still happen by phone or Zoom, because that is faster for everyone and because the quote tool does the part that used to need a kitchen-table visit. If you want to sit down in person, say so and we will find a place.",
+    ],
+    cards=[("Through work","One to two times salary","Check the real number on your benefits summary. Supplemental group coverage is often priced per year of age and gets expensive in your forties."),
+           ("The house","The mortgage first","For most Mauldin families the loan balance is the single largest obligation. Size it in the calculator before the income piece."),
+           ("The commute","Income earned elsewhere","If the paycheck comes from a plant or a hospital system, the group policy follows the job. Your own term policy follows you.")]),
+   dict(h2="Three lines of arithmetic, then a quote.", cream=True,
+    paras=[
+     "Add what would have to be paid off: the mortgage, the cars, anything with your name on it. Add the years of income your household would need, until the kids are grown or the house is paid, whichever comes later. Add what you want set aside for school. Subtract savings and the coverage you already have. The <a href=\"life-insurance-calculator.html\">coverage calculator</a> does this in about a minute and asks for no name.",
+     "Then price it. The ZIP code does not move the price. Age, health, tobacco, the amount and the term do, and so does the carrier, which is why the quote runs across more than 40 of them instead of one company's shelf. A quote is an estimate, not an offer, and nothing is in force until a policy is issued and paid.",
+    ]),
+  ],
+  [("How much does term life insurance cost in Mauldin, SC?",
+    "The same as anywhere else in South Carolina. Carriers price on age, health, tobacco use, the amount and the term length, not the town. In August 2026 a healthy 35-year-old non-smoker running a $500,000, 20-year term quote through our tool saw starting rates around $25 a month. Your number will differ, and a quote is an estimate rather than an offer. <a href=\"life-insurance-quote.html\">Run your own</a> and you will see the real range in about two minutes."),
+   ("Do you have an office in Mauldin?",
+    "No office, but I live in Mauldin and the firm is based here. Meetings are by phone or Zoom, which is faster for working parents than a drive and a waiting room. If you would rather meet in person, ask and we will set it up."),
+   ("Is the life insurance through my employer enough?",
+    "Usually not on its own. Group plans at the big Upstate employers pay one or two times salary, sometimes capped, and the coverage ends when the job does. Compare that number to your mortgage plus the years of income your family would need. The <a href=\"life-insurance-calculator.html\">calculator</a> does the arithmetic without asking for your name."),
+   ("Do I need a medical exam?",
+    "Often not. Many carriers use accelerated underwriting for healthy applicants under a certain age and amount, which means health questions and a records check instead of a paramedical exam. Larger amounts, older ages and some health histories still get one. The quoter shows which path each carrier offers before you apply."),
+  ],
+  "Example: we live off Butler Road, I have 2x salary through work, the mortgage is $310,000 and we have a toddler.",
+  "life-insurance-mauldin-sc"),
+
+ town_life("Simpsonville", "life-insurance-simpsonville-sc.html",
+  "Life Insurance in Simpsonville, SC | Term Quotes, 40+ Carriers",
+  "Life insurance for Simpsonville and Five Forks families. New house, new baby, group coverage that does not cover the mortgage. See real term rates across 40+ carriers online, no call required.",
+  "Life insurance for Simpsonville families, sized to a new house and a new baby.",
+  "Simpsonville is where Greenville County's young families moved. New construction off Fairview Road and Five Forks, a baby on the way, and a group life policy at work that was never sized for any of it. Price the right amount yourself in a few minutes.",
+  [dict(h2="Simpsonville, specifically.",
+    paras=[
+     "Simpsonville has been one of the fastest-growing towns in the state for a decade, and the growth is families. The subdivisions off Fairview Road, Harrison Bridge Road and out toward Five Forks are full of households that bought their first or second house in the last few years, often new construction, often with a thirty-year loan that started large. Heritage Park on a Saturday is the whole customer base of this page.",
+     "The pattern I see most is one working spouse with group life through Prisma, Michelin, BMW or a downtown employer, and a second spouse with none, or with a stay-at-home role that has no policy at all. The group policy covers one or two years of salary. The mortgage is six or seven. And the parent at home has no coverage, even though replacing what they do costs real money every month.",
+     "Both adults need a number, and the number is usually bigger on the house than on the paycheck. The calculator sizes each of you separately. Term coverage bought in your early thirties, while you are healthy, is the cheapest it will ever be, and that is the whole reason to do it this year rather than after the next move.",
+    ],
+    cards=[("New construction","A loan that started big","Thirty years at a high balance means the payoff line in the arithmetic is the one that matters for a long time."),
+           ("Two parents","Two policies, two numbers","The parent at home needs coverage too. Childcare, housekeeping and the second income you would lose while rebuilding all cost money."),
+           ("Hillcrest and the school district","Group life, sized by HR","One or two times salary, ending at separation. Check the benefits summary rather than the number you remember.")]),
+   dict(h2="How the number works, then a quote.", cream=True,
+    paras=[
+     "Mortgage balance, plus the years of income the household would need, plus what you want set aside for school, minus savings and the coverage you already have. That is the <a href=\"life-insurance-calculator.html\">coverage calculator</a>, and it asks for no name. Then run the quote. It shows the same carrier pricing I see, side by side, and you can apply and e-sign in one sitting. A quote is an estimate, not an offer, and nothing is in force until the policy is issued and the first premium is paid.",
+    ]),
+  ],
+  [("We just bought in Simpsonville and have a baby coming. Where do we start?",
+    "With the number, not the product. Add the mortgage balance to the years of income your family would need, add what you want set aside for school, and subtract savings and the group coverage you already have. The <a href=\"life-insurance-calculator.html\">calculator</a> does it in a minute. Then price term for that amount for each parent. Most Simpsonville couples I talk to are done in an evening."),
+   ("Does a stay-at-home parent need life insurance?",
+    "Yes, in most households. Replacing the childcare, the school runs and the household work costs real money every month, and the working parent would have to pay for it while also earning. A term policy on the parent at home is usually inexpensive and it is the one most families skip."),
+   ("Should we open a 529 or buy life insurance first?",
+    "Protection first, then the 529. A 529 with five years of contributions does nothing for a family that loses an income tomorrow. Term coverage sized to the mortgage and the income gap is the floor; the 529 goes on top of it. Both can be done the same month. That is general education, not individual advice."),
+   ("Do you come to Simpsonville?",
+    "The firm is in Mauldin, ten minutes up Fairview Road. Meetings are by phone or Zoom because that is what works around nap time and shift schedules, and the quote tool does the part that used to need a visit. In person is available if you ask."),
+  ],
+  "Example: we closed on a new build in Five Forks in March, baby due in January, and my wife has no coverage at all.",
+  "life-insurance-simpsonville-sc"),
+
+ town_life("Greer", "life-insurance-greer-sc.html",
+  "Life Insurance in Greer, SC | For BMW and Plant Families",
+  "Life insurance for Greer, SC households whose income comes from BMW, the suppliers, GSP or the hospital. Group life follows the job. See term rates across 40+ carriers online in minutes.",
+  "Life insurance in Greer, where the paycheck comes from the plant.",
+  "A lot of Greer runs on manufacturing wages: BMW, the supplier parks along I-85, the airport, the inland port, the hospital on Memorial Drive. Those jobs come with group life sized by the employer. Overtime, shift premiums and the mortgage on the house in Riverside are not in that number.",
+  [dict(h2="Greer, specifically.",
+    paras=[
+     "Greer's income is unusual for the Upstate. A large share of households earn from BMW Manufacturing or one of the dozens of suppliers that grew up around it, from GSP and the inland port, from Prisma Health Greer Memorial, or from the trades that serve all of them. Those are good wages, and a lot of them are hourly with overtime and shift differentials. Group life insurance is almost always a multiple of base salary. The overtime that pays the mortgage is not in it.",
+     "Plant work also means the coverage is tied to the badge. Change employers, move from a supplier to the plant, take a buyout, get hurt and go on long-term disability, and the group policy either ends or converts at a price that climbs every year. Supplemental group coverage is usually priced in five-year age bands and gets noticeably more expensive in your forties, exactly when the mortgage and the kids are at their peak.",
+     "A term policy you own does none of that. It is priced once, at the age and health you have now, and it follows you to the next job, the next plant or the next town. For most Greer households the right structure is a personal term policy sized to the mortgage and the income gap, with the free group coverage as a bonus rather than the plan.",
+    ],
+    cards=[("Base salary only","What group life is built on","Overtime and shift premiums do not count toward the group benefit. Size your own coverage on what the household actually spends."),
+           ("Tied to the badge","Ends or converts at separation","A buyout, a transfer to a supplier or a disability claim can end the group policy at the worst time."),
+           ("Priced once","Your own term policy","Locked at today's age and health, portable, and usually cheaper than supplemental group coverage past forty.")]),
+   dict(h2="Size it, then price it.", cream=True,
+    paras=[
+     "Mortgage, car loans and any business debt, plus the years of household spending your family would need to cover, plus what you want set aside for school, minus savings and the group coverage you can count on. The <a href=\"life-insurance-calculator.html\">calculator</a> does it without asking your name. Then run the <a href=\"life-insurance-quote.html\">quote</a>: more than 40 carriers priced side by side, apply and e-sign in one sitting if you want. Shift workers like that nobody has to call them at ten in the morning. A quote is an estimate, not an offer, and coverage is subject to underwriting.",
+    ]),
+  ],
+  [("Is the group life insurance at BMW or a supplier enough?",
+    "It is a good start and almost never the whole answer. Group plans pay a multiple of base salary, not of what the household actually earns with overtime, and the coverage ends or converts at a higher price when you leave. Compare the group number to your mortgage plus the years of income your family would need. The <a href=\"life-insurance-calculator.html\">calculator</a> does the arithmetic in a minute."),
+   ("I work rotating shifts. Can I do this without a daytime phone call?",
+    "Yes. The quote tool runs any hour, shows real carrier pricing, and lets you apply and e-sign in the same sitting. I review every application before it goes to the carrier. If you want to talk, text 864-558-8440 and we will find a time that fits the rotation."),
+   ("Should I buy supplemental coverage through work or my own policy?",
+    "Price both. Supplemental group life is convenient and needs no exam, but it is usually priced in age bands that step up every five years and it ends when the job does. A personal term policy is priced once at today's age and health and comes with you. For a healthy worker under about 45, the personal policy is often cheaper for the same amount. The quote shows you the number for your situation."),
+   ("Does an injury or disability claim affect my group life?",
+    "It can. Some group plans continue coverage during an approved disability and some do not, and conversion windows are short. Read the certificate, or send it to me and I will tell you what it says. Disability income insurance is a separate question and the <a href=\"protection.html\">insurance page</a> covers it."),
+  ],
+  "Example: I am on second shift at a supplier near the plant, 1x salary through work, and we just bought in Riverside.",
+  "life-insurance-greer-sc"),
+
+ town_life("Taylors", "life-insurance-taylors-sc.html",
+  "Life Insurance in Taylors, SC | Review or Replace an Old Policy",
+  "Life insurance for Taylors and Eastside Greenville families. Have an old whole-life or group policy reviewed before you change anything, or price new term coverage across 40+ carriers online.",
+  "Life insurance in Taylors, including the policy your parents bought you.",
+  "Taylors is older neighborhoods and newer ones side by side, and the insurance question here is as often about a policy somebody already owns as about a new one. Have it reviewed before you change anything, or price new coverage yourself in a few minutes.",
+  [dict(h2="Taylors, specifically.",
+    paras=[
+     "Taylors grew up around the mill and along Wade Hampton Boulevard, and a lot of households here have been in the same house, or the same family, for decades. The newer subdivisions out toward Brushy Creek and the Eastside have filled in around them. That mix shows up in the insurance conversations. Younger families need the mortgage covered. Longer-tenured ones are holding a small whole-life policy a parent bought thirty years ago, a group certificate from a job that ended, or a policy on a spouse that was sized for a house that is now paid off.",
+     "The first rule with an existing policy is do not cancel it to buy a new one until the new one is issued and in force. The second is that replacing a policy is rarely the right move and never the first one. A whole-life policy from 1995 may have cash value, a paid-up option or a guaranteed rate that no new policy will match. A term policy that still has ten years to run at a price set when you were 35 is not something to give up lightly.",
+     "What usually needs doing is the review: who owns it, who the beneficiary is, whether the amount still fits the obligations, and whether a gap has opened since the kids and the mortgage arrived. The <a href=\"life-insurance-review-checklist.html\">review checklist</a> walks the six things to check. Send me the policy pages and I will tell you what it says and what, if anything, to do.",
+    ],
+    cards=[("The old policy","Review before you replace","Cash value, paid-up options and guaranteed rates do not come back once a policy is surrendered."),
+           ("Beneficiaries","The document that controls the payout","After a marriage, divorce, birth or death, the designation is the first thing to check, before the will."),
+           ("The gap","New obligations, old coverage","A policy sized for a 1998 mortgage does not cover a 2024 one. The calculator shows the difference.")]),
+   dict(h2="If new coverage is the answer, price it here.", cream=True,
+    paras=[
+     "Add the mortgage and other debt, the years of income your household would need, and anything you want set aside for school. Subtract savings and the coverage you already own and intend to keep. The <a href=\"life-insurance-calculator.html\">calculator</a> does it in a minute with no name required. Then run the <a href=\"life-insurance-quote.html\">quote</a> across more than 40 carriers. Health and age move the price more than anything else, and there are carriers that specialize in cases others rate up, which is why the quote runs across all of them. A quote is an estimate, not an offer.",
+    ]),
+  ],
+  [("I have a whole-life policy my parents bought me. Should I keep it?",
+    "Usually yes, at least until someone has read it. Older whole-life policies often carry guaranteed rates, paid-up options or cash value that a new policy cannot match. The question is whether the amount still fits your obligations, not whether the product is fashionable. Send me the policy pages and I will tell you what it says. Never cancel a policy to buy a new one until the new one is issued and in force."),
+   ("Should I replace my current life insurance with a cheaper one?",
+    "Rarely, and never as the first step. Replacement starts a new contestability period, can cost you a guaranteed rate, and surrendering cash value can have tax consequences. Compare the real numbers first: what you pay now, what you would pay new at today's age and health, and what you give up. If the review says keep it and add a term policy on top, that is usually the cleaner answer."),
+   ("How long a term should I buy?",
+    "Long enough to outlast the obligation. If the mortgage has 24 years left and the youngest child is three, a 20-year term covers most of it and a 30-year term covers all of it. The price difference between the two is usually smaller than people expect, and you can see both in the quote tool."),
+   ("Do you serve Taylors, or just Greenville?",
+    "All of Greenville County and the state. The firm is in Mauldin and works by phone and Zoom, so Taylors, the Eastside and Wade Hampton are the same distance as everywhere else. In person is available on request."),
+  ],
+  "Example: I have a $50,000 whole-life policy from 1996 and 2x salary through work, and we refinanced the house on Brushy Creek last year.",
+  "life-insurance-taylors-sc"),
+
+ town_life("Easley", "life-insurance-easley-sc.html",
+  "Life Insurance in Easley, SC | Self-Employed and Trades",
+  "Life insurance for Easley and Pickens County households, including the self-employed, the trades and small-business owners who have no group plan at all. Term quotes across 40+ carriers online.",
+  "Life insurance in Easley, for people with no HR department.",
+  "A lot of Pickens County income comes from a truck, a shop, a crew or a practice with one or two owners. There is no group plan behind it, and the loan on the equipment or the land does not care. Price the right amount yourself in a few minutes, or have what you own checked first.",
+  [dict(h2="Easley, specifically.",
+    paras=[
+     "Easley sits between Greenville and Clemson on 123, and the households here split into two groups. The first commutes: Prisma Health Baptist Easley, the Clemson campus and its research park, the plants along the corridor and the Greenville employers twenty minutes east. Those jobs come with group life, usually one or two times salary, and the same gap as everywhere else between that number and the mortgage.",
+     "The second group is the one this page is really for. Electricians, HVAC contractors, landscapers, truck owners, builders, a dental or veterinary practice, a farm with a land loan. Nobody hands them a benefits summary. If the owner dies, the income stops the same week, the equipment loan and the line of credit do not, and the family is left to sell a business at the worst possible moment. That is what life insurance is for, and it is cheaper than almost any other way of solving the problem.",
+     "For an owner, the arithmetic has a few extra lines: the business debt that is personally guaranteed, the cost of replacing the owner's labor long enough to sell or wind down, and, where there is a partner, a buy-sell agreement funded so the surviving partner can actually buy the family out. Land and acreage, common out here, add a loan payoff line too. The calculator covers the household side; the business side is a short call.",
+    ],
+    cards=[("No group plan","You are the HR department","The coverage you own is the only coverage there is. Size it to the household and the business together."),
+           ("Personal guarantees","The loan outlives the owner","Equipment loans, lines of credit and land notes with your signature on them belong in the number."),
+           ("Partners","Buy-sell, funded","A buy-sell agreement without a policy behind it is a promise nobody can keep. Term coverage on each partner is usually the cheapest fix.")]),
+   dict(h2="Size it, then price it, from the truck if you want.", cream=True,
+    paras=[
+     "Mortgage and land notes, business debt you have guaranteed, the years of income your household would need, school, minus savings and anything you already own. The <a href=\"life-insurance-calculator.html\">calculator</a> does the household side in a minute. Then run the <a href=\"life-insurance-quote.html\">quote</a>: more than 40 carriers side by side, apply and e-sign from a phone. Many carriers skip the exam for healthy applicants under a certain amount, and where one is needed the examiner comes to you. A quote is an estimate, not an offer, and coverage is subject to underwriting.",
+    ]),
+  ],
+  [("I am self-employed in Easley with no group life. How much do I need?",
+    "Start with the household: mortgage, the years of income your family would need, school, minus savings. Then add the business debt you have personally guaranteed and the cost of keeping the business running long enough to sell it in good order. The <a href=\"life-insurance-calculator.html\">calculator</a> handles the first part in a minute; the business lines are a short call. Owners are usually surprised how inexpensive term coverage for the full number is."),
+   ("Can life insurance cover a business loan or an equipment note?",
+    "Yes. Term coverage sized to the loan, owned so the proceeds go where the agreement says, is the usual structure. Some lenders ask for it as a condition of the loan. If there is a partner, a buy-sell agreement funded with a policy on each owner lets the survivor buy the family out instead of inheriting a co-owner."),
+   ("Do I have to drive to Greenville for an exam?",
+    "No. Many carriers use accelerated underwriting for healthy applicants under a certain age and amount, which means no exam at all. Where an exam is required, a paramedical examiner comes to your home or shop in Easley at a time you pick. The quoter shows which carriers offer which path."),
+   ("Are rates different in Pickens County?",
+    "No. Carriers price on age, health, tobacco use, amount and term, not on the county. What moves the number is health and the carrier, which is why the quote runs across more than 40 of them. A quote is an estimate rather than an offer."),
+  ],
+  "Example: I run an HVAC company out of Easley, two trucks on loans, a land note, and no life insurance at all.",
+  "life-insurance-easley-sc"),
+
+ town_life("Spartanburg", "life-insurance-spartanburg-sc.html",
+  "Life Insurance in Spartanburg, SC | 40+ Carriers, Priced Online",
+  "Life insurance for Spartanburg County families, from BMW and Spartanburg Regional households to Boiling Springs new-builds. Term quotes across 40+ carriers online, from a South Carolina licensed adviser.",
+  "Life insurance in Spartanburg, priced from more than 40 carriers.",
+  "Spartanburg has its own economy: BMW and the supplier belt, Spartanburg Regional, Milliken, the colleges, the distribution centers along I-85, and the fastest-growing subdivisions in the Upstate out Highway 9 toward Boiling Springs. The gap between group coverage and the mortgage is the same one I see in Greenville.",
+  [dict(h2="Spartanburg, specifically.",
+    paras=[
+     "The firm is in Greenville County and licensed statewide, and Spartanburg is the second-largest piece of the work. The reasons are the same as across the county line: BMW and the suppliers, Spartanburg Regional Healthcare, Milliken, Denny's, Wofford, Converse and USC Upstate, and the warehouses and distribution centers strung along I-85. Those employers offer group life. It is sized at one or two times base salary, it ends at separation, and it was never built around a particular family's mortgage.",
+     "The growth is north and east. Boiling Springs, the Highway 9 corridor and the subdivisions off 221 have added thousands of new houses in a few years, most of them bought by families in their twenties and thirties with thirty-year loans. Downtown, Drayton Mills and the Northside have brought younger professionals back into the city. Both groups have the same shape of problem: the biggest obligation they own is the house, and the only coverage they have is the group certificate.",
+     "Everything on this site works the same from Spartanburg. The calculator sizes the number, the quote tool prices it across more than 40 carriers, and the application and e-signature happen in one sitting. Meetings are by phone or Zoom. I drive over for in-person meetings when it makes sense, and I will say so if it does not.",
+    ],
+    cards=[("Group life","One to two times base salary","Spartanburg Regional, BMW, Milliken and the colleges all offer it. Read the certificate for the real multiple and the cap."),
+           ("Boiling Springs","New loans, new families","Thirty years at a high balance makes the payoff line the one that matters. Size the term to outlast it."),
+           ("Statewide license","Same tool, same adviser","Licensed in South Carolina for life, accident and health. Spartanburg is served exactly like Greenville.")]),
+   dict(h2="The arithmetic, then the quote.", cream=True,
+    paras=[
+     "Mortgage and debt, plus the years of income your household would need, plus school, minus savings and the coverage you already own. The <a href=\"life-insurance-calculator.html\">calculator</a> does it with no name required. Then run the <a href=\"life-insurance-quote.html\">quote</a>. You see the same carrier pricing I see, side by side, and nobody has to call you first. In August 2026 a healthy 35-year-old non-smoker quoting $500,000 of 20-year term saw starting rates around $25 a month; your number will differ with age, health, tobacco, amount and carrier. A quote is an estimate, not an offer.",
+    ]),
+  ],
+  [("Do you work with families in Spartanburg, or only Greenville?",
+    "Both, and the rest of the state. Rae &amp; Co Capital is licensed in South Carolina for life, accident and health insurance and works by phone and Zoom, so Spartanburg, Boiling Springs, Duncan and Inman are served exactly like Greenville. In-person meetings are available when they make sense."),
+   ("Is the group life insurance at Spartanburg Regional or BMW enough?",
+    "Usually not on its own. Group plans pay a multiple of base salary, often capped, and the coverage ends at separation or converts at a higher price. Compare the group number to the mortgage plus the years of income your family would need. The <a href=\"life-insurance-calculator.html\">calculator</a> shows the gap in a minute."),
+   ("We bought a new house in Boiling Springs. How much term and for how long?",
+    "Enough to pay off the loan and replace the income your family would lose, for a term that outlasts the mortgage and the youngest child's dependence. For a new thirty-year loan that usually means a 30-year term or a 20-year term plus a smaller second policy. The quote tool prices both so you can see the difference."),
+   ("Are life insurance rates higher in Spartanburg?",
+    "No. Carriers price on age, health, tobacco use, the amount and the term length, not the county. What moves your number is health and which carrier is best for your profile, which is why the quote runs across more than 40 of them."),
+  ],
+  "Example: we are in Boiling Springs, I work at BMW with 2x base salary through work, and the mortgage is $380,000.",
+  "life-insurance-spartanburg-sc"),
+]
+
+# Mauldin planning page: the under-50 family niche, stated in the title, which
+# no Upstate firm claims in search today.
+FAQS["financial-advisor-mauldin-sc.html"] = [
+ ("Do families under 50 actually need a financial advisor?",
+  "Most need a plan, not a relationship. One written plan that puts the mortgage, the insurance, the 401(k) match, the 529 and the emergency fund in the right order is usually enough for several years. That is what the $750 Foundations plan is. If you do not need me yet, I will say so on the first call, and I say it often."),
+ ("What does the $750 plan include?",
+  "Cash flow, the debt-versus-invest question, a retirement savings roadmap, an insurance gap check, and a one-page action list in priority order, delivered in writing within six months of starting, usually much sooner. The full deliverables for all three plans are on the <a href=\"planning.html\">planning page</a>, and you can buy one tonight by card."),
+ ("How are you paid?",
+  "Flat-fee planning is $750, $2,000 or $3,000, agreed in writing before any work starts. Investment management is 1% a year of the assets I manage, planning included, with a $750 annual minimum. Life insurance placed through the firm pays a carrier commission, which is disclosed. There is no hourly rate and no retainer. It is all in the <a href=\"form-crs.html\">Form CRS</a>."),
+ ("Do you meet in person in Mauldin?",
+  "I live in Mauldin, so yes when it helps. Most meetings are by Zoom or phone because that is what works around two jobs and a toddler, and everything you decide is written down so you can explain it to your spouse without me in the room."),
+]
+GEO_SERVICE["financial-advisor-mauldin-sc.html"] = ("Financial planning", "Financial planning")
+GEO_CITY["financial-advisor-mauldin-sc.html"] = "Mauldin"
+GEO.append(dict(slug="financial-advisor-mauldin-sc.html",
+  title="Financial Advisor in Mauldin, SC for Families Under 50 | Flat Fee",
+  desc="A Series 65 financial adviser in Mauldin, South Carolina, for families under 50. Flat-fee plans at $750, $2,000 and $3,000, prices published, meetings by Zoom or phone. Protection, debt, 401(k), 529, in the right order.",
+  kicker="Financial planning",
+  h1="A financial adviser in Mauldin for families under 50, with the price printed.",
+  lede="Most advisers in the Upstate want retirees with a portfolio to manage. I live in Mauldin and most of the people I work with are 28 to 50, with a mortgage, a 401(k) they have not looked at, and a group life policy they think is enough. Flat-fee planning starts at $750, and the price is on this site.",
+  deep="planning.html", deep_cta="See flat-fee planning",
+  alt="life-insurance-calculator.html", alt_cta="Check your coverage gap",
+  helps=["Cash flow, savings rate and the debt question","401(k), match, Roth or traditional, and the old plan from the last job",
+         "Life and disability coverage against the mortgage and the kids","529 and the order it comes in",
+         "Beneficiaries, titling, a will and powers of attorney","Business-owner questions for the self-employed"],
+  leave=["A written plan with the decisions in order","A one-page action list you can finish in a month","A clear answer on what to skip"],
+  sections=[
+   dict(h2="Why the under-50 years are the cheap years to plan.",
+    paras=[
+     "Almost every decision that matters most to a 35-year-old is small and boring: whether to take the full 401(k) match, whether the life insurance covers the mortgage, which debt to pay first, whether the 529 is open, who the beneficiaries are. None of them needs a portfolio manager. All of them compound for thirty years, and most households get to them late or by accident. That is the whole case for a flat-fee plan in your thirties rather than an asset-based relationship in your sixties.",
+     "The Upstate advisory market is built the other way. Most firms around Greenville set minimums of a few hundred thousand dollars in investable assets, which rules out nearly everyone under 50 with a mortgage and young kids. I built the firm to take the opposite side of that. The plans are flat fee, the prices are published, and the first one is $750.",
+    ],
+    cards=[("Protection","The floor","Term life sized to the mortgage and the income gap, disability if the household depends on one paycheck. Before anything else."),
+           ("The match","Free money, often half-claimed","The full employer match, then the Roth or traditional question, then the HSA if you have one. The order depends on your bracket."),
+           ("The 529","Open it, automate it","Small, monthly and early beats large and late. South Carolina's Future Scholar plan has a state tax deduction worth checking with your preparer.")]),
+   dict(h2="Three plans, one price each, published.", cream=True,
+    paras=[
+     "Foundations is $750: cash flow, debt order, savings roadmap, insurance gap check, and a one-page action list. The $2,000 and $3,000 plans add investment structure, tax coordination and business or equity questions for households where those exist. Every plan is written, agreed in advance, and finished within six months. Investment management, for households that want it later, is 1% a year with planning included. Insurance is never required, and when it is placed through the firm the carrier pays a commission, which is disclosed. The details are on the <a href=\"planning.html\">planning page</a> and in the <a href=\"form-crs.html\">Form CRS</a>.",
+    ]),
+   dict(h2="Mauldin, and the rest of the county, by Zoom.",
+    paras=[
+     "I live in Mauldin, off Butler Road, and the firm is based here. Meetings are by Zoom or phone because that is what works for two working parents, and the written plan means you do not have to remember what was said. The households I see most are a first or second house in Mauldin, Simpsonville or Five Forks, a job at Prisma, BMW, Michelin or the school district, a child or two, and a sense that they should have done something about all this already. Bring rough numbers to the first call: income, what you owe, what you have saved, what insurance you carry through work. No statements. You leave with a decision, including, sometimes, the decision that you do not need me yet.",
+    ]),
+  ],
+  faq_kicker="Questions people ask", faq_h2="Financial planning for Mauldin families, answered plainly.",
+  campaign="financial-advisor-mauldin-sc", interest="Not sure", step="Focused intro call",
+  insurance=False,
+  placeholder="Example: we are 34 and 36 in Mauldin, two kids, a mortgage, two 401(k)s we never look at, and no plan."))
+
+
 def _cards(cards):
     # The label carries meaning on these pages ("Buy it" / "Skip it", "Through
     # work"), so it stays, as a quiet sentence-case line rather than a tracked
@@ -1774,6 +2072,8 @@ def geo_page(g):
     slug = g["slug"]
     cross = "".join(f'<a class="xlink" href="{h}">{t} <span class="arr">&rarr;</span></a>'
                     for h, t in CROSS if h != slug)
+    towns = " &middot; ".join(f'<a href="{s}" style="color:var(--ink)">{t}</a>' if s != slug else f"<b>{t}</b>"
+                             for t, s in TOWN_LINKS)
     return f"""
 <section class="section" style="padding-bottom:0">
   <div class="wrap">
@@ -1783,6 +2083,7 @@ def geo_page(g):
       <a class="btn btn-ink" href="{g['deep']}">{g['deep_cta']} <span class="arr">&rarr;</span></a>
       <a class="btn-line" href="{g['alt']}">{g['alt_cta']}</a>
     </div>
+    {reviews_strip()}
   </div>
 </section>
 
@@ -1800,7 +2101,8 @@ def geo_page(g):
 </section>
 {"".join(geo_section(s) for s in g['sections'])}
 <section class="section" style="padding-top:0;padding-bottom:0">
-  <div class="wrap"><div class="xrow" data-rv style="margin-top:0">{cross}</div></div>
+  <div class="wrap"><div class="xrow" data-rv style="margin-top:0">{cross}</div>
+  <p style="margin:18px 0 0;font:400 13.5px/1.8 var(--sans);color:var(--muted)">Life insurance by town: {towns}</p></div>
 </section>
 {faq_block(slug, "", g['faq_h2'])}
 {form_section("", "Want to talk it through?",
@@ -2099,6 +2401,7 @@ if not STAGING:
                 "investment-management-greenville-sc.html":"0.9",
                 "retirement-planning-greenville-sc.html":"0.9",
                 "life-insurance-calculator.html":"0.8","life-insurance-quote.html":"0.8",
+                **{s:"0.7" for _, s in TOWN_LINKS},
                 "types-of-life-insurance.html":"0.8","wealth.html":"0.8",
                 "protection.html":"0.8","planning.html":"0.8"}
     SKIP = {"thank-you.html", "start-plan.html", "thank-you-worksheet.html", "thank-you-checklist.html"}

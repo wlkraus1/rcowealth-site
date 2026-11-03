@@ -340,6 +340,7 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .fld2 input:focus,.fld2 select:focus,.fld2 textarea:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(200,161,90,.16)}
 .checks2{grid-column:1/-1;display:grid;gap:11px;margin-top:4px}
 .ckline{display:flex;gap:11px;align-items:flex-start;font:400 12.5px/1.5 var(--sans);color:#5b6675}
+.ckline[hidden]{display:none}
 .ckline input{width:19px;height:19px;min-height:0;margin-top:1px;accent-color:var(--ink);flex-shrink:0}
 .lfine{margin:16px 0 0;font:400 11.5px/1.6 var(--sans);color:#6d7787}
 .hp2{position:absolute;left:-9999px}
@@ -503,3 +504,24 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border:2.5px solid va
 .section.dark .faq details{border-bottom-color:var(--line-dark)}
 .section.dark .faq summary{color:#fff}
 .section.dark .faq .faq-a p{color:rgba(244,239,228,.76)}
+
+/* ---- mobile quick-action bar (2026-11-03). Phones only; desktop keeps the
+   header buttons. Three taps that matter: call, text, see rates. ---- */
+.stick{display:none}
+@media(max-width:900px){
+  .stick{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:1fr 1fr 1.7fr;gap:8px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(251,247,239,.96);
+    border-top:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .stick a{display:flex;align-items:center;justify-content:center;min-height:46px;border:1.5px solid var(--ink);
+    border-radius:999px;font:700 14px/1 var(--sans);color:var(--ink);text-decoration:none}
+  .stick a.go{background:linear-gradient(135deg,#e7cf9c,var(--gold));border-color:transparent;color:#14202e}
+  body{padding-bottom:78px}
+}
+/* ---- Google rating strip, with the third-party-rating disclosures inline ---- */
+.gstars{margin:18px 0 0;font:400 13.5px/1.5 var(--sans);color:var(--muted);max-width:60ch}
+.gstars a{color:var(--ink);text-decoration:none}
+.gstars a:hover b{box-shadow:inset 0 -2px 0 var(--gold)}
+.gstars .stars{color:var(--gold);letter-spacing:1px;font-size:15px}
+.gstars .gfine{display:block;font-size:12px;line-height:1.55;margin-top:5px}
+.ft .fttowns{font:400 13px/1.9 var(--sans);color:rgba(246,239,224,.72);margin:6px 0 0}
+.ft .fttowns a{display:inline;min-height:0;margin-right:12px}
