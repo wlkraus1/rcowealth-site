@@ -128,7 +128,7 @@ def lead_form(campaign, asset, purpose, heading, blurb, interest, next_step,
     flag = ('\n      <input type="hidden" name="00NbV000002pcrh" value="Yes">'
             if insurance else "")
     return f"""<form class="lform campaign-form contact-lead-form" data-rv id="leadForm{uid}"
-          action="https://pi-nas.tail34488a.ts.net/" method="POST"
+          action="https://mac-mini.tail34488a.ts.net/" method="POST"
           data-campaign="{campaign}" data-asset="{asset}" data-form-purpose="{purpose}">
 {FORM_HIDDEN}
       <input type="hidden" name="00Nfn0000089jXZ" value="{interest}">{flag}
@@ -1098,7 +1098,7 @@ CONTACT = """
       </div>
     </div>
     <form class="lform campaign-form contact-lead-form" data-rv id="leadForm"
-          action="https://pi-nas.tail34488a.ts.net/" method="POST"
+          action="https://mac-mini.tail34488a.ts.net/" method="POST"
           data-campaign="website-general-consultation" data-asset="contact.html" data-form-purpose="consultation-request">
       <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
       <input type="hidden" name="retURL" value="https://rcowealth.com/thank-you.html">
@@ -1396,7 +1396,7 @@ QUOTE = f"""
       <p style="margin:22px 0 0;font:400 14px/1.7 var(--sans);color:var(--muted)">Quoting runs through BackNine, an independent brokerage. If a policy is placed the carrier pays me a commission, which is disclosed in Form CRS and does not change your price.</p>
     </div>
     <form class="lform campaign-form" id="ratesForm"
-          action="https://pi-nas.tail34488a.ts.net/" method="POST"
+          action="https://mac-mini.tail34488a.ts.net/" method="POST"
           data-campaign="life-insurance-quote" data-asset="life-insurance-quote.html" data-form-purpose="life-insurance-quote-rates">
       <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
       <input type="hidden" name="retURL" value="https://rcowealth.com/your-rates.html">
@@ -2162,7 +2162,7 @@ BRIDGE = """
       </div>
     </div>
     <div>
-    <form class="lform" data-rv id="bridgeForm" action="https://pi-nas.tail34488a.ts.net/" method="POST" target="paysink"
+    <form class="lform" data-rv id="bridgeForm" action="https://mac-mini.tail34488a.ts.net/" method="POST" target="paysink"
           data-campaign="planning-checkout" data-asset="start-plan.html" data-form-purpose="planning-purchase">
 {FORM_HIDDEN}
       <input type="hidden" name="00Nfn0000089jXZ" value="Not sure yet">
@@ -2230,7 +2230,7 @@ BRIDGE = (BRIDGE.replace("{FORM_HIDDEN}", FORM_HIDDEN)
 # magnet forms convert on the shortest field set), retURL to the magnet's own
 # thank-you page where the PDF link lives.
 def magnet_form(retpage, asset, purpose, cta):
-    return f"""<form class="lform" data-rv id="magnetForm" action="https://pi-nas.tail34488a.ts.net/" method="POST"
+    return f"""<form class="lform" data-rv id="magnetForm" action="https://mac-mini.tail34488a.ts.net/" method="POST"
           data-campaign="{purpose}" data-asset="{asset}" data-form-purpose="{purpose}">
       <input type="hidden" name="oid" value="00Dfn00000AW6kiEAD">
       <input type="hidden" name="retURL" value="{ORIGIN}/{retpage}">
